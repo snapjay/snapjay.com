@@ -1,0 +1,47 @@
+
+body.snapjay #bg{
+    /*background-color: #03424B;*/
+    background-color: #fff;
+    background-image:url("../img/paper.jpg") ;
+}
+
+body.snapjay #fg{
+    color: #000;
+}
+
+body.snapjay ::-moz-selection {
+    background: #f6eec7;
+    color: #826E1E;
+}
+body.snapjay ::selection {
+    background: #f6eec7;
+    color: #826E1E;
+}
+
+body.snapjay .menu li a {
+    color: #826E1E;
+
+}
+body.snapjay .menu li.active a {
+ opacity: 0.4;
+}
+
+body.snapjay .photo {
+    width: 100%;
+    margin-top: 20px;
+
+}
+body.snapjay h1 {
+    margin-top: 30px;
+    margin-bottom: 20px;
+    font-size: 120px;
+}
+
+body.snapjay h2 {
+    color: #b49419;
+    font-size: 35px;
+    font-weight: 100;
+    margin-top: 0;
+    margin-bottom: 15px;
+    text-align: center;
+}

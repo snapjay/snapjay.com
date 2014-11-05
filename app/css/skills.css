@@ -1,0 +1,41 @@
+body.skills ::-moz-selection {
+    background: rgba(255, 219, 226, 0.6);
+    color: #79000d;
+}
+body.skills ::selection {
+    background: rgba(255, 219, 226, 0.6);
+    color: #79000d;
+}
+
+body.skills .menu li a {
+    color: #222;
+}
+body.skills .menu li.active a {
+    color: #43acee;
+}
+
+body.skills #bg {
+    color: #1A1B1F;
+    background-color: #fff;
+
+}
+
+body.skills h1, body.skills h2, body.skills p, body.skills li {
+    color: #1A1B1F;
+}
+body.skills h2  {
+    font-size: 25px;
+    margin-bottom: 5px;
+}
+
+gameoflife {
+    overflow: hidden;
+    position: absolute;
+}
+
+#controls {
+    position: absolute;
+    left: 20px;
+    top: 10px;
+    color: #1A1B1F;
+}

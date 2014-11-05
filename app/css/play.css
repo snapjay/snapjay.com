@@ -1,0 +1,118 @@
+
+body.play ::-moz-selection {
+    background: rgba(238, 221, 0, 0.70);
+    color: #4b3708;
+}
+body.play ::selection {
+    background: rgba(238, 221, 0, 0.70);
+    color: #4b3708;
+}
+
+body.play #bg {
+    background-color: #111;
+}
+
+body.play .menu li.active a {
+    color: #eedd00;
+}
+
+body.play  .sky {
+    height: 2000px;
+    width: 2000px;
+    margin: auto;
+    left: -200px;
+    top: 0;
+    position: absolute;
+}
+
+body.play  star {
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    background-color: #fff;
+    width: 1px;
+    height: 1px;
+    border-radius: 2px;
+}
+
+body.play #shootingstar {
+    position: absolute;
+    border-top:1px solid #fff;
+    width: 0px;
+    left:40%;
+    top: 20%;
+    -moz-transform:rotate(45deg);
+    -webkit-transform:rotate(45deg);
+    -o-transform:rotate(45deg);
+    -ms-transform:rotate(45deg);
+}
+
+body.play ul.icons{
+    padding: 0;
+    width: 100%;
+    min-width: 40px;
+}
+
+body.play ul.icons li{
+    padding: 0;
+    list-style: none;
+    width: 100%;
+}
+
+body.play ul.icons li .icon, body.play .content .slide{
+    transition-property: width fill opacity;
+    -webkit-transition-property:  width fill opacity;
+    transition-duration: 1.3s;
+    -webkit-transition-duration: 1.3s;
+}
+body.play ul.icons li .icon{
+    cursor: pointer;
+    width: 100%;
+    margin-bottom: 20px;
+    fill:#555;
+    opacity: 0.3;
+
+}
+body.play ul.icons li .icon:hover{
+    fill:#999;
+
+
+}
+body.play ul.icons li.active .icon{
+    fill:#fff;
+    opacity: 0.7;
+    width: 120%;
+}
+body.play a{
+    color: #fff;
+}
+body.play a:hover{
+    color: #eedd00;
+}
+body.play h2 {
+    color: #fff;
+    font-size: 30px;
+    font-weight: 100;
+}
+
+body.play .content .slide {
+    opacity: 0;
+    padding: 0 20px;
+    position: absolute;
+
+}
+
+body.play .content .slide.active {
+
+     opacity: 1;
+}
+
+/*body.play #plane{*/
+    /*position: absolute;*/
+    /*top: 29%;*/
+    /*left:50%;*/
+    /*width: 50px;*/
+    /*height: 50px;*/
+    /*background-color: #111;*/
+
+/*}*/

@@ -1,0 +1,7 @@
+<div id="sky" class="sky">
+    <div class="shootingstar"></div>
+    <star  ng-repeat="star in stars track by $index" size="{{ star.size }}" ascension="{{ star.ascension }}" declination="{{ star.declination }}"></star>
+
+    <div ng-transclude></div>
+
+</div>
