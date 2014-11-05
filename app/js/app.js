@@ -6,7 +6,7 @@ function _$(a){
 }
 // Declare app level module which depends on filters, and services
 angular.module('snapjay', [
-  'ui.router',
+  'ui.router', 'angulartics', 'angulartics.google.analytics',
   'snapjay.filters',
   'snapjay.services',
   'snapjay.directives',
@@ -89,6 +89,8 @@ config(['$urlRouterProvider', '$stateProvider', function($urlRouterProvider, $st
 
         $rootScope.$on('$stateChangeStart', function(event, toState, toParams, fromState, fromParams){
               TweenMax.killAll();
+   
+
 //              TweenMax.to(document.getElementById('bg'), 0, {opacity:0});
 //            log (toState.name);
 //            TweenMax.to(_$('body'), 2, {className:toState.name});

@@ -5,7 +5,7 @@
 angular.module('snapjay.controllers', [])
 
 
-  .controller('play', ['$scope', function($scope) {
+  .controller('play', ['$scope', '$analytics', function($scope, $analytics) {
 
         $scope.icons = [
             {filename:'gun.svg', title:'Gun' },
@@ -19,6 +19,7 @@ angular.module('snapjay.controllers', [])
 
         $scope.setActive = function(a){
 
+            $analytics.eventTrack('eventName', {  category: 'Play', label: a });
 
             if ($scope.active == a){
                 $scope.active = undefined;
