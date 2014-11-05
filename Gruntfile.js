@@ -24,12 +24,16 @@ module.exports = function(grunt) {
                 secretAccessKey: '<%= aws.secret %>', // You can also use env variables
                 region: 'us-east-1',
                 uploadConcurrency: 5, // 5 simultaneous uploads
-                downloadConcurrency: 5 // 5 simultaneous downloads
+                downloadConcurrency: 5, // 5 simultaneous downloads
+                differential: true, // Only uploads the files that have changed
+                displayChangesOnly: true, // Only uploads the files that have changed
+                access:'public-read'
             },
             production: {
                 options: {
                     bucket: '<%= aws.bucket %>',
                     params: {
+                        CacheControl: 'max-age=630720000, public' // Two Year cache policy (1000 * 60 * 60 * 24 * 730)
 //                        ContentEncoding: 'gzip' // applies to all the files!
                     },
                     mime: {
@@ -37,11 +41,20 @@ module.exports = function(grunt) {
                     }
                 },
                 files: [
-                    {expand: true, cwd: 'build/', src: ['**'], dest: ''}
-                    // CacheControl only applied to the assets folder
-                    // LICENCE inside that folder will have ContentType equal to 'text/plain'
+                    {expand: true, cwd: 'build/', src: ['**'], dest: ''},
+                    //{
+                    //    cwd: "./build",  //Start in this folder
+                    //    dest: "/",
+                    //    action: 'delete'
+                    //},
+                    //{
+                    //    expand: true,
+                    //    cwd: "./build",  // Start in this folder
+                    //    src: ["**/*.*"],                         // Read these files inside cwd
+                    //    dest: ""
+                    //}
                 ]
-            },
+            }
 
         },
 
