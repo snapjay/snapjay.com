@@ -54,7 +54,7 @@ body.snapjay .photo .tape{
     position: absolute;
     background-color: rgba(249, 240, 204, 0.70);
     width: 104px;
-    height: 26px;
+    height: 17px;
     -webkit-transform: rotate(-25.5deg);
     -ms-transform: rotate(-25.5deg);
     transform: rotate(-25.5deg);
