@@ -4,7 +4,9 @@ module.exports = function(grunt) {
     grunt.initConfig({
 
         pkg: grunt.file.readJSON('package.json'),
-        aws: grunt.file.readJSON('aws.json'), // Read the file
+        aws: grunt.file.readJSON('aws.json'),
+        ec2: grunt.file.readJSON('aws.json'),
+
         svgstore: {
             options: {
                 prefix: 'svg_', // This will prefix each ID
@@ -20,9 +22,9 @@ module.exports = function(grunt) {
 
         aws_s3: {
             options: {
-                accessKeyId: '<%= aws.key %>', // Use the variables
-                secretAccessKey: '<%= aws.secret %>', // You can also use env variables
-                region: '<%= aws.region %>',
+                accessKeyId: '<%= aws.AWS_ACCESS_KEY_ID %>', // Use the variables
+                secretAccessKey: '<%= aws.AWS_SECRET_ACCESS_KEY %>', // You can also use env variables
+                region: '<%= aws.AWS_S3_REGION %>',
                 uploadConcurrency: 5, // 5 simultaneous uploads
                 downloadConcurrency: 5, // 5 simultaneous downloads
                 differential: true, // Only uploads the files that have changed
@@ -31,7 +33,7 @@ module.exports = function(grunt) {
             },
             production: {
                 options: {
-                    bucket: '<%= aws.bucket %>',
+                    bucket: '<%= aws.AWS_S3_BUCKET %>',
                     params: {
                         CacheControl: 'max-age=630720000, public' // Two Year cache policy (1000 * 60 * 60 * 24 * 730)
 //                        ContentEncoding: 'gzip' // applies to all the files!
@@ -76,6 +78,7 @@ module.exports = function(grunt) {
 
     grunt.loadNpmTasks('grunt-svgstore');
     grunt.loadNpmTasks('grunt-aws-s3');
+    grunt.loadNpmTasks('grunt-ec2');
     grunt.loadNpmTasks('grunt-angular-templates');
 
     grunt.registerTask('default', ['svgstore']);

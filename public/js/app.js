@@ -14,8 +14,9 @@ angular.module('snapjay', [
   'gameoflife',
   'templates'
 ]).
-config(['$urlRouterProvider', '$stateProvider', function($urlRouterProvider, $stateProvider) {
+config(['$urlRouterProvider', '$locationProvider', '$stateProvider', function($urlRouterProvider,$locationProvider, $stateProvider) {
 
+        $locationProvider.html5Mode(true);
         $urlRouterProvider.otherwise("/");
 
         $stateProvider.state('snapjay', {
