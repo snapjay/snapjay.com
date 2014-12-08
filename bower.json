@@ -11,7 +11,8 @@
     "angular-mocks": "~1.2.x",
     "angular-ui-router": "~0.2.*",
     "gsap": "~1.12.1",
-    "angular-animate": "~1.2.22"
+    "angular-animate": "~1.2.22",
+    "bootstrap": "~3.3.1"
   },
   "devDependencies": {
     "angulartics": "~0.17.1"
