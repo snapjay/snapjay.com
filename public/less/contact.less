@@ -1,11 +1,15 @@
+@import "inc";
+@primary:  #015E00;
+
+
 body.contact ::-moz-selection {
     background: rgba(190, 246, 213, 0.44);
-    color: #015E00;
+    color: @primary;
 }
 
 body.contact ::selection {
     background: rgba(190, 246, 213, 0.44);
-    color: #015E00;
+    color: @primary;
 }
 
 body.contact {
@@ -50,7 +54,7 @@ body.contact .links {
 }
 
 body.contact .icon.mail:hover {
-    fill: #015E00;
+    fill: @primary;
 }
 
 body.contact .icon.github:hover {
@@ -63,6 +67,9 @@ body.contact .icon.twitter:hover {
 
 body.contact .icon.facebook:hover {
     fill: #3b5998;
+}
+body.contact .icon.linkedin:hover {
+    fill: #0177B5;
 }
 
 video {

@@ -17,6 +17,7 @@ var templates = require('gulp-angular-templatecache');
 var minifyHTML = require('gulp-minify-html');
 var clean = require('gulp-clean');
 var watch = require('gulp-watch');
+var less = require('gulp-less');
 
 
 //gulp.task('clean', function () {
@@ -29,6 +30,24 @@ gulp.task('build',[ 'templates', 'usemin', 'copy']);
 
 gulp.task('watch', function () {
     gulp.watch(app + 'partials/**/*.html', ['templates']);
+    gulp.watch(app + 'less/**/*.less', ['less']);
+
+//    gulp.src(app + 'less/**/*.less')
+//        .pipe(watch(function(files) {
+//            return files.pipe(less({
+//                paths: [ path.join(__dirname, 'less', 'includes') ]
+//            }))
+//                .pipe(gulp.dest(app + '/css'));
+//        }));
+//});
+});
+
+gulp.task('less', function() {
+    gulp.src(app + 'less/**/*.less')
+        .pipe(less())
+        .pipe(gulp.dest(app + '/css'));
+
+
 });
 
 
@@ -43,6 +62,8 @@ gulp.task('usemin', function() {
         }))
         .pipe(gulp.dest(build));
 });
+
+
 
 
 gulp.task('templates', function () {
