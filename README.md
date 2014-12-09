@@ -25,5 +25,4 @@ Install EB Tools (http://aws.amazon.com/code/6752709412171743)
 
 Run ./AWSDevTools-RepositorySetup.sh
 git aws.config
-
 git aws.push

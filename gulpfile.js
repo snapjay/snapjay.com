@@ -18,12 +18,14 @@ var minifyHTML = require('gulp-minify-html');
 var clean = require('gulp-clean');
 var watch = require('gulp-watch');
 
-var grunt = require('gulp-grunt')(gulp); // add all the gruntfile tasks to gulp
 
 //gulp.task('clean', function () {
 //    return gulp.src(build, {read: false})
 //        .pipe(clean());
 //});
+
+gulp.task('build',[ 'templates', 'usemin', 'copy']);
+
 
 gulp.task('watch', function () {
     gulp.watch(app + 'partials/**/*.html', ['templates']);
@@ -31,12 +33,13 @@ gulp.task('watch', function () {
 
 
 gulp.task('usemin', function() {
-    gulp.src(app + 'index.html')
+    gulp.src('views/index.html')
         .pipe(usemin({
             css: [minifyCss(), 'concat'],
 //            html: [minifyHtml({empty: true})],
             js: [uglify(), rev()],
-            jsapp: [uglify(), rev()]
+            jsapp: [uglify(), rev()],
+            assetsDir:app
         }))
         .pipe(gulp.dest(build));
 });
@@ -75,6 +78,3 @@ gulp.task('copy', function(){
 
 
 
-gulp.task('build',[ 'templates', 'usemin', 'copy']);
-gulp.task('upload',[ 'aws_s3']);
-gulp.task('deploy',[ 'build', 'upload']);

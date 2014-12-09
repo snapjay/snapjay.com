@@ -1,3 +1,5 @@
+var app = './public/';
+var build = './build/';
 module.exports = function(grunt) {
 
     // Project configuration.
@@ -6,6 +8,8 @@ module.exports = function(grunt) {
         pkg: grunt.file.readJSON('package.json'),
         aws: grunt.file.readJSON('aws.json'),
         ec2: grunt.file.readJSON('aws.json'),
+
+
 
         svgstore: {
             options: {
@@ -16,7 +20,7 @@ module.exports = function(grunt) {
             },
             default: {
                 files: {
-                    './app/svg-defs.svg': ['./app/img/**/*.svg']
+                     './public/svg-defs.svg': [app + 'img/**/*.svg']
                 }}
         },
 
@@ -43,7 +47,7 @@ module.exports = function(grunt) {
                     }
                 },
                 files: [
-                    {expand: true, cwd: 'build/', src: ['**'], dest: ''},
+                    {expand: true, cwd: build, src: ['**'], dest: ''},
                     //{
                     //    cwd: "./build",  //Start in this folder
                     //    dest: "/",
@@ -60,18 +64,6 @@ module.exports = function(grunt) {
 
         },
 
-
-        ngtemplates: {
-            templates: {
-                cwd: './app/',
-                src: 'partials/**.html',
-                dest: './app/js/templates.js',
-                options: {
-                    standalone:true,
-                    htmlmin:  { collapseWhitespace: true, collapseBooleanAttributes: true }
-                }
-            }
-        }
     });
 
 
@@ -79,7 +71,6 @@ module.exports = function(grunt) {
     grunt.loadNpmTasks('grunt-svgstore');
     grunt.loadNpmTasks('grunt-aws-s3');
     grunt.loadNpmTasks('grunt-ec2');
-    grunt.loadNpmTasks('grunt-angular-templates');
 
     grunt.registerTask('default', ['svgstore']);
 
