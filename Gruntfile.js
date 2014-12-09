@@ -1,7 +1,7 @@
 var app = './public/';
 var build = './build/';
 module.exports = function(grunt) {
-
+    require('load-grunt-tasks')(grunt);
     // Project configuration.
     grunt.initConfig({
 
@@ -22,6 +22,22 @@ module.exports = function(grunt) {
                 files: {
                      './public/svg-defs.svg': [app + 'img/**/*.svg']
                 }}
+        },
+        svgmin: {
+            options: {
+                plugins: [
+                    {
+                        removeViewBox: false
+                    }, {
+                        removeUselessStrokeAndFill: false
+                    }
+                ]
+            },
+            dist: {
+                files: {
+                    './public/svg-defs.min.svg': './public/svg-defs.svg'
+                }
+            }
         },
 
         aws_s3: {
@@ -62,7 +78,7 @@ module.exports = function(grunt) {
                 ]
             }
 
-        },
+        }
 
     });
 
@@ -71,8 +87,11 @@ module.exports = function(grunt) {
     grunt.loadNpmTasks('grunt-svgstore');
     grunt.loadNpmTasks('grunt-aws-s3');
     grunt.loadNpmTasks('grunt-ec2');
+    grunt.loadNpmTasks('grunt-svgmin');
+    //grunt.loadNpmTasks('load-grunt-tasks');
 
-    grunt.registerTask('default', ['svgstore']);
+    grunt.registerTask('default', ['svgstore', 'svgmin']);
+    grunt.registerTask('Generate SVG', ['svgstore', 'svgmin']);
 
 
 
