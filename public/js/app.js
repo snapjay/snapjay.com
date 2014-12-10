@@ -16,7 +16,7 @@ angular.module('snapjay', [
 ]).
 config(['$urlRouterProvider', '$locationProvider', '$stateProvider', function($urlRouterProvider,$locationProvider, $stateProvider) {
 
-        $locationProvider.html5Mode(true);
+//        $locationProvider.html5Mode(true);
         $urlRouterProvider.otherwise("/");
 
         $stateProvider.state('snapjay', {

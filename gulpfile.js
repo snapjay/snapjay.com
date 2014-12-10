@@ -74,7 +74,10 @@ gulp.task('templates', function () {
             quotes: true,
             base  : 'partials/'
         }))
-        .pipe(templates('./templates.js', {standalone :true}))
+        .pipe(templates('./templates.js', {
+                standalone :true,
+                    root :'partials/'}
+            ))
         .pipe(gulp.dest(app +  'js'));
 });
 
@@ -88,6 +91,9 @@ gulp.task('copy', function(){
 
     gulp.src([app + 'video/**/*.*'])
         .pipe(gulp.dest(build + 'video'));
+
+   gulp.src([app + 'favicon.ico'])
+        .pipe(gulp.dest(build + 'favicon.ico'));
 
 //    gulp.src([app + 'partials/**/*.html'])
 //        .pipe(gulp.dest(build + 'partials'));
