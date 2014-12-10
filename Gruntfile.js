@@ -23,6 +23,7 @@ module.exports = function(grunt) {
                      './public/svg-defs.svg': [app + 'img/**/*.svg']
                 }}
         },
+
         svgmin: {
             options: {
                 plugins: [
@@ -78,19 +79,33 @@ module.exports = function(grunt) {
                 ]
             }
 
+        },
+
+        cloudfront: {
+            options: {
+                accessKeyId: "<%= aws.AWS_ACCESS_KEY_ID %>",
+                secretAccessKey: "<%= aws.AWS_SECRET_ACCESS_KEY %>",
+                distributionId: 'E137XGN40OE09G',
+                invalidations: [
+                    '/index.html',
+                    '/css/style.css'
+                ]
+            }
         }
 
     });
 
 
-
     grunt.loadNpmTasks('grunt-svgstore');
     grunt.loadNpmTasks('grunt-aws-s3');
+    grunt.loadNpmTasks('grunt-aws');
     grunt.loadNpmTasks('grunt-ec2');
     grunt.loadNpmTasks('grunt-svgmin');
+
     //grunt.loadNpmTasks('load-grunt-tasks');
 
     grunt.registerTask('default', ['svgstore', 'svgmin']);
+    grunt.registerTask('Upload', ['aws_s3', 'cloudfront']);
     grunt.registerTask('Generate SVG', ['svgstore', 'svgmin']);
 
 
