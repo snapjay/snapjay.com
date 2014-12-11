@@ -25,7 +25,7 @@ var less = require('gulp-less');
 //        .pipe(clean());
 //});
 
-gulp.task('build',[ 'templates', 'usemin', 'copy']);
+gulp.task('build',[ 'templates', 'less', 'usemin', 'copy']);
 
 
 gulp.task('watch', function () {
@@ -54,7 +54,7 @@ gulp.task('less', function() {
 gulp.task('usemin', function() {
     gulp.src('views/index.html')
         .pipe(usemin({
-            css: [minifyCss(), 'concat'],
+            css: [minifyCss(), 'concat', rev()],
 //            html: [minifyHtml({empty: true})],
             js: [uglify(), rev()],
             jsapp: [uglify(), rev()],
