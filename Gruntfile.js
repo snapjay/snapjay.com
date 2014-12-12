@@ -1,5 +1,8 @@
 var app = './public/';
 var build = './build/';
+
+//https://s3.amazonaws.com/snapjay.com/
+
 module.exports = function(grunt) {
     require('load-grunt-tasks')(grunt);
     // Project configuration.
@@ -49,13 +52,16 @@ module.exports = function(grunt) {
                 downloadConcurrency: 5, // 5 simultaneous downloads
                 differential: true, // Only uploads the files that have changed
                 displayChangesOnly: true, // Only uploads the files that have changed
-                access:'public-read'
+                access:'public-read',
+                gzip: true,
+                excludedFromGzip: ['*.png', '*.jpg', '*.ico', '*.mp4', '*.webm' ]
             },
             production: {
                 options: {
                     bucket: '<%= aws.AWS_S3_BUCKET %>',
                     params: {
                         CacheControl: 'max-age=630720000, public' // Two Year cache policy (1000 * 60 * 60 * 24 * 730)
+//                        Expires: 'Thu, 29 Nov 2019 00:29:29 GMT'
 //                        ContentEncoding: 'gzip' // applies to all the files!
                     },
                     mime: {
@@ -63,7 +69,7 @@ module.exports = function(grunt) {
                     }
                 },
                 files: [
-                    {expand: true, cwd: build, src: ['**'], dest: ''},
+                    {expand: true, cwd: build, src: ['**'], dest: ''}
                     //{
                     //    cwd: "./build",  //Start in this folder
                     //    dest: "/",
@@ -92,7 +98,7 @@ module.exports = function(grunt) {
 
     grunt.registerTask('default', ['svgstore', 'svgmin']);
     grunt.registerTask('Generate SVG', ['svgstore', 'svgmin']);
-
+    grunt.registerTask('Upload ', ['aws_s3:production']);
 
 
 };
