@@ -10,7 +10,7 @@ module.exports = function(grunt) {
 
         pkg: grunt.file.readJSON('package.json'),
         aws: grunt.file.readJSON('aws.json'),
-        ec2: grunt.file.readJSON('aws.json'),
+        //ec2: grunt.file.readJSON('aws.json'),
 
 
 
@@ -93,8 +93,7 @@ module.exports = function(grunt) {
                 secretAccessKey: "<%= aws.AWS_SECRET_ACCESS_KEY %>",
                 distributionId: 'E137XGN40OE09G',
                 invalidations: [
-                    '/index.html',
-                    '/css/style.css'
+                    '/index.html'
                 ]
             }
         }
@@ -111,9 +110,9 @@ module.exports = function(grunt) {
     //grunt.loadNpmTasks('load-grunt-tasks');
 
     grunt.registerTask('default', ['svgstore', 'svgmin']);
-    grunt.registerTask('Upload', ['aws_s3', 'cloudfront']);
+    grunt.registerTask('Upload', ['aws_s3:production', 'cloudfront']);
     grunt.registerTask('Generate SVG', ['svgstore', 'svgmin']);
-    grunt.registerTask('Upload ', ['aws_s3:production']);
+
 
 
 };
