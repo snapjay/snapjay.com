@@ -18,28 +18,35 @@ var minifyHTML = require('gulp-minify-html');
 var clean = require('gulp-clean');
 var watch = require('gulp-watch');
 var less = require('gulp-less');
-
+var del = require('del');
 
 //gulp.task('clean', function () {
 //    return gulp.src(build, {read: false})
 //        .pipe(clean());
 //});
 
-gulp.task('build',[ 'templates', 'usemin', 'copy']);
+gulp.task('build',[ 'templates', 'less', 'clean:build', 'usemin', 'copy']);
 
+gulp.task('clean:build', function (cb) {
+    del([
+          build + 'js/**',
+          build + 'css/**'
+    ], cb);
+});
 
 gulp.task('watch', function () {
     gulp.watch(app + 'partials/**/*.html', ['templates']);
     gulp.watch(app + 'less/**/*.less', ['less']);
 
-//    gulp.src(app + 'less/**/*.less')
-//        .pipe(watch(function(files) {
+//     gulp.src(app + 'less/**/*.less')
+//         .pipe(watch(function(files) {
 //            return files.pipe(less({
 //                paths: [ path.join(__dirname, 'less', 'includes') ]
 //            }))
 //                .pipe(gulp.dest(app + '/css'));
 //        }));
-//});
+//     });
+
 });
 
 gulp.task('less', function() {
@@ -54,7 +61,7 @@ gulp.task('less', function() {
 gulp.task('usemin', function() {
     gulp.src('views/index.html')
         .pipe(usemin({
-            css: [minifyCss(), 'concat'],
+            css: [minifyCss(), 'concat', rev()],
 //            html: [minifyHtml({empty: true})],
             js: [uglify(), rev()],
             jsapp: [uglify(), rev()],
@@ -91,9 +98,9 @@ gulp.task('copy', function(){
 
     gulp.src([app + 'video/**/*.*'])
         .pipe(gulp.dest(build + 'video'));
-
-   gulp.src([app + 'favicon.ico'])
-        .pipe(gulp.dest(build + 'favicon.ico'));
+//
+//   gulp.src([app + '/*.ico'])
+//        .pipe(gulp.dest(build));
 
 //    gulp.src([app + 'partials/**/*.html'])
 //        .pipe(gulp.dest(build + 'partials'));

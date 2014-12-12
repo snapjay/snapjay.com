@@ -98,9 +98,16 @@ config(['$urlRouterProvider', '$locationProvider', '$stateProvider', function($u
 
         });
 
-        $rootScope.$on('$stateChangeSuccess', function(ev,to){
+        $rootScope.$on('$stateChangeSuccess', function(event,toState){
 //            TweenMax.to(document.getElementById('bg'), 1, {opacity:1, ease:Power4.easeIn});
-            $rootScope.page = to.name;
+            $rootScope.page = toState.name;
+
+            var titlePre = 'snapjay';
+            if (toState.name === 'contact') $rootScope.title = titlePre +  ' - Contact';
+            else if (toState.name === 'play') $rootScope.title = titlePre +  ' - Play';
+            else if (toState.name === 'credits') $rootScope.title = titlePre +  ' - Credits';
+            else if (toState.name === 'skills') $rootScope.title = titlePre +  ' - Skills';
+            else $rootScope.title = titlePre +  ' - An experienced frontend web developer.';
 
         });
 
