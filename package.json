@@ -43,7 +43,7 @@
     "karma-junit-reporter": "^0.2.2",
     "load-grunt-tasks": "~1.0.0",
     "protractor": "~0.20.1",
-    "load-grunt-tasks": "~1.0.0"
+    "load-grunt-tasks": "~1.0.0",
     "grunt-cloudfront": "~0.2.0",
     "grunt-aws": "~0.4.0"
   },
