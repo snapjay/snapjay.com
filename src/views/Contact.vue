@@ -1,14 +1,10 @@
 <template lang="pug">
-  #app
-    router-view
+  .main
+    h1 Contact
 </template>
 
 <script>
   export default {
-    name: 'App'
+    name: 'Contact'
   }
 </script>
-
-<style lang="scss">
-
-</style>

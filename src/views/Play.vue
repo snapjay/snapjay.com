@@ -1,14 +1,10 @@
 <template lang="pug">
-  #app
-    router-view
+  .main
+    h1 Play
 </template>
 
 <script>
   export default {
-    name: 'App'
+    name: 'Play'
   }
 </script>
-
-<style lang="scss">
-
-</style>

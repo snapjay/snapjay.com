@@ -1,14 +1,10 @@
 <template lang="pug">
-  #app
-    router-view
+  .main
+    h1 snapjay
 </template>
 
 <script>
   export default {
-    name: 'App'
+    name: 'Snapjay'
   }
 </script>
-
-<style lang="scss">
-
-</style>

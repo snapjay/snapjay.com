@@ -1,14 +1,10 @@
 <template lang="pug">
-  #app
-    router-view
+  .main
+    h1 Credits
 </template>
 
 <script>
   export default {
-    name: 'App'
+    name: 'Credits'
   }
 </script>
-
-<style lang="scss">
-
-</style>
