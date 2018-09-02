@@ -1,5 +1,24 @@
+//$headings-font-family: "Alegreya Sans SC","Helvetica Neue",Helvetica,Arial,sans-serif;
+//$headings-color: #5221b4;
+//$h1-font-size: 45px;
 @import '../../../node_modules/bootstrap/scss/functions';
 @import '../../../node_modules/bootstrap/scss/variables';
 @import '../../../node_modules/bootstrap/scss/mixins';
 @import '../../../node_modules/bootstrap/scss/reboot';
 @import '../../../node_modules/bootstrap/scss/bootstrap-grid';
+@import '../../../node_modules/bootstrap/scss/utilities';
+
+html, body, #app, .wrapper, .main {
+  width: 100%;
+  height: 100%;
+}
+
+.main{
+  padding-top: 80px;
+}
+
+h1 {
+  font-weight: 800;
+  font-family: 'Alegreya Sans SC',"Helvetica Neue",Helvetica,Arial,sans-serif;
+  line-height: 110px;
+}
