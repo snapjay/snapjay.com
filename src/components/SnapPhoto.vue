@@ -2,7 +2,7 @@
   .photo
     .tape(style='top: 37px; left: -16px;')
     .tape(style='bottom: -2px; right: 48px;')
-    img(:src='src', alt='')
+    img(:src='src', :alt='alt')
 </template>
 
 <script>
@@ -12,6 +12,11 @@
       src: {
         type: String,
         required: true
+      },
+      alt: {
+        type: String,
+        required: false,
+        default: ''
       }
     }
   }

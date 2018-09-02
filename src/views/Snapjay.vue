@@ -3,8 +3,8 @@
       .container
           .row
             .col-md
-              h1.text-center Hey, #[br] It's Dan!
-              h2.text-center An experienced front end web developer.
+              h1 Hey, #[br] It's Dan!
+              h2 An experienced front end web developer.
             .col-md-4
                 router-link(:to='{name: "contact"}')
                   snap-photo(src='/static/img/snapjay.jpg')
@@ -29,6 +29,7 @@
   }
 </script>
 <style lang="scss" scoped>
+  @import "../assets/styles/variables";
 
   h1 {
     margin-top: 30px;
@@ -36,11 +37,7 @@
     font-size: 120px;
   }
   h2 {
-    color: #b49419;
-    font-size: 35px;
-    font-weight: 100;
-    margin-top: 0;
-    margin-bottom: 15px;
+    color: $snapjay;
     text-align: center;
   }
 

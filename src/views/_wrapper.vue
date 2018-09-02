@@ -3,11 +3,11 @@
     nav
       ul(role="navigation")
         li
-          router-link(:to="{name: 'snapjay'}") snapjay
+          router-link(:to="{name: 'snapjay'}", exact) snapjay
         li
           router-link(:to="{name: 'skills'}") skills
         li
-          router-link(:to="{name: 'credit'}") credit
+          router-link(:to="{name: 'credits'}") credits
         li
           router-link(:to="{name: 'play'}") play
         li
@@ -25,7 +25,7 @@
     float: right;
   }
   nav li {
-    font-family: 'Amatic SC',"Helvetica Neue",Helvetica,Arial,sans-serif;
+    font-family: 'Amatic SC', "Helvetica Neue", Helvetica,Arial, sans-serif;
     display: inline;
     font-size: 40px;
     font-weight: 700;

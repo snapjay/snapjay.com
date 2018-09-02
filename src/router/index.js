@@ -3,7 +3,7 @@ import Router from 'vue-router'
 import Wrapper from '@/views/_wrapper'
 import Snapjay from '@/views/Snapjay'
 import Skills from '@/views/Skills'
-import Credit from '@/views/Credits'
+import Credits from '@/views/Credits'
 import Play from '@/views/Play'
 import Contact from '@/views/Contact'
 
@@ -32,11 +32,11 @@ let router = new Router({
           }
         },
         {
-          path: '/credit',
-          name: 'credit',
-          component: Credit,
+          path: '/credits',
+          name: 'credits',
+          component: Credits,
           meta: {
-            title: 'Credit'
+            title: 'Credits'
           }
         },
         {
