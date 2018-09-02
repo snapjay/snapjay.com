@@ -6,10 +6,8 @@
               h1.text-center Hey, #[br] It's Dan!
               h2.text-center An experienced front end web developer.
             .col-md-4
-              .photo
-                .tape(style='top: 37px;left: -16px;')
-                .tape(style='bottom: -2px;right: 48px;')
-                img(src='/static/img/snapjay.jpg', alt='')
+                router-link(:to='{name: "contact"}')
+                  snap-photo(src='/static/img/snapjay.jpg')
           .row
             .col-md
               p I have been building websites for over 15 years. With a background in all aspects, I specialise in front end VueJS development.
@@ -22,45 +20,16 @@
 </template>
 
 <script>
+  import SnapPhoto from '@/components/SnapPhoto'
   export default {
-    name: 'Snapjay'
+    name: 'Snapjay',
+    components: {
+      'snap-photo': SnapPhoto
+    }
   }
 </script>
 <style lang="scss" scoped>
-  .main {
-    background-image: url("/static/img/paper.jpg");
-  }
-  .photo {
-    position: relative;
-    transition-property: all;
-    -webkit-transition-property: all;
-    transition-duration: 1.3s;
-    -webkit-transition-duration: 1.3s;
-  }
-  .photo{
-    -webkit-transform: rotate(4.5deg);
-    -ms-transform: rotate(4.5deg);
-    transform: rotate(4.5deg);
-  }
-  .photo:hover{
-    -webkit-transform: rotate(0deg);
-    -ms-transform: rotate(0deg);
-    transform: rotate(0deg);
-  }
-  .photo img {
-    width: 80%;
-    margin-top: 40px;
-  }
-  .photo .tape{
-    position: absolute;
-    background-color: rgba(249, 240, 204, 0.70);
-    width: 104px;
-    height: 17px;
-    -webkit-transform: rotate(-25.5deg);
-    -ms-transform: rotate(-25.5deg);
-    transform: rotate(-25.5deg);
-    z-index: 10;
-  }
+
   h1 {
     margin-top: 30px;
     margin-bottom: 20px;

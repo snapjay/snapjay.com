@@ -9,7 +9,7 @@ import Contact from '@/views/Contact'
 
 Vue.use(Router)
 
-export default new Router({
+let router = new Router({
   routes: [
     {
       path: '/',
@@ -18,29 +18,51 @@ export default new Router({
         {
           path: '/',
           name: 'snapjay',
-          component: Snapjay
+          component: Snapjay,
+          meta: {
+            title: 'snapjay'
+          }
         },
         {
           path: '/skills',
           name: 'skills',
-          component: Skills
+          component: Skills,
+          meta: {
+            title: 'Skills'
+          }
         },
         {
           path: '/credit',
           name: 'credit',
-          component: Credit
+          component: Credit,
+          meta: {
+            title: 'Credit'
+          }
         },
         {
           path: '/play',
           name: 'play',
-          component: Play
+          component: Play,
+          meta: {
+            title: 'Play'
+          }
         },
         {
           path: '/contact',
           name: 'contact',
-          component: Contact
+          component: Contact,
+          meta: {
+            title: 'Contact'
+          }
         }
       ]
     }
   ]
 })
+router.beforeEach((to, from, next) => {
+  document.getElementsByTagName('body')[0].className = to.name
+  document.getElementsByTagName('title')[0].text = `${to.meta.title}  - An experienced front end web developer.`
+  next()
+})
+
+export default router

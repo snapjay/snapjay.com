@@ -8,6 +8,8 @@
 @import '../../../node_modules/bootstrap/scss/bootstrap-grid';
 @import '../../../node_modules/bootstrap/scss/utilities';
 
+$snapjay: #826E1E;
+
 html, body, #app, .wrapper, .main {
   width: 100%;
   height: 100%;
@@ -21,4 +23,31 @@ h1 {
   font-weight: 800;
   font-family: 'Alegreya Sans SC',"Helvetica Neue",Helvetica,Arial,sans-serif;
   line-height: 110px;
+}
+
+a.router-link-active {
+  opacity: 0.4;
+  text-decoration: underline;
+}
+body.snapjay{
+  /*background-color: #03424B;*/
+  background-color: #fff;
+  background-image:url("/static/img/paper.jpg") ;
+}
+
+body.snapjay ::-moz-selection {
+  background: #f6eec7;
+  color: $snapjay;
+}
+body.snapjay ::selection {
+  background: #f6eec7;
+  color: $snapjay;
+}
+
+body.snapjay nav li a {
+  color: $snapjay;
+
+}
+body.snapjay nav li a.router-link-active {
+  opacity: 0.4;
 }
