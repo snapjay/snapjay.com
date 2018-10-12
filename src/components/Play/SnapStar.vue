@@ -1,5 +1,5 @@
 <template lang="pug">
-    .star(:style="`left:${assention}px; top:${declination}px; width:${size}px; height:${size}px; background-color:${color};`") a
+    .star(:style="`left:${assention}px; top:${declination}px; width:${size}px; height:${size}px; background-color:${color};`")
 </template>
 
 <script>

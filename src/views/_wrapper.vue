@@ -1,5 +1,7 @@
 <template lang="pug">
-    .wrapper
+    .full-screen
+        .background
+            router-view(name='background')
         nav
             ul(role="navigation", style="display:none")
                 li
@@ -12,7 +14,8 @@
                     router-link(:to="{name: 'play'}") play
                 li
                     router-link(:to="{name: 'contact'}") contact
-        router-view
+        main.full-screen.main
+            router-view
 </template>
 
 <script>
@@ -21,6 +24,17 @@
   }
 </script>
 <style scoped>
+    .background {
+        position: absolute;
+        overflow: hidden;
+        width: 100%;
+        height: 100%;
+    }
+
+    .main {
+        padding-top: 80px;
+        overflow-y: scroll;
+    }
     nav {
         float: right;
     }

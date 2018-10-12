@@ -5,14 +5,14 @@
 @import '../../../node_modules/bootstrap/scss/reboot';
 @import '../../../node_modules/bootstrap/scss/bootstrap-grid';
 
-html, body, #app, .wrapper, .main {
+html, body, #app, .wrapper, .full-screen  {
   width: 100%;
   height: 100%;
 }
 
 h1 {
   font-weight: 800;
-  font-family: 'Alegreya Sans SC',"Helvetica Neue",Helvetica,Arial,sans-serif;
+  font-family: 'Alegreya Sans SC', "Helvetica Neue", Helvetica, Arial, sans-serif;
   line-height: 110px;
   text-align: center;
   font-size: 5em;
@@ -24,31 +24,34 @@ h2 {
   margin-top: 0;
   margin-bottom: 15px;
 }
+
 a.router-link-active {
   opacity: 0.6;
   text-decoration: underline;
 }
 
-.main{
-  padding-top: 80px;
-}
 .text-center {
   text-align: center;
 }
-.rounded-circle{
-  border-radius: 50%!important;
+
+.rounded-circle {
+  border-radius: 50% !important;
 }
+
 .mt-3 {
   margin-top: 40px;
 }
+.full-screen {
+  position: relative;
+}
 
-body.snapjay{
+body.snapjay {
   background-color: #f3f3e9;
-  background-image:url("/static/img/paper.jpg") ;
+  background-image: url("/static/img/paper.jpg");
 }
 
 body.snapjay ::selection {
-  background:  lighten($snapjay, 57%);
+  background: lighten($snapjay, 57%);
   color: $snapjay;
 }
 
@@ -56,38 +59,40 @@ body.snapjay nav li a {
   color: $snapjay;
 }
 
-
-
 body.skills ::selection {
-  background:  lighten($skills, 65%);
+  background: lighten($skills, 65%);
   color: $skills;
 }
+
 body.skills nav li a {
   color: #000;
 }
+
 body.skills a.router-link-active {
   opacity: 1;
   color: $skills;
 }
 
-
-body.credits {background: #5091d5;
+body.credits {
+  background: #5091d5;
   background: -moz-linear-gradient(top, #1e5799 0%, #5091d5 100%); /* FF3.6+ */
-  background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,#1e5799), color-stop(100%,#5091d5)); /* Chrome,Safari4+ */
-  background: -webkit-linear-gradient(top, #1e5799 0%,#5091d5 100%); /* Chrome10+,Safari5.1+ */
-  background: -o-linear-gradient(top, #1e5799 0%,#5091d5 100%); /* Opera 11.10+ */
-  background: -ms-linear-gradient(top, #1e5799 0%,#5091d5 100%); /* IE10+ */
-  background: linear-gradient(to bottom, #1e5799 0%,#5091d5 100%); /* W3C */
+  background: -webkit-gradient(linear, left top, left bottom, color-stop(0%, #1e5799), color-stop(100%, #5091d5)); /* Chrome,Safari4+ */
+  background: -webkit-linear-gradient(top, #1e5799 0%, #5091d5 100%); /* Chrome10+,Safari5.1+ */
+  background: -o-linear-gradient(top, #1e5799 0%, #5091d5 100%); /* Opera 11.10+ */
+  background: -ms-linear-gradient(top, #1e5799 0%, #5091d5 100%); /* IE10+ */
+  background: linear-gradient(to bottom, #1e5799 0%, #5091d5 100%); /* W3C */
   overflow: hidden;
 }
 
-body.credits ::selection  {
+body.credits ::selection {
   background: $credits;
 }
+
 body.credits nav li a {
   color: #fff;
 }
-body.credits a.router-link-active{
+
+body.credits a.router-link-active {
   opacity: 1;
   color: $credits;
 }
@@ -95,28 +100,31 @@ body.credits a.router-link-active{
 body.play {
   background-color: #161616;
 }
-body.play ::selection  {
+
+body.play ::selection {
   background: $play;
   color: #000;
 }
+
 body.play nav li a {
   color: #fff;
 }
-body.play a.router-link-active{
+
+body.play a.router-link-active {
   opacity: 1;
   color: $play;
 }
 
-
 body.contact ::selection {
-  background:  lighten($contact, 70%);
+  background: lighten($contact, 70%);
   color: $contact;
 }
 
-body.contact a.router-link-active{
+body.contact a.router-link-active {
   opacity: 1;
   color: #000;
 }
+
 body.contact nav li a {
   color: $contact;
 }

@@ -4,7 +4,9 @@ import Wrapper from '@/views/_wrapper'
 import Snapjay from '@/views/Snapjay'
 import Skills from '@/views/Skills'
 import Credits from '@/views/Credits'
+import CreditsBackground from '@/views/CreditsBackground'
 import Play from '@/views/Play'
+import PlayBackground from '@/views/PlayBackground'
 import Contact from '@/views/Contact'
 
 Vue.use(Router)
@@ -34,7 +36,10 @@ let router = new Router({
         {
           path: '/credits',
           name: 'credits',
-          component: Credits,
+          components: {
+            default: Credits,
+            background: CreditsBackground
+          },
           meta: {
             title: 'Credits'
           }
@@ -42,7 +47,10 @@ let router = new Router({
         {
           path: '/play',
           name: 'play',
-          component: Play,
+          components: {
+            default: Play,
+            background: PlayBackground
+          },
           meta: {
             title: 'Play'
           }
