@@ -8,12 +8,12 @@
                 p I balance my time behind the screen by keeping active and healthy.
         .row.justify-content-md-center
             .col-md-4.viewport
-                img(src='/static/img/play/boot.svg')
-                img(src='/static/img/play/cooking.svg')
-                img(src='/static/img/play/food.svg')
-                img(src='/static/img/play/football.svg')
-                img(src='/static/img/play/jeep.svg')
-                img(src='/static/img/play/hockey.svg')
+                img(src='/static/img/play/boot.svg', alt='Boot')
+                img(src='/static/img/play/cooking.svg', alt='Cooking')
+                img(src='/static/img/play/food.svg', alt='Food')
+                img(src='/static/img/play/football.svg', alt='Football')
+                img(src='/static/img/play/jeep.svg', alt='Off Roading')
+                img(src='/static/img/play/hockey.svg', alt='Hockey')
 
                 h3 Ice Hockey
                 p I've been playing hockey for over 10 years.

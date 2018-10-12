@@ -3,7 +3,7 @@
         .background
             router-view(name='background')
         nav
-            ul(role="navigation", style="display:none")
+            ul(role="navigation")
                 li
                     router-link(:to="{name: 'snapjay'}", exact) snapjay
                 li
@@ -32,11 +32,14 @@
     }
 
     .main {
-        padding-top: 80px;
+        padding-top: 40px;
         overflow-y: scroll;
     }
+
     nav {
-        float: right;
+        position: fixed;
+        right: 10px;
+        z-index: 200;
     }
 
     nav li {

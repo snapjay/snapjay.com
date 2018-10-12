@@ -8,6 +8,7 @@ import CreditsBackground from '@/views/CreditsBackground'
 import Play from '@/views/Play'
 import PlayBackground from '@/views/PlayBackground'
 import Contact from '@/views/Contact'
+import ContactBackground from '@/views/ContactBackground'
 
 Vue.use(Router)
 
@@ -58,7 +59,10 @@ let router = new Router({
         {
           path: '/contact',
           name: 'contact',
-          component: Contact,
+          components: {
+            default: Contact,
+            background: ContactBackground
+          },
           meta: {
             title: 'Contact'
           }
