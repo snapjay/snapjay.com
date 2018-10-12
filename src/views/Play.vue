@@ -1,7 +1,13 @@
 <template lang="pug">
     .main
+        .moon
+            snap-moon
+        img.tree(src='/static/img/play/tree.svg', style="")
+        img.tree(src='/static/img/play/tree.svg', style="top:280px; transform:rotate(20deg); ")
+        img.tree(src='/static/img/play/tree.svg', style="transform:rotate(180deg); right:0px;")
+        img.tree(src='/static/img/play/tree.svg', style="top:280px; transform:rotate(200deg); right:0px;")
         snap-night.sky
-        .container(style="display:none")
+        .container()
             .row
                 .col-md
                     h1 Play
@@ -10,6 +16,7 @@
                     p I balance my time behind the screen by keeping active and healthy.
             .row
                 .col-md
+                    img.tree(src='/static/img/play/hockey.svg')
                     h3 Ice Hockey
                     p I've been playing hockey for over 10 years.
                     p I've played in leagues, tournaments and recreational, but prefer now a relaxed pick-up.
@@ -35,17 +42,34 @@
 
 <script>
   import SnapNight from '@/components/SnapNight'
+  import SnapMoon from '@/components/SnapMoon'
 
   export default {
     name: 'Play',
     components: {
+      'snap-moon': SnapMoon,
       'snap-night': SnapNight
     }
   }
 </script>
 <style lang="scss" scoped>
     @import "../assets/styles/variables";
+    .main {
+        position: relative;
+        overflow: hidden;
+    }
 
+    .moon {
+        width:100px;
+        height: 100px;
+        right:190px;
+        top : 50px;
+        position: absolute;
+    }
+    .tree {
+        position: absolute;
+        width: 35%;
+    }
     .sky {
         position: fixed;
         right: 0;

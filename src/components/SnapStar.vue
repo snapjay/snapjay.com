@@ -1,11 +1,9 @@
 <template lang="pug">
-    .star(:style="`left:${assention}px; top:${declination}px; width:${size}px; height:${size}px; background-color:${color};`")
+    .star(:style="`left:${assention}px; top:${declination}px; width:${size}px; height:${size}px; background-color:${color};`") a
 </template>
 
 <script>
-  function rand (min, max) {
-    return (Math.random() * (max - min) + min).toFixed(1)
-  }
+  import rand from '@/shared/rand'
 
   export default {
     name: 'SnapPhoto',
@@ -19,17 +17,19 @@
         type: String,
         required: false,
         default: ''
+      },
+      assention: {
+        type: Number,
+        required: true
+      },
+      declination: {
+        type: Number,
+        required: true
       }
     },
     computed: {
       size () {
         return rand(0.5, 3)
-      },
-      assention () {
-        return rand(1, 2000)
-      },
-      declination () {
-        return rand(1, 2000)
       },
       color () {
         const colors = ['#fffec1', '#fffdfb', '#fff', '#ffd3d3', '#fff5e7']
@@ -42,6 +42,6 @@
 <style scoped>
     .star {
         position: absolute;
-        border-radius: 3px;
+        border-radius: 50%;
     }
 </style>

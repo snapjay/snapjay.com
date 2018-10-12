@@ -35,6 +35,9 @@ a.router-link-active {
 .text-center {
   text-align: center;
 }
+.rounded-circle{
+  border-radius: 50%!important;
+}
 .mt-3 {
   margin-top: 40px;
 }
@@ -90,7 +93,7 @@ body.credits a.router-link-active{
 }
 
 body.play {
-  background-color: #111;
+  background-color: #161616;
 }
 body.play ::selection  {
   background: $play;
