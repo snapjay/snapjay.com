@@ -1,11 +1,10 @@
 <template lang="pug">
     .full-screen
-        //.sun
+        .sun.rounded-circle
 
 </template>
 
 <script>
-
   export default {
     name: 'CreditsBackground'
   }
@@ -14,8 +13,8 @@
 <style scoped>
     .sun {
         background-color: #ffb849;
-        border-radius: 400px;
-        height: 200px;width: 200px;
+        height: 200px;
+        width: 200px;
         left: 25%;
         position: fixed;
         bottom: 40px;

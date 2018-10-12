@@ -46,8 +46,9 @@ let router = new Router({
           }
         },
         {
-          path: '/play',
+          path: '/play/:active',
           name: 'play',
+          props: {default: true},
           components: {
             default: Play,
             background: PlayBackground

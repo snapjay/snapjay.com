@@ -1,5 +1,5 @@
 <template lang="pug">
-    .star(:style="`left:${assention}px; top:${declination}px; width:${size}px; height:${size}px; background-color:${color};`")
+    .star.rounded-circle(:style="`left:${assention}px; top:${declination}px; width:${size}px; height:${size}px; background-color:${color};`")
 </template>
 
 <script>
@@ -42,6 +42,5 @@
 <style scoped>
     .star {
         position: absolute;
-        border-radius: 50%;
     }
 </style>
