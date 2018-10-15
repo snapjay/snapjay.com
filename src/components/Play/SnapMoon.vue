@@ -11,11 +11,12 @@
   }
 </script>
 
-<style scoped>
+<style lang="scss" scoped>
+    @import "../../assets/styles/variables";
     .moon-container {
         position: relative;
     }
     .moon path {
-        fill: #ebc85f;
+        fill: $play;
     }
 </style>

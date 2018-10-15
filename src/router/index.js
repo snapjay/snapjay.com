@@ -46,7 +46,7 @@ let router = new Router({
           }
         },
         {
-          path: '/play/:active',
+          path: '/play/:active?',
           name: 'play',
           props: {default: true},
           components: {

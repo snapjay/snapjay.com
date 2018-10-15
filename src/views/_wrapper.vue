@@ -11,7 +11,7 @@
                 li
                     router-link(:to="{name: 'credits'}") credits
                 li
-                    router-link(:to="{name: 'play'}") play
+                    router-link(:to="{name: 'play'}" ) play
                 li
                     router-link(:to="{name: 'contact'}") contact
         main.full-screen.main
