@@ -52,7 +52,7 @@
 
 <style scoped>
     .book {
-        border-top: 1px solid #000;
+        border-top: 2px solid #000;
         background-color: #000;
         width: 180px;
     }
