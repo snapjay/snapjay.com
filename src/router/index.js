@@ -3,6 +3,7 @@ import Router from 'vue-router'
 import Wrapper from '@/views/_wrapper'
 import Snapjay from '@/views/Snapjay'
 import Skills from '@/views/Skills'
+import SkillsBackground from '@/views/SkillsBackground'
 import Credits from '@/views/Credits'
 import CreditsBackground from '@/views/CreditsBackground'
 import Play from '@/views/Play'
@@ -29,7 +30,10 @@ let router = new Router({
         {
           path: '/skills',
           name: 'skills',
-          component: Skills,
+          components: {
+            default: Skills,
+            background: SkillsBackground
+          },
           meta: {
             title: 'Skills'
           }
