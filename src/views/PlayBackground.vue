@@ -1,8 +1,8 @@
 <template lang="pug">
     .full-screen
+        snap-night.full-screen
         .moon
             snap-moon
-        snap-night.full-screen
         img.tree(src='/static/img/play/tree.svg', style='width: 28%;', alt='')
         img.tree(src='/static/img/play/tree.svg', style='top:280px; transform:rotate(20deg); ', alt='')
         img.tree(src='/static/img/play/tree.svg', style='transform:rotate(180deg); right:0px; width: 25%;', alt='')
@@ -25,8 +25,8 @@
     @import "../assets/styles/variables";
 
     .moon {
-        right:260px;
-        top : 100px;
+        right:15%;
+        top : 19%;
         position: absolute;
     }
     .tree {

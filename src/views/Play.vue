@@ -4,7 +4,7 @@
             .col-md-12
                 h1 Play
         .row.justify-content-md-center
-            .col-md-1
+            .col-md-1.col-sm-12
                 .row
                     .col-md-12
                         router-link(:to='{name: "play", params: {active: "cooking"} }', aria-label='Cooking')
@@ -21,7 +21,7 @@
                             svg.icon(viewBox='0 0 100 100')
                                 path(d='M99.728,66.658l-6.564,1.312l-2.497-6.249l-2.499,6.249l-6.561-0.833L84.143,71H80V20.555c0-0.225,0.033-5.7-4.18-10.052   C72.371,6.94,67.027,5,60.21,5c-0.004,0-0.008,0-0.013,0c0,0-0.521,0.117-1.037,0.117C49.524,5.117,39,9.257,39,20.504l0.23,42.155   l0,0c0.004,0.058,0.447,6.167-3.704,10.603C32.173,76.846,26.947,79,19.771,79H6.081c-4.459,0-5.683,1.455-6.015,2.529   c-0.23,0.738-0.476,2.49,2.202,4.331c4.056,2.789,19.453,7.561,20.079,7.758C23.986,94.164,27,95.546,34,95.546v-0.007   c3,0,6.984-0.717,10.494-2.121C50.28,91.104,54,90.161,55,89.782V95h2.56c11.564,0,16.379-2.287,16.578-2.371l0.276-0.264   l0.213-0.283c4.214-4.216,5.217-9.462,5.254-9.682L80,81.969V74h4.832l-3.223,3.873l6.558-1.526l2.499,6.141l2.497-6.301   l6.562,1.284l-4.044-5.406L99.728,66.658z')
 
-            .col-md-5
+            .col-md-5.col-sm-12
 
                 .info(:class='{active: active === "whoami"}')
                     h2 Who am I?
@@ -60,7 +60,7 @@
                     p I a big fan of country culture.
                     p I listen country music and somehow end up at every country concert or festival that comes to town.
                     p I enjoy summer evening under the stars, tailgates, fires or demolition derby.
-            .col-md-1
+            .col-md-1.col-sm-12
                 .row
                     .col-md-12
                         router-link(:to='{name: "play", params: {active: "offroad"} }', aria-label='Off Road')
@@ -120,7 +120,8 @@
     }
 
     .icon {
-        min-width: 40px;
+
+        max-width: 100px;
         cursor: pointer;
         margin-bottom: 20px;
         opacity: 1;
