@@ -1,28 +1,30 @@
-snapjay.com
-===========
+# snapjay
 
-snapjay.com Website
+> snapjay.com
 
-http://snapjay.com
+## Build Setup
 
-Run
-===
-npm start
+``` bash
+# install dependencies
+npm install
 
+# serve with hot reload at localhost:8080
+npm run dev
 
-Build
-===
-gulp build
+# build for production with minification
+npm run build
 
+# build for production and view the bundle analyzer report
+npm run build --report
 
-Deploy
-===
-Install Git Command Line (http://git-scm.com/downloads)
-Install AWS CLI Tools (http://aws.amazon.com/cli/)
-Install EB Tools (http://aws.amazon.com/code/6752709412171743)
-(Restart if necessary: 'aws', 'git' and 'eb' should all work from command line)
+# run unit tests
+npm run unit
 
+# run e2e tests
+npm run e2e
 
-Run ./AWSDevTools-RepositorySetup.sh
-git aws.config
-git aws.push
+# run all tests
+npm test
+```
+
+For a detailed explanation on how things work, check out the [guide](http://vuejs-templates.github.io/webpack/) and [docs for vue-loader](http://vuejs.github.io/vue-loader).

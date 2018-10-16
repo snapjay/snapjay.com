@@ -1,0 +1,9 @@
+{
+  "name": "snapjay.com",
+  "theme_color": "#1491bd",
+  "background_color": "rgba(33,150,243,0.18)",
+  "display": "fullscreen",
+  "orientation": "landscape",
+  "scope": "/",
+  "start_url": "/"
+}
