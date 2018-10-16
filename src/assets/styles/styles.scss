@@ -25,9 +25,11 @@ h2 {
   margin-bottom: 15px;
 }
 
+h3 {
+  font-weight: 100;
+}
 a.router-link-active {
   opacity: 0.6;
-  text-decoration: underline;
 }
 
 .text-center {
@@ -87,6 +89,9 @@ body.credits {
 body.credits ::selection {
   background: $credits;
 }
+body.credits a {
+  color: darken($credits, 26);
+}
 
 body.credits nav li a {
   color: #fff;
@@ -122,11 +127,11 @@ body.contact ::selection {
 
 body.contact a.router-link-active {
   opacity: 1;
-  color: #000;
+  color: $contact;
 }
 
 body.contact nav li a {
-  color: $contact;
+  color: #000;
 }
 
 body.contact, body.play, body.credits {

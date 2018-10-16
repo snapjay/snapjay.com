@@ -6,7 +6,7 @@
                 h2 An experienced front end web developer.
             .col-md-4
                 router-link(:to='{name: "contact"}')
-                    snap-photo(src='/static/img/snapjay.jpg')
+                    snap-photo(src='/static/img/snapjay1.jpeg')
         .row
             .col-md
                 p I have been building websites for over 15 years. With a background in all aspects, I specialise in front end VueJS development.
