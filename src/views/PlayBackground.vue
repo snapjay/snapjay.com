@@ -2,11 +2,11 @@
     .full-screen
         .moon
             snap-moon
+        snap-night.full-screen
         img.tree(src='/static/img/play/tree.svg', style='width: 28%;', alt='')
         img.tree(src='/static/img/play/tree.svg', style='top:280px; transform:rotate(20deg); ', alt='')
         img.tree(src='/static/img/play/tree.svg', style='transform:rotate(180deg); right:0px; width: 25%;', alt='')
         img.tree(src='/static/img/play/tree.svg', style='top:280px; transform:rotate(200deg); right:0px;', alt='')
-        snap-night.full-screen
 </template>
 
 <script>
@@ -30,6 +30,7 @@
         position: absolute;
     }
     .tree {
+        top: 1px;
         position: absolute;
         width: 35%;
     }

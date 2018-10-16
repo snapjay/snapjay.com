@@ -1,6 +1,6 @@
 <template lang="pug">
     .night
-        snap-star(v-for='index in 529', :key='index', :assention='assention()', :declination='declination()')
+        snap-star(v-for='index in 929', :key='index', :assention='assention()', :declination='declination()')
         snap-shooting-star()
 </template>
 
@@ -15,12 +15,20 @@
       'snap-star': SnapStar,
       'snap-shooting-star': SnapShootingStar
     },
+    computed: {
+      windowW () {
+        return window.innerWidth
+      },
+      windowH () {
+        return window.innerHeight
+      }
+    },
     methods: {
       assention () {
-        return rand(1, 2000)
+        return rand(-(this.windowW), this.windowW) + (this.windowW / 2)
       },
       declination () {
-        return rand(1, 2000)
+        return rand(-(this.windowW), this.windowW) + (this.windowH / 2)
       }
     }
   }

@@ -2,20 +2,20 @@
     .full-screen
         .background
             router-view(name='background')
-        nav
-            ul(role='navigation')
-                li
-                    router-link(:to="{name: 'snapjay'}", exact) snapjay
-                li
-                    router-link(:to="{name: 'skills'}") skills
-                li
-                    router-link(:to="{name: 'credits'}") credits
-                li
-                    router-link(:to="{name: 'play'}" ) play
-                li
-                    router-link(:to="{name: 'contact'}") contact
         main.full-screen.main
-            router-view
+            nav
+                ul(role='navigation')
+                    li
+                        router-link(:to="{name: 'snapjay'}", exact) snapjay
+                    li
+                        router-link(:to="{name: 'skills'}") skills
+                    li
+                        router-link(:to="{name: 'credits'}") credits
+                    li
+                        router-link(:to="{name: 'play'}" ) play
+                    li
+                        router-link(:to="{name: 'contact'}") contact
+            router-view.router
 </template>
 
 <script>
@@ -32,16 +32,21 @@
     }
 
     .main {
-        padding-top: 40px;
         overflow-y: scroll;
     }
 
     nav {
-        position: fixed;
-        right: 10px;
         z-index: 200;
     }
 
+    .router{
+        margin-top: 65px;
+    }
+
+    nav ul {
+        float: right;
+        margin-bottom: 0;
+    }
     nav li {
         font-family: 'Amatic SC', "Helvetica Neue", Helvetica, Arial, sans-serif;
         display: inline;
