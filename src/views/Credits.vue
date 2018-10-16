@@ -27,7 +27,7 @@
                                 li Lonley Planet
                         .col-md
                             h2 Books
-                            p I have worked as the technical writer for MEAN stack books.
+                            p I have worked as the technical writer for #[abbr(title='MongoDB, Express.js, AngularJS, and Node.js') MEAN] stack books.
                             .row
                                 .col-md
                                     a(href='https://amzn.to/2ybzwU8', target='_blank')
@@ -36,6 +36,15 @@
                                 .col-md
                                     a(href='https://amzn.to/2pNHJJD', target='_blank')
                                         img.book.fluid(src='/static/img/credits/3945OS_4522_M.E.A.N.Blueprints.jpg', alt='MEAN Blueprints')
+
+                            h2.mt-3 Personal Projects
+                            h3 Garage Door
+                            p I constructed a #[abbr(title='Internet of Things') IOT] garage opener using a Raspberry Pi.
+                            p It has an API, #[a(href='https://github.com/snapjay/garage-door-web-client', target='_blank') Vue], Google Home (dialogflow), and JAVA #[a(href='https://github.com/snapjay/garage-door-android', target='_blank') Android] client.
+                            p It alerts me when it's been open to long, didn't open or close properly, is opened when no one is home and automatically closes when left open at night.
+                            h3 ngCart
+                            p I authored the popular open source AngularJS #[a(href='http://ngcart.snapjay.com/', target='_blank') shopping cart] which was used in the above book 'Building an E-Commerce Application with MEAN'.
+
         snap-scape
 </template>
 
