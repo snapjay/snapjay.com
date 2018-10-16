@@ -3,7 +3,7 @@
         .background
             router-view(name='background')
         nav
-            ul(role="navigation")
+            ul(role='navigation')
                 li
                     router-link(:to="{name: 'snapjay'}", exact) snapjay
                 li
