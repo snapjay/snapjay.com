@@ -44,6 +44,12 @@ a.router-link-active {
 .full-screen {
   position: relative;
 }
+nav li a, nav li a.router-link-active  {
+  transition-property: color;
+  -webkit-transition-property:  color;
+  transition-duration: 0.5s;
+  -webkit-transition-duration: 0.5s;
+}
 
 body.snapjay {
   background-color: #f3f3e9;
