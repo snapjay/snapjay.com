@@ -39,8 +39,8 @@
 
                             h2.mt-3 Personal Projects
                             h3 Garage Door
-                            p I constructed a #[abbr(title='Internet of Things') IOT] garage opener using a Raspberry Pi.
-                            p It has an API, #[a(href='https://github.com/snapjay/garage-door-web-client', target='_blank') Vue], Google Home (dialogflow), and JAVA #[a(href='https://github.com/snapjay/garage-door-android', target='_blank') Android] client.
+                            p I constructed a #[abbr(title='Internet of Things') IoT] garage opener using a Raspberry Pi.
+                            p It has an API, #[a(href='https://github.com/snapjay/garage-door-web-client', target='_blank') Vue], Google Home (#[a(href='https://dialogflow.com/', target='_blank') DialogFlow]), and JAVA #[a(href='https://github.com/snapjay/garage-door-android', target='_blank') Android] client.
                             p It alerts me when it's been open to long, didn't open or close properly, is opened when no one is home and automatically closes when left open at night.
                             h3 ngCart
                             p I authored the popular open source AngularJS #[a(href='https://ngcart.snapjay.com/', target='_blank') shopping cart] which was used in the above book 'Building an E-Commerce Application with MEAN'.
