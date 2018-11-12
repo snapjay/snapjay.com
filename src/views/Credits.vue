@@ -27,17 +27,17 @@
                                 li Lonley Planet
                         .col-md
                             h2 Books
-                            p I have worked as the technical writer for #[abbr(title='MongoDB, Express.js, AngularJS, and Node.js') MEAN] stack books.
+                            p I have worked as the technical editor for #[abbr(title='MongoDB, Express.js, AngularJS, and Node.js') MEAN] stack books.
                             .row
                                 .col-md
                                     a(href='https://amzn.to/2ybzwU8', target='_blank')
-                                        img.book(src='/static/img/credits/6551OS_Building-Commerce-Application.jpg', alt='Building an E-Commerce Application with MEAN')
+                                        img.book.mb-2(src='/static/img/credits/6551OS_Building-Commerce-Application.jpg', alt='Building an E-Commerce Application with MEAN')
 
                                 .col-md
                                     a(href='https://amzn.to/2pNHJJD', target='_blank')
-                                        img.book.fluid(src='/static/img/credits/3945OS_4522_M.E.A.N.Blueprints.jpg', alt='MEAN Blueprints')
+                                        img.book.mb-2(src='/static/img/credits/3945OS_4522_M.E.A.N.Blueprints.jpg', alt='MEAN Blueprints')
 
-                            h2.mt-3 Personal Projects
+                            h2 Personal Projects
                             h3 Garage Door
                             p I constructed a #[abbr(title='Internet of Things') IoT] garage opener using a Raspberry Pi.
                             p It has an API, #[a(href='https://github.com/snapjay/garage-door-web-client', target='_blank') Vue], Google Home (#[a(href='https://dialogflow.com/', target='_blank') DialogFlow]), and JAVA #[a(href='https://github.com/snapjay/garage-door-android', target='_blank') Android] client.

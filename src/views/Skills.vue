@@ -14,6 +14,7 @@
                         h2 Technology
                         ul
                             li Vue.js (and Vuex, Vue Router)
+                            li React (and Redux)
                             li TypeScript
                             li AngularJS
                             li #[abbr(title='Single-page application') SPA]
