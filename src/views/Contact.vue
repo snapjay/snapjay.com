@@ -4,7 +4,7 @@
             .col-md
                 h1 Lets Be Friends!
                 h2 Dan Shreim
-                p I am currently based in Toronto, Canada.
+                p I am currently based in Erie, Colorado.
                 p Thank-you for taking the time to view my site; #[br] If you'd like to see my code; please checkout my #[a(href='http://github.com/snapjay', target='_blank') Github]. #[br] If you'd like to hire me or want to learn more, please make contact:
                 .row.mt-3
                     .col-md
