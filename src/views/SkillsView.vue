@@ -21,15 +21,15 @@ export default {
       },
       {
         id: "3",
-        img: "skills/mongodb-icon.svg",
-        title: "Mongo.JS",
-        href: "https://www.mongodb.com/",
-      },
-      {
-        id: "4",
         img: "skills/Node.js_logo.svg",
         title: "Node.JS",
         href: "https://nodejs.org/",
+      },
+      {
+        id: "4",
+        img: "skills/mongodb-icon.svg",
+        title: "Mongo.JS",
+        href: "https://www.mongodb.com/",
       },
     ],
   }),

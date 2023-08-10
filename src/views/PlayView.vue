@@ -96,7 +96,6 @@ export default {
   animation: rotateBackground 160s linear infinite;
   /* background-color: rgb(43, 47, 94); */
   transform: skewY(-2deg);
-  border: 1px solid #fff;
 }
 
 @keyframes rotateBackground {
