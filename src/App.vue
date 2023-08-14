@@ -44,9 +44,7 @@ export default {
       <section ref="credit"><CreditsView /></section>
       <section ref="play"><PlayView /></section>
       <section ref="connect"><ConnectView /></section>
-      <div class="glitch-wrapper">
-        <h1 class="glitch">This Footer is intentionally left blank</h1>
-      </div>
+
     </div>
   </n-config-provider>
 </template>

@@ -2,6 +2,7 @@
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import LogoLink from "../components/LogoLink.vue";
+import Birds from "../components/Birds.vue";
 
 export default {
   name: "SkillsView",
@@ -38,6 +39,7 @@ export default {
   },
   components: {
     LogoLink,
+    Birds,
   },
   methods: {
     setupScrollSnapping() {
@@ -104,6 +106,8 @@ export default {
       </ul>
     </div>
     <div>
+      <!-- <img src="/assets/img/skills/Ducks_v5.png" width="400"/> -->
+      <Birds />
       <div ref="sun" class="sun"></div>
       <div ref="hills" class="hills"></div>
     </div>
@@ -111,6 +115,7 @@ export default {
 </template>
 <style scoped>
 .page {
+  color :#fff;
   background-image: linear-gradient(
     to bottom,
     #425e78 0%,
@@ -122,7 +127,8 @@ export default {
 .grid {
   display: grid;
   grid-template-columns: 1fr 1fr;
-  grid-gap: 20px;
+  grid-gap: 40px;
+  text-align: justify;
 }
 .hills {
   position: absolute;

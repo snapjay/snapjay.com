@@ -79,8 +79,8 @@ h1 {
   transform: rotate(180deg);
   writing-mode: vertical-lr;
 text-orientation: sideways;
-  font-size: 6rem;
-  opacity: 0.5;
+  font-size: 9rem;
+  opacity: 0.15;
 }
 h2 {
   font-family: LemonMilkBold;
