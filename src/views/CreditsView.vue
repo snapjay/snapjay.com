@@ -113,13 +113,11 @@ export default defineComponent({
     <div class="block">
       <h1>Credits</h1>
       <p>
-        I have worked on a variety of projects from early stage prototypes to
-        full production websites. I've experienced freelance, run my own
-        websites. Worked with small start-ups environments and small agencies.
+
+        My project portfolio encompasses a diverse range, spanning from nascent stage prototypes to fully-fledged production websites. My professional journey has encompassed freelance endeavors and the management of personal websites. I have also thrived in the dynamic landscapes of small startup environments and collaborative ventures with compact agencies.
       </p>
       <p>
-        Following are some brands I've worked on projects for. Contact me to
-        learn more about the ones that interest you
+        Noteworthy brands that have featured in my project roster include follows, among others. I invite you to connect with me to delve deeper into the specifics of projects associated with the brands that pique your interest.
       </p>
       <h2>Clients</h2>
       <ul>

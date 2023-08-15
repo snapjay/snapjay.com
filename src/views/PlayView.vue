@@ -68,12 +68,12 @@ export default {
           my time.
         </p>
         <div class="cards">
-          <Card img="noun-motocross-4706122.svg" desc="Riding Dirtbikes" />
-          <Card img="noun-chicken-5412599.svg" desc="Raising Chickens" />
-          <Card img="noun-saw-table-3437774.svg" desc="Wood Working" />
-          <Card img="noun-gluten-4321747.svg" desc="Growing Food" />
-          <Card img="noun-concert-5674382.svg" desc="Concert and music" />
-          <Card img="noun-cooking-2555746.svg" desc="Cooking" />
+          <Card img="noun-motocross-4706122.svg" desc="I derive immense enjoyment from traversing the rocky terrains of the mountains on my dirtbike. Exploring intricate trails, I revel in the discovery of picturesque and secluded locations that exude natural beauty." />
+          <Card img="noun-chicken-5412599.svg" desc="I have nurtured a brood of seven chickens, beginning their journey when they were merely two weeks old. Over time, these feathered companions have evolved into beloved pets, enhancing my daily life with both their companionship and the reward of a consistent supply of fresh eggs." />
+          <Card img="noun-saw-table-3437774.svg" desc="Woodworking is a passion of mine, and I have taken this interest to the next level by establishing a small woodshop. My proficiency in web skills seamlessly transitions to my work with Computer Numerical Control (CNC) machinery, where I leverage my expertise to create intricate wood designs and projects." />
+          <Card img="noun-gluten-4321747.svg" desc="Cultivating my own food is a deeply ingrained passion of mine. I possess a profound interest in the realm of agriculture and food production, driven by a fervent desire to create sustenance from the ground up. My dedication extends to crafting items from scratch whenever possible, reflecting my commitment to a holistic approach to nourishment and self-sufficiency." />
+          <Card img="noun-concert-5674382.svg" desc="Country music holds a special place in my heart, and I find solace and enjoyment in its melodies. Attending concerts beneath the open sky is an experience I cherish, as the combination of live country music and the vast expanse of stars creates a truly magical ambiance." />
+          <Card img="noun-cooking-2555746.svg" desc="Taking pleasure in the full cycle of nourishment, I relish the process of cultivating my own food, nurturing my chickens for their eggs, and subsequently utilizing these homegrown ingredients to prepare meals. This complete journey from seed to plate brings me immense satisfaction and a profound connection to the sustenance I create." />
         </div>
       </div>
     </div>

@@ -87,16 +87,10 @@ export default {
       <h1>Skills</h1>
       <div class="grid">
         <p>
-          My career has primarily focused on font-end development JavaScript,
-          HTML and CSS. Currently Director of Product strategy I have also
-          worked as a product owner, so understand the importance of the
-          interface for the end user.
+          Throughout my career, I have honed my expertise in front-end development, specializing in JavaScript, HTML, and CSS. My current role as Director of Product Strategy is fortified by prior experience as a product owner, affording me a comprehensive perspective on the pivotal role of interfaces in optimizing end-user interactions.
         </p>
         <p>
-          I use rapid prototyping and usability testing to prove out a product
-          before build. I like code to be efficient and elegant. This means that
-          I can develop complex functionality while maintaining a quality user
-          experience.
+          I champion the utilization of rapid prototyping and rigorous usability testing as pivotal tools in validating product concepts before embarking on the development phase. I hold an intrinsic penchant for crafting code that is both efficient and elegant, enabling me to orchestrate intricate functionalities while upholding the tenets of a superior user experience.
           <!-- https://www.google.com/search?rlz=1C1CHBF_enUS1020US1020&sxsrf=AB5stBimqtJ3cCQkiPe9ucN9oIy0KVtKyg:1691603642460&q=svg+hills&tbm=isch&source=lnms&sa=X&ved=2ahUKEwiWptbRktCAAxVSDjQIHQhVCygQ0pQJegQIDBAB&biw=1920&bih=931&dpr=1#imgrc=Onj2iWUXfTLV1M&imgdii=mXTXlVwJdhhl8M -->
         </p>
       </div>
@@ -116,6 +110,7 @@ export default {
 <style scoped>
 .page {
   color :#fff;
+  height: 900px;
   background-image: linear-gradient(
     to bottom,
     #425e78 0%,
@@ -128,7 +123,6 @@ export default {
   display: grid;
   grid-template-columns: 1fr 1fr;
   grid-gap: 40px;
-  text-align: justify;
 }
 .hills {
   position: absolute;

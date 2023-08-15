@@ -24,7 +24,7 @@ export default {
       const tl = gsap
         .timeline({ paused: true })
         .to(front, { duration: 1, rotationY: 180 })
-        .to(back, { duration: 1, rotationY: 0 }, 0)
+        .to(back, { duration: 1, rotationY: 0, scale: 1.8 }, 0)
         .to(card, { z: 50 }, 0)
         .to(card, { z: 0 }, 0.5);
       card.addEventListener("mouseenter", function () {
@@ -40,7 +40,7 @@ export default {
 <template>
   <div ref="card" class="cardCont">
     <div ref="back" class="cardBack">
-      <p>{{desc}}</p>
+      <p>{{ desc }}</p>
     </div>
     <div ref="front" class="cardFront">
       <img :src="`/assets/img/play/${img}`" />
@@ -70,7 +70,7 @@ export default {
   border-radius: 8px;
   p {
     padding: 10px;
-    font-size: 20px;
+    font-size: 10px;
   }
 }
 
@@ -82,5 +82,9 @@ export default {
   align-items: center;
   justify-content: center;
   background: url("/assets/img/play/card.svg");
+}
+
+.cardCont:hover {
+  z-index: 2;
 }
 </style>

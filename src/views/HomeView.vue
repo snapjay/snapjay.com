@@ -27,35 +27,29 @@ export default {
 <template>
   <div ref="page" class="page">
     <div class="block">
-      <div class="grid"><h1>snapjay</h1>
+      <div class="grid">
+        <h1>snapjay</h1>
         <div>
-          
-          <h2>An Experienced <br /> Frontend Web Developer</h2>
+          <h2>
+            An Experienced <br />
+            Frontend Web Developer
+          </h2>
           <p>
-            I have been building websites for over 15 years. With a background
-            in all aspects, I specialise in front end VueJS development.
+            With over 15 years dedicated to website development, I specialize in
+            front-end VueJS expertise. I prioritize meticulous attention to
+            detail, employing prototyping and user testing to ensure integrity
+            in code development.
           </p>
           <p>
-            I believe in attention to detail, prototyping and user testing. I
-            maintain integrity; not blindly write code that can not be
-            rationalised.
-          </p>
-          <p>
-            I understand the balance between maintaining customer experience and
-            business objectives.
-          </p>
-          <p>
-            I am expert in JavaScript and building interfaces that provide
-            optimum user experience without compromising the business rules.
-          </p>
-          <p>
-            I have worked in conjunction with award-winning agencies on projects
-            for Intel, TD Canada Trust, eBay UK, BBC Worldwide, Telus Mobility
-            and more.
+            I am adept at balancing user experience with business objectives,
+            adeptly crafting JavaScript interfaces that harmonize both aspects.
+            My portfolio includes collaborations with award-winning agencies,
+            contributing to projects for prominent brands like Intel, TD Canada
+            Trust, eBay UK, BBC Worldwide, and Telus Mobility.
           </p>
         </div>
         <div>
-          <div class="glitch hero"  ref="hero">
+          <div class="glitch hero" ref="hero">
             <img
               src="/assets/img/hunter.jpg"
               alt="Photo of Hunter"
@@ -67,7 +61,6 @@ export default {
               <div class="glitch__layer"></div>
             </div>
           </div>
-
         </div>
       </div>
     </div>
@@ -78,7 +71,7 @@ h1 {
   text-align: end;
   transform: rotate(180deg);
   writing-mode: vertical-lr;
-text-orientation: sideways;
+  text-orientation: sideways;
   font-size: 9rem;
   opacity: 0.15;
 }

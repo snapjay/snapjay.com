@@ -74,6 +74,7 @@ p{
   width: 1200px;
   margin : 0 auto;
   transform: skewY(0deg);
+  text-align: justify;
 }
 ul {
   list-style: none;
