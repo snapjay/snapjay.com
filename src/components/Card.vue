@@ -42,7 +42,8 @@ export default {
   <div ref="card" class="cardCont">
     <div ref="back" class="cardBack">
       <h4>{{ title }}</h4>
-      <p>{{ desc }}</p>
+      <p>{{ desc }} </p><slot></slot>
+      
     </div>
     <div ref="front" class="cardFront">
       <img :src="`/assets/img/play/${img}`" />
@@ -71,11 +72,14 @@ export default {
   color: #000;
   border-radius: 8px;
   h4 {
+    padding-top: 10px;
     font-size: 14px;
+    margin-bottom: 0;
   }
   p {
     padding: 10px;
     font-size: 10px;
+    margin-bottom: 0;
   }
 }
 

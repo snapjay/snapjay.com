@@ -136,7 +136,7 @@ export default defineComponent({
 </template>
 <style lang="scss" scoped>
 .page {
+  padding-top:100px;
   background-color: rgb(247, 246, 231);
-  height: 1200px;
 }
 </style>

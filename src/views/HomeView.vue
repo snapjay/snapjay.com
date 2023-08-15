@@ -85,11 +85,13 @@ h2 {
   position: absolute;
   bottom: 0;
   z-index: 10;
+  /* filter: drop-shadow(2px 2px 3px rgb(10 10 10 / 0.7)); */
 }
 .page {
   background-color: rgb(209, 173, 125);
   background-image: url(/assets/img/home/paper.jpg);
-  margin-top: -40px;
+  
+  padding-bottom: 90px;
 }
 .grid {
   display: grid;

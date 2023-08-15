@@ -67,12 +67,42 @@ export default {
           my time.
         </p>
         <div class="cards">
-          <Card img="noun-motocross-4706122.svg" title="Dirtbike" desc="I derive immense enjoyment from traversing the rocky terrains of the mountains on my dirtbike. Exploring intricate trails, I revel in the discovery of picturesque and secluded locations that exude natural beauty." />
-          <Card img="noun-chicken-5412599.svg" title="Chickens" desc="I have nurtured a brood of seven chickens, beginning their journey when they were merely two weeks old. Over time, these feathered companions have evolved into beloved pets, enhancing my daily life with both their companionship and the reward of a consistent supply of fresh eggs." />
-          <Card img="noun-saw-table-3437774.svg" title="Wood Working" desc="Woodworking is a passion of mine, and I have taken this interest to the next level by establishing a small woodshop. My proficiency in web skills seamlessly transitions to my work with Computer Numerical Control (CNC) machinery, where I leverage my expertise to create intricate wood designs and projects." />
-          <Card img="noun-gluten-4321747.svg" title="Growing Food" desc="Cultivating my own food is a deeply ingrained passion of mine. I possess a profound interest in the realm of agriculture and food production, driven by a fervent desire to create sustenance from the ground up. My dedication extends to crafting items from scratch whenever possible, reflecting my commitment to a holistic approach to nourishment and self-sufficiency." />
-          <Card img="noun-concert-5674382.svg" title="Country Music" desc="Country music holds a special place in my heart, and I find solace and enjoyment in its melodies. Attending concerts beneath the open sky is an experience I cherish, as the combination of live country music and the vast expanse of stars creates a truly magical ambiance." />
-          <Card img="noun-cooking-2555746.svg" title="Cooking" desc="Taking pleasure in the full cycle of nourishment, I relish the process of cultivating my own food, nurturing my chickens for their eggs, and subsequently utilizing these homegrown ingredients to prepare meals. This complete journey from seed to plate brings me immense satisfaction and a profound connection to the sustenance I create." />
+          <Card
+            img="noun-motocross-4706122.svg"
+            title="Dirtbike"
+            desc="I derive immense enjoyment from traversing the rocky terrains of the mountains on my dirtbike. Exploring intricate trails, I revel in the discovery of picturesque and secluded locations that exude natural beauty."
+          />
+          <Card
+            img="noun-chicken-5412599.svg"
+            title="Chickens"
+            desc="I have nurtured a brood of seven chickens, beginning their journey when they were merely two weeks old. Over time, these feathered companions have evolved into beloved pets, enhancing my daily life with both their companionship and the reward of a consistent supply of fresh eggs."
+          />
+          <Card
+            img="noun-saw-table-3437774.svg"
+            title="Wood Working"
+            desc="Woodworking is a passion of mine, and I have taken this interest to the next level by establishing a small woodshop. My proficiency in web skills seamlessly transitions to my work with Computer Numerical Control (CNC) machinery, where I leverage my expertise to create intricate wood designs and projects."
+            ><a
+              href="http://oldboot.us"
+              target="_blank"
+              rel="noopener noreferrer"
+              >oldboot.us</a
+            ></Card
+          >
+          <Card
+            img="noun-gluten-4321747.svg"
+            title="Growing Food"
+            desc="Cultivating my own food is a deeply ingrained passion of mine. I possess a profound interest in the realm of agriculture and food production, driven by a fervent desire to create sustenance from the ground up. My dedication extends to crafting items from scratch whenever possible, reflecting my commitment to a holistic approach to nourishment and self-sufficiency."
+          />
+          <Card
+            img="noun-concert-5674382.svg"
+            title="Country Music"
+            desc="Country music holds a special place in my heart, and I find solace and enjoyment in its melodies. Attending concerts beneath the open sky is an experience I cherish, as the combination of live country music and the vast expanse of stars creates a truly magical ambiance."
+          />
+          <Card
+            img="noun-cooking-2555746.svg"
+            title="Cooking"
+            desc="Taking pleasure in the full cycle of nourishment, I relish the process of cultivating my own food, nurturing my chickens for their eggs, and subsequently utilizing these homegrown ingredients to prepare meals. This complete journey from seed to plate brings me immense satisfaction and a profound connection to the sustenance I create."
+          />
         </div>
       </div>
     </div>
@@ -81,23 +111,23 @@ export default {
 </template>
 <style scoped>
 .page {
-  padding-top: -0px;
-  height: 1200px;
   background-color: #495b8a;
+  padding-bottom: 280px;
 }
 .grunge {
   width: 100%;
   /* filter: drop-shadow(3px 5px 2px rgba(26, 43, 99, 0.699)); */
 }
 
-.grunge.bottom{
+.grunge.bottom {
   width: 100%;
   position: absolute;
-    bottom: 0; 
+  bottom: 0;
 }
 .block {
   color: rgb(255, 255, 255);
-  width: 500px;margin-top: 60px;
+  width: 500px;
+  margin-top: 60px;
   text-align: center;
 }
 .trees {

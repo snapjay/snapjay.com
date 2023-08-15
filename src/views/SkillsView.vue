@@ -109,8 +109,9 @@ export default {
 </template>
 <style scoped>
 .page {
+  padding-top: 0;
+  padding-bottom: 110px;
   color :#fff;
-  height: 900px;
   background-image: linear-gradient(
     to bottom,
     #425e78 0%,

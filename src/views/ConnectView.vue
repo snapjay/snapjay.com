@@ -67,7 +67,7 @@ export default defineComponent({
 .page {
   color: #fff;
   background: linear-gradient(90deg, #f56302, #f7c602);
-  padding-top: 0;
+  padding-bottom: 280px;
 }
 
 li {
