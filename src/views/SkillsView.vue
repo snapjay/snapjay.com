@@ -50,7 +50,7 @@ export default {
           // start: "top top",
           scrub: true,
         },
-        y: 700,
+        y: 550,
         x: 150,
         width: 180,
         height: 180,
@@ -119,6 +119,7 @@ export default {
   );
   /* background-image: linear-gradient(to bottom, #133e66 0%, #b5702b 73%, #9e1827 100%); */
 }
+
 .grid {
   display: grid;
   grid-template-columns: 1fr 1fr;

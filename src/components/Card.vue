@@ -7,6 +7,7 @@ export default {
   },
   props: {
     img: String,
+    title: String,
     desc: String,
   },
   methods: {
@@ -40,6 +41,7 @@ export default {
 <template>
   <div ref="card" class="cardCont">
     <div ref="back" class="cardBack">
+      <h4>{{ title }}</h4>
       <p>{{ desc }}</p>
     </div>
     <div ref="front" class="cardFront">
@@ -57,7 +59,7 @@ export default {
 .cardFront,
 .cardBack {
   position: absolute;
-  box-shadow: 0px 0px 10px 0px rgba(5, 28, 54, 0.75);
+  box-shadow: 0 0 10px 0px rgba(5, 28, 54, 0.75);
   width: 150px;
   height: 216px;
   background: url("/assets/img/play/card.svg");
@@ -68,6 +70,9 @@ export default {
   -ms-backface-visibility: hidden;
   color: #000;
   border-radius: 8px;
+  h4 {
+    font-size: 14px;
+  }
   p {
     padding: 10px;
     font-size: 10px;

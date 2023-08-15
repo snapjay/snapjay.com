@@ -21,23 +21,29 @@
 }
 @font-face {
   font-family: LouisGeorgeCafe;
-  src: url('/assets/font/Louis George Cafe.ttf');
+  src: url("/assets/font/Louis George Cafe.ttf");
 }
 
-body{
+body {
   overscroll-behavior: none;
- 
 }
-html, body, section, h1, h2, h3, h4, p {
+html,
+body,
+section,
+h1,
+h2,
+h3,
+h4,
+p {
   margin: 0;
   padding: 0;
 }
 
 h1 {
-  font-family: 'LemonMilkBold';
+  font-family: "LemonMilkBold";
   font-size: 4em;
   line-height: 1.1;
-  margin-bottom: .7rem;
+  margin-bottom: 0.7rem;
 }
 h2 {
   font-size: 2em;
@@ -48,33 +54,35 @@ h3 {
 h4 {
   font-size: 2em;
 }
-h2, h3, h4 {  
-  font-family: 'LemonMilk';
+h2,
+h3,
+h4 {
+  font-family: "LemonMilk";
 }
 
-p{
-  font-family: 'LouisGeorgeCafe';  
+p {
+  font-family: "LouisGeorgeCafe";
   font-size: 1.8em;
   line-height: 1.2;
-  margin-bottom: .5rem;
+  margin-bottom: 1.5rem;
+  text-align: justify;
 }
 
 .mt-70 {
   margin-top: 70px;
 }
 .page {
-  width: 100%;  
+  width: 100%;
   min-height: 800px;
   padding-top: 60px;
   transform: skewY(0deg);
   overflow: hidden;
   position: relative;
 }
-.block{
+.block {
   width: 1200px;
-  margin : 0 auto;
+  margin: 0 auto;
   transform: skewY(0deg);
-  text-align: justify;
 }
 ul {
   list-style: none;
