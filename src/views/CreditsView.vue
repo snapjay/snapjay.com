@@ -129,7 +129,7 @@ export default defineComponent({
       </ul>
       <h2>Peronal Projects</h2>
       <ul>
-        <LogoLink :data="personal" width="25" />
+        <LogoLink :data="personal" :width="25" />
       </ul>
     </div>
   </div>

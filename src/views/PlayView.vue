@@ -80,14 +80,14 @@ export default {
           <Card
             img="noun-saw-table-3437774.svg"
             title="Wood Working"
-            desc="Woodworking is a passion of mine, and I have taken this interest to the next level by establishing a small woodshop. My proficiency in web skills seamlessly transitions to my work with Computer Numerical Control (CNC) machinery, where I leverage my expertise to create intricate wood designs and projects."
+            desc="Woodworking is a passion of mine, I have built a small woodshop. My proficiency in SVG web skills transitions to my work with my CNC machine.  Click the boot to checkout my creations."
             ><a
               href="http://oldboot.us"
               target="_blank"
-              rel="noopener noreferrer"
-              >oldboot.us</a
-            ></Card
-          >
+              ><img
+                src="/assets/img/credits/boot.svg"
+                :style="{ width: '50px' }" /></a
+          ></Card>
           <Card
             img="noun-gluten-4321747.svg"
             title="Growing Food"

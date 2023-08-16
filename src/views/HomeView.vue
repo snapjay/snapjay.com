@@ -27,9 +27,9 @@ export default {
 <template>
   <div ref="page" class="page">
     <div class="block">
-      <div class="grid">
+      <div class="grid ">
         <h1>snapjay</h1>
-        <div>
+        <div class="mt-70">
           <h2>
             An Experienced <br />
             Frontend Web Developer
@@ -49,10 +49,10 @@ export default {
           </p>
         </div>
         <div>
-          <div class="glitch hero" ref="hero">
+          <div class="glitch hero mt-70 " ref="hero">
             <img
               src="/assets/img/home/hunter.jpg"
-              alt="Photo of Hunter"
+              alt="Photo of Dan"
               draggable="false"
             />
             <div class="glitch__layers">
