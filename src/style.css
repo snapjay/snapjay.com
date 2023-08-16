@@ -79,7 +79,7 @@ p {
   position: relative;
 }
 .block {
-  width: 1200px;
+  width: 80%;
   margin: 0 auto;
   transform: skewY(0deg);
 }
