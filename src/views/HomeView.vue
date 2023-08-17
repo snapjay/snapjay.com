@@ -1,6 +1,8 @@
 <script>
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
+import { NGrid, NGridItem } from "naive-ui";
+
 export default {
   name: "HomeView",
   mounted() {
@@ -21,6 +23,10 @@ export default {
       });
     },
   },
+  components: {
+    NGrid,
+    NGridItem,
+  },
 };
 </script>
 
@@ -29,39 +35,43 @@ export default {
     <div class="block">
       <div class="grid">
         <h1>snapjay</h1>
-        <div class="mt-70">
-          <h2>
-            An Experienced <br />
-            Frontend Web Developer
-          </h2>
-          <p>
-            With over 15 years dedicated to website development, I specialize in
-            front-end VueJS expertise. I prioritize meticulous attention to
-            detail, employing prototyping and user testing to ensure integrity
-            in code development.
-          </p>
-          <p>
-            I am adept at balancing user experience with business objectives,
-            adeptly crafting JavaScript interfaces that harmonize both aspects.
-            My portfolio includes collaborations with award-winning agencies,
-            contributing to projects for prominent brands like Intel, TD Canada
-            Trust, eBay UK, BBC Worldwide, and Telus Mobility.
-          </p>
-        </div>
-        <div>
-          <div class="glitch hero mt-70" ref="hero">
-            <img
-              src="/assets/img/home/hunter.jpg"
-              alt="Photo of Dan"
-              draggable="false"
-            />
-            <div class="glitch__layers">
-              <div class="glitch__layer"></div>
-              <div class="glitch__layer"></div>
-              <div class="glitch__layer"></div>
-            </div>
-          </div>
-        </div>
+        <NGrid cols="1 900:2" x-gap="12">
+          <NGridItem>
+            <div class="mt-70">
+              <h2>
+                An Experienced <br />
+                Frontend Web Developer
+              </h2>
+              <p>
+                With over 15 years dedicated to website development, I
+                specialize in front-end VueJS expertise. I prioritize meticulous
+                attention to detail, employing prototyping and user testing to
+                ensure integrity in code development.
+              </p>
+              <p>
+                I am adept at balancing user experience with business
+                objectives, adeptly crafting JavaScript interfaces that
+                harmonize both aspects. My portfolio includes collaborations
+                with award-winning agencies, contributing to projects for
+                prominent brands like Intel, TD Canada Trust, eBay UK, BBC
+                Worldwide, and Telus Mobility.
+              </p>
+            </div></NGridItem
+          >
+          <NGridItem>
+            <div class="glitch hero mt-70" ref="hero">
+              <img
+                src="/assets/img/home/hunter.jpg"
+                alt="Photo of Dan"
+                draggable="false"
+              />
+              <div class="glitch__layers">
+                <div class="glitch__layer"></div>
+                <div class="glitch__layer"></div>
+                <div class="glitch__layer"></div>
+              </div></div
+          ></NGridItem>
+        </NGrid>
       </div>
     </div>
     <img src="/assets/img/home/border.svg" class="border" draggable="false" />
@@ -90,12 +100,12 @@ h2 {
 .page {
   background-color: rgb(209, 173, 125);
   background-image: url(/assets/img/home/paper.jpg);
-  
+
   padding-bottom: 90px;
 }
 .grid {
   display: grid;
-  grid-template-columns: 80px 1fr 495px;
+  grid-template-columns: 80px 1fr;
   grid-gap: 20px;
 }
 .hero {

@@ -1,7 +1,7 @@
 <script>
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
-import { NPopover } from "naive-ui";
+import { NPopover, NGrid, NGridItem } from "naive-ui";
 
 export default {
   name: "LogoLink",
@@ -35,38 +35,41 @@ export default {
   },
   components: {
     NPopover,
+    NGrid,
+    NGridItem,
   },
 };
 </script>
 <template>
-  <ul class="mt-70">
-    <li
-      ref="page"
-      v-for="client in data"
-      v-bind:key="client.id"
-      :style="{ width: `${width}%` }"
-    >
-      <NPopover trigger="hover" :content-style="{ maxWidth: '400px' }">
-        <template #trigger>
-          <a :href="client.href" target="_blank" rel="noopener noreferrer">
-            <img
-              ref="image"
-              :src="`/assets/img/${client.img}`"
-              draggable="false"
-              :alt="`${client.title} logo`"
-          /></a>
-        </template>
-        <h4>{{ client.title }}</h4>
-        <p>{{ client.desc }}</p>
-      </NPopover>
-    </li>
-  </ul>
+  <div class="block">
+  <NGrid cols="2 900:4" x-gap="12" y-gap="36" >
+    <NGridItem v-for="client in data" class="cell" v-bind:key="client.id">
+      <div ref="page">
+        <NPopover trigger="hover" :content-style="{ maxWidth: '400px' }">
+          <template #trigger>
+            <a :href="client.href" target="_blank" rel="noopener noreferrer">
+              <img
+                ref="image"
+                :src="`/assets/img/${client.img}`"
+                draggable="false"
+                :alt="`${client.title} logo`"
+            /></a>
+          </template>
+          <h4>{{ client.title }}</h4>
+          <p>{{ client.desc }}</p>
+        </NPopover>
+      </div>
+    </NGridItem>
+  </NGrid></div>
 </template>
-
 <style scoped>
-li {
-  align-content: center;
-  display: inline-block;
+.block {
+  margin-bottom: 70px;
+}
+.cell {
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 a {
   display: inline-block;

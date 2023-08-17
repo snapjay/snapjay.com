@@ -41,6 +41,13 @@ export default defineComponent({
         href: "https://www.topgear.com/",
       },
       {
+        id: "8",
+        img: "credits/Intel_logo.svg",
+        title: "Intel",
+        desc: "Built a tempoary micro site for a promotional back-to-school campaign contest between Intel and Staples",
+        href: "https://www.intel.com/",
+      },
+      {
         id: "6",
         img: "credits/Toronto-Dominion_Bank.svg",
         title: "TD Bank",
@@ -138,6 +145,7 @@ export default defineComponent({
 <style lang="scss" scoped>
 .page {
   padding-top: 100px;
+  padding-bottom: 100px;  
   background-color: rgb(247, 246, 231);
 }
 </style>
