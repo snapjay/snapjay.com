@@ -96,7 +96,7 @@ export default {
       </div>
 
       
-        <LogoLink :data="skills" :width="25" />
+        <LogoLink :data="skills" />
       
     </div>
     <div>

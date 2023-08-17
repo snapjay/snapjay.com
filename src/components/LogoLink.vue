@@ -28,10 +28,6 @@ export default {
       type: Object,
       required: true,
     },
-    width: {
-      type: Number,
-      default: 25,
-    },
   },
   components: {
     NPopover,
@@ -53,6 +49,8 @@ export default {
                 :src="`/assets/img/${client.img}`"
                 draggable="false"
                 :alt="`${client.title} logo`"
+                width=""
+                height=""
             /></a>
           </template>
           <h4>{{ client.title }}</h4>
