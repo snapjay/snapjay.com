@@ -27,7 +27,7 @@ export default {
 <template>
   <div ref="page" class="page">
     <div class="block">
-      <div class="grid ">
+      <div class="grid">
         <h1>snapjay</h1>
         <div class="mt-70">
           <h2>
@@ -49,7 +49,7 @@ export default {
           </p>
         </div>
         <div>
-          <div class="glitch hero mt-70 " ref="hero">
+          <div class="glitch hero mt-70" ref="hero">
             <img
               src="/assets/img/home/hunter.jpg"
               alt="Photo of Dan"
@@ -101,7 +101,6 @@ h2 {
 .hero {
   height: 495px;
 }
-/* https://freefrontend.com/css-glitch-effects/ */
 .glitch {
   position: relative;
   overflow: hidden;
@@ -130,11 +129,11 @@ h2 {
   background-position: 0 0;
 }
 .glitch__layer:nth-child(3) {
-  transform: translateX(-1%);
+  transform: translateX(-3%);
   animation: glitch-anim-flash 3.1s infinite linear;
 }
 .glitch__layer:nth-child(2) {
-  transform: translateX(-2%);
+  transform: translateX(-4%);
   animation: glitch-anim-flash-2 7.2s infinite linear;
 }
 .glitch__layer:nth-child(1) {

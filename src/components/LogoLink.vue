@@ -17,7 +17,7 @@ export default {
           start: "top bottom",
           scrub: true,
         },
-        delay:0,
+        delay: 0,
         scale: 1.2,
         ease: "none",
       });
@@ -39,26 +39,28 @@ export default {
 };
 </script>
 <template>
-  <li
-    ref="page"
-    v-for="client in data"
-    v-bind:key="client.id"
-    :style="{ width: `${width}%` }"
-  >
-    <NPopover trigger="hover" :content-style="{ maxWidth: '400px' }">
-      <template #trigger>
-        <a :href="client.href" target="_blank" rel="noopener noreferrer">
-          <img
-            ref="image"
-            :src="`/assets/img/${client.img}`"
-            draggable="false"
-            :alt="`${client.title} logo`"
-        /></a>
-      </template>
-      <h4>{{ client.title }}</h4>
-      <p>{{ client.desc }}</p>
-    </NPopover>
-  </li>
+  <ul class="mt-70">
+    <li
+      ref="page"
+      v-for="client in data"
+      v-bind:key="client.id"
+      :style="{ width: `${width}%` }"
+    >
+      <NPopover trigger="hover" :content-style="{ maxWidth: '400px' }">
+        <template #trigger>
+          <a :href="client.href" target="_blank" rel="noopener noreferrer">
+            <img
+              ref="image"
+              :src="`/assets/img/${client.img}`"
+              draggable="false"
+              :alt="`${client.title} logo`"
+          /></a>
+        </template>
+        <h4>{{ client.title }}</h4>
+        <p>{{ client.desc }}</p>
+      </NPopover>
+    </li>
+  </ul>
 </template>
 
 <style scoped>

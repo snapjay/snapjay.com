@@ -113,30 +113,31 @@ export default defineComponent({
     <div class="block">
       <h1>Credits</h1>
       <p>
-
-        My project portfolio encompasses a diverse range, spanning from nascent stage prototypes to fully-fledged production websites. My professional journey has encompassed freelance endeavors and the management of personal websites. I have also thrived in the dynamic landscapes of small startup environments and collaborative ventures with compact agencies.
+        My project portfolio encompasses a diverse range, spanning from nascent
+        stage prototypes to fully-fledged production websites. My professional
+        journey has encompassed freelance endeavors and the management of
+        personal websites. I have also thrived in the dynamic landscapes of
+        small startup environments and collaborative ventures with compact
+        agencies.
       </p>
       <p>
-        Noteworthy brands that have featured in my project roster include follows, among others. I invite you to connect with me to delve deeper into the specifics of projects associated with the brands that pique your interest.
+        Noteworthy brands that have featured in my project roster include
+        follows, among others. I invite you to connect with me to delve deeper
+        into the specifics of projects associated with the brands that pique
+        your interest.
       </p>
       <h2>Clients</h2>
-      <ul>
-        <LogoLink :data="clients" />
-      </ul>
+      <LogoLink :data="clients" />
       <h2>Books</h2>
-      <ul>
-        <LogoLink :data="books" />
-      </ul>
+      <LogoLink :data="books" />
       <h2>Peronal Projects</h2>
-      <ul>
-        <LogoLink :data="personal" :width="25" />
-      </ul>
+      <LogoLink :data="personal" :width="25" />
     </div>
   </div>
 </template>
 <style lang="scss" scoped>
 .page {
-  padding-top:100px;
+  padding-top: 100px;
   background-color: rgb(247, 246, 231);
 }
 </style>

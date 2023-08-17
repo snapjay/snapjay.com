@@ -55,15 +55,12 @@ export default defineComponent({
         more about my work, please do not hesitate to reach out via the contact
         information provided. Thank you!
       </p>
-      <ul class="mt-70">
-        <LogoLink :data="connect" :width="25" />
-      </ul>
+      <LogoLink :data="connect" :width="25" />
     </div>
   </div>
 </template>
 
 <style scoped>
-
 .page {
   color: #fff;
   background: linear-gradient(90deg, #f56302, #f7c602);

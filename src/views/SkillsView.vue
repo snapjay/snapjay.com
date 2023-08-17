@@ -95,9 +95,9 @@ export default {
         </p>
       </div>
 
-      <ul class="mt-70">
+      
         <LogoLink :data="skills" :width="25" />
-      </ul>
+      
     </div>
     <div>
       <!-- <img src="/assets/img/skills/Ducks_v5.png" width="400"/> -->
