@@ -43,10 +43,10 @@ export default {
                 Frontend Web Developer
               </h2>
               <p>
-                With over 15 years dedicated to website development, I
-                specialize in front-end VueJS expertise. I prioritize meticulous
-                attention to detail, employing prototyping and user testing to
-                ensure integrity in code development.
+                With over 20 years dedicated to website development, I
+                specialize in front-end VueJS and ReactJS expertise. I
+                prioritize meticulous attention to detail, employing prototyping
+                and user testing to ensure integrity in code development.
               </p>
               <p>
                 I am adept at balancing user experience with business
