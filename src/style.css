@@ -1,0 +1,96 @@
+:root {
+  font-family: Inter, system-ui, Avenir, Helvetica, Arial, sans-serif;
+  line-height: 1.5;
+  font-weight: 400;
+
+  color-scheme: light dark;
+  font-synthesis: none;
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  -webkit-text-size-adjust: 100%;
+}
+
+@font-face {
+  font-family: LemonMilk;
+  src: url(/assets/font/LEMONMILK-Regular.otf);
+}
+@font-face {
+  font-family: LemonMilkBold;
+  src: url(/assets/font/LEMONMILK-Bold.otf);
+}
+@font-face {
+  font-family: LouisGeorgeCafe;
+  src: url("/assets/font/Louis George Cafe.ttf");
+}
+
+body {
+  overscroll-behavior: none;
+}
+html,
+body,
+section,
+h1,
+h2,
+h3,
+h4,
+p {
+  margin: 0;
+  padding: 0;
+}
+
+h1 {
+  font-family: "LemonMilkBold";
+  font-size: 4em;
+  line-height: 1.1;
+  margin-bottom: 1rem;
+}
+h2 {
+  font-size: 2em;
+}
+h3 {
+  font-size: 1.5em;
+}
+h4 {
+  font-size: 2em;
+}
+h2,
+h3,
+h4 {
+  margin-bottom: 1rem;
+  font-family: "LemonMilk";
+}
+
+p {
+  font-family: "LouisGeorgeCafe";
+  font-size: 1.8em;
+  line-height: 1.2;
+  margin-bottom: 1.5rem;
+  text-align: justify;
+}
+
+.mt-70 {
+  margin-top: 70px;
+}
+.page {
+  width: 100%;
+  transform: skewY(0deg);
+  overflow: hidden;
+  position: relative;
+}
+.block {
+  width: 80%;
+  margin: 0 auto;
+  transform: skewY(0deg);
+}
+ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  margin-bottom: 20px;
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: center;
+}
