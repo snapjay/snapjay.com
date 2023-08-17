@@ -32,23 +32,35 @@ export default {
 <template>
   <div ref="page" class="page">
     <div class="background"></div>
-    <img class="grunge" src="/assets/img/play/grunge.svg" />
+    <img class="grunge" src="/assets/img/play/grunge.svg"  draggable="false"  alt="" role="presentation" aria-hidden="true"/>
 
     <div class="trees">
       <img
         class="tree"
         src="/assets/img/play/tree.svg"
         :style="{ width: '32%', top: '-30px' }"
+        draggable="false"
+        alt=""
+        role="presentation"
+        aria-hidden="true"
       />
       <img
         class="tree"
         src="/assets/img/play/tree.svg"
         :style="{ width: '28%', transform: 'rotate(2deg)', top: '390px' }"
+        draggable="false"
+        alt=""
+        role="presentation"
+        aria-hidden="true"
       />
       <img
         class="tree"
         src="/assets/img/play/tree.svg"
         :style="{ width: '24%', transform: 'rotate(180deg)', right: 0 }"
+        draggable="false"
+        alt=""
+        role="presentation"
+        aria-hidden="true"
       />
       <img
         class="tree"
@@ -59,6 +71,10 @@ export default {
           top: '340px',
           right: 0,
         }"
+        draggable="false"
+        alt=""
+        role="presentation"
+        aria-hidden="true"
       />
       <div class="block">
         <h1>Play</h1>
@@ -81,10 +97,9 @@ export default {
             img="noun-saw-table-3437774.svg"
             title="Wood Working"
             desc="Woodworking is a passion of mine, I have built a small woodshop. My proficiency in SVG web skills transitions to my work with my CNC machine.  Click the boot to checkout my creations."
-            ><a
-              href="http://oldboot.us"
-              target="_blank"
+            ><a href="http://oldboot.us" target="_blank"
               ><img
+                alt="Picture of oldboot logo"
                 src="/assets/img/credits/boot.svg"
                 :style="{ width: '50px' }" /></a
           ></Card>
@@ -106,7 +121,14 @@ export default {
         </div>
       </div>
     </div>
-    <img class="grunge bottom" src="/assets/img/play/grungeUp.svg" />
+    <img
+      class="grunge bottom"
+      src="/assets/img/play/grungeUp.svg"
+      draggable="false"
+      alt=""
+      role="presentation"
+      aria-hidden="true"
+    />
   </div>
 </template>
 <style scoped>

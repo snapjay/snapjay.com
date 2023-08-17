@@ -13,15 +13,21 @@
 
 @font-face {
   font-family: LemonMilk;
+  font-style: normal;
   src: url(/assets/font/LEMONMILK-Regular.otf);
+  font-display: swap;
 }
 @font-face {
   font-family: LemonMilkBold;
+  font-style: bold;
   src: url(/assets/font/LEMONMILK-Bold.otf);
+  font-display: swap;
 }
 @font-face {
   font-family: LouisGeorgeCafe;
+  font-style: normal;
   src: url("/assets/font/Louis George Cafe.ttf");
+  font-display: swap;
 }
 
 body {

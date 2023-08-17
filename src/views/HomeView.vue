@@ -61,9 +61,11 @@ export default {
           <NGridItem>
             <div class="glitch hero mt-70" ref="hero">
               <img
-                src="/assets/img/home/hunter.jpg"
+                src="/assets/img/home/hunter.webp"
                 alt="Photo of Dan"
                 draggable="false"
+                width="500"
+                height="490"
               />
               <div class="glitch__layers">
                 <div class="glitch__layer"></div>
@@ -74,7 +76,14 @@ export default {
         </NGrid>
       </div>
     </div>
-    <img src="/assets/img/home/border.svg" class="border" draggable="false" />
+    <img
+      src="/assets/img/home/border.svg"
+      class="border"
+      draggable="false"
+      alt=""
+      role="presentation"
+      aria-hidden="true"
+    />
   </div>
 </template>
 <style scoped>
@@ -99,7 +108,7 @@ h2 {
 }
 .page {
   background-color: rgb(209, 173, 125);
-  background-image: url(/assets/img/home/paper.jpg);
+  background-image: url(/assets/img/home/paper.webp);
 
   padding-bottom: 90px;
 }
@@ -134,7 +143,7 @@ h2 {
   right: 0;
   top: 0;
   bottom: 0;
-  background-image: url(/assets/img/home/hunter.jpg);
+  background-image: url(/assets/img/home/hunter.webp);
   background-repeat: no-repeat;
   background-position: 0 0;
 }

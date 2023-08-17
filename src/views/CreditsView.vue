@@ -65,14 +65,14 @@ export default defineComponent({
     books: [
       {
         id: "1",
-        img: "credits/6551OS_Building-Commerce-Application.jpg",
+        img: "credits/6551OS_Building-Commerce-Application.webp",
         title: "Building E-Commerce Application",
         desc: "Subsequent to the release of NGCart there emerged interest in crafting a book that featured it as a cornerstone while exploring the development of e-commerce solutions within the MEAN stack. I was invited to serve as the technical editor for this endeavor.",
         href: "https://www.amazon.com/Building-Commerce-Application-Adrian-Mejia/dp/1785286552/ref=sr_1_1?tag=snapjay-20",
       },
       {
         id: "2",
-        img: "credits/3945OS_4522_M.E.A.N.Blueprints.jpg",
+        img: "credits/3945OS_4522_M.E.A.N.Blueprints.webp",
         title: "MEAN Blueprints",
         desc: "Following the success of the initial book, a subsequent publication was pursued, delving deeper into the intricacies of the MEAN stack framework. This follow-up book aimed to provide a more comprehensive understanding and exploration of MEAN stack technologies of which I serve as the technical editor.",
         href: "https://www.amazon.com/MEAN-Blueprints-Adrian-Mejia/dp/1783983945/ref=sr_1_2?tag=snapjay-20",

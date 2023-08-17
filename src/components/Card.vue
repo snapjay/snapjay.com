@@ -41,12 +41,12 @@ export default {
 <template>
   <div ref="card" class="cardCont">
     <div ref="back" class="cardBack">
-      <h4>{{ title }}</h4>
+      <h3>{{ title }}</h3>
       <p>{{ desc }} </p><slot></slot>
       
     </div>
     <div ref="front" class="cardFront">
-      <img :src="`/assets/img/play/${img}`" />
+      <img :src="`/assets/img/play/${img}`" :alt="`Representaion of ${title}`" />
     </div>
   </div>
 </template>
@@ -71,7 +71,7 @@ export default {
   -ms-backface-visibility: hidden;
   color: #000;
   border-radius: 8px;
-  h4 {
+  h3 {
     padding-top: 10px;
     font-size: 14px;
     margin-bottom: 0;
