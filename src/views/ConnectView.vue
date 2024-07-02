@@ -1,4 +1,3 @@
-
 <script>
 import { defineComponent } from "vue";
 import LogoLink from "../components/LogoLink.vue";
@@ -72,15 +71,18 @@ li {
   display: inline-block;
   width: 25%;
 }
+
 a {
   display: inline-block;
   color: #fff;
 }
+
 img {
   align-self: center;
   width: 200px;
   transition: transform 0.7s ease-in-out;
 }
+
 img:hover {
   transform: scale(1.1);
 }

@@ -1,0 +1,83 @@
+@import './base.css';
+
+#app {
+  display: grid;
+  grid-template-columns: 150px 1fr;
+  margin: 0 auto;
+  padding: 1rem;
+  font-weight: normal;
+  height: 100%;
+}
+
+h1,
+h2,
+h3 {
+  font-family: 'Anton SC', sans-serif;
+  font-weight: 400;
+  font-style: normal;
+  color: #fff;
+  margin-bottom: 1rem;
+  text-shadow: 2px 2px 4px #000000;
+}
+h1 {
+  font-size: 7rem;
+  text-align: justify;
+  text-transform: uppercase;
+  letter-spacing: -0.03em;
+  line-height: 0.9;
+  margin-bottom: 0.5rem;
+}
+
+h2 {
+  font-size: 4rem;
+  text-transform: uppercase;
+  line-height: 0.9;
+}
+
+h3 {
+  font-size: 2rem;
+  text-transform: lowercase;
+  line-height: 0.9;
+}
+
+div.invert {
+  color: #000;
+  background-color: #fff;
+  padding: 1rem;
+  margin-bottom: 1rem;
+}
+
+div.invert h2,
+div.invert h1 {
+  color: #000;
+  text-shadow: none;
+}
+
+h1.black,
+h2.black,
+h3.black {
+  color: #000;
+  text-shadow: none;
+}
+
+.pad {
+  padding: 1rem;
+}
+
+hr {
+  border: 0;
+  border-top: 1px solid #666363;
+  margin: 1rem 0;
+}
+
+.invert hr {
+  border: 0;
+  border-top: 1px solid #d4d1d1;
+  margin: 1rem 0;
+}
+
+img.hero {
+  width: 100%;
+  height: auto;
+  border-radius: 0.5rem;
+}
