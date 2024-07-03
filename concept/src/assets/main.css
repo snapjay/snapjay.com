@@ -21,7 +21,6 @@ h3 {
 }
 h1 {
   font-size: 7rem;
-  text-align: justify;
   text-transform: uppercase;
   letter-spacing: -0.03em;
   line-height: 0.9;
@@ -80,4 +79,12 @@ img.hero {
   width: 100%;
   height: auto;
   border-radius: 0.5rem;
+}
+
+img.grow {
+  transition: transform 0.3s ease-in-out;
+}
+
+img.grow:hover {
+  transform: scale(1.1);
 }
