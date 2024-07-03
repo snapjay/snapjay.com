@@ -2,10 +2,6 @@
 import { computed } from 'vue'
 
 const props = defineProps({
-  title: {
-    type: String,
-    required: false
-  },
   background: {
     type: String,
     required: false
@@ -28,10 +24,9 @@ const panelStyle = computed(() => ({
 </script>
 
 <template>
-  <div class="panel" :style="panelStyle" :class="{ invert: props.invert }">
-    <h1 v-if="title" class="pad">{{ title }}</h1>
+  <article class="panel" :style="panelStyle" :class="{ invert: props.invert }">
     <slot></slot>
-  </div>
+  </article>
 </template>
 
 <style scoped>
@@ -49,8 +44,9 @@ const panelStyle = computed(() => ({
   z-index: 0;
 }
 
-.panel.invert {
+.invert {
   background-color: #fff;
+  padding: 0;
 }
 
 .panel:hover {

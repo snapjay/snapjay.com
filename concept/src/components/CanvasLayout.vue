@@ -17,7 +17,7 @@ defineProps({
 
 <template>
   <div id="canvas" v-dragscroll class="draggable-container">
-    <Panel title="Seasoned Front End Developer" background="44956031652_f1348f0645_b.jpg">
+    <Panel background="44956031652_f1348f0645_b.jpg">
       <HomePanel />
     </Panel>
     <Panel>
@@ -29,7 +29,7 @@ defineProps({
     <Panel>
       <BooksPanel />
     </Panel>
-    <Panel title="Personal Projects">
+    <Panel>
       <PersonalPanel />
     </Panel>
     <Panel background="felt.jpg" :cover="false">

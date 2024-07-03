@@ -1,35 +1,36 @@
 <template>
     <div class="pad">
-        <img src="/rose-flower.jpg" alt="Skills" class="hero" />
+        <img src="/rose-flower.jpg" alt="Rose" class="hero" aria-hidden="true" />
         <div class="wrapper">
             <h1 class="glitch">Skills</h1>
         </div>
-    </div>
-    <p class="pad">This is some additional content inside the Panel component.</p>
-    <div class="invert">
-        <h2>Vue and React</h2>
         <p>Throughout my career, I have honed my expertise in front-end development, specializing in
             JavaScript, HTML, and
-            CSS. My current role as Director of Product Strategy is fortified by prior experience as a product
-            owner,
-            affording me a comprehensive perspective on the pivotal role of interfaces in optimizing end-user
-            interactions.</p>
+            CSS. I have served as Director of Product Strategy, fortified by prior experience as a Senior Software
+            Engineer has
+            affording me a comprehensive perspective on end to end life cycle of a software development.</p>
+    </div>
+    <div class="invert">
+        <h2>Vue and React</h2>
+        <p>I have surfed the wave of front end tooling from JQuery; Angular; to Vue and ReactJS. I am excited to
+            use the latest tools, libraries and frameworks that facilitate fast and easy to maintain code.
+            I have spent the most recent years working with VueJS and ReactJS.
+        </p>
     </div>
     <div class="pad">
         <h2>Node.JS MongoDB</h2>
-        <p>I champion the utilization of rapid prototyping and rigorous usability testing as pivotal tools in validating
-            product concepts before embarking on the development phase. I hold an intrinsic penchant for crafting code
-            that is both efficient and elegant, enabling me to orchestrate intricate functionalities while upholding the
-            tenets of a superior user experience.</p>
+        <p>While specializing in front end; My skills are transferable to backend capacity; using Node.js and MongoDB
+            framework to build full stack products.</p>
     </div>
-    <img src="/tulips-7884877_1280.webp" alt="Skills" class="hero" />
+    <div class="invert">
+        <h2>User Experience</h2>
+        <p>I advocate the utilization of rapid prototyping and usability testing as pivotal tools in validating
+            product concepts before embarking on the development phase. I strive to prove the success of the product
+            before production dollar are spent, so no costly mistakes are made.</p>
+    </div>
+    <img src="/tulips-7884877_1280.webp" alt="Tulip" class="hero" aria-hidden="true" />
 
 </template>
-<script>
-export default {
-    name: 'SkillsPanel',
-}
-</script>
 <style scoped>
 .pad:hover h1.glitch {
     position: relative;
