@@ -38,14 +38,23 @@ defineProps({
     <Panel :invert="true">
       <ContactPanel />
     </Panel>
+    <div></div>
   </div>
 </template>
 
 <style scoped>
 #canvas {
+  padding-left: 10rem;
   display: grid;
   height: 100%;
   grid-gap: 1rem;
-  grid-template-columns: repeat(7, 500px);
+  grid-template-columns: repeat(7, 500px) 0.5rem;
+}
+
+@media (max-width: 900px) {
+  #canvas {
+    padding-left: 0;
+    grid-template-columns: 1fr;
+  }
 }
 </style>

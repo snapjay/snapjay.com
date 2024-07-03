@@ -11,14 +11,14 @@
             affording me a comprehensive perspective on end to end life cycle of a software development.</p>
     </div>
     <div class="invert">
-        <h2>Vue and React</h2>
+        <h2>Vue & React</h2>
         <p>I have surfed the wave of front end tooling from JQuery; Angular; to Vue and ReactJS. I am excited to
             use the latest tools, libraries and frameworks that facilitate fast and easy to maintain code.
             I have spent the most recent years working with VueJS and ReactJS.
         </p>
     </div>
     <div class="pad">
-        <h2>Node.JS MongoDB</h2>
+        <h2>Node & Mongo</h2>
         <p>While specializing in front end; My skills are transferable to backend capacity; using Node.js and MongoDB
             framework to build full stack products.</p>
     </div>

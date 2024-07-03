@@ -42,6 +42,7 @@ const panelStyle = computed(() => ({
     filter 0.9s,
     opacity 0.9s;
   z-index: 0;
+  max-width: 500px;
 }
 
 .invert {

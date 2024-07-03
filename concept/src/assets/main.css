@@ -79,6 +79,7 @@ img.hero {
   width: 100%;
   height: auto;
   border-radius: 0.5rem;
+  max-width: 500px;
 }
 
 img.grow {
