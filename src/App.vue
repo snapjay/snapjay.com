@@ -1,64 +1,81 @@
-<script>
-import HomeView from "./views/HomeView.vue";
-import SkillsView from "./views/SkillsView.vue";
-import CreditsView from "./views/CreditsView.vue";
-import PlayView from "./views/PlayView.vue";
-import ConnectView from "./views/ConnectView.vue";
-import { gsap } from "gsap";
-import { ScrollTrigger } from "gsap/ScrollTrigger";
-import { NConfigProvider } from "naive-ui";
+<script setup>
+import CanvasLayout from './components/CanvasLayout.vue'
 
-export default {
-  name: "App",
-  data() {
-    return {
-      themeOverrides: {
-        Popover: {
-          color: "#35322f",
-          textColor: "#fff",
-          borderRadius: "8px",
-          fontSize: ".6rem",
-        },
-      },
-    };
-  },
-  components: {
-    HomeView,
-    CreditsView,
-    SkillsView,
-    PlayView,
-    ConnectView,
-    NConfigProvider,
-  },
-  mounted() {
-    gsap.registerPlugin(ScrollTrigger);
-  },
-};
+const scrollToEnd = () => {
+  window.scrollTo({
+    left: 0,
+    behavior: 'smooth'
+  });
+}
 </script>
 
 <template>
-  <n-config-provider :theme-overrides="themeOverrides">
-    <div class="container">
-      <section ref="home"><HomeView /></section>
-      <section ref="skill"><SkillsView /></section>
-      <section ref="credit"><CreditsView /></section>
-      <section ref="play"><PlayView /></section>
-      <section ref="connect"><ConnectView /></section>
-
+  <header>
+    <div class="slide">
+      <img src="/assets/img/connect/email.svg" alt="Snapjay" class="logo" />
+      <h1 @click="scrollToEnd">
+        Snap<span>jay</span>
+      </h1>
     </div>
-  </n-config-provider>
+  </header>
+  <CanvasLayout />
 </template>
 
-<style lang="scss" scoped>
-$background: black;
-$foreground: white;
-.container {
-  overscroll-behavior: none;
-  width: 100%;
+<style scoped>
+header {
+  line-height: 1.5;
+  position: fixed;
+  background: var(--color-background);
   height: 100%;
+  width: 156px;
+  z-index: 100;
+  left: 0;
+  top: 0;
+  box-shadow: 4px 0px 10px 4px rgba(0, 0, 0, 0.5);
 }
+
+@media (max-width: 900px) {
+  header {
+    display: none;
+  }
+}
+
+.slide {
+  transform: rotate(-90deg);
+  position: absolute;
+  left: -240px;
+  top: 260px;
+  display: grid;
+  grid-template-columns: 180px 1fr;
+}
+
 h1 {
-  margin: 50px 0;
-  text-align: center;
+  font-size: 10rem;
+}
+
+img {
+  width: 140px;
+  filter: grayscale(100%);
+  opacity: 0.5;
+  transition: opacity 0.9s, filter 0.9s;
+  cursor: pointer;
+}
+
+h1 span {
+  transition: color 0.9s;
+}
+
+.slide:hover span {
+  color: #3592bf;
+}
+
+.slide:hover img {
+  filter: none;
+  opacity: 1;
+}
+
+.logo {
+  display: block;
+  margin: 0 auto 2rem;
 }
 </style>
