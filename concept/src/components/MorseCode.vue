@@ -51,8 +51,6 @@ export default {
 					return 'space'
 				case '!':
 					return 'end';
-				default:
-					return 'gap';
 			}
 		}
 	}
@@ -61,7 +59,7 @@ export default {
 
 <style scoped>
 .symbol {
-	background-color: rgba(109, 79, 24, 0.699);
+	background-color: rgba(32, 29, 24, 0.699);
 	height: 15px;
 	width: 15px;
 	margin: 2px;

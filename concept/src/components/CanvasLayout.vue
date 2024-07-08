@@ -51,10 +51,12 @@ defineProps({
   grid-template-columns: repeat(7, 500px) 0.5rem;
 }
 
-@media (max-width: 900px) {
+@media (max-width: 1200px) {
   #canvas {
-    padding-left: 0;
+    padding-left: 0rem;
     grid-template-columns: 1fr;
+    grid-gap: 0rem;
+    max-width: 100vw;
   }
 }
 </style>

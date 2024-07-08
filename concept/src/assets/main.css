@@ -9,6 +9,25 @@
   height: 100%;
 }
 
+@media (max-width: 1200px) {
+  html,
+  body {
+    width: 100vw;
+    background-color: #000;
+  }
+  #app {
+    padding-left: 0;
+    grid-template-columns: 1fr;
+    grid-gap: 0;
+    width: 100%;
+  }
+  img.hero {
+    display: none;
+  }
+  .panel {
+    margin-bottom: 30px;
+  }
+}
 h1,
 h2,
 h3 {

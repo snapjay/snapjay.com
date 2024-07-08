@@ -24,9 +24,9 @@ const panelStyle = computed(() => ({
 </script>
 
 <template>
-  <article class="panel" :style="panelStyle" :class="{ invert: props.invert }">
+  <section class="panel" :style="panelStyle" :class="{ invert: props.invert }">
     <slot></slot>
-  </article>
+  </section>
 </template>
 
 <style scoped>
@@ -43,6 +43,16 @@ const panelStyle = computed(() => ({
     opacity 0.9s;
   z-index: 0;
   max-width: 500px;
+}
+
+@media (max-width: 1200px) {
+  .panel {
+    width: 100%;
+    margin-bottom: 2rem;
+    opacity: 1;
+    filter: none;
+    border-radius: 0;
+  }
 }
 
 .invert {

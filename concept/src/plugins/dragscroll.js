@@ -1,5 +1,3 @@
-// src/plugins/dragscroll.js
-
 export default {
   install(app) {
     let isDown = false
@@ -7,7 +5,7 @@ export default {
     let startX, startY
     let scrollLeft, scrollTop
 
-    function onMouseDown(e) {
+    const onMouseDown = (e) => {
       isDown = true
       startX = e.clientX
       startY = e.clientY
@@ -17,22 +15,21 @@ export default {
       e.preventDefault()
     }
 
-    function onMouseLeave() {
+    const onMouseLeave = () => {
       isDown = false
       isDragging = false
       document.body.classList.remove('grabbing')
     }
 
-    function onMouseUp() {
+    const onMouseUp = () => {
       isDown = false
       document.body.classList.remove('grabbing')
-      // Delay resetting isDragging to allow click event to check the flag
       setTimeout(() => {
         isDragging = false
       }, 0)
     }
 
-    function onMouseMove(e) {
+    const onMouseMove = (e) => {
       if (!isDown) return
       e.preventDefault()
       const x = e.clientX - startX
@@ -43,7 +40,7 @@ export default {
       window.scrollTo(scrollLeft - x, scrollTop - y)
     }
 
-    function onClick(e) {
+    const onClick = (e) => {
       if (isDragging) {
         e.preventDefault()
         isDragging = false

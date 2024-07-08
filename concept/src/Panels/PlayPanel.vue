@@ -115,6 +115,13 @@ shuffleCards()
   margin-top: 2rem;
 }
 
+@media (max-width: 1200px) {
+  .table {
+    max-width: 100vw;
+    overflow: hidden;
+  }
+}
+
 .card-transition {
   transition:
     top 0.9s ease,

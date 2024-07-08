@@ -11,7 +11,12 @@ const scrollToEnd = () => {
 
 <template>
   <header>
-    <h1 @click="scrollToEnd">Snap<span>jay</span></h1>
+    <div class="slide">
+      <img src="/assets/img/connect/email.svg" alt="Snapjay" class="logo" />
+      <h1 @click="scrollToEnd">
+        Snap<span>jay</span>
+      </h1>
+    </div>
   </header>
   <CanvasLayout />
 </template>
@@ -35,22 +40,38 @@ header {
   }
 }
 
-h1 {
+.slide {
   transform: rotate(-90deg);
   position: absolute;
-  left: -170px;
-  top: 210px;
+  left: -240px;
+  top: 260px;
+  display: grid;
+  grid-template-columns: 180px 1fr;
+}
+
+h1 {
   font-size: 10rem;
+}
+
+img {
+  width: 140px;
+  filter: grayscale(100%);
+  opacity: 0.5;
+  transition: opacity 0.9s, filter 0.9s;
   cursor: pointer;
 }
 
 h1 span {
-
   transition: color 0.9s;
 }
 
-h1:hover span {
+.slide:hover span {
   color: #3592bf;
+}
+
+.slide:hover img {
+  filter: none;
+  opacity: 1;
 }
 
 .logo {
