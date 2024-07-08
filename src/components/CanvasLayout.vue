@@ -29,7 +29,7 @@ defineProps({
     <Panel>
       <BooksPanel />
     </Panel>
-    <Panel>
+    <Panel :invert="true">
       <PersonalPanel />
     </Panel>
     <Panel background="felt.jpg" :cover="false">

@@ -122,6 +122,7 @@ q {
   quotes: none;
   text-transform: uppercase;
   line-height: 1;
+  border-radius: 0 0 0.5rem 0.5rem;
 }
 q .credit {
   font-size: 1rem;

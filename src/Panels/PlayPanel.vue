@@ -25,7 +25,7 @@ const personal = ref([
     id: 1,
     img: 'motocross.svg',
     title: 'Dirtbike',
-    desc: 'I derive most enjoyment from traversing the Rocky Mountains on my dirtbike. Battling terrine and exploring trails, I revel in the discovery of picturesque locations and find peace in natural beauty.'
+    desc: 'I derive most enjoyment from traversing the Rocky Mountains on my dirtbike. Battling mountainous terrain and exploring trails. I revel in the discovery of picturesque locations and find peace in natural beauty.'
   },
   {
     id: 2,

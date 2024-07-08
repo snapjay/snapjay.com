@@ -21,7 +21,7 @@
     </p>
   </div>
   <q>
-    "Your website is the first conversation with your customer. <br /> Make it good."
+    "Your website is the first conversation with your customer. <br /> Make it count."
     <div class="credit">- snapjay</div>
   </q>
 </template>

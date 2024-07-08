@@ -3,14 +3,14 @@ const clients = [
   {
     id: 1,
     img: "Telus-Logo.svg",
-    title: "Telus",
-    desc: "Developed the user interface for the Telus internal employee loyalty and rewards program.",
+    title: "Telus Mobility",
+    desc: "Developed the user interface for the Telus Mobility internal employee loyalty and rewards program.",
     href: "https://www.telus.com/"
   },
   {
     id: 2,
     img: "EBay_logo.svg",
-    title: "eBay",
+    title: "eBay UK",
     desc: "Created a prototype for a \"Community Court\". A concept aimed at effectively resolving conflicts between customers.",
     href: "https://www.ebay.co.uk/"
   },
@@ -52,7 +52,7 @@ const clients = [
   {
     id: 7,
     img: "engage_red_logo.png",
-    title: "Engage People",
+    title: "Engage People Inc",
     desc: "Served in the capacity of Director of Product Development at Engage, spearheading innovation, internal product development, and client-focused initiatives.",
     href: "https://www.engagepeople.com/"
   }
@@ -69,7 +69,7 @@ const clients = [
         <a :href="client.href" target="_blank" rel="noopener noreferrer">
           <img :src="`/assets/img/credits/${client.img}`" class="grow" :alt="client.title" />
         </a>
-        <p>{{ client.desc }}</p>
+        <p><strong>{{ client.title }}.</strong> {{ client.desc }}</p>
       </li>
     </ul>
     <hr />
@@ -86,6 +86,11 @@ img {
   height: auto;
   margin: 1.5rem auto;
   display: block;
+}
+
+
+strong {
+  font-weight: 600;
 }
 
 hr {

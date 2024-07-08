@@ -1,5 +1,6 @@
 <script setup>
 import CanvasLayout from './components/CanvasLayout.vue'
+import Navigator from './components/NavigatorComp.vue'
 
 const scrollToEnd = () => {
   window.scrollTo({
@@ -12,13 +13,15 @@ const scrollToEnd = () => {
 <template>
   <header>
     <div class="slide">
-      <img src="/assets/img/connect/email.svg" alt="Snapjay" class="logo" />
+      <a href="mailto:dan@snapjay.com" alt="Email" target="_blank" rel="noopener noreferrer"><img
+          src="/assets/img/connect/email.svg" alt="Snapjay" class="logo" /></a>
       <h1 @click="scrollToEnd">
         Snap<span>jay</span>
       </h1>
     </div>
   </header>
   <CanvasLayout />
+  <Navigator />
 </template>
 
 <style scoped>

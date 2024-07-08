@@ -43,7 +43,7 @@ export default {
   <div ref="card" class="card">
     <div ref="back" class="cardBack">
       <h3 class="black">{{ title }}</h3>
-      <div>{{ desc }}</div>
+      <p>{{ desc }}</p>
       <slot></slot>
     </div>
     <div ref="front" class="cardFront">
@@ -81,7 +81,7 @@ export default {
   margin-bottom: 0.5rem;
 }
 
-.cardBack div {
+.cardBack p {
   font-size: 0.5rem;
 }
 

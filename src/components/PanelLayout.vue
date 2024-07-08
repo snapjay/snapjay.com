@@ -64,5 +64,6 @@ const panelStyle = computed(() => ({
   opacity: 1;
   z-index: 1;
   filter: grayscale(0%);
+  box-shadow: 0 0 1rem rgba(245, 244, 188, 0.842);
 }
 </style>
