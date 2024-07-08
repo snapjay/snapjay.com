@@ -6,7 +6,7 @@ import CreditsPanel from '../Panels/CreditsPanel.vue'
 import BooksPanel from '../Panels/BooksPanel.vue'
 import PersonalPanel from '../Panels/PersonalPanel.vue'
 import PlayPanel from '../Panels/PlayPanel.vue'
-import ContactPanel from '../Panels/ContactPanel.vue'
+import ConnectPanel from '../Panels/ConnectPanel.vue'
 defineProps({
   msg: {
     type: String,
@@ -36,7 +36,7 @@ defineProps({
       <PlayPanel />
     </Panel>
     <Panel :invert="true">
-      <ContactPanel />
+      <ConnectPanel />
     </Panel>
     <div></div>
   </div>

@@ -1,13 +1,13 @@
 <template>
   <div class="pad">
-    <h1>Contact</h1>
+    <h1>Connect</h1>
     <h2>Lets Be Friends!</h2>
     <ul>
       <li v-for="channel in connect" :key="channel.id">
         <hr />
         <a :href="channel.href" :alt="channel.title" target="_blank" rel="noopener noreferrer">
-          <img :src="`/assets/img/${channel.img}`" class="grow contact" :alt="channel.title"
-            :aria-label="`Contact via ${channel.title}`" />
+          <img :src="`/assets/img/connect/${channel.img}`" class="grow connect" :alt="channel.title"
+            :aria-label="`Connect via ${channel.title}`" />
         </a>
       </li>
     </ul>
@@ -27,32 +27,32 @@ import MorseCode from '/src/components/MorseCode.vue'
 const connect = [
   {
     id: 1,
-    img: '/connect/email.svg',
+    img: 'email.svg',
     title: 'Email',
     href: 'mailto:dan@snapjay.com'
   },
   {
     id: 2,
-    img: '/connect/linkedin.svg',
+    img: 'linkedin.svg',
     title: 'LinkedIn',
     href: 'https://www.linkedin.com/profile/view?id=18683312'
   },
   {
     id: 3,
-    img: '/connect/github.svg',
+    img: 'github.svg',
     title: 'Github',
     href: 'http://github.com/snapjay'
   },
   {
     id: 4,
-    img: '/connect/x.svg',
+    img: 'x.svg',
     title: 'X',
     href: 'https://x.com/snapjay'
   }
 ]
 </script>
 <style scoped>
-.contact {
+.connect {
   width: 250px;
   height: auto;
   margin: 1.5rem auto;

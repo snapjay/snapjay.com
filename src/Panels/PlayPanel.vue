@@ -23,41 +23,41 @@ import Card from '../components/Card.vue'
 const personal = ref([
   {
     id: 1,
-    img: 'noun-motocross-4706122.svg',
+    img: 'motocross.svg',
     title: 'Dirtbike',
     desc: 'I derive most enjoyment from traversing the Rocky Mountains on my dirtbike. Battling terrine and exploring trails, I revel in the discovery of picturesque locations and find peace in natural beauty.'
   },
   {
     id: 2,
-    img: 'noun-chicken-5412599.svg',
+    img: 'chicken.svg',
     title: 'Chickens',
     desc: 'I have nurtured a brood of eight chickens, beginning their journey when they were merely two weeks old. Over time, these feathered companions have evolved into beloved pets, enhancing my daily life with both their companionship and the reward of entertainment and supply of fresh eggs.'
   },
   {
     id: 3,
-    img: 'noun-saw-table-3437774.svg',
+    img: 'saw-table.svg',
     title: 'Wood Working',
     desc: 'Woodworking is a passion of mine, I have built a small woodshop. My proficiency in SVG web skills transitions to my work with my CNC machine. Click the boot to checkout my woodshop.',
     link: {
       href: 'https://oldboot.us',
-      src: '/assets/img/credits/boot.svg'
+      src: '/assets/img/personal/boot.svg'
     }
   },
   {
     id: 4,
-    img: 'noun-gluten-4321747.svg',
+    img: 'gluten.svg',
     title: 'Growing Food',
     desc: 'Cultivating my own food is a deeply ingrained passion of mine. I am interested in agriculture and food production. My dedication extends to growing food from seed whenever possible, reflecting my love of farming and self-sufficiency.'
   },
   {
     id: 5,
-    img: 'noun-concert-5674382.svg',
+    img: 'concert.svg',
     title: 'Country Music',
     desc: 'Country music holds a special place in my heart, and I find solace and enjoyment in its sound. Attending concerts beneath the open sky is an experience I cherish, as the combination of live country music and the vast expanse of stars creates a truly magical ambiance.'
   },
   {
     id: 6,
-    img: 'noun-cooking-2555746.svg',
+    img: 'cooking.svg',
     title: 'Cooking',
     desc: 'Taking pleasure in the full cycle of food, I relish the process of cultivating my own food, nurturing my chickens for their eggs, and subsequently utilizing these homegrown ingredients to prepare meals. This complete journey from seed to plate . I make as much as I can, including  my own pasta, mayo, dressings, cheese, pizza, sauces and bread.'
   }
@@ -117,8 +117,7 @@ shuffleCards()
 
 @media (max-width: 1200px) {
   .table {
-    max-width: 100vw;
-    overflow: hidden;
+    max-width: 90vw;
   }
 }
 
