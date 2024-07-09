@@ -3,7 +3,7 @@
     <h1>Play</h1>
     <div class="table">
       <Card v-for="project in personal" :key="project.id" :img="project.img" :title="project.title"
-        class="card-transition" :desc="project.desc" @click.stop="" :style="{
+        class="card-transition" :desc="project.desc" @click.stop="" :left="project.left" :style="{
           top: project.top,
           left: project.left,
           transform: `rotate(${project.rotation}deg)`
@@ -19,7 +19,7 @@
 </template>
 <script setup>
 import { ref } from 'vue'
-import Card from '../components/Card.vue'
+import Card from '../components/CardComp.vue'
 const personal = ref([
   {
     id: 1,

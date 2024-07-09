@@ -71,4 +71,8 @@ const connect = [
 .target:hover .morseCode {
   opacity: 1;
 }
+
+q {
+  border-radius: 0;
+}
 </style>

@@ -20,7 +20,7 @@ const personal = [
     id: 1,
     title: "Jukebox Tools",
     img: "jukebox-tools-wordmark.svg",
-    desc: "I developed a web application that provides a suite of tools for jukebox enthusiasts, title strip generator, layout studio and record collection manager.",
+    desc: "I developed a web application that provides a suite of tools for jukebox enthusiasts, including title strip generator, layout studio and record collection manager.",
     href: "https://jukebox.tools/"
   },
   {

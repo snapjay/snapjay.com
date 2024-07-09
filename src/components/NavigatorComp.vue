@@ -67,7 +67,7 @@ onBeforeUnmount(() => {
   flex-direction: column;
   align-items: center;
   z-index: 5;
-  opacity: 0.5;
+  opacity: 0.3;
   transition: opacity 0.9s;
   background-color: #4e4a4ac2;
   padding: 0.5rem;
