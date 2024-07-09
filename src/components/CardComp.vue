@@ -11,12 +11,12 @@ const emit = defineEmits(['pickUpCard', 'putCardDown'])
 const card = ref(null)
 const front = ref(null)
 const back = ref(null)
-let isOpen = false
+let isOpen = ref(false)
 let tl
 
 const pickUpCard = () => {
-  if (isOpen) return
-  isOpen = true
+  if (isOpen.value) return
+  isOpen.value = true
   gsap.to(card.value, { duration: 0.1, left: 180 })
   card.value.style.zIndex = 50
   tl.play()
@@ -24,8 +24,8 @@ const pickUpCard = () => {
 }
 
 const putCardDown = () => {
-  if (!isOpen) return
-  isOpen = false
+  if (!isOpen.value) return
+  isOpen.value = false
   gsap.to(card.value, { duration: 0.1, left: props.left })
   tl.reverse().then(() => {
     card.value.style.zIndex = 0
@@ -51,11 +51,13 @@ defineExpose({ id: props.project.id, pickUpCard, putCardDown })
 </script>
 <template>
   <div ref="card" class="card">
-    <div ref="back" class="cardBack">
-      <span class="close-icon" @click.stop="putCardDown">✖</span>
-      <h3 class="black">{{ project.title }}</h3>
-      <p>{{ project.desc }}</p>
-      <slot></slot>
+    <div ref="back" class="cardBack" :style="{ backgroundImage: isOpen && `url('/assets/cards/${project.card}')` }">
+      <div class="inner">
+        <span class="close-icon" @click.stop="putCardDown">✖</span>
+        <h3 class="black">{{ project.title }}</h3>
+        <p>{{ project.desc }}</p>
+        <slot></slot>
+      </div>
     </div>
     <div ref="front" class="cardFront" @click="pickUpCard">
       <img :src="`/assets/img/play/${project.img}`" :alt="`Representation of ${project.title}`" />
@@ -76,7 +78,6 @@ defineExpose({ id: props.project.id, pickUpCard, putCardDown })
   position: absolute;
   width: 150px;
   height: 216px;
-  background: url('/assets/img/play/card.svg');
   background-size: cover;
   -visibility: hidden;
   -webkit-backface-visibility: hidden;
@@ -87,19 +88,28 @@ defineExpose({ id: props.project.id, pickUpCard, putCardDown })
 }
 
 .cardBack h3 {
-  font-size: 1rem;
+  font-size: 1.25rem;
   margin-bottom: 0.5rem;
 }
 
 .cardBack p {
   font-size: 0.5rem;
+  font-weight: 500;
 }
 
 .cardBack {
-  padding: 0.5rem;
   background: #fff;
+  background-size: 100% auto;
   box-shadow: 0 0 10px 4px rgba(0, 5, 10, 0.75);
 }
+
+.cardBack .inner {
+  border-radius: 8px;
+  background-color: #ffffffbd;
+  height: 100%;
+  padding: 0.75rem;
+}
+
 
 .cardFront {
   cursor: pointer;
