@@ -17,8 +17,8 @@
     <div class="credit">- Peter Drucker</div>
   </q>
   <div class="gap target">
-    <img src="/assets/bg/istockphoto-969737146-612x612.jpg" class="hero" alt="Picture of Telegraph Machine"
-      aria-label="Picture of Telegraph Machine" />
+    <img src="/assets/hero/43405c2e194c3a7799562b492c60b501.jpg" class="hero" alt="Picture of Telegraph Machine"
+      aria-label="Picture of a Transmission" />
     <MorseCode class="morseCode" text="dan at snapjay com" />
   </div>
 </template>

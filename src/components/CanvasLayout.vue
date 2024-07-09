@@ -16,7 +16,7 @@ defineProps({
 </script>
 
 <template>
-  <div id="canvas" v-dragscroll class="draggable-container">
+  <div id="canvas" class="draggable-container">
     <Panel background="44956031652_f1348f0645_b.jpg">
       <HomePanel />
     </Panel>

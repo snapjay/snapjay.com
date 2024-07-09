@@ -1,31 +1,36 @@
 <script setup>
-import { onMounted, ref } from 'vue'
+import { onMounted, ref, defineEmits } from 'vue'
 import gsap from 'gsap'
 
 const props = defineProps({
-  img: String,
-  title: String,
-  desc: String,
+  project: Object,
   left: Number
 })
 
+const emit = defineEmits(['pickUpCard', 'putCardDown'])
 const card = ref(null)
 const front = ref(null)
 const back = ref(null)
-
+let isOpen = false
 let tl
 
 const pickUpCard = () => {
+  if (isOpen) return
+  isOpen = true
   gsap.to(card.value, { duration: 0.1, left: 180 })
   card.value.style.zIndex = 50
   tl.play()
+  emit('pickUpCard', props.project.id)
 }
 
 const putCardDown = () => {
+  if (!isOpen) return
+  isOpen = false
   gsap.to(card.value, { duration: 0.1, left: props.left })
   tl.reverse().then(() => {
     card.value.style.zIndex = 0
   })
+  emit('putCardDown', props.project.id)
 }
 
 const setupEvents = () => {
@@ -34,6 +39,7 @@ const setupEvents = () => {
     transformPerspective: 1000,
     left: props.left
   })
+  document.addEventListener('click', putCardDown)
   gsap.set(back.value, { rotationY: -180 })
   tl = gsap.timeline({ paused: true })
     .to(front.value, { duration: 1, rotationY: 180 })
@@ -41,19 +47,18 @@ const setupEvents = () => {
 }
 
 onMounted(setupEvents)
-
-defineExpose({ pickUpCard, putCardDown })
+defineExpose({ id: props.project.id, pickUpCard, putCardDown })
 </script>
 <template>
   <div ref="card" class="card">
     <div ref="back" class="cardBack">
-      <span class="close-icon" @click="putCardDown">✖</span>
-      <h3 class="black">{{ title }}</h3>
-      <p>{{ desc }}</p>
+      <span class="close-icon" @click.stop="putCardDown">✖</span>
+      <h3 class="black">{{ project.title }}</h3>
+      <p>{{ project.desc }}</p>
       <slot></slot>
     </div>
     <div ref="front" class="cardFront" @click="pickUpCard">
-      <img :src="`/assets/img/play/${img}`" :alt="`Representation of ${title}`" />
+      <img :src="`/assets/img/play/${project.img}`" :alt="`Representation of ${project.title}`" />
     </div>
   </div>
 </template>

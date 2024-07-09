@@ -2,12 +2,10 @@
   <div class="pad" @click="shuffleCards">
     <h1>Play</h1>
     <div class="table">
-      <Card v-for="project in personal" :key="project.id" :img="project.img" :title="project.title"
-        class="card-transition" :desc="project.desc" @click.stop="" :left="project.left" :style="{
-          top: project.top,
-          left: project.left,
-          transform: `rotate(${project.rotation}deg)`
-        }">
+      <Card v-for="project in personal" class="card-transition grow" @click.stop="pickUpCardHandler(project.id)"
+        :project="project" :left="project.left"
+        :style="{ top: `${project.top}px`, left: `${project.left}px`, transform: `rotate(${project.rotation}deg)` }"
+        :key="project.id" ref="itemRefs">
         <div v-if="project.link" class="projectLink">
           <a :href="project.link.href" target="_blank">
             <img :src="project.link.src" :alt="project.title" :style="{ width: '60px' }" />
@@ -18,7 +16,7 @@
   </div>
 </template>
 <script setup>
-import { ref } from 'vue'
+import { ref, onMounted } from 'vue'
 import Card from '../components/CardComp.vue'
 const personal = ref([
   {
@@ -62,7 +60,7 @@ const personal = ref([
     desc: 'Taking pleasure in the full cycle of food, I relish the process of cultivating my own food, nurturing my chickens for their eggs, and subsequently utilizing these homegrown ingredients to prepare meals. This complete journey from seed to plate . I make as much as I can, including  my own pasta, mayo, dressings, cheese, pizza, sauces and bread.'
   }
 ])
-
+const itemRefs = ref([])
 const maxWidth = 450
 const maxHeight = 1000
 const itemWidth = 150
@@ -80,7 +78,6 @@ const isOverlapping = (x1, y1, x2, y2) => {
 
 const shuffleCards = () => {
   const positions = []
-
   personal.value.forEach((project) => {
     let newPosition
     let overlapping
@@ -100,12 +97,24 @@ const shuffleCards = () => {
     } while (overlapping)
 
     positions.push(newPosition)
-    project.top = `${newPosition.top}px`
-    project.left = `${newPosition.left}px`
+    project.top = newPosition.top
+    project.left = newPosition.left
     project.rotation = Math.random() * rotate - rotate / 2
   })
 }
-shuffleCards()
+onMounted(() => {
+  shuffleCards()
+})
+
+const pickUpCardHandler = (id) => {
+  itemRefs.value.forEach((itemRef) => {
+    if (itemRef.id !== id) {
+      itemRef.putCardDown();
+    } else {
+      itemRef.pickUpCard();
+    }
+  });
+};
 </script>
 <style scoped>
 .table {
