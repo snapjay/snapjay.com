@@ -24,7 +24,7 @@ const panelStyle = computed(() => ({
 </script>
 
 <template>
-  <section class="panel" :style="panelStyle" :class="{ invert: props.invert }">
+  <section class="panel" :style="panelStyle" :class="{ invert: props.invert }" tabindex="0">
     <slot></slot>
   </section>
 </template>
@@ -61,7 +61,8 @@ const panelStyle = computed(() => ({
   padding: 0;
 }
 
-.panel:hover {
+.panel:hover,
+.panel:focus {
   opacity: 1;
   z-index: 1;
   filter: grayscale(0%);
