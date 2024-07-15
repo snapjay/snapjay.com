@@ -23,20 +23,22 @@ const personal = ref([
     id: 1,
     img: 'motocross.svg',
     title: 'Dirtbike',
-    card: 'spades_jack.svg',
+    // card: 'spades_jack.svg',
+    card: 'dirtbikes2.png',
     desc: 'I derive most enjoyment from traversing the Rocky Mountains on my dirtbike. Battling mountainous terrain and exploring trails. I revel in the discovery of picturesque locations and find peace in natural beauty.'
   },
   {
     id: 2,
     img: 'chicken.svg',
     title: 'Chickens',
-    card: 'hearts_queen.svg',
+    // card: 'hearts_queen.svg',
+    card: 'chicken.png',
     desc: 'I have nurtured a brood of eight chickens, beginning their journey when they were merely two weeks old. Over time, these feathered companions have evolved into beloved pets, enhancing my daily life with both their companionship and the reward of entertainment and supply of fresh eggs.'
   },
   {
     id: 3,
     img: 'saw-table.svg',
-    title: 'Wood Working',
+    title: 'Woodwork',
     card: 'diamonds_king.svg',
     desc: 'Woodworking is a passion of mine, I have built a small woodshop. My proficiency in SVG web skills transitions to my work with my CNC machine. Click the boot to checkout my woodshop.',
     link: {

@@ -22,7 +22,6 @@ export default {
       velocityY = 0
       document.body.classList.add('grabbing')
       cancelAnimationFrame(animationFrameId)
-      e.preventDefault()
     }
 
     const onMouseLeave = () => {

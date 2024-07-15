@@ -50,10 +50,11 @@ onMounted(setupEvents)
 defineExpose({ id: props.project.id, pickUpCard, putCardDown })
 </script>
 <template>
-  <div ref="card" class="card">
-    <div ref="back" class="cardBack" :style="{ backgroundImage: isOpen && `url('/assets/cards/${project.card}')` }">
+  <div ref="card" class="card" tabindex="0" @keyup.enter="pickUpCard">
+    <div ref="back" class="cardBack" @keyup.escape="putCardDown"
+      :style="{ backgroundImage: isOpen && `url('/assets/cards/${project.card}')` }">
       <div class="inner">
-        <span class="close-icon" @click.stop="putCardDown">✖</span>
+        <span class="close-icon" tabindex="0" @click.stop="putCardDown" @keyup.enter="putCardDown">✖</span>
         <h3 class="black">{{ project.title }}</h3>
         <p>{{ project.desc }}</p>
         <slot></slot>

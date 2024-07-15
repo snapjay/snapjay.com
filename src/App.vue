@@ -1,4 +1,5 @@
 <script setup>
+import { ref, onMounted, onUnmounted, provide } from 'vue'
 import CanvasLayout from './components/CanvasLayout.vue'
 import Navigator from './components/NavigatorComp.vue'
 
@@ -8,6 +9,18 @@ const scrollToEnd = () => {
     behavior: 'smooth'
   });
 }
+
+let activeElement = ref(document.activeElement)
+provide('isFocused', activeElement)
+
+onMounted(() => {
+  document.addEventListener('focus', () => {
+    activeElement.value = document.activeElement
+  }, true);
+});
+
+
+
 </script>
 
 <template>

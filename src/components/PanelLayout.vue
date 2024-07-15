@@ -1,5 +1,5 @@
 <script setup>
-import { computed } from 'vue'
+import { computed, ref, inject, watch } from 'vue'
 
 const props = defineProps({
   background: {
@@ -21,10 +21,27 @@ const panelStyle = computed(() => ({
   backgroundImage: props.background ? `url(/assets/bg/${props.background})` : '',
   backgroundSize: props.cover ? 'cover' : 'contain'
 }))
+
+
+const panelElement = ref(null);
+const isFocused = ref(false);
+
+const injectIsFocused = inject('isFocused');
+watch(injectIsFocused, (newValue, oldValue) => {
+  if (panelElement.value && panelElement.value.contains(newValue)) {
+    isFocused.value = true;
+  } else {
+    isFocused.value = false;
+  }
+});
+
+
+
 </script>
 
 <template>
-  <section class="panel" :style="panelStyle" :class="{ invert: props.invert }" tabindex="0">
+  <section class="panel" ref="panelElement" :style="panelStyle" :class="{ invert: props.invert, focused: isFocused }"
+    tabindex="0">
     <slot></slot>
   </section>
 </template>
@@ -62,7 +79,8 @@ const panelStyle = computed(() => ({
 }
 
 .panel:hover,
-.panel:focus {
+.panel:focus,
+.panel.focused {
   opacity: 1;
   z-index: 1;
   filter: grayscale(0%);
