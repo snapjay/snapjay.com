@@ -1,6 +1,11 @@
 <template>
-  <div class="pad" @click="shuffleCards">
-    <h1>Play</h1>
+  <div class="pad">
+    <div class="header">
+      <h1>Play</h1>
+      <img src="/assets/img/play/shuffle.svg" draggable="false" alt="Shuffle the Deck" aria-hidden="true"
+        @click="shuffleCards" />
+    </div>
+
     <div class="table">
       <Card v-for="project in personal" class="card-transition grow" @click.stop="pickUpCardHandler(project.id)"
         :project="project" :left="project.left"
@@ -130,6 +135,12 @@ const pickUpCardHandler = (id) => {
   width: 500px;
   height: 1000px;
   margin-top: 2rem;
+}
+
+.header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
 }
 
 @media (max-width: 1200px) {

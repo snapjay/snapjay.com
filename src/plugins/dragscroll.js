@@ -22,6 +22,7 @@ export default {
       velocityY = 0
       document.body.classList.add('grabbing')
       cancelAnimationFrame(animationFrameId)
+      if (e.target.tagName.toLowerCase() === 'img') e.preventDefault()
     }
 
     const onMouseLeave = () => {

@@ -67,7 +67,7 @@ const clients = [
       <li v-for="client in clients.sort((a, b) => a.title.localeCompare(b.title))" :key="client.id">
         <hr />
         <a :href="client.href" target="_blank" rel="noopener noreferrer">
-          <img :src="`/assets/img/credits/${client.img}`" class="grow" :alt="client.title" />
+          <img :src="`/assets/img/credits/${client.img}`" draggable="false" class="grow" :alt="client.title" />
         </a>
         <p><strong>{{ client.title }}.</strong> {{ client.desc }}</p>
       </li>

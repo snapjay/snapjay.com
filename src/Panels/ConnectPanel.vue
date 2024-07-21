@@ -17,10 +17,25 @@
     <div class="credit">- Peter Drucker</div>
   </q>
   <div class="gap target">
-    <img src="/assets/hero/43405c2e194c3a7799562b492c60b501.jpg" class="hero" alt="Picture of Telegraph Machine"
-      aria-label="Picture of a Transmission" />
+    <img src="/assets/hero/43405c2e194c3a7799562b492c60b501.jpg" draggable="false" class="hero"
+      alt="Picture of Transmission" aria-label="Picture of a Transmission" />
     <MorseCode class="morseCode" text="dan at snapjay com" />
   </div>
+  <div class="pad">
+    <h3>Attribution</h3>
+    <ul>
+      <li v-for="noun in nounAttribution" :key="noun.id">
+        "<a :href="noun.link" target="_blank" rel="noopener noreferrer">{{ noun.name }}</a>" by
+        <a :href="`https://thenounproject.com/creator/${encodeURIComponent(noun.author)}/`" target="_blank"
+          rel="noopener noreferrer">{{ noun.author }}</a>, from
+        <a :href="`https://thenounproject.com/browse/icons/term/${encodeURIComponent(noun.name)}/`" target="_blank"
+          rel="noopener noreferrer">Noun Project</a> (CCBY3.0)
+      </li>
+      <li>"<a href="https://www.pickpik.com/red-book-dark-gloomy-books-pages-paper-66312">Book</a>" by <a
+          href="https://www.pickpik.com/">PickPik</a></li>
+    </ul>
+  </div>
+
 </template>
 <script setup>
 import MorseCode from '/src/components/MorseCode.vue'
@@ -50,6 +65,51 @@ const connect = [
     href: 'https://x.com/snapjay'
   }
 ]
+
+const nounAttribution = [
+  {
+    id: 1,
+    name: 'Shuffle Deck',
+    author: 'lucashelle',
+    link: 'https://thenounproject.com/icon/shuffle-deck-4214770/',
+  },
+  {
+    id: 2,
+    name: 'Concert',
+    author: 'karyative',
+    link: 'https://thenounproject.com/icon/concert-5674382/',
+  },
+  {
+    id: 3,
+    name: 'Cooking',
+    author: 'Pause08',
+    link: 'https://thenounproject.com/icon/cooking-2555746/',
+  },
+  {
+    id: 4,
+    name: 'Gluten',
+    author: 'iconnutstock',
+    link: 'https://thenounproject.com/icon/gluten-4321747/',
+  },
+  {
+    id: 5,
+    name: 'Motocross',
+    author: 'heyrabbit',
+    link: 'https://thenounproject.com/icon/motocross-4706122/',
+  },
+  {
+    id: 6,
+    name: 'Saw Table',
+    author: 'kavya261990',
+    link: 'https://thenounproject.com/icon/saw-table-3437774/',
+  },
+  {
+    id: 6,
+    name: 'Chicken',
+    author: 'yohwankim91',
+    link: 'https://thenounproject.com/icon/chicken-6984722/',
+  },
+]
 </script>
 <style scoped>
 .connect {
@@ -72,7 +132,20 @@ const connect = [
   opacity: 1;
 }
 
+.credit {
+  background-color: black;
+}
+
 q {
   border-radius: 0;
+}
+
+h3 {
+  color: #000;
+  text-shadow: none;
+}
+
+li {
+  font-size: .75rem;
 }
 </style>

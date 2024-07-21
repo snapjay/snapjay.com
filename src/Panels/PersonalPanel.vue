@@ -5,8 +5,8 @@
     <ul>
       <li v-for="project in personal" :key="project.id">
         <h3 class="black">{{ project.title }}</h3>
-        <a :href="project.href" target="_blank"><img :src="`/assets/img/personal/${project.img}`" class="project grow"
-            :alt="project.title" /></a>
+        <a :href="project.href" target="_blank"><img :src="`/assets/img/personal/${project.img}`" draggable="false"
+            class="project grow" :alt="project.title" /></a>
         <div>{{ project.desc }}</div>
         <hr />
       </li>
