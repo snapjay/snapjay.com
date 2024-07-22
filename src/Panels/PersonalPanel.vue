@@ -12,7 +12,6 @@
       </li>
     </ul>
   </div>
-  <!-- <img src="/desktop-wallpaper-flower-in-a-black-background-for-space-flower.jpg" class="hero" alt="Flower" /> -->
 </template>
 <script setup>
 const personal = [

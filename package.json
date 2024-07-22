@@ -16,6 +16,7 @@
   },
   "dependencies": {
     "gsap": "^3.12.5",
+    "vite-plugin-html": "^3.2.2",
     "vue": "^3.4.29"
   },
   "devDependencies": {

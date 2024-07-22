@@ -2,12 +2,12 @@
   <div class="pad">
     <div class="header">
       <h1>Play</h1>
-      <img src="/assets/img/play/shuffle.svg" draggable="false" alt="Shuffle the Deck" aria-hidden="true"
+      <img src="/assets/img/play/shuffle.svg" draggable="false" class="grow" alt="Shuffle the Deck" aria-hidden="true"
         @click="shuffleCards" />
     </div>
 
     <div class="table">
-      <Card v-for="project in personal" class="card-transition grow" @click.stop="pickUpCardHandler(project.id)"
+      <Card v-for="project in personal" class="card-transition" @click.stop="pickUpCardHandler(project.id)"
         :project="project" :left="project.left"
         :style="{ top: `${project.top}px`, left: `${project.left}px`, transform: `rotate(${project.rotation}deg)` }"
         :key="project.id" ref="itemRefs">

@@ -17,7 +17,7 @@ defineProps({
 
 <template>
   <div id="canvas" class="draggable-container">
-    <Panel background="44956031652_f1348f0645_b.jpg">
+    <Panel>
       <HomePanel />
     </Panel>
     <Panel>

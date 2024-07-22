@@ -31,8 +31,14 @@
         <a :href="`https://thenounproject.com/browse/icons/term/${encodeURIComponent(noun.name)}/`" target="_blank"
           rel="noopener noreferrer">Noun Project</a> (CCBY3.0)
       </li>
-      <li>"<a href="https://www.pickpik.com/red-book-dark-gloomy-books-pages-paper-66312">Book</a>" by <a
-          href="https://www.pickpik.com/">PickPik</a></li>
+      <li>"<a href="https://www.pickpik.com/red-book-dark-gloomy-books-pages-paper-66312" target="_blank"
+          rel="noopener noreferrer">Book</a>" by <a href="https://www.pickpik.com/">PickPik</a></li>
+      <li>"<a
+          href="https://pngtree.com/freebackground/professional-maintenance-hardware-tool-set-black-background-photo-map-with-map_1518280.html?sol=downref&id=bef"
+          target="_blank" rel="noopener noreferrer">Hardware
+          Tool Set</a>" by <a href="https://www.pickpik.com/" target="_blank" rel="noopener noreferrer">pngtree</a></li>
+      <li>"<a href="https://auto.howstuffworks.com/transmission-pictures.htm" target="_blank"
+          rel="noopener noreferrer">Transmission</a>" by <a href="https://www.pickpik.com/">howstuffworks</a></li>
     </ul>
   </div>
 

@@ -100,7 +100,6 @@ img.hero {
   border-radius: 0.5rem;
   max-width: 500px;
 }
-
 img.grow {
   transition: transform 0.3s ease-in-out;
 }

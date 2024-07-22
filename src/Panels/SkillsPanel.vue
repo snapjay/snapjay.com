@@ -1,6 +1,6 @@
 <template>
+    <img src="/assets/hero/tools.jpg" draggable="false" alt="Rose" class="hero" aria-hidden="true" />
     <div class="pad">
-        <img src="/assets/hero/rose-flower.jpg" draggable="false" alt="Rose" class="hero" aria-hidden="true" />
         <div class="wrapper">
             <h1 class="glitch">Skills</h1>
         </div>
@@ -32,6 +32,10 @@
 
 </template>
 <style scoped>
+.hero {
+    margin-bottom: 1rem;
+}
+
 .pad:hover h1.glitch {
     position: relative;
 }
