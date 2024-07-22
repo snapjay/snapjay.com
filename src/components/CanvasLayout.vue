@@ -32,7 +32,7 @@ defineProps({
     <Panel :invert="true">
       <PersonalPanel />
     </Panel>
-    <Panel background="felt.jpg" :cover="false">
+    <Panel background="felt.webp" :cover="false">
       <PlayPanel />
     </Panel>
     <Panel :invert="true">

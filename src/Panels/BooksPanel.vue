@@ -1,5 +1,5 @@
 <template>
-  <img src="/assets/hero/dark-gloomy-books-pages-preview.jpg" class="hero" alt="Book" aria-hidden="true" />
+  <img src="/assets/hero/dark-gloomy-books.webp" class="hero" alt="Book" aria-hidden="true" />
   <div class="pad">
     <h1>Books</h1>
     <h2>Technical Editor</h2>
@@ -14,8 +14,8 @@
       </li>
     </ul>
     <hr />
-    <img src="/assets/hero/dark-gloomy-books-pages-preview.jpg" draggable="false" class="hero" alt="Book"
-      aria-hidden="true" style="transform: rotate(180deg)" />
+    <img src="/assets/hero/dark-gloomy-books.webp" draggable="false" class="hero" alt="Book" aria-hidden="true"
+      style="transform: rotate(180deg)" />
   </div>
 </template>
 <script setup>

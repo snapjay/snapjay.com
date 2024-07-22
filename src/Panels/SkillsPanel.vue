@@ -1,5 +1,5 @@
 <template>
-    <img src="/assets/hero/tools.jpg" draggable="false" alt="Rose" class="hero" aria-hidden="true" />
+    <img src="/assets/hero/tools.webp" draggable="false" alt="Rose" class="hero" aria-hidden="true" />
     <div class="pad">
         <div class="wrapper">
             <h1 class="glitch">Skills</h1>

@@ -29,7 +29,7 @@ const personal = ref([
     img: 'motocross.svg',
     title: 'Dirtbike',
     // card: 'spades_jack.svg',
-    card: 'dirtbikes2.png',
+    card: 'dirtbikes2.webp',
     desc: 'I derive most enjoyment from traversing the Rocky Mountains on my dirtbike. Battling mountainous terrain and exploring trails. I revel in the discovery of picturesque locations and find peace in natural beauty.'
   },
   {
@@ -37,7 +37,7 @@ const personal = ref([
     img: 'chicken.svg',
     title: 'Chickens',
     // card: 'hearts_queen.svg',
-    card: 'chicken.png',
+    card: 'chicken.webp',
     desc: 'I have nurtured a brood of eight chickens, beginning their journey when they were merely two weeks old. Over time, these feathered companions have evolved into beloved pets, enhancing my daily life with both their companionship and the reward of entertainment and supply of fresh eggs.'
   },
   {
