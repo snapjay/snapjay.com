@@ -1,5 +1,6 @@
 <template>
-    <img src="/assets/hero/tools.webp" draggable="false" alt="Rose" class="hero" aria-hidden="true" />
+    <img src="/assets/hero/tools.webp" draggable="false" alt="Rose" class="hero" aria-hidden="true" width="500"
+        height="274" />
     <div class="pad">
         <div class="wrapper">
             <h1 class="glitch">Skills</h1>
@@ -28,7 +29,8 @@
             product concepts before embarking on the development phase. I strive to prove the success of the product
             before production dollars are spent, so no costly mistakes are made.</p>
     </div>
-    <img src="/assets/hero/tulips-7884877_1280.webp" draggable="false" alt="Tulip" class="hero" aria-hidden="true" />
+    <img src="/assets/hero/tulips-7884877_1280.webp" draggable="false" alt="Tulip" class="hero" aria-hidden="true"
+        width="500" height="751" />
 
 </template>
 <style scoped>

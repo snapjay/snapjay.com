@@ -16,9 +16,9 @@
     "The best way to predict the future is to create it."
     <div class="credit">- Peter Drucker</div>
   </q>
-  <div class="gap target">
+  <div class="gap">
     <img src="/assets/hero/transmisson.webp" draggable="false" class="hero" alt="Picture of Transmission"
-      aria-label="Picture of a Transmission" />
+      aria-label="Picture of a Transmission" width="400" height="283" />
     <MorseCode class="morseCode" text="dan at snapjay com" />
   </div>
   <div class="pad">
@@ -125,9 +125,12 @@ const nounAttribution = [
   display: block;
 }
 
-.target {
-  padding-bottom: 2rem;
+.hero {
+  margin: 0 auto;
+  display: block;
+  width: auto;
 }
+
 
 .morseCode {
   opacity: 0;
