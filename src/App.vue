@@ -27,7 +27,7 @@ onMounted(() => {
   <header>
     <div class="slide">
       <a href="mailto:dan@snapjay.com" alt="Email" target="_blank" rel="noopener noreferrer"><img
-          src="/assets/img/connect/email.svg" alt="Snapjay" class="logo" /></a>
+          src="/assets/img/connect/email.svg" alt="Snapjay" class="logo" width="140" height="140" /></a>
       <h1 @click="scrollToEnd">
         Snap<span>jay</span>
       </h1>

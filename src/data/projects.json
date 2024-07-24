@@ -1,0 +1,79 @@
+[
+    {
+       "id":1,
+       "title":"Jukebox Tools",
+       "img":{
+          "url":"jukebox-tools-wordmark.svg",
+          "width":250,
+          "height":129
+       },
+       "desc":"I developed a web application that provides a suite of tools for jukebox enthusiasts, including title strip generator, layout studio and record collection manager.",
+       "href":"https://jukebox.tools/"
+    },
+    {
+       "id":2,
+       "title":"Old Boot Woodshop",
+       "img":{
+          "url":"boot.svg",
+          "width":250,
+          "height":251
+       },
+       "desc":"One of my passions lies in woodworking, and as an expression of that passion, I have designed and developed a website to showcase my woodworking creations.",
+       "href":"https://oldboot.us/"
+    },
+    {
+       "id":3,
+       "title":"Select-O-Matic 100 Simulator",
+       "img":{
+          "url":"jukeboxLogo.svg",
+          "width":250,
+          "height":209
+       },
+       "desc":"I developed a web application that faithfully simulates the functionality and experience of a 1952 Seeburg Select-O-Matic 100 jukebox. Go ahead... Drop a quarter!",
+       "href":"https://simulator.jukebox.tools/"
+    },
+    {
+       "id":4,
+       "title":"NGCart",
+       "img":{
+          "url":"cart.svg",
+          "width":250,
+          "height":170
+       },
+       "desc":"I developed NGCart which became a popular component utilizing the Angular framework, which eventually culminated in a book deal centered around this product.",
+       "href":"https://ngcart.snapjay.com/"
+    },
+    {
+       "id":5,
+       "title":"Garage Door Opener",
+       "img":{
+          "url":"garage.svg",
+          "width":250,
+          "height":155
+       },
+       "desc":"Using a Raspberry Pi, I developed a garage door opener that can be controlled via a web interface, and integrated with Google Home and SMS alerts.",
+       "href":"https://github.com/snapjay/garage-door"
+    },
+    {
+       "id":6,
+       "title":"Lost In Thought",
+       "img":{
+          "url":"lostinthought.svg",
+          "width":250,
+          "height":248
+       },
+       "desc":"Combing my passions of making and engineering, I created an interactive Halloween experience that fused AI, web sockets and illusion.",
+       "href":"https://lostinthought.oldboot.us/"
+    },
+    {
+       "id":7,
+       "title":"intelli.gift",
+       "img":{
+          "url":"intelligift-wordmark.svg",
+          "width":250,
+          "height":0
+       },
+       "desc":"Pursued AI experimentation project, aiming to leverage artificial intelligence to curate the ideal gift selections.",
+       "href":"https://intelli.gift/"
+    }
+ ]

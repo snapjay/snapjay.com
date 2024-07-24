@@ -1,0 +1,90 @@
+[
+    {
+       "id":1,
+       "img":{
+          "url":"Telus-Logo.svg",
+          "width":200,
+          "height":48
+       },
+       "title":"Telus Mobility",
+       "desc":"Developed the user interface for the Telus Mobility internal employee loyalty and rewards program.",
+       "href":"https://www.telus.com/"
+    },
+    {
+       "id":2,
+       "img":{
+          "url":"EBay_logo.svg",
+          "width":232,
+          "height":94
+       },
+       "title":"Ebay UK",
+       "desc":"Created a prototype for a \"Community Court\". A concept aimed at effectively resolving conflicts between customers.",
+       "href":"https://ebay.co.uk/"
+    },
+    {
+       "id":3,
+       "img":{
+          "url":"LogRhythmLogo.svg",
+          "width":232,
+          "height":50
+       },
+       "title":"LogRhythm",
+       "desc":"Senior frontend developer role working in the advancement of the company's flagship security product by contributing to its development and infrastructure enhancement efforts.",
+       "href":"https://logrhythm.com/"
+    },
+    {
+       "id":4,
+       "img":{
+          "url":"Lonely_Planet-Logo.svg",
+          "width":232,
+          "height":116
+       },
+       "title":"Lonely Planet",
+       "desc":"Developed a prototype for the travel guide website, incorporating key features and functionalities.",
+       "href":"https://www.lonelyplanet.com/places"
+    },
+    {
+       "id":5,
+       "img":{
+          "url":"Top_Gear_29.webp",
+          "width":232,
+          "height":89
+       },
+       "title":"Top Gear",
+       "desc":"Prototyped a concept for a car selling application, intended for the purpose of conducting user testing.",
+       "href":"https://www.topgear.com/"
+    },
+    {
+       "id":8,
+       "img":{
+          "url":"Intel_logo.svg",
+          "width":232,
+          "height":200
+       },
+       "title":"Intel",
+       "desc":"Built a temporary micro site for a promotional back-to-school campaign contest partnership between Intel and Staples.",
+       "href":"https://www.intel.com/"
+    },
+    {
+       "id":6,
+       "img":{
+          "url":"Toronto-Dominion_Bank.svg",
+          "width":232,
+          "height":71
+       },
+       "title":"TD Bank",
+       "desc":"Participated in the development of the company's customer loyalty program, enabling customers to efficiently redeem accumulated points for various products.",
+       "href":"https://www.td.com/ca/en/personal-banking/"
+    },
+    {
+       "id":7,
+       "img":{
+          "url":"engage_red_logo.png",
+          "width":232,
+          "height":53
+       },
+       "title":"Engage People Inc",
+       "desc":"Served in the capacity of Director of Product Development at Engage, spearheading innovation, internal product development, and client-focused initiatives.",
+       "href":"https://www.engagepeople.com/"
+    }
+ ]

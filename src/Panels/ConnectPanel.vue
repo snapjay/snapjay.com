@@ -6,8 +6,8 @@
       <li v-for="channel in connect" :key="channel.id">
         <hr />
         <a :href="channel.href" :alt="channel.title" target="_blank" rel="noopener noreferrer">
-          <img :src="`/assets/img/connect/${channel.img}`" class="grow connect" :alt="channel.title"
-            :aria-label="`Connect via ${channel.title}`" />
+          <img :src="`/assets/img/connect/${channel.img.url}`" :width="channel.img.width" :height="channel.img.height"
+            class="grow connect" :alt="channel.title" :aria-label="`Connect via ${channel.title}`" />
         </a>
       </li>
     </ul>
@@ -45,32 +45,7 @@
 </template>
 <script setup>
 import MorseCode from '/src/components/MorseCode.vue'
-const connect = [
-  {
-    id: 1,
-    img: 'email.svg',
-    title: 'Email',
-    href: 'mailto:dan@snapjay.com'
-  },
-  {
-    id: 2,
-    img: 'linkedin.svg',
-    title: 'LinkedIn',
-    href: 'https://www.linkedin.com/profile/view?id=18683312'
-  },
-  {
-    id: 3,
-    img: 'github.svg',
-    title: 'Github',
-    href: 'http://github.com/snapjay'
-  },
-  {
-    id: 4,
-    img: 'x.svg',
-    title: 'X',
-    href: 'https://x.com/snapjay'
-  }
-]
+import connect from '@/data/connect.json'
 
 const nounAttribution = [
   {

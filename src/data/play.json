@@ -1,0 +1,72 @@
+[
+    {
+       "id":1,
+       "backImage":{
+          "url":"motocross.svg",
+          "width":72,
+          "height":110
+       },
+       "title":"Dirtbike",
+       "frontImage":"dirtbikes2.webp",
+       "desc":"I derive most enjoyment from traversing the Rocky Mountains on my dirtbike. Battling mountainous terrain and exploring trails. I revel in the discovery of picturesque locations and find peace in natural beauty."
+    },
+    {
+       "id":2,
+       "backImage":{
+          "url":"chicken.svg",
+          "width":80,
+          "height":96
+       },
+       "title":"Chickens",
+       "frontImage":"chicken.webp",
+       "desc":"I have nurtured a brood of eight chickens, beginning their journey when they were merely two weeks old. Over time, these feathered companions have evolved into beloved pets, enhancing my daily life with both their companionship and the reward of entertainment and supply of fresh eggs."
+    },
+    {
+       "id":3,
+       "backImage":{
+          "url":"saw-table.svg",
+          "width":72,
+          "height":110
+       },
+       "title":"Woodwork",
+       "frontImage":"diamonds_king.svg",
+       "desc":"Woodworking is a passion of mine, I have built a small woodshop. My proficiency in SVG web skills transitions to my work with my CNC machine. Click the boot to checkout my woodshop.",
+       "link":{
+          "href":"https://oldboot.us",
+          "src":"/assets/img/personal/boot.svg"
+       }
+    },
+    {
+       "id":4,
+       "backImage":{
+          "url":"gluten.svg",
+          "width":72,
+          "height":110
+       },
+       "title":"Growing Food",
+       "frontImage":"clubs_ace.svg",
+       "desc":"Cultivating my own food is a deeply ingrained passion of mine. I am interested in agriculture and food production. My dedication extends to growing food from seed whenever possible, reflecting my love of farming and self-sufficiency."
+    },
+    {
+       "id":5,
+       "backImage":{
+          "url":"concert.svg",
+          "width":72,
+          "height":110
+       },
+       "title":"Country Music",
+       "frontImage":"hearts_10.svg",
+       "desc":"Country music holds a special place in my heart, and I find solace and enjoyment in its sound. Attending concerts beneath the open sky is an experience I cherish, as the combination of live country music and the vast expanse of stars creates a truly magical ambiance."
+    },
+    {
+       "id":6,
+       "backImage":{
+          "url":"cooking.svg",
+          "width":72,
+          "height":110
+       },
+       "title":"Cooking",
+       "frontImage":"diamonds_2.svg",
+       "desc":"Taking pleasure in the full cycle of food, I relish the process of cultivating my own food, nurturing my chickens for their eggs, and subsequently utilizing these homegrown ingredients to prepare meals. This complete journey from seed to plate . I make as much as I can, including  my own pasta, mayo, dressings, cheese, pizza, sauces and bread."
+    }
+ ]

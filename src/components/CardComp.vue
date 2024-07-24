@@ -52,16 +52,17 @@ defineExpose({ id: props.project.id, pickUpCard, putCardDown })
 <template>
   <div ref="card" class="card" tabindex="0" @keyup.enter="pickUpCard">
     <div ref="back" class="cardBack" @keyup.escape="putCardDown"
-      :style="{ backgroundImage: isOpen && `url('/assets/cards/${project.card}')` }">
+      :style="{ backgroundImage: isOpen && `url('/assets/cards/${project.frontImage}')` }">
       <div class="inner">
         <span class="close-icon" tabindex="0" @click.stop="putCardDown" @keyup.enter="putCardDown">✖</span>
-        <h3 class="black">{{ project.title }}</h3>
+        <h2 class="black">{{ project.title }}</h2>
         <p>{{ project.desc }}</p>
         <slot></slot>
       </div>
     </div>
     <div ref="front" class="cardFront" @click="pickUpCard">
-      <img :src="`/assets/img/play/${project.img}`" :alt="`Representation of ${project.title}`" />
+      <img :src="`/assets/img/play/${project.backImage.url}`" :width="project.backImage.width"
+        :height="project.backImage.height" :alt="`Representation of ${project.title}`" />
     </div>
   </div>
 </template>
@@ -88,7 +89,7 @@ defineExpose({ id: props.project.id, pickUpCard, putCardDown })
   border-radius: 8px;
 }
 
-.cardBack h3 {
+.cardBack h2 {
   font-size: 1.25rem;
   margin-bottom: 0.5rem;
 }
