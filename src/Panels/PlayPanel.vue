@@ -13,7 +13,7 @@
         :key="project.id" ref="itemRefs">
         <div v-if="project.link" class="projectLink">
           <a :href="project.link.href" target="_blank">
-            <img :src="project.link.src" :alt="project.title" :style="{ width: '60px' }" />
+            <img :src="project.link.src" :alt="project.title" width="60" height="60" :style="{ width: '60px' }" />
           </a>
         </div>
       </Card>
