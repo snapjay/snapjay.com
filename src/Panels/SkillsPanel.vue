@@ -5,30 +5,28 @@
         <div class="wrapper">
             <h1 class="glitch">Skills</h1>
         </div>
-        <p>Throughout my career, I have honed my expertise in front-end development, specializing in
-            JavaScript, HTML, and
-            CSS. I have served as Director of Product Strategy, fortified by prior experience as a Senior Software
-            Engineer has
-            affording me a comprehensive perspective on end to end life cycle of a software development.</p>
+        <p>Throughout my career, I have honed my expertise in front-end development, specializing in JavaScript, HTML,
+            and CSS. I have served as Director of Product Strategy, fortified by prior experience as a Senior Software
+            Engineer, affording me a comprehensive perspective on the end-to-end lifecycle of software development.</p>
     </div>
     <div class="invert">
-        <h2>Vue.JS & React.JS</h2>
-        <p>I have surfed the wave of front end tooling from JQuery; Angular; to Vue and ReactJS. I am excited to
-            use the latest tools, libraries and frameworks that facilitate fast and easy to maintain code.
-            I have spent the most recent years working with VueJS and ReactJS.
-        </p>
+        <h2>Vue.js & React.js</h2>
+        <p>I have surfed the wave of front-end tooling from jQuery and Angular to Vue and React. I am excited to use the
+            latest tools, libraries, and frameworks that facilitate fast and easy-to-maintain code. I have spent the
+            most recent years working with Vue.js and React.js.</p>
     </div>
     <div class="pad">
-        <h2>Node.JS & Mongo</h2>
-        <p>While specializing in front end; My skills are transferable to backend capacity; using Node.js and MongoDB
-            framework to build full stack products.</p>
+        <h2>Node.js & MongoDB</h2>
+        <p>While specializing in front-end, my skills are transferable to backend development, using Node.js and the
+            MongoDB framework to build full-stack products.</p>
     </div>
     <div class="invert">
         <h2>User Experience</h2>
-        <p>I advocate the utilization of rapid prototyping and usability testing as pivotal tools in validating
-            product concepts before embarking on the development phase. I strive to prove the success of the product
-            before production dollars are spent, so no costly mistakes are made.</p>
+        <p>I advocate the utilization of rapid prototyping and usability testing as pivotal tools in validating product
+            concepts before embarking on the development phase. I strive to prove the success of the product before
+            production dollars are spent, ensuring that no costly mistakes are made.</p>
     </div>
+
     <img src="/assets/hero/tulips-7884877_1280.webp" draggable="false" alt="Tulip" class="hero" aria-hidden="true"
         width="500" height="751" />
 
