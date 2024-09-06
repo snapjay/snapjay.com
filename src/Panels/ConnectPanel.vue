@@ -16,7 +16,7 @@
     "The best way to predict the future is to create it."
     <div class="credit">- Peter Drucker</div>
   </q>
-  <div class="gap">
+  <div class="gap target">
     <img src="/assets/hero/transmisson.webp" draggable="false" class="hero" alt="Picture of Transmission"
       aria-label="Picture of a Transmission" width="400" height="283" />
     <MorseCode class="morseCode" text="dan at snapjay com" />

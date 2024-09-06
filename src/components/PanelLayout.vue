@@ -53,7 +53,7 @@ watch(injectIsFocused, (newValue, oldValue) => {
   position: relative;
   border-radius: 0.5rem;
   height: fit-content;
-  opacity: 0.6;
+  opacity: 0.4;
   filter: grayscale(100%);
   transition:
     box-shadow 0.9s,
