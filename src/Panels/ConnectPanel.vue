@@ -29,16 +29,20 @@
         <a :href="`https://thenounproject.com/creator/${encodeURIComponent(noun.author)}/`" target="_blank"
           rel="noopener noreferrer">{{ noun.author }}</a>, from
         <a :href="`https://thenounproject.com/browse/icons/term/${encodeURIComponent(noun.name)}/`" target="_blank"
-          rel="noopener noreferrer">Noun Project</a> (CCBY3.0)
+          rel="noopener noreferrer">Noun Project</a> <a href="https://creativecommons.org/licenses/by/3.0/deed.en"
+          target="_blank" style="font-weight: 400;">CC BY
+          3.0</a>
       </li>
       <li>"<a href="https://www.pickpik.com/red-book-dark-gloomy-books-pages-paper-66312" target="_blank"
-          rel="noopener noreferrer">Book</a>" by <a href="https://www.pickpik.com/">PickPik</a></li>
+          rel="noopener noreferrer">Book</a>" by <a href="https://www.pickpik.com/">PickPik</a> Royalty Free</li>
       <li>"<a
           href="https://pngtree.com/freebackground/professional-maintenance-hardware-tool-set-black-background-photo-map-with-map_1518280.html?sol=downref&id=bef"
           target="_blank" rel="noopener noreferrer">Hardware
-          Tool Set</a>" by <a href="https://www.pickpik.com/" target="_blank" rel="noopener noreferrer">pngtree</a></li>
+          Tool Set</a>" by <a href="https://www.pickpik.com/" target="_blank" rel="noopener noreferrer">pngtree</a>
+        Individual License</li>
       <li>"<a href="https://auto.howstuffworks.com/transmission-pictures.htm" target="_blank"
-          rel="noopener noreferrer">Transmission</a>" by <a href="https://www.pickpik.com/">howstuffworks</a></li>
+          rel="noopener noreferrer">Transmission</a>" by <a href="https://www.pickpik.com/">howstuffworks</a> Attributed
+      </li>
     </ul>
   </div>
 
