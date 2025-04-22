@@ -16,9 +16,9 @@
             most recent years working with Vue.js and React.js.</p>
     </div>
     <div class="pad">
-        <h2>Node.js & MongoDB</h2>
-        <p>While specializing in front-end, my skills are transferable to backend development, using Node.js and the
-            MongoDB framework to build full-stack products.</p>
+        <h2>Node.js & Supabase</h2>
+        <p>While specializing in front-end, my skills are transferable to backend development, using Node.js or
+            Supabase serverless database to build full-stack products.</p>
     </div>
     <div class="invert">
         <h2>User Experience</h2>
