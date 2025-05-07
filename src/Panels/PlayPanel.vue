@@ -13,7 +13,7 @@
         :key="project.id" ref="itemRefs">
         <div v-if="project.link" class="projectLink">
           <a :href="project.link.href" target="_blank">
-            <img :src="project.link.src" :alt="project.title" width="60" height="60" :style="{ width: '60px' }" />
+            <img :src="project.link.src" :alt="project.title" width="60" height="60"  class="link" />
           </a>
         </div>
       </Card>
@@ -116,5 +116,13 @@ const pickUpCardHandler = (id) => {
 
 .pad {
   cursor: pointer;
+}
+img.link{
+  width: 60px;
+  height: 60px;
+  border-radius: 10%;
+  padding: .2rem;
+  box-shadow: 0 0 10px rgba(0, 5, 10, 0.15);
+  background-color: rgba(255, 255, 255, 0.75);
 }
 </style>

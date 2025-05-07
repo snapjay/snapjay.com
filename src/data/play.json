@@ -30,7 +30,11 @@
       },
       "title": "Woodwork",
       "frontImage": "diamonds_king.svg",
-      "desc": "Woodworking is a passion of mine, and I've built a small woodshop to pursue it. My expertise in SVG design extends to my work with a CNC machine. Click the boot to explore my woodshop."
+      "desc": "Woodworking is a passion of mine, and I've built a small woodshop to pursue it. My expertise in SVG design extends to my work with a CNC machine. Click the boot to explore my woodshop.",
+      "link": {
+         "href": "https://oldboot.us/",
+         "src": "/assets/img/personal/boot.svg"
+      }
    },
    {
       "id": 4,

@@ -75,7 +75,7 @@
       <div class="invert">
         <h2>Experienced</h2>
         <p>
-          With over 20 years dedicated to website development, my career has spanned multiple sectors, technologies, and
+          With over 25 years dedicated to website development, my career has spanned multiple sectors, technologies, and
           countries, providing me with a wide range of skills, knowledge, and experience to create a fast, efficient,
           and user-friendly experience.
         </p>

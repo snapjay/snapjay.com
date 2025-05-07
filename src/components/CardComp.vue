@@ -56,7 +56,7 @@ defineExpose({ id: props.project.id, pickUpCard, putCardDown })
       <div class="inner">
         <span class="close-icon" tabindex="0" @click.stop="putCardDown" @keyup.enter="putCardDown">✖</span>
         <h2 class="black">{{ project.title }}</h2>
-        <p>{{ project.desc }}</p>
+        <p>{{ project.desc }}</p>  
         <slot></slot>
       </div>
     </div>
@@ -107,7 +107,7 @@ defineExpose({ id: props.project.id, pickUpCard, putCardDown })
 
 .cardBack .inner {
   border-radius: 8px;
-  background-color: #ffffffbd;
+  background-color: rgba(255, 255, 255, 0.85);
   height: 100%;
   padding: 0.75rem;
 }
