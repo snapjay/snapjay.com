@@ -60,11 +60,11 @@
       </div>
       <div class="content">
         <div class="pad">
-          <h1>Seasoned Front-End Engineer</h1>
+          <h1>Seasoned Software Engineer</h1>
           <h2>Hey, it's Dan!</h2>
-          <p>I am a front-end engineer specializing in Vue.js and React.js.</p>
+          <p>I am a software engineer specializing in frontend Vue.js and React.js, and passionate about UI and user experience.</p>
           <p>
-            I balance user experience with business objectives, adeptly crafting interfaces that harmonize both. My
+            I balance business objectives with seamless user experience, adeptly crafting interfaces that harmonize both. My
             portfolio includes collaborations with multi-award-winning agencies, contributing to projects for prominent
             brands such as Intel, TD Canada Trust, eBay UK, BBC Worldwide, and Telus Mobility.
           </p>
