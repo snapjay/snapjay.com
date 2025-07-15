@@ -1,5 +1,5 @@
 <script setup>
-import { ref, onMounted, onUnmounted, provide } from 'vue'
+import { ref, onMounted, provide } from 'vue'
 import CanvasLayout from './components/CanvasLayout.vue'
 import Navigator from './components/NavigatorComp.vue'
 
