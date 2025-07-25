@@ -10,10 +10,10 @@
             Engineer, affording me a comprehensive perspective on the end-to-end lifecycle of software development.</p>
     </div>
     <div class="invert">
-        <h2>Vue.js & React.js</h2>
-        <p>I have surfed the wave of front-end tooling from jQuery and Angular to Vue and React. I am excited to use the
+        <h2>Vue.js & Angular</h2>
+        <p>I have surfed the wave of front-end tooling from jQuery to Vue and React. I am excited to use the
             latest tools, libraries, and frameworks that facilitate fast and easy-to-maintain code. I have spent the
-            most recent years working with Vue.js and React.js.</p>
+            most recent years working with Vue.js and Angular.</p>
     </div>
     <div class="pad">
         <h2>Node.js & Supabase</h2>

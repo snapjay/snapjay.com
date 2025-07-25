@@ -62,7 +62,7 @@
         <div class="pad">
           <h1>Seasoned Software Engineer</h1>
           <h2>Hey, it's Dan!</h2>
-          <p>I am a software engineer specializing in frontend Vue.js and React.js, and passionate about UI and user experience.</p>
+          <p>I am a software engineer specializing in frontend Vue.js and Angular, and passionate about UI and user experience.</p>
           <p>
             I balance business objectives with seamless user experience, adeptly crafting interfaces that harmonize both. My
             portfolio includes collaborations with multi-award-winning agencies, contributing to projects for prominent
