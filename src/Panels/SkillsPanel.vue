@@ -11,9 +11,9 @@
     </div>
     <div class="invert">
         <h2>Vue.js & Angular</h2>
-        <p>I have surfed the wave of front-end tooling from jQuery to Vue and React. I am excited to use the
+        <p>I have surfed the wave of front-end tooling from jQuery to Vue and Angular. I am excited to use the
             latest tools, libraries, and frameworks that facilitate fast and easy-to-maintain code. I have spent the
-            most recent years working with Vue.js and Angular.</p>
+            most recent years working with Vue.js and React.</p>
     </div>
     <div class="pad">
         <h2>Node.js & Supabase</h2>
