@@ -91,8 +91,8 @@
       "id": 8,
       "img": {
          "url": "Drinkwordmark.svg",
-         "width": 282,
-         "height": 53
+         "width": 234,
+         "height": 70
       },
       "title": "Forge",
       "desc": "Built and designed the website, backend systems, and technology for all operations for Forge.",
@@ -101,10 +101,12 @@
    {
       "id": 9,
       "img": {
-         "url": "quanthub.svg"
+         "url": "quanthub.svg",
+         "width": 234,
+         "height": 72
       },
       "title": "Quant Hub",
-      "desc": "Conducted a comprehensive usabity audit of the Quant Hub platform, identifying key areas for improvement and enhancing user experience.",
+      "desc": "Conducted a comprehensive usability audit of the Quant Hub platform, identifying key areas for improvement and enhancing user experience.",
       "href": "https://www.quanthub.com/"
    }
 ]
