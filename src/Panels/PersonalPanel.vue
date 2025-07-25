@@ -18,6 +18,7 @@
 import projects from '@/data/projects.json';
 </script>
 <style scoped>
+
 h2 {
   font-size: 2rem;
 }
