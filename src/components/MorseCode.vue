@@ -1,6 +1,6 @@
 <template>
 	<!-- Yep; I knew you'd look here to figure out what it says!  Try a little harder! -->
-	<div class="marquee">
+	<div class="marquee" label="So you want to know what it says? - Hint: Try looking at the source code!">
 		<ul class="marquee__content ">
 			<li v-for="(symbol, index) in morseArray" :key="index" :class="`symbol ${getClass(symbol)}`" />
 		</ul>
