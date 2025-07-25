@@ -111,14 +111,14 @@ const nounAttribution = [
 }
 
 
-.morseCode {
+/* .morseCode {
   opacity: 0;
   transition: filter 0.9s, opacity 0.9s;
 }
 
 .target:hover .morseCode {
   opacity: 1;
-}
+} */
 
 .credit {
   background-color: black;
