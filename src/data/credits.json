@@ -86,5 +86,25 @@
       "title": "Engage People Inc",
       "desc": "Served as Director of Product Development, leading innovation, internal product development, and client-focused initiatives at Engage.",
       "href": "https://www.engagepeople.com/"
+   },
+   {
+      "id": 8,
+      "img": {
+         "url": "Drinkwordmark.svg",
+         "width": 282,
+         "height": 53
+      },
+      "title": "Forge",
+      "desc": "Built and designed the website, backend systems, and technology for all operations for Forge.",
+      "href": "https://drink-forge.com/"
+   },
+   {
+      "id": 9,
+      "img": {
+         "url": "quanthub.svg"
+      },
+      "title": "Quant Hub",
+      "desc": "Conducted a comprehensive usabity audit of the Quant Hub platform, identifying key areas for improvement and enhancing user experience.",
+      "href": "https://www.quanthub.com/"
    }
 ]

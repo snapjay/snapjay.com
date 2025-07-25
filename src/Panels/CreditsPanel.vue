@@ -10,8 +10,7 @@ import credits from '@/data/credits.json';
       <li v-for="credit in credits.sort((a, b) => a.title.localeCompare(b.title))" :key="credit.id">
         <hr />
         <a :href="credit.href" target="_blank" rel="noopener noreferrer">
-          <img :src="`/assets/img/credits/${credit.img.url}`" :width="credit.img.width" :height="credit.img.height"
-            draggable="false" class="grow" :alt="credit.title" />
+          <img :src="`/assets/img/credits/${credit.img.url}`" draggable="false" class="grow" :alt="credit.title" />
         </a>
         <p><strong>{{ credit.title }}.</strong> {{ credit.desc }}</p>
       </li>
