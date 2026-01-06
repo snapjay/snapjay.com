@@ -60,7 +60,7 @@
       </div>
       <div class="content">
         <div class="pad">
-          <h1>Seasoned Software Engineer</h1>
+          <h1>Experienced Software Engineer</h1>
           <h2>Hey, it's Dan!</h2>
           <p>I am a software engineer specializing in frontend Vue.js and Angular, and passionate about UI and user experience.</p>
           <p>
@@ -99,6 +99,9 @@
   </div>
 </template>
 <style scoped>
+  h1{
+    font-size: 6.5rem;
+  }
 svg {
   top: 0;
   left: 0;
