@@ -5,29 +5,42 @@
         <div class="wrapper">
             <h1 class="glitch">Skills</h1>
         </div>
-        <p>Throughout my career, I have honed my expertise in front-end development, specializing in JavaScript, HTML,
-            and CSS. I have served as Director of Product Strategy, fortified by prior experience as a Senior Software
-            Engineer, affording me a comprehensive perspective on the end-to-end lifecycle of software development.</p>
+
+        <p>
+            I bring deep experience across the full stack, with a strong foundation in front-end development using
+            JavaScript, HTML, and CSS. Alongside hands-on engineering work, I have served as Director of Product
+            Strategy, giving me a clear view of how design, engineering, and business decisions intersect across the
+            entire product lifecycle.
+        </p>
+
     </div>
     <div class="invert">
-        <h2>Vue.js & Angular</h2>
-        <p>I have surfed the wave of front-end tooling from jQuery to Vue and Angular. I am excited to use the
-            latest tools, libraries, and frameworks that facilitate fast and easy-to-maintain code. I have spent the
-            most recent years working with Vue.js and React.</p>
-    </div>
-    <div class="pad">
-        <h2>Node.js & Supabase</h2>
-        <p>While specializing in front-end, my skills are transferable to backend development, using Node.js or
-            Supabase serverless database to build full-stack products.</p>
-    </div>
-    <div class="invert">
-        <h2>User Experience</h2>
-        <p>I advocate the utilization of rapid prototyping and usability testing as pivotal tools in validating product
-            concepts before embarking on the development phase. I strive to prove the success of the product before
-            production dollars are spent, ensuring that no costly mistakes are made.</p>
+        <h2>Vue.js &amp; Angular</h2>
+        <p>
+            I have evolved alongside modern front-end tooling, from early jQuery-based workflows to today's
+            component-driven frameworks. I enjoy working with tools that promote maintainable, scalable code, and
+            I have spent recent years building production applications with Vue.js, Angular, and React.
+        </p>
     </div>
 
-    <img src="/assets/hero/tulips-7884877_1280.webp" draggable="false" alt="Tulip" class="hero" aria-hidden="true"
+    <div class="pad">
+        <h2>Node.js &amp; Supabase</h2>
+        <p>
+            While front-end is my specialty, I am comfortable working across the backend to deliver complete
+            solutions. I build APIs, authentication flows, and data layers using Node.js and Supabase, enabling
+            efficient full-stack development without unnecessary complexity.
+        </p>
+    </div>
+
+    <div class="invert">
+        <h2>User Experience</h2>
+        <p>
+            I strongly advocate for rapid prototyping, usability testing, and proof of concept to validate ideas
+            early. My goal is to reduce risk by proving value before development ramps up, ensuring products are
+            intuitive, accessible, and worth the investment before production dollars are spent.
+        </p>
+    </div>
+    <img src="/assets/hero/rose.webp" draggable="false" alt="Yellow Rose - symbolizes friendship, joy, caring and milestones." class="hero" aria-hidden="true"
         width="500" height="751" />
 
 </template>

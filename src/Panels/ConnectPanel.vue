@@ -22,7 +22,7 @@
     <MorseCode class="morseCode" text="dan at snapjay com" />
   </div>
   <div class="pad">
-    <h3>Attribution</h3>
+    <h3>Attributions</h3>
     <ul>
       <li v-for="noun in nounAttribution" :key="noun.id">
         "<a :href="noun.link" target="_blank" rel="noopener noreferrer">{{ noun.name }}</a>" by

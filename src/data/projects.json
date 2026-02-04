@@ -7,7 +7,7 @@
          "width": 250,
          "height": 129
       },
-      "desc": "I created the popular web application that offers a suite of tools for jukebox enthusiasts, including a title strip generator, layout studio, and record collection manager.",
+      "desc": "I created the popular SaaS platform that offers a suite of tools for jukebox enthusiasts, including a title strip generator, layout studio, and record collection manager.",
       "href": "https://jukebox.tools/"
    },
    {
@@ -20,17 +20,6 @@
       },
       "desc": "Woodworking is a passion of mine, and as an expression of that passion, I designed and developed a website to showcase my woodworking creations.",
       "href": "https://oldboot.us/"
-   },
-   {
-      "id": 3,
-      "title": "Select-O-Matic 100 Simulator",
-      "img": {
-         "url": "jukeboxLogo.svg",
-         "width": 250,
-         "height": 209
-      },
-      "desc": "I built a web application that faithfully simulates the functionality and experience of a 1952 Seeburg Select-O-Matic 100 jukebox. Go ahead... Drop a quarter!",
-      "href": "https://simulator.jukebox.tools/"
    },
    {
       "id": 4,
@@ -53,6 +42,17 @@
       },
       "desc": "Using a Raspberry Pi, I developed a garage door opener controllable via a web interface, with integration for Google Home and SMS alerts.",
       "href": "https://github.com/snapjay/garage-door"
+   },
+   {
+      "id": 3,
+      "title": "Select-O-Matic 100 Simulator",
+      "img": {
+         "url": "jukeboxLogo.svg",
+         "width": 250,
+         "height": 209
+      },
+      "desc": "I built a web application that faithfully simulates the functionality and experience of a 1952 Seeburg Select-O-Matic 100 jukebox. Go ahead... Drop a quarter!",
+      "href": "https://simulator.jukebox.tools/"
    },
    {
       "id": 6,

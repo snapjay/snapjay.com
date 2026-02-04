@@ -62,31 +62,34 @@
         <div class="pad">
           <h1>Experienced Software Engineer</h1>
           <h2>Hey, it's Dan!</h2>
-          <p>I am a software engineer specializing in frontend Vue.js and Angular, and passionate about UI and user experience.</p>
-          <p>
-            I balance business objectives with seamless user experience, adeptly crafting interfaces that harmonize both. My
-            portfolio includes collaborations with multi-award-winning agencies, contributing to projects for prominent
-            brands such as Intel, TD Canada Trust, eBay UK, BBC Worldwide, and Telus Mobility.
-          </p>
+     <p>
+    I build modern, high-performance web applications across the full stack, specializing in frontend
+    development with Vue.js and Angular while remaining deeply comfortable on the backend. I focus on
+    usability, accessibility, and clean design systems, and I care about how things feel just as much as
+    how they work.
+  </p>
         </div>
       </div>
     </div>
     <div>
       <div class="invert">
-        <h2>Experienced</h2>
-        <p>
-          With over 25 years dedicated to website development, my career has spanned multiple sectors, technologies, and
-          countries, providing me with a wide range of skills, knowledge, and experience to create a fast, efficient,
-          and user-friendly experience.
-        </p>
+        <h2>Modern Workflow</h2>
+
+          <p> I actively use AI-assisted development to move faster and think deeper, from rapid prototyping and
+            refactoring to testing, debugging, and UX exploration. Backed by 25+ years of hands-on experience, I know
+            when to lean on AI and when human judgment matters most. </p>
       </div>
       <div class="pad">
-        <h2>It Just Works</h2>
-        <p>
-          I prioritize user experience and attention to detail, employing prototyping, user testing, and proof of
-          concept to ensure the end product will be successful before it's built. I am a strong advocate for
-          accessibility and performance, ensuring that the end product is usable, fast, looks good, and works well.
-        </p>
+        <h2>Proven Experience</h2>
+  <p>
+    I balance business goals with seamless user experience, crafting interfaces that align both. I have
+    collaborated with multi-award-winning agencies and contributed to projects for brands including Intel,
+    TD Canada Trust, eBay UK, BBC Worldwide, and Telus Mobility.
+  </p>
+  <p>
+    My career spans multiple industries, technologies, and countries, giving me the depth and perspective
+    to create fast, scalable, and user-friendly applications that last.
+  </p>
       </div>
       <hr />
       <q>
