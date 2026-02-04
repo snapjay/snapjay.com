@@ -36,12 +36,16 @@ watch(injectIsFocused, (newValue, oldValue) => {
 });
 
 
+const focus = () => {
+    panelElement.value.focus({ preventScroll: true });
+}
 
+defineExpose({ focus });
 </script>
 
 <template>
   <section class="panel" ref="panelElement" :style="panelStyle" :class="{ invert: props.invert, focused: isFocused }"
-    tabindex="0">
+    tabindex="0" @mouseenter="focus">
     <slot></slot>
   </section>
 </template>
@@ -81,6 +85,7 @@ watch(injectIsFocused, (newValue, oldValue) => {
 .panel:hover,
 .panel:focus,
 .panel.focused {
+  outline: none;
   opacity: 1;
   z-index: 1;
   filter: grayscale(0%);

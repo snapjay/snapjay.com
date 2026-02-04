@@ -1,4 +1,5 @@
 <script setup>
+import { onMounted, ref } from 'vue'
 import Panel from './PanelLayout.vue'
 import HomePanel from '../Panels/HomePanel.vue'
 import SkillsPanel from '../Panels/SkillsPanel.vue'
@@ -13,11 +14,17 @@ defineProps({
     required: false
   }
 })
+
+const homePanel = ref(null)
+
+onMounted(() => {
+    homePanel.value.focus()
+})
 </script>
 
 <template>
   <div id="canvas" class="draggable-container">
-    <Panel>
+    <Panel ref="homePanel">
       <HomePanel />
     </Panel>
     <Panel>
