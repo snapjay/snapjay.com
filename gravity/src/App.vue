@@ -223,6 +223,39 @@ onUnmounted(() => {
 
 <template>
   <div class="gravity-container" ref="containerRef">
+    <!-- Ambient Background SVG (Dark & Subtle) -->
+    <div class="ambient-bg">
+      <svg viewBox="0 0 100 100" preserveAspectRatio="xMidYMid slice">
+        <defs>
+          <radialGradient id="G1" cx="50%" cy="50%" fx="10%" fy="10%" r="0.6">
+            <stop offset="0%" :stop-color="selectedWord?.color || 'var(--accent)'" stop-opacity="0.15" />
+            <stop offset="100%" :stop-color="selectedWord?.color || 'var(--accent)'" stop-opacity="0" />
+            <animate attributeName="fx" dur="40s" values="0%;10%;0%" repeatCount="indefinite" />
+          </radialGradient>
+          <radialGradient id="G2" cx="50%" cy="50%" fx="90%" fy="90%" r="0.6">
+            <stop offset="0%" stop-color="#1e3a8a" stop-opacity="0.1" />
+            <stop offset="100%" stop-color="#1e3a8a" stop-opacity="0" />
+            <animate attributeName="fx" dur="30s" values="100%;90%;100%" repeatCount="indefinite" />
+          </radialGradient>
+          <radialGradient id="G3" cx="50%" cy="50%" fx="50%" fy="50%" r="0.5">
+            <stop offset="0%" stop-color="#4c1d95" stop-opacity="0.08" />
+            <stop offset="100%" stop-color="#4c1d95" stop-opacity="0" />
+          </radialGradient>
+        </defs>
+        <rect x="0" y="0" width="100" height="100" fill="url(#G1)">
+          <animate attributeName="x" dur="35s" values="-20%;20%;-20%" repeatCount="indefinite" />
+          <animate attributeName="y" dur="38s" values="-10%;10%;-10%" repeatCount="indefinite" />
+        </rect>
+        <rect x="0" y="0" width="100" height="100" fill="url(#G2)">
+          <animate attributeName="x" dur="42s" values="20%;-20%;20%" repeatCount="indefinite" />
+          <animate attributeName="y" dur="33s" values="10%;-10%;10%" repeatCount="indefinite" />
+        </rect>
+        <rect x="0" y="0" width="100" height="100" fill="url(#G3)">
+          <animateTransform attributeType="xml" attributeName="transform" type="rotate" from="0 50 50" to="360 50 50" dur="60s" repeatCount="indefinite" />
+        </rect>
+      </svg>
+    </div>
+
     <!-- Selected Word Detail View -->
     <Transition name="fade">
       <WordDetail 
