@@ -2,6 +2,7 @@
 import { ref, onMounted, onUnmounted, nextTick, computed } from 'vue'
 import Matter from 'matter-js'
 import words from './words.json'
+import WordDetail from './components/WordDetail.vue'
 
 const containerRef = ref(null)
 const wordRefs = ref([])
@@ -110,6 +111,9 @@ const initPhysics = async () => {
     // Restore transform (will be overridden by syncLoop anyway)
     el.style.transform = originalTransform;
     
+    body.prevWidth = rect.width;
+    body.prevHeight = rect.height;
+    
     Composite.add(engine.world, body);
     bodiesMap.set(el, body);
   });
@@ -144,10 +148,69 @@ const initPhysics = async () => {
     requestAnimationFrame(syncLoop);
   };
   syncLoop();
+
+  // Handle Resize
+  const handleResize = () => {
+    if (!containerRef.value) return;
+    const newWidth = containerRef.value.clientWidth;
+    const newHeight = containerRef.value.clientHeight || 800;
+
+    Matter.Body.setPosition(ground, { x: newWidth / 2, y: newHeight + 50 });
+    Matter.Body.setPosition(wallLeft, { x: -50, y: newHeight / 2 });
+    Matter.Body.setPosition(wallRight, { x: newWidth + 50, y: newHeight / 2 });
+
+    // Re-measure words and scale bodies
+    bodiesMap.forEach((body, el) => {
+      if (!el || !body) return;
+      const originalTransform = el.style.transform;
+      el.style.transform = 'none';
+      
+      const newW = el.offsetWidth;
+      const newH = el.offsetHeight;
+      
+      if (body.prevWidth && body.prevHeight) {
+        const scaleX = newW / body.prevWidth;
+        const scaleY = newH / body.prevHeight;
+        Matter.Body.scale(body, scaleX, scaleY);
+      }
+      
+      // Safety Nudge: If the window shrank, push words back into the new viewport
+      const padding = 40;
+      let targetX = body.position.x;
+      let targetY = body.position.y;
+
+      if (targetX < padding) targetX = padding + newW/2;
+      if (targetX > newWidth - padding) targetX = newWidth - padding - newW/2;
+      if (targetY > newHeight - padding) targetY = newHeight - padding - newH/2;
+
+      if (targetX !== body.position.x || targetY !== body.position.y) {
+        Matter.Body.setPosition(body, { x: targetX, y: targetY });
+        Matter.Body.setVelocity(body, { x: 0, y: 1 }); // Gentle drop
+      }
+      
+      body.prevWidth = newW;
+      body.prevHeight = newH;
+      el.style.transform = originalTransform;
+    });
+  };
+  window.addEventListener('resize', handleResize);
+  onUnmounted(() => window.removeEventListener('resize', handleResize));
 }
 
-onMounted(() => {
-  initPhysics()
+onMounted(async () => {
+  // Wait for Bebas Neue to load before measuring for physics
+  if (document.fonts) {
+    try {
+      await document.fonts.load('900 1rem "Bebas Neue"')
+      await document.fonts.ready
+    } catch (e) {
+      console.warn('Font loading timed out or failed, proceeding with fallback metrics')
+    }
+  }
+  
+  // Extra tick to ensure layout has settled
+  await nextTick()
+  setTimeout(initPhysics, 200)
 });
 
 onUnmounted(() => {
@@ -160,55 +223,13 @@ onUnmounted(() => {
 
 <template>
   <div class="gravity-container" ref="containerRef">
-    <!-- Selected View Background Image -->
+    <!-- Selected Word Detail View -->
     <Transition name="fade">
-      <div v-if="selectedWord" class="selected-overlay">
-        <div class="page-container">
-          <aside class="page-sidebar">
-            <div class="image-frame">
-              <img :src="selectedWord.image" :alt="selectedWord.label" class="detail-image" />
-            </div>
-            <div class="word-stats">
-              <div class="stat-item">
-                <span class="stat-label">Intensity</span>
-                <div class="stat-bar"><div class="stat-fill" :style="{ width: (selectedWord.weight * 100) + '%' }"></div></div>
-              </div>
-            </div>
-          </aside>
-          
-          <main class="page-main">
-            <header class="content-header">
-              <span class="category-tag">Featured Role</span>
-              <h1 class="content-title">{{ selectedWord.label }}</h1>
-            </header>
-            
-            <div class="content-body">
-              <p class="lead-text">
-                Exploring the intersection of creativity and impact through the lens of {{ selectedWord.label.replace('\n', ' ') }}.
-              </p>
-              <p>
-                This role embodies the core values of our gravity-based design philosophy. Every interaction is calculated, every collision intentional. In the world of physics-based typography, {{ selectedWord.label.replace('\n', ' ') }} stands out as a high-weight component that anchors the visual experience.
-              </p>
-              <div class="content-grid">
-                <div class="grid-card">
-                  <h3>Dynamics</h3>
-                  <p>Simulating realistic weight and momentum to create tactile digital interfaces.</p>
-                </div>
-                <div class="grid-card">
-                  <h3>Impact</h3>
-                  <p>How typography influences user perception through movement and physics.</p>
-                </div>
-              </div>
-            </div>
-          </main>
-        </div>
-        
-        <button class="close-btn" @click="closeSelection">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3">
-            <path d="M18 6L6 18M6 6l12 12" stroke-linecap="round" stroke-linejoin="round"/>
-          </svg>
-        </button>
-      </div>
+      <WordDetail 
+        v-if="selectedWord" 
+        :word="selectedWord" 
+        @close="closeSelection"
+      />
     </Transition>
 
     <div 
@@ -221,8 +242,9 @@ onUnmounted(() => {
       @mousemove="onMouseMove"
       @mouseup="handleWordClick(word)"
       :style="{ 
-        backgroundImage: `url(${word.image})`,
-        fontSize: `${3.5 + (word.weight * 4.5)}rem` 
+        backgroundImage: word.images && word.images[0] ? `url(${word.images[0].src})` : 'none',
+        backgroundColor: word.color || 'transparent',
+        fontSize: `clamp(1.5rem, (3 + ${word.weight * 3}) * 1vw, 9rem)`
       }"
     >
       {{ word.label }}
@@ -276,199 +298,6 @@ onUnmounted(() => {
   z-index: 1000;
   transform: translate(2rem, 2rem) rotate(0rad) !important;
   pointer-events: none;
-}
-
-/* Selected Overlay Styles */
-.selected-overlay {
-  position: absolute;
-  inset: 0;
-  z-index: 500;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  background: rgba(10, 10, 12, 0.9);
-  backdrop-filter: blur(20px);
-}
-
-.page-container {
-  width: 90%;
-  max-width: 1200px;
-  height: 85%;
-  display: grid;
-  grid-template-columns: 400px 1fr;
-  gap: 4rem;
-  background: var(--bg-secondary);
-  border: 1px solid var(--border-subtle);
-  border-radius: 3rem;
-  padding: 4rem;
-  overflow: hidden;
-  box-shadow: 0 50px 100px rgba(0,0,0,0.4);
-}
-
-.page-sidebar {
-  display: flex;
-  flex-direction: column;
-  gap: 2rem;
-}
-
-.image-frame {
-  width: 100%;
-  aspect-ratio: 1;
-  border-radius: 2rem;
-  overflow: hidden;
-  border: 1px solid var(--border-highlight);
-}
-
-.detail-image {
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-}
-
-.word-stats {
-  padding: 1.5rem;
-  background: var(--bg-tertiary);
-  border-radius: 1.5rem;
-  border: 1px solid var(--border-subtle);
-}
-
-.stat-item {
-  display: flex;
-  flex-direction: column;
-  gap: 0.5rem;
-}
-
-.stat-label {
-  font-family: 'Outfit', sans-serif;
-  font-size: 0.8rem;
-  text-transform: uppercase;
-  letter-spacing: 0.1em;
-  opacity: 0.6;
-}
-
-.stat-bar {
-  width: 100%;
-  height: 6px;
-  background: rgba(255,255,255,0.1);
-  border-radius: 3px;
-  overflow: hidden;
-}
-
-.stat-fill {
-  height: 100%;
-  background: var(--accent);
-  border-radius: 3px;
-  box-shadow: 0 0 15px var(--accent);
-}
-
-.page-main {
-  display: flex;
-  flex-direction: column;
-  gap: 2.5rem;
-  overflow-y: auto;
-  padding-right: 1rem;
-}
-
-/* Custom Scrollbar */
-.page-main::-webkit-scrollbar {
-  width: 6px;
-}
-.page-main::-webkit-scrollbar-thumb {
-  background: var(--border-subtle);
-  border-radius: 3px;
-}
-
-.category-tag {
-  font-family: 'Outfit', sans-serif;
-  color: var(--accent);
-  font-weight: 600;
-  text-transform: uppercase;
-  letter-spacing: 0.2em;
-  font-size: 0.9rem;
-}
-
-.content-title {
-  font-family: 'Bebas Neue', sans-serif;
-  font-size: 6rem;
-  line-height: 0.9;
-  margin: 0.5rem 0 0;
-  white-space: pre-line;
-  background: linear-gradient(to bottom, #fff, #888);
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-}
-
-.content-body {
-  display: flex;
-  flex-direction: column;
-  gap: 1.5rem;
-  font-family: 'Outfit', sans-serif;
-  line-height: 1.7;
-  color: rgba(255,255,255,0.8);
-  font-size: 1.1rem;
-}
-
-.lead-text {
-  font-size: 1.4rem;
-  color: #fff;
-  font-weight: 500;
-  line-height: 1.5;
-}
-
-.content-grid {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 1.5rem;
-  margin-top: 2rem;
-}
-
-.grid-card {
-  padding: 2rem;
-  background: rgba(255,255,255,0.03);
-  border: 1px solid rgba(255,255,255,0.05);
-  border-radius: 1.5rem;
-}
-
-.grid-card h3 {
-  font-family: 'Bebas Neue', sans-serif;
-  font-size: 1.8rem;
-  margin-bottom: 0.5rem;
-  color: #fff;
-}
-
-.grid-card p {
-  font-size: 0.95rem;
-  margin: 0;
-  opacity: 0.7;
-}
-
-.close-btn {
-  position: absolute;
-  top: 2.5rem;
-  right: 2.5rem;
-  width: 4rem;
-  height: 4rem;
-  border-radius: 50%;
-  background: var(--bg-tertiary);
-  border: 1px solid var(--border-highlight);
-  color: white;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  cursor: pointer;
-  transition: all 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
-  z-index: 1100;
-}
-
-.close-btn:hover {
-  transform: scale(1.1) rotate(90deg);
-  background: var(--accent);
-  border-color: white;
-}
-
-.close-btn svg {
-  width: 1.8rem;
-  height: 1.8rem;
 }
 
 /* Transitions */

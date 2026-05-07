@@ -48,31 +48,6 @@ body {
   position: relative;
 }
 
-/* Dynamic Background Glows */
-#app::before,
-#app::after {
-  content: '';
-  position: absolute;
-  width: 40vw;
-  height: 40vw;
-  border-radius: 50%;
-  filter: blur(120px);
-  z-index: -1;
-  opacity: 0.15;
-  pointer-events: none;
-}
-
-#app::before {
-  top: -10%;
-  left: -10%;
-  background: var(--accent);
-}
-
-#app::after {
-  bottom: -10%;
-  right: -10%;
-  background: #3b82f6;
-}
 
 .container {
   max-width: 1200px;

@@ -2,121 +2,245 @@
   {
     "id": "software_engineer",
     "label": "Software\nEngineer",
-    "image": "https://picsum.photos/seed/software/800/800",
+    "images": [
+      {
+        "src": "https://picsum.photos/seed/software/800/800",
+        "caption": "Coding into the late night hours"
+      },
+      {
+        "src": "https://picsum.photos/seed/hardware/800/800",
+        "caption": "Hardware Engineering "
+      }
+    ],
+    "color": "#3b82f6",
     "weight": 1
   },
   {
     "id": "dirtbiker",
     "label": "Dirtbiker",
-    "image": "https://picsum.photos/seed/dirtbiker/800/800",
+    "images": [
+      {
+        "src": "https://picsum.photos/seed/dirtbiker/800/800",
+        "caption": "Pushing limits on the trails"
+      }
+    ],
+    "color": "#ef4444",
     "weight": 0.4
   },
   {
     "id": "gardener",
     "label": "Gardener",
-    "image": "https://picsum.photos/seed/gardener/800/800",
+    "images": [
+      {
+        "src": "https://picsum.photos/seed/gardener/800/800",
+        "caption": "Finding peace in the soil"
+      }
+    ],
+    "color": "#10b981",
     "weight": 0.3
   },
   {
     "id": "chef",
     "label": "Chef",
-    "image": "https://picsum.photos/seed/chef/800/800",
+    "images": [
+      {
+        "src": "https://picsum.photos/seed/chef/800/800",
+        "caption": "Plating with precision"
+      }
+    ],
+    "color": "#f59e0b",
     "weight": 0.9
   },
   {
     "id": "musician",
     "label": "Musician",
-    "image": "https://picsum.photos/seed/musician/800/800",
+    "images": [
+      {
+        "src": "https://picsum.photos/seed/musician/800/800",
+        "caption": "Melodies that move"
+      }
+    ],
+    "color": "#8b5cf6",
     "weight": 0.5
   },
   {
     "id": "woodworker",
     "label": "Woodworker",
-    "image": "https://picsum.photos/seed/woodworker/800/800",
+    "images": [
+      {
+        "src": "https://picsum.photos/seed/woodworker/800/800",
+        "caption": "Grain and grit"
+      }
+    ],
+    "color": "#92400e",
     "weight": 0.6
   },
   {
     "id": "volunteer",
     "label": "Volunteer",
-    "image": "https://picsum.photos/seed/volunteer/800/800",
+    "images": [
+      {
+        "src": "https://picsum.photos/seed/volunteer/800/800",
+        "caption": "Giving back to the community"
+      }
+    ],
+    "color": "#ec4899",
     "weight": 0.3
   },
   {
     "id": "creative",
     "label": "Creative",
-    "image": "https://picsum.photos/seed/creative/800/800",
+    "images": [
+      {
+        "src": "https://picsum.photos/seed/creative/800/800",
+        "caption": "Thinking outside the box"
+      }
+    ],
+    "color": "#06b6d4",
     "weight": 0.7
   },
   {
     "id": "product_developer",
     "label": "Product\nDeveloper",
-    "image": "https://picsum.photos/seed/product/800/800",
+    "images": [
+      {
+        "src": "https://picsum.photos/seed/product/800/800",
+        "caption": "Conceptualizing the future"
+      }
+    ],
+    "color": "#6366f1",
     "weight": 0.9
   },
   {
     "id": "entrepreneur",
     "label": "Entrepreneur",
-    "image": "https://picsum.photos/seed/entrepreneur/800/800",
+    "images": [
+      {
+        "src": "https://picsum.photos/seed/entrepreneur/800/800",
+        "caption": "Building something from nothing"
+      }
+    ],
+    "color": "#f43f5e",
     "weight": 1.0
   },
   {
     "id": "farmer",
     "label": "Farmer",
-    "image": "https://picsum.photos/seed/farmer/800/800",
+    "images": [
+      {
+        "src": "https://picsum.photos/seed/farmer/800/800",
+        "caption": "Harvesting hope"
+      }
+    ],
+    "color": "#84cc16",
     "weight": 0.4
   },
   {
     "id": "chicken_wrangler",
     "label": "Chicken\nWrangler",
-    "image": "https://picsum.photos/seed/chicken/800/800",
+    "images": [
+      {
+        "src": "https://picsum.photos/seed/chicken/800/800",
+        "caption": "Morning chores"
+      }
+    ],
+    "color": "#d97706",
     "weight": 0.5
   },
   {
     "id": "adventurer",
     "label": "Adventurer",
-    "image": "https://picsum.photos/seed/adventurer/800/800",
+    "images": [
+      {
+        "src": "https://picsum.photos/seed/adventurer/800/800",
+        "caption": "Seeking the unknown"
+      }
+    ],
+    "color": "#14b8a6",
     "weight": 0.6
   },
   {
     "id": "mechanical_engineer",
     "label": "Mechanical\nEngineer",
-    "image": "https://picsum.photos/seed/mechanical/800/800",
+    "images": [
+      {
+        "src": "https://picsum.photos/seed/mechanical/800/800",
+        "caption": "The beauty of machinery"
+      }
+    ],
+    "color": "#4b5563",
     "weight": 0.8
   },
   {
     "id": "mechanic",
     "label": "Mechanic",
-    "image": "https://picsum.photos/seed/mechanic/800/800",
+    "images": [
+      {
+        "src": "https://picsum.photos/seed/mechanic/800/800",
+        "caption": "Fixing it right"
+      }
+    ],
+    "color": "#374151",
     "weight": 0.4
   },
   {
     "id": "maker",
     "label": "Maker",
-    "image": "https://picsum.photos/seed/maker/800/800",
+    "images": [
+      {
+        "src": "https://picsum.photos/seed/maker/800/800",
+        "caption": "Hands-on creation"
+      }
+    ],
+    "color": "#7c3aed",
     "weight": 0.3
   },
   {
     "id": "jukebox_builder",
     "label": "Jukebox\nOwner",
-    "image": "https://picsum.photos/seed/jukebox/800/800",
+    "images": [
+      {
+        "src": "https://picsum.photos/seed/jukebox/800/800",
+        "caption": "Analog vibes in a digital world"
+      }
+    ],
+    "color": "#dc2626",
     "weight": 0.7
   },
   {
     "id": "hockey_player",
     "label": "Hockey\nPlayer",
-    "image": "https://picsum.photos/seed/hockey/800/800",
+    "images": [
+      {
+        "src": "https://picsum.photos/seed/hockey/800/800",
+        "caption": "Icy adrenaline"
+      }
+    ],
+    "color": "#1d4ed8",
     "weight": 0.6
   },
   {
     "id": "softball_player",
     "label": "Softball\nPlayer",
-    "image": "https://picsum.photos/seed/softball/800/800",
+    "images": [
+      {
+        "src": "https://picsum.photos/seed/softball/800/800",
+        "caption": "Diamonds are forever"
+      }
+    ],
+    "color": "#eab308",
     "weight": 0.6
   },
   {
     "id": "technical_editor",
     "label": "Technical\nEditor",
-    "image": "https://picsum.photos/seed/technical/800/800",
+    "images": [
+      {
+        "src": "https://picsum.photos/seed/technical/800/800",
+        "caption": "Clarity in complexity"
+      }
+    ],
+    "color": "#475569",
     "weight": 0.6
   }
 ]
