@@ -1,18 +1,44 @@
 <script setup>
-import { ref, onMounted, onUnmounted, nextTick, computed } from 'vue'
+import { ref, onMounted, onUnmounted, nextTick, computed, watch } from 'vue'
+import { useRoute, useRouter } from 'vue-router'
 import Matter from 'matter-js'
 import words from './words.json'
 import WordDetail from './components/WordDetail.vue'
 
+const route = useRoute()
+const router = useRouter()
 const containerRef = ref(null)
 const wordRefs = ref([])
-const selectedId = ref(null)
 const mouseMoved = ref(false)
 let engine, runner, ground, bodiesMap;
 let startX = 0
 let startY = 0
 
+const selectedId = computed(() => route.params.id || null)
 const selectedWord = computed(() => words.find(w => w.id === selectedId.value))
+
+// Watch for route changes to sync physics state
+watch(selectedId, (newId, oldId) => {
+  if (newId) {
+    if (ground) ground.isSensor = true
+  } else if (oldId) {
+    if (ground) ground.isSensor = false
+    
+    // Return the word back to physics
+    bodiesMap?.forEach((body, el) => {
+      const index = wordRefs.value.indexOf(el)
+      const word = words[index]
+      if (word && word.id === oldId) {
+        Matter.Body.setPosition(body, {
+          x: 32 + el.offsetWidth / 2,
+          y: 32 + el.offsetHeight / 2
+        })
+        Matter.Body.setAngle(body, 0)
+        Matter.Body.setVelocity(body, { x: 1, y: 2 })
+      }
+    })
+  }
+}, { immediate: true })
 
 const onMouseDown = (e) => {
   startX = e.clientX
@@ -28,37 +54,11 @@ const onMouseMove = (e) => {
 
 const handleWordClick = (word) => {
   if (mouseMoved.value || selectedId.value) return
-  selectedId.value = word.id
-  
-  if (ground) {
-    ground.isSensor = true; // Let them fall through
-  }
+  router.push(`/${word.id}`)
 }
 
 const closeSelection = () => {
-  const lastId = selectedId.value
-  selectedId.value = null
-  
-  if (ground) {
-    ground.isSensor = false;
-  }
-
-  // ONLY return the selected word back to the physics engine
-  bodiesMap.forEach((body, el) => {
-    const index = wordRefs.value.indexOf(el);
-    const word = words[index];
-    
-    if (word && word.id === lastId) {
-      // Selected word falls from its "page title" position (approx 2rem, 2rem)
-      Matter.Body.setPosition(body, {
-        x: 32 + el.offsetWidth / 2,
-        y: 32 + el.offsetHeight / 2
-      });
-      Matter.Body.setAngle(body, 0);
-      Matter.Body.setVelocity(body, { x: 1, y: 2 });
-    }
-    // All other bodies stay where they are (likely off-screen)
-  });
+  router.push('/')
 }
 
 const initPhysics = async () => {
