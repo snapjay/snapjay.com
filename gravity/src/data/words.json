@@ -1,0 +1,122 @@
+[
+  {
+    "id": "software_engineer",
+    "label": "Software Engineer",
+    "image": "https://picsum.photos/seed/software/800/800",
+    "weight": 1
+  },
+  {
+    "id": "dirtbiker",
+    "label": "Dirtbiker",
+    "image": "https://picsum.photos/seed/dirtbiker/800/800",
+    "weight": 0.6
+  },
+  {
+    "id": "gardener",
+    "label": "Gardener",
+    "image": "https://picsum.photos/seed/gardener/800/800",
+    "weight": 0.4
+  },
+  {
+    "id": "chef",
+    "label": "Chef",
+    "image": "https://picsum.photos/seed/chef/800/800",
+    "weight": 0.8
+  },
+  {
+    "id": "musician",
+    "label": "Musician",
+    "image": "https://picsum.photos/seed/musician/800/800",
+    "weight": 0.7
+  },
+  {
+    "id": "woodworker",
+    "label": "Woodworker",
+    "image": "https://picsum.photos/seed/woodworker/800/800",
+    "weight": 0.5
+  },
+  {
+    "id": "volunteer",
+    "label": "Volunteer",
+    "image": "https://picsum.photos/seed/volunteer/800/800",
+    "weight": 0.9
+  },
+  {
+    "id": "creative",
+    "label": "Creative",
+    "image": "https://picsum.photos/seed/creative/800/800",
+    "weight": 0.85
+  },
+  {
+    "id": "product_developer",
+    "label": "Product Developer",
+    "image": "https://picsum.photos/seed/product/800/800",
+    "weight": 0.95
+  },
+  {
+    "id": "entrepreneur",
+    "label": "Entrepreneur",
+    "image": "https://picsum.photos/seed/entrepreneur/800/800",
+    "weight": 1.0
+  },
+  {
+    "id": "farmer",
+    "label": "Farmer",
+    "image": "https://picsum.photos/seed/farmer/800/800",
+    "weight": 0.6
+  },
+  {
+    "id": "chicken_wrangler",
+    "label": "Chicken Wrangler",
+    "image": "https://picsum.photos/seed/chicken/800/800",
+    "weight": 0.45
+  },
+  {
+    "id": "adventurer",
+    "label": "Adventurer",
+    "image": "https://picsum.photos/seed/adventurer/800/800",
+    "weight": 0.75
+  },
+  {
+    "id": "mechanical_engineer",
+    "label": "Mechanical Engineer",
+    "image": "https://picsum.photos/seed/mechanical/800/800",
+    "weight": 0.8
+  },
+  {
+    "id": "mechanic",
+    "label": "Mechanic",
+    "image": "https://picsum.photos/seed/mechanic/800/800",
+    "weight": 0.55
+  },
+  {
+    "id": "maker",
+    "label": "Maker",
+    "image": "https://picsum.photos/seed/maker/800/800",
+    "weight": 0.7
+  },
+  {
+    "id": "homesteader",
+    "label": "Homesteader",
+    "image": "https://picsum.photos/seed/homesteader/800/800",
+    "weight": 0.7
+  },
+  {
+    "id": "jukebox_collector",
+    "label": "Jukebox Collector",
+    "image": "https://picsum.photos/seed/jukebox/800/800",
+    "weight": 0.2
+  }, 
+  {
+    "id": "hockey_player",
+    "label": "Hockey Player",
+    "image": "https://picsum.photos/seed/hockey/800/800",
+    "weight": 0.8
+  },
+  {
+    "id": "softball_player",
+    "label": "Softball Player",
+    "image": "https://picsum.photos/seed/softball/800/800",
+    "weight": 0.25
+  }
+]
