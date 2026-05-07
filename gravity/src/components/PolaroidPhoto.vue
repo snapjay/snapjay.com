@@ -1,13 +1,15 @@
 <script setup>
-defineProps({
+const props = defineProps({
   src: String,
   caption: String
 })
+
+const randomRotation = Math.random() * 7 - 3.5; // Random rotation between -5 and 5 deg
 </script>
 
 <template>
   <div class="polaroid-wrapper">
-    <div class="polaroid">
+    <div class="polaroid" :style="{ transform: `rotate(${randomRotation}deg)` }">
       <div class="photo-container">
         <img :src="src" :alt="caption" />
         <div class="photo-glare"></div>
@@ -25,6 +27,8 @@ defineProps({
 .polaroid-wrapper {
   padding: 1rem;
   perspective: 1000px;
+  cursor: pointer;
+  transition: transform 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
 }
 
 .polaroid {
@@ -33,12 +37,11 @@ defineProps({
   box-shadow: 
     0 4px 15px rgba(0,0,0,0.2),
     0 10px 30px rgba(0,0,0,0.1);
-  transform: rotate(-2deg);
   transition: transform 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
   border: 1px solid rgba(0,0,0,0.05);
 }
 
-.polaroid:hover {
+.polaroid-wrapper:hover {
   transform: rotate(1deg) scale(1.02) translateY(-10px);
   z-index: 10;
 }

@@ -104,6 +104,7 @@ const initPhysics = async () => {
     const body = Bodies.rectangle(startX, startY, rect.width, rect.height, {
       restitution: 0.5,
       friction: 0.1,
+      angle: (Math.random() - 0.5) * 1.5, // Random initial rotation
       chamfer: { radius: 4 }, // Smaller chamfer for tighter fit
       render: { visible: false }
     });
@@ -194,7 +195,36 @@ const initPhysics = async () => {
     });
   };
   window.addEventListener('resize', handleResize);
-  onUnmounted(() => window.removeEventListener('resize', handleResize));
+
+  // Handle Accelerometer / Tilt
+  let lastGx = 0;
+  let lastGy = 1;
+
+  const handleOrientation = (event) => {
+    // Desktop browsers often fire this with null values; return early to save perf
+    if (!engine || selectedId.value || event.gamma === null || event.beta === null) return;
+
+    // gamma: left-to-right tilt [-90, 90], beta: front-to-back tilt [-180, 180]
+    const gx = Math.max(-1.5, Math.min(1.5, (event.gamma || 0) / 30));
+    const gy = Math.max(-1.5, Math.min(1.5, (event.beta || 0) / 30));
+
+    // Only update physics engine if tilt has changed significantly (threshold)
+    if (Math.abs(gx - lastGx) > 0.1 || Math.abs(gy - lastGy) > 0.1) {
+      engine.world.gravity.x = gx;
+      engine.world.gravity.y = gy;
+      lastGx = gx;
+      lastGy = gy;
+    }
+  };
+
+  if (window.DeviceOrientationEvent) {
+    window.addEventListener('deviceorientation', handleOrientation);
+  }
+
+  onUnmounted(() => {
+    window.removeEventListener('resize', handleResize);
+    window.removeEventListener('deviceorientation', handleOrientation);
+  });
 }
 
 onMounted(async () => {
@@ -223,8 +253,10 @@ onUnmounted(() => {
 
 <template>
   <div class="gravity-container" ref="containerRef">
+
+
     <!-- Ambient Background SVG (Dark & Subtle) -->
-    <div class="ambient-bg">
+    <!-- <div class="ambient-bg">
       <svg viewBox="0 0 100 100" preserveAspectRatio="xMidYMid slice">
         <defs>
           <radialGradient id="G1" cx="50%" cy="50%" fx="10%" fy="10%" r="0.6">
@@ -254,7 +286,7 @@ onUnmounted(() => {
           <animateTransform attributeType="xml" attributeName="transform" type="rotate" from="0 50 50" to="360 50 50" dur="60s" repeatCount="indefinite" />
         </rect>
       </svg>
-    </div>
+    </div> -->
 
     <!-- Selected Word Detail View -->
     <Transition name="fade">
@@ -311,7 +343,6 @@ onUnmounted(() => {
   -webkit-text-fill-color: transparent;
   background-clip: text;
   color: transparent;
-  
   user-select: none;
   cursor: grab;
   white-space: pre-line;

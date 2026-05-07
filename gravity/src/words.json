@@ -65,10 +65,10 @@
   },
   {
     "id": "woodworker",
-    "label": "Woodworker",
+    "label": "Wood\nworker",
     "images": [
       {
-        "src": "https://picsum.photos/seed/woodworker/800/800",
+        "src": "https://picsum.photos/seed/boots/800/800",
         "caption": "Grain and grit"
       }
     ],
@@ -229,7 +229,7 @@
       }
     ],
     "color": "#eab308",
-    "weight": 0.6
+    "weight": 0.2
   },
   {
     "id": "technical_editor",
@@ -238,6 +238,18 @@
       {
         "src": "https://picsum.photos/seed/technical/800/800",
         "caption": "Clarity in complexity"
+      }
+    ],
+    "color": "#475569",
+    "weight": 0.6
+  },
+  {
+    "id": "contact",
+    "label": "Contact",
+    "images": [
+      {
+        "src": "https://picsum.photos/seed/vintagephone/800/800",
+        "caption": "Let's get in touch"
       }
     ],
     "color": "#475569",

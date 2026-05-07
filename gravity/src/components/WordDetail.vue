@@ -26,7 +26,6 @@ const emit = defineEmits(['close'])
       <main class="page-main">
         <header class="content-header">
           <span class="category-tag">Featured Role</span>
-          <h1 class="content-title">{{ word.label }}</h1>
         </header>
 
         <div class="content-body">
@@ -85,6 +84,25 @@ const emit = defineEmits(['close'])
   padding: 4rem;
   overflow-y: auto;
   box-shadow: 0 50px 100px rgba(0, 0, 0, 0.4);
+  scrollbar-width: thin;
+  scrollbar-color: var(--border-highlight) transparent;
+}
+
+.page-container::-webkit-scrollbar {
+  width: 6px;
+}
+
+.page-container::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+.page-container::-webkit-scrollbar-thumb {
+  background: var(--border-subtle);
+  border-radius: 3px;
+}
+
+.page-container::-webkit-scrollbar-thumb:hover {
+  background: var(--border-highlight);
 }
 
 @media (max-width: 1024px) {
@@ -96,7 +114,11 @@ const emit = defineEmits(['close'])
   }
 
   .page-sidebar {
-    max-width: 300px;
+    max-width: 100%;
+    border-right: none;
+    border-bottom: 1px solid var(--border-subtle);
+    padding-right: 0;
+    padding-bottom: 2rem;
   }
 }
 
@@ -127,6 +149,8 @@ const emit = defineEmits(['close'])
   display: flex;
   flex-direction: column;
   gap: 2rem;
+  border-right: 1px solid var(--border-subtle);
+  padding-right: 4rem;
 }
 
 .page-main {
@@ -137,14 +161,27 @@ const emit = defineEmits(['close'])
   padding-right: 1rem;
 }
 
-/* Custom Scrollbar */
+/* Custom Scrollbar for Main Content */
+.page-main {
+  scrollbar-width: thin;
+  scrollbar-color: var(--border-highlight) transparent;
+}
+
 .page-main::-webkit-scrollbar {
   width: 6px;
+}
+
+.page-main::-webkit-scrollbar-track {
+  background: transparent;
 }
 
 .page-main::-webkit-scrollbar-thumb {
   background: var(--border-subtle);
   border-radius: 3px;
+}
+
+.page-main::-webkit-scrollbar-thumb:hover {
+  background: var(--border-highlight);
 }
 
 .category-tag {
