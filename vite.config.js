@@ -12,10 +12,10 @@ export default defineConfig({
     vueDevTools({
       // Use the wrapper script to handle file:line:column formatting
       launchEditor: fileURLToPath(new URL("./launch-editor.cmd", import.meta.url)),
-    }), 
+    }),
     createHtmlPlugin({
       minify: {
-        removeComments: false, 
+        removeComments: false,
       },
     }),
   ],

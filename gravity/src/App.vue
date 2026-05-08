@@ -13,6 +13,8 @@ const mouseMoved = ref(false)
 let engine, runner, ground, bodiesMap;
 let startX = 0
 let startY = 0
+let isTouchDrag = false
+let gravityRecoveryTimer = null
 
 const selectedId = computed(() => route.params.id || null)
 const selectedWord = computed(() => words.find(w => w.id === selectedId.value))
@@ -40,15 +42,19 @@ watch(selectedId, (newId, oldId) => {
   }
 }, { immediate: true })
 
-const onMouseDown = (e) => {
-  startX = e.clientX
-  startY = e.clientY
+const onPointerDown = (e) => {
+  const pt = e.touches ? e.touches[0] : e
+  startX = pt.clientX
+  startY = pt.clientY
   mouseMoved.value = false
+  isTouchDrag = false
 }
 
-const onMouseMove = (e) => {
-  if (Math.abs(e.clientX - startX) > 5 || Math.abs(e.clientY - startY) > 5) {
+const onPointerMove = (e) => {
+  const pt = e.touches ? e.touches[0] : e
+  if (Math.abs(pt.clientX - startX) > 8 || Math.abs(pt.clientY - startY) > 8) {
     mouseMoved.value = true
+    isTouchDrag = true
   }
 }
 
@@ -57,8 +63,21 @@ const handleWordClick = (word) => {
   router.push(`/${word.id}`)
 }
 
+// Touch-specific: tap detection (touchend without drag)
+const onTouchEnd = (word, e) => {
+  if (!isTouchDrag && !selectedId.value) {
+    e.preventDefault()
+    router.push(`/${word.id}`)
+  }
+}
+
 const closeSelection = () => {
   router.push('/')
+}
+
+// Use a reliable height for mobile (accounts for address bar)
+const getViewportHeight = () => {
+  return window.innerHeight
 }
 
 const initPhysics = async () => {
@@ -71,7 +90,7 @@ const initPhysics = async () => {
   }
   
   const width = containerRef.value.clientWidth;
-  const height = containerRef.value.clientHeight || 800;
+  const height = getViewportHeight();
   
   const Engine = Matter.Engine,
         Runner = Matter.Runner,
@@ -82,9 +101,10 @@ const initPhysics = async () => {
         
   engine = Engine.create();
   
-  ground = Bodies.rectangle(width / 2, height + 50, width * 2, 100, { isStatic: true });
-  const wallLeft = Bodies.rectangle(-50, height / 2, 100, height * 2, { isStatic: true });
-  const wallRight = Bodies.rectangle(width + 50, height / 2, 100, height * 2, { isStatic: true });
+  ground = Bodies.rectangle(width / 2, height + 50, width * 3, 100, { isStatic: true });
+  // No ceiling — let words fly up freely, gravity brings them back
+  const wallLeft = Bodies.rectangle(-50, height / 2, 100, height * 4, { isStatic: true });
+  const wallRight = Bodies.rectangle(width + 50, height / 2, 100, height * 4, { isStatic: true });
   
   Composite.add(engine.world, [ground, wallLeft, wallRight]);
   
@@ -135,14 +155,41 @@ const initPhysics = async () => {
   Runner.run(runner, engine);
   
   const syncLoop = () => {
+    const vw = containerRef.value ? containerRef.value.clientWidth : width;
+    const vh = getViewportHeight();
+
+    // Soft rescue zone — only intervene when words are FAR off-screen
+    // This lets them fly out naturally and only rescues if truly lost
+    const rescueMarginX = vw * 0.5;   // half a viewport width of grace
+    const rescueMarginTop = vh * 2;    // 2x viewport height above (lots of room to fly up)
+    const rescueMarginBottom = vh * 0.3; // less grace below (should land on ground)
+
     wordRefs.value.forEach((el, index) => {
       const word = words[index];
       if (word && word.id === selectedId.value) return;
 
       const body = bodiesMap.get(el);
       if (body && el) {
-        const x = body.position.x - el.offsetWidth / 2;
-        const y = body.position.y - el.offsetHeight / 2;
+        const hw = el.offsetWidth / 2;
+        const hh = el.offsetHeight / 2;
+        let bx = body.position.x;
+        let by = body.position.y;
+        let rescued = false;
+
+        // Only rescue if truly escaped far beyond viewport
+        if (bx < -rescueMarginX) { bx = hw + 20; rescued = true; }
+        if (bx > vw + rescueMarginX) { bx = vw - hw - 20; rescued = true; }
+        if (by < -rescueMarginTop) { by = -100; rescued = true; } // Place just above screen, let it fall
+        if (by > vh + rescueMarginBottom) { by = vh - hh - 20; rescued = true; }
+
+        if (rescued) {
+          Matter.Body.setPosition(body, { x: bx, y: by });
+          // Give a gentle nudge toward center instead of zeroing velocity
+          Matter.Body.setVelocity(body, { x: (vw / 2 - bx) * 0.02, y: 2 });
+        }
+
+        const x = body.position.x - hw;
+        const y = body.position.y - hh;
         el.style.transform = `translate(${x}px, ${y}px) rotate(${body.angle}rad)`;
       }
     });
@@ -154,7 +201,10 @@ const initPhysics = async () => {
   const handleResize = () => {
     if (!containerRef.value) return;
     const newWidth = containerRef.value.clientWidth;
-    const newHeight = containerRef.value.clientHeight || 800;
+    const newHeight = getViewportHeight();
+
+    // Update container height to match real viewport
+    containerRef.value.style.height = newHeight + 'px';
 
     Matter.Body.setPosition(ground, { x: newWidth / 2, y: newHeight + 50 });
     Matter.Body.setPosition(wallLeft, { x: -50, y: newHeight / 2 });
@@ -205,15 +255,39 @@ const initPhysics = async () => {
     if (!engine || selectedId.value || event.gamma === null || event.beta === null) return;
 
     // gamma: left-to-right tilt [-90, 90], beta: front-to-back tilt [-180, 180]
+    // Allow full range — words can fly off, soft rescue will catch them
     const gx = Math.max(-1.5, Math.min(1.5, (event.gamma || 0) / 30));
     const gy = Math.max(-1.5, Math.min(1.5, (event.beta || 0) / 30));
 
-    // Only update physics engine if tilt has changed significantly (threshold)
-    if (Math.abs(gx - lastGx) > 0.1 || Math.abs(gy - lastGy) > 0.1) {
+    // Only update physics engine if tilt has changed significantly
+    if (Math.abs(gx - lastGx) > 0.05 || Math.abs(gy - lastGy) > 0.05) {
       engine.world.gravity.x = gx;
       engine.world.gravity.y = gy;
       lastGx = gx;
       lastGy = gy;
+
+      // Auto-recover gravity to default after tilt stops changing
+      clearTimeout(gravityRecoveryTimer);
+      gravityRecoveryTimer = setTimeout(() => {
+        if (!engine) return;
+        // Smoothly ease back to normal gravity
+        const easeBack = () => {
+          if (!engine) return;
+          const cx = engine.world.gravity.x;
+          const cy = engine.world.gravity.y;
+          const dx = 0 - cx;
+          const dy = 1 - cy;
+          if (Math.abs(dx) < 0.05 && Math.abs(dy) < 0.05) {
+            engine.world.gravity.x = 0;
+            engine.world.gravity.y = 1;
+            return;
+          }
+          engine.world.gravity.x += dx * 0.08;
+          engine.world.gravity.y += dy * 0.08;
+          requestAnimationFrame(easeBack);
+        };
+        easeBack();
+      }, 2000);
     }
   };
 
@@ -221,13 +295,29 @@ const initPhysics = async () => {
     window.addEventListener('deviceorientation', handleOrientation);
   }
 
+  // Prevent pull-to-refresh on iOS Safari (document-level touchmove)
+  const preventPullToRefresh = (e) => {
+    // Only prevent if at top of page (pull-to-refresh territory)
+    if (document.scrollingElement.scrollTop <= 0) {
+      e.preventDefault();
+    }
+  };
+  document.addEventListener('touchmove', preventPullToRefresh, { passive: false });
+
   onUnmounted(() => {
     window.removeEventListener('resize', handleResize);
     window.removeEventListener('deviceorientation', handleOrientation);
+    document.removeEventListener('touchmove', preventPullToRefresh);
+    clearTimeout(gravityRecoveryTimer);
   });
 }
 
 onMounted(async () => {
+  // Set initial container height for mobile
+  if (containerRef.value) {
+    containerRef.value.style.height = window.innerHeight + 'px';
+  }
+
   // Wait for Bebas Neue to load before measuring for physics
   if (document.fonts) {
     try {
@@ -253,7 +343,6 @@ onUnmounted(() => {
 
 <template>
   <div class="gravity-container" ref="containerRef">
-
 
     <!-- Ambient Background SVG (Dark & Subtle) -->
     <!-- <div class="ambient-bg">
@@ -303,13 +392,16 @@ onUnmounted(() => {
       ref="wordRefs"
       class="gravity-word"
       :class="{ 'is-selected': selectedId === word.id }"
-      @mousedown="onMouseDown"
-      @mousemove="onMouseMove"
+      @mousedown="onPointerDown"
+      @mousemove="onPointerMove"
       @mouseup="handleWordClick(word)"
+      @touchstart.passive="onPointerDown"
+      @touchmove.passive="onPointerMove"
+      @touchend="onTouchEnd(word, $event)"
       :style="{ 
         backgroundImage: word.images && word.images[0] ? `url(${word.images[0].src})` : 'none',
         backgroundColor: word.color || 'transparent',
-        fontSize: `clamp(1.5rem, (3 + ${word.weight * 3}) * 1vw, 9rem)`
+        fontSize: `clamp(3rem, (3 + ${word.weight * 3}) * 1vw, 9rem)`
       }"
     >
       {{ word.label }}
@@ -321,11 +413,14 @@ onUnmounted(() => {
 .gravity-container {
   width: 100vw;
   height: 100vh;
+  height: 100dvh; /* Dynamic viewport height for mobile — fallback above for older browsers */
   position: absolute;
   top: 0;
   left: 0;
   overflow: hidden;
   background: transparent;
+  touch-action: none; /* Prevent browser gestures (pull-to-refresh, scroll bounce) */
+  overscroll-behavior: none;
 }
 
 .gravity-word {
@@ -334,8 +429,8 @@ onUnmounted(() => {
   left: 0;
   font-family: 'Bebas Neue', sans-serif;
   font-weight: 900;
-  line-height: 0.85;
-  padding: 0;
+  line-height: 0.72;
+  padding: 0.13em 0 0 0; /* Fixes top clipping for tight line-height */
   text-transform: uppercase;
   background-size: cover;
   background-position: center;
@@ -360,7 +455,10 @@ onUnmounted(() => {
 .gravity-word.is-selected {
   transition: all 1.2s cubic-bezier(0.23, 1, 0.32, 1);
   z-index: 1000;
-  transform: translate(2rem, 2rem) rotate(0rad) !important;
+  transform: translate(6rem, 5rem) rotate(0rad) !important;
+  font-size: 10rem !important;
+  filter: none; /* Keep the hero title sharp */
+  text-shadow: 0 10px 30px rgba(0,0,0,0.5);
   pointer-events: none;
 }
 
