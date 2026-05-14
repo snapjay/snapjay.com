@@ -22,11 +22,20 @@ const selectedWord = computed(() => words.find(w => w.id === selectedId.value))
 // Watch for route changes to sync physics state
 watch(selectedId, (newId, oldId) => {
   if (newId) {
-    if (ground) ground.isSensor = true
     // Disable mouse constraint so words can't be dragged behind the modal
     if (mouseConstraint) mouseConstraint.constraint.stiffness = 0
+    
+    // Temporarily take the selected word's physics body out of play
+    bodiesMap?.forEach((body, el) => {
+      const index = wordRefs.value.indexOf(el)
+      const word = words[index]
+      if (word && word.id === newId) {
+        Matter.Body.setStatic(body, true)
+        // Move it out of bounds so it doesn't block or interact with other words
+        Matter.Body.setPosition(body, { x: -1000, y: -1000 })
+      }
+    })
   } else if (oldId) {
-    if (ground) ground.isSensor = false
     // Re-enable mouse constraint
     if (mouseConstraint) mouseConstraint.constraint.stiffness = 0.2
     
@@ -35,6 +44,7 @@ watch(selectedId, (newId, oldId) => {
       const index = wordRefs.value.indexOf(el)
       const word = words[index]
       if (word && word.id === oldId) {
+        Matter.Body.setStatic(body, false)
         Matter.Body.setPosition(body, {
           x: 32 + el.offsetWidth / 2,
           y: 32 + el.offsetHeight / 2
@@ -350,6 +360,10 @@ onUnmounted(() => {
 
 <template>
   <div class="gravity-container" ref="containerRef">
+    <div class="site-logo">
+      <h1>snapjay</h1><h2>Engineer, Entrepreneur </h2><h1> Knoxville, TN</h1>
+    
+    </div>
 
     <!-- Ambient Background SVG (Dark & Subtle) -->
     <!-- <div class="ambient-bg">
@@ -408,7 +422,7 @@ onUnmounted(() => {
       @touchmove.passive="onPointerMove"
       @touchend="onTouchEnd(word, $event)"
       :style="{ 
-        backgroundImage: word.images && word.images[0] ? `url(${word.images[0].src})` : 'none',
+        // backgroundImage: word.images && word.images[0] ? `url(${word.images[0].src})` : 'none',
         backgroundColor: word.color || 'transparent',
         fontSize: `clamp(3rem, (3 + ${word.weight * 3}) * 1vw, 9rem)`
       }"
@@ -432,6 +446,32 @@ onUnmounted(() => {
   overscroll-behavior: none;
 }
 
+.site-logo {
+  position: fixed;
+  top: 2rem;
+  right: 2rem;
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: clamp(1.5rem, 4vw, 3rem);
+  color: var(--accent);
+  z-index: 10; /* Behind the modal backdrop */
+  pointer-events: none;
+  text-align: right;
+  line-height: 0.8;
+  opacity: 0.8;
+  font-weight: 900;
+}
+
+.site-logo h1{
+  display: inline-block;
+  font-size: clamp(1.5rem, 4vw, 3rem);
+  margin:0 1rem;
+}
+.site-logo h2{
+  font-size: clamp(1.5rem, 4vw, 3rem);
+  color: white;
+  display: inline-block;
+}
+
 .gravity-word {
   position: absolute;
   top: 0;
@@ -450,8 +490,9 @@ onUnmounted(() => {
   user-select: none;
   cursor: grab;
   white-space: pre-line;
-  text-align: center;
+  text-align: left;
   box-sizing: border-box;
+  /* text-shadow: 0 10px 30px rgba(0,0,0,0.5); */
   
   /* Start off-screen */
   transform: translateY(-1000px);
@@ -468,7 +509,6 @@ onUnmounted(() => {
   transform: translate(4rem, 6.5rem) rotate(0rad) !important;
   font-size: clamp(5rem, 10vw, 10rem) !important;
   filter: none;
-  text-shadow: 0 10px 30px rgba(0,0,0,0.5);
   pointer-events: none;
 }
 

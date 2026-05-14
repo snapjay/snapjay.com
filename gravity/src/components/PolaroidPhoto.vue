@@ -40,7 +40,6 @@ const fontSize = computed(() => {
 .polaroid-wrapper {
   padding: 1rem;
   perspective: 1000px;
-  cursor: pointer;
   transition: transform 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
 }
 
@@ -68,7 +67,7 @@ const fontSize = computed(() => {
   overflow: hidden;
   background: #222;
   position: relative;
-  border: 1px solid rgba(0,0,0,0.15);
+  border: 2px solid rgba(0,0,0,0.15);
   box-shadow: inset 0 0 10px rgba(0,0,0,0.5);
 }
 

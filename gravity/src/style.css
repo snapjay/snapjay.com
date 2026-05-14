@@ -10,9 +10,9 @@
   --text-secondary: #94a3b8;
   --text-tertiary: #64748b;
 
-  --accent: #8b5cf6;
-  --accent-glow: rgba(139, 92, 246, 0.5);
-  --accent-soft: rgba(139, 92, 246, 0.1);
+  --accent: #3592bf;
+  --accent-glow: rgba(53, 146, 191, 0.5);
+  --accent-soft: rgba(53, 146, 191, 0.1);
 
   --border-subtle: rgba(255, 255, 255, 0.08);
   --border-highlight: rgba(255, 255, 255, 0.15);
@@ -87,12 +87,14 @@ body {
   inset: 0;
   z-index: -1;
   overflow: hidden;
-  background: #050505; /* Solid dark base */
+  background: #050505;
+  /* Solid dark base */
 }
 
 .ambient-bg svg {
   width: 100%;
   height: 100%;
   opacity: 0.8;
-  filter: blur(40px); /* Softens the SVG gradients further */
+  filter: blur(40px);
+  /* Softens the SVG gradients further */
 }

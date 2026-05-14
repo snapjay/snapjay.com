@@ -172,10 +172,19 @@
   {
     "id": "creative",
     "label": "Creative",
+    "pageType": "Gallery",
     "images": [
       {
-        "src": "https://picsum.photos/seed/creative/800/800",
-        "caption": "Thinking outside the box"
+        "src": "/photos/creative-clucking-clean.jpg",
+        "caption": "Cluckin' Clean - Soap Branding"
+      },
+      {
+        "src": "/photos/creative-soap.jpg",
+        "caption": "Cluckin' Clean - Soap Branding"
+      },
+      {
+        "src": "/photos/creative-ironSkillet.jpg",
+        "caption": "The Iron Skillet Co - Prepard meals brandning"
       }
     ],
     "color": "#06b6d4",
@@ -186,8 +195,16 @@
     "label": "Product\nDeveloper",
     "images": [
       {
-        "src": "https://picsum.photos/seed/product/800/800",
-        "caption": "Conceptualizing the future"
+        "src": "/photos/creative-ironSkillet.jpg",
+        "caption": "The Iron Skillet Co - Prepard meals brandning"
+      },
+      {
+        "src": "/photos/creative-clucking-clean.jpg",
+        "caption": "Cluckin' Clean - Soap Branding"
+      },
+      {
+        "src": "/photos/creative-soap.jpg",
+        "caption": "Cluckin' Clean - Soap Branding"
       }
     ],
     "color": "#6366f1",
@@ -220,10 +237,23 @@
   {
     "id": "chicken_wrangler",
     "label": "Chicken\nWrangler",
+    "pageType": "Gallery",
     "images": [
       {
-        "src": "https://picsum.photos/seed/chicken/800/800",
-        "caption": "Morning chores"
+        "src": "/photos/chicken-coop.jpg",
+        "caption": "The run"
+      },
+      {
+        "src": "/photos/chicken-eagle.jpg",
+        "caption": "Chicken Coop - Eagle"
+      },
+      {
+        "src": "/photos/chicken-sprocket.jpg",
+        "caption": "Sprocket on my shoulder"
+      },
+      {
+        "src": "/photos/chicken-group.jpg",
+        "caption": "Poultry's Motley Crew"
       }
     ],
     "color": "#d97706",
@@ -282,8 +312,12 @@
     "label": "Jukebox\nOwner",
     "images": [
       {
-        "src": "https://picsum.photos/seed/jukebox/800/800",
-        "caption": "Analog vibes in a digital world"
+        "src": "/photos/jukebox-seeburg.jpg",
+        "caption": "Seeburg Select-o-Matic 100"
+      },
+      {
+        "src": "/photos/jukebox-wurlitzer.jpg",
+        "caption": "Wurlitzer 1015"
       }
     ],
     "color": "#dc2626",
@@ -325,8 +359,12 @@
     "label": "Technical\nEditor",
     "images": [
       {
-        "src": "https://picsum.photos/seed/technical/800/800",
-        "caption": "Clarity in complexity"
+        "src": "/photos/book-1.jpg",
+        "caption": "Building an E-Commerce Application with MEAN"
+      },
+      {
+        "src": "/photos/book-2.jpg",
+        "caption": "MEAN Blueprints"
       }
     ],
     "color": "#475569",
