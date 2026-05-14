@@ -10,7 +10,7 @@ const router = useRouter()
 const containerRef = ref(null)
 const wordRefs = ref([])
 const mouseMoved = ref(false)
-let engine, runner, ground, bodiesMap;
+let engine, runner, ground, bodiesMap, mouseConstraint;
 let startX = 0
 let startY = 0
 let isTouchDrag = false
@@ -23,8 +23,12 @@ const selectedWord = computed(() => words.find(w => w.id === selectedId.value))
 watch(selectedId, (newId, oldId) => {
   if (newId) {
     if (ground) ground.isSensor = true
+    // Disable mouse constraint so words can't be dragged behind the modal
+    if (mouseConstraint) mouseConstraint.constraint.stiffness = 0
   } else if (oldId) {
     if (ground) ground.isSensor = false
+    // Re-enable mouse constraint
+    if (mouseConstraint) mouseConstraint.constraint.stiffness = 0.2
     
     // Return the word back to physics
     bodiesMap?.forEach((body, el) => {
@@ -140,7 +144,7 @@ const initPhysics = async () => {
   });
   
   const mouse = Mouse.create(containerRef.value);
-  const mouseConstraint = MouseConstraint.create(engine, {
+  mouseConstraint = MouseConstraint.create(engine, {
       mouse: mouse,
       constraint: {
           stiffness: 0.2,
@@ -150,6 +154,9 @@ const initPhysics = async () => {
       }
   });
   Composite.add(engine.world, mouseConstraint);
+
+  // If modal is already open on init, disable constraint
+  if (selectedId.value) mouseConstraint.constraint.stiffness = 0;
   
   runner = Runner.create();
   Runner.run(runner, engine);
@@ -377,14 +384,16 @@ onUnmounted(() => {
       </svg>
     </div> -->
 
-    <!-- Selected Word Detail View -->
-    <Transition name="fade">
-      <WordDetail 
-        v-if="selectedWord" 
-        :word="selectedWord" 
-        @close="closeSelection"
-      />
-    </Transition>
+    <!-- Selected Word Detail View (Teleported to body to escape gravity container) -->
+    <Teleport to="body">
+      <Transition name="fade">
+        <WordDetail 
+          v-if="selectedWord" 
+          :word="selectedWord" 
+          @close="closeSelection"
+        />
+      </Transition>
+    </Teleport>
 
     <div 
       v-for="(word, index) in words" 
@@ -453,24 +462,35 @@ onUnmounted(() => {
 }
 
 .gravity-word.is-selected {
-  transition: all 1.2s cubic-bezier(0.23, 1, 0.32, 1);
+  transition: all 1s cubic-bezier(0.23, 1, 0.32, 1);
   z-index: 1000;
-  transform: translate(6rem, 5rem) rotate(0rad) !important;
-  font-size: 10rem !important;
-  filter: none; /* Keep the hero title sharp */
+  /* Land in the title-area of the full-screen modal */
+  transform: translate(4rem, 6.5rem) rotate(0rad) !important;
+  font-size: clamp(5rem, 10vw, 10rem) !important;
+  filter: none;
   text-shadow: 0 10px 30px rgba(0,0,0,0.5);
   pointer-events: none;
 }
 
-/* Transitions */
+@media (max-width: 640px) {
+  .gravity-word.is-selected {
+    transform: translate(1.5rem, 5rem) rotate(0rad) !important;
+    font-size: clamp(3.5rem, 14vw, 6rem) !important;
+  }
+}
+
+
+</style>
+
+<!-- Global styles for Teleported modal transitions -->
+<style>
 .fade-enter-active,
 .fade-leave-active {
-  transition: all 0.8s cubic-bezier(0.23, 1, 0.32, 1);
+  transition: opacity 0.5s cubic-bezier(0.23, 1, 0.32, 1);
 }
 
 .fade-enter-from,
 .fade-leave-to {
   opacity: 0;
-  transform: scale(0.9) translateY(20px);
 }
 </style>

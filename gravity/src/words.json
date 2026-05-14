@@ -9,7 +9,7 @@
       },
       {
         "src": "https://picsum.photos/seed/hardware/800/800",
-        "caption": "Hardware Engineering "
+        "caption": "Hardware Engineering"
       }
     ],
     "color": "#3b82f6",
@@ -18,10 +18,23 @@
   {
     "id": "dirtbiker",
     "label": "Dirtbiker",
+    "pageType": "Gallery",
     "images": [
       {
-        "src": "https://picsum.photos/seed/dirtbiker/800/800",
-        "caption": "Pushing limits on the trails"
+        "src": "/photos/Dirtbike.jpg",
+        "caption": "Silverton, Colorado"
+      },
+      {
+        "src": "/photos/dirtbike2.jpg",
+        "caption": "North Sand Hills, Waldon, Colorado"
+      },
+      {
+        "src": "/photos/dirtbike3.jpg",
+        "caption": "San Juan Mountains, Colorado"
+      },
+      {
+        "src": "/photos/dirtbike4.jpg",
+        "caption": "Durango, Colorado"
       }
     ],
     "color": "#ef4444",
@@ -32,7 +45,11 @@
     "label": "Gardener",
     "images": [
       {
-        "src": "https://picsum.photos/seed/gardener/800/800",
+        "src": "/photos/garden1.jpg",
+        "caption": "Finding peace in the soil"
+      },
+      {
+        "src": "/photos/garden2.jpg",
         "caption": "Finding peace in the soil"
       }
     ],
@@ -42,12 +59,31 @@
   {
     "id": "chef",
     "label": "Chef",
+    "pageType": "Gallery",
     "images": [
       {
-        "src": "https://picsum.photos/seed/chef/800/800",
-        "caption": "Plating with precision"
+        "src": "/photos/chef-toast.jpg",
+        "caption": "Sourdough avacado toast with béarnaise sauce, cherry tomatoes, balsamic vinegar, basil"
+      },
+      {
+        "src": "/photos/chef-pork.jpg",
+        "caption": "Spinach ravioli with smoked porkbutt, sage, goat cheese"
+      },
+      {
+        "src": "/photos/chef-ravioli.jpg",
+        "caption": "Fresh pasta"
+      },
+      {
+        "src": "/photos/chef-steak.jpg",
+        "caption": "Steak frites with candied bacon, compound butter"
+      },
+      {
+        "src": "/photos/chef-chocolate.jpg",
+        "caption": "Whiskey chocolate mousse"
       }
     ],
+    "leadText": "I'm a bit of a foodie",
+    "bodyText": "I've always had a passion for food and cooking. It's something that I enjoy doing in my free time and I've been doing it for as long as I can remember. I'm a bit of a foodie and I enjoy trying new foods and restaurants.",
     "color": "#f59e0b",
     "weight": 0.9
   },
@@ -66,10 +102,23 @@
   {
     "id": "woodworker",
     "label": "Wood\nworker",
+    "pageType": "Gallery",
     "images": [
       {
-        "src": "https://picsum.photos/seed/boots/800/800",
-        "caption": "Grain and grit"
+        "src": "/photos/wood-green.jpg",
+        "caption": "Walnut and epoxy cutting board"
+      },
+      {
+        "src": "/photos/wood-cow.jpg",
+        "caption": "Walnut endgrain with CNC machined maple inlay"
+      },
+      {
+        "src": "/photos/wood-handle.jpg",
+        "caption": "Walnut and Epoxy cutting board"
+      },
+      {
+        "src": "/photos/wood-bench.jpg",
+        "caption": "1980 F-150 Tailgate bench"
       }
     ],
     "color": "#92400e",
@@ -78,10 +127,43 @@
   {
     "id": "volunteer",
     "label": "Volunteer",
+    "pageType": "Gallery",
     "images": [
       {
-        "src": "https://picsum.photos/seed/volunteer/800/800",
-        "caption": "Giving back to the community"
+        "src": "/photos/vol-kkb.jpg",
+        "caption": "Clearing Trash with Keep Knoxville Beautiful"
+      },
+      {
+        "src": "/photos/vol-adfac.jpg",
+        "caption": "Pressure Washing for ADFAC"
+      },
+      {
+        "src": "/photos/vol-rmrt.jpg",
+        "caption": "Mending fences for Rocky Mountain Riding Therapy"
+      },
+      {
+        "src": "/photos/vol-sled-timekeeper.jpg",
+        "caption": "Timekeeper for Colorado Sled Hockey (Rocky Mountain Mayhem Sled Hockey Tournament)"
+      },
+      {
+        "src": "/photos/vol-equestrian.jpg",
+        "caption": "Night Check for Equestrian Therapy Program"
+      },
+      {
+        "src": "/photos/vol-elkmont.jpg",
+        "caption": "Building campsites at Elkmont Campground"
+      },
+      {
+        "src": "/photos/vol-tuff.jpg",
+        "caption": "Co-Founder of Toronto United Flag Football"
+      },
+      {
+        "src": "/photos/vol-ymca.jpg",
+        "caption": "Painting YMCA rink (United Way)"
+      },
+      {
+        "src": "/photos/vol-sledhockey.jpg",
+        "caption": "On-ice help for Youth Sled Hockey"
       }
     ],
     "color": "#ec4899",
@@ -210,12 +292,19 @@
   {
     "id": "hockey_player",
     "label": "Hockey\nPlayer",
+    "pageType": "Gallery",
     "images": [
       {
-        "src": "https://picsum.photos/seed/hockey/800/800",
-        "caption": "Icy adrenaline"
+        "src": "/photos/hockey-rink.jpg",
+        "caption": "Homemade Pond Rink"
+      },
+      {
+        "src": "/photos/hockey-goalie.jpg",
+        "caption": "Homemade Pond Rink"
       }
     ],
+    "leadText": "Hockey is in my blood",
+    "bodyText": "I grew up playing hockey, and I've been playing ever since. It's a sport that requires skill, speed, and strategy. It is a team sport that is played on ice and involves skating and stickhandling a puck.",
     "color": "#1d4ed8",
     "weight": 0.6
   },

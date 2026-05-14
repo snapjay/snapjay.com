@@ -1,4 +1,5 @@
 <script setup>
+import { onMounted, onUnmounted, ref } from 'vue'
 import PolaroidPhoto from './PolaroidPhoto.vue'
 
 defineProps({
@@ -9,179 +10,119 @@ defineProps({
 })
 
 const emit = defineEmits(['close'])
+const scrollRef = ref(null)
+
+// Esc key to close
+const onKeyDown = (e) => {
+  if (e.key === 'Escape') emit('close')
+}
+
+onMounted(() => {
+  document.addEventListener('keydown', onKeyDown)
+  // Lock body scroll when modal is open
+  document.body.style.overflow = 'hidden'
+})
+
+onUnmounted(() => {
+  document.removeEventListener('keydown', onKeyDown)
+  document.body.style.overflow = ''
+})
 </script>
 
 <template>
-  <div class="selected-overlay">
-    <div class="page-container">
-      <aside class="page-sidebar">
-        <PolaroidPhoto 
-          v-for="(image, index) in word.images"
-          :key="index"
-          :src="image.src"
-          :caption="image.caption"
-        />
-      </aside>
-
-      <main class="page-main">
-        <header class="content-header">
-          <span class="category-tag">Featured Role</span>
-        </header>
-
-        <div class="content-body">
-          <p class="lead-text">
-            Exploring the intersection of creativity and impact through the lens of {{ word.label.replace('\n', ' ') }}.
-          </p>
-          <p>
-            This role embodies the core values of our gravity-based design philosophy. Every interaction is calculated,
-            every collision intentional. In the world of physics-based typography, {{ word.label.replace('\n', ' ') }}
-            stands out as a high-weight component that anchors the visual experience.
-          </p>
-          <div class="content-grid">
-            <div class="grid-card">
-              <h3>Dynamics</h3>
-              <p>Simulating realistic weight and momentum to create tactile digital interfaces.</p>
-            </div>
-            <div class="grid-card">
-              <h3>Impact</h3>
-              <p>How typography influences user perception through movement and physics.</p>
-            </div>
-          </div>
-        </div>
-      </main>
-    </div>
-
-    <button class="close-btn" @click="emit('close')">
-      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3">
+  <div class="modal-backdrop" @mousedown.self="emit('close')" @touchend.self.prevent="emit('close')">
+    <!-- Close button — fixed to viewport -->
+    <button class="close-btn" @click="emit('close')" aria-label="Close">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
         <path d="M18 6L6 18M6 6l12 12" stroke-linecap="round" stroke-linejoin="round" />
       </svg>
     </button>
+
+    <div class="modal-scroll" ref="scrollRef" @mousedown.stop @touchstart.stop>
+    
+      <!-- Content -->
+      <div :class="['page-container', { 'is-gallery': word.pageType === 'Gallery' }]">
+        <aside v-if="word.pageType !== 'Gallery'" class="page-sidebar">
+          <PolaroidPhoto 
+            v-for="(image, index) in word.images"
+            :key="index"
+            :src="image.src"
+            :caption="image.caption"
+          />
+        </aside>
+
+        <main class="page-main">
+          <div class="content-body">
+            <p class="lead-text">
+              {{ word.leadText || 'Exploring the intersection of creativity and impact through the lens of ' + word.label.replace('\n', ' ') + '.' }}
+            </p>
+            <p>
+                {{ word.bodyText || 'This role embodies the core values of our gravity-based design philosophy. Every interaction is calculated, every collision intentional. In the world of physics-based typography, stands out as a high-weight component that anchors the visual experience.' }}
+            </p>
+          </div>
+
+          <div v-if="word.pageType === 'Gallery'" class="gallery-grid">
+            <PolaroidPhoto 
+              v-for="(image, index) in word.images"
+              :key="index"
+              :src="image.src"
+              :caption="image.caption"
+            />
+          </div>
+        </main>
+      </div>
+    </div>
   </div>
 </template>
 
 <style scoped>
-.selected-overlay {
-  position: absolute;
+/* ─── Backdrop ─── */
+.modal-backdrop {
+  position: fixed;
   inset: 0;
   z-index: 500;
+  background: rgba(10, 10, 12, 0.92);
+  backdrop-filter: blur(24px);
+  -webkit-backdrop-filter: blur(24px);
   display: flex;
-  align-items: center;
-  justify-content: center;
-  background: rgba(10, 10, 12, 0.9);
-  backdrop-filter: blur(20px);
+  flex-direction: column;
 }
 
-.page-container {
-  width: 90%;
+/* ─── Scrollable content ─── */
+.modal-scroll {
+  flex: 1;
+  overflow-y: auto;
+  overflow-x: hidden;
+  -webkit-overflow-scrolling: touch;
+  overscroll-behavior-y: contain;
+  padding: 0 2rem 4rem;
+  scrollbar-width: thin;
+  scrollbar-color: var(--border-highlight) transparent;
+}
+
+.modal-scroll::-webkit-scrollbar {
+  width: 6px;
+}
+
+.modal-scroll::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+.modal-scroll::-webkit-scrollbar-thumb {
+  background: var(--border-subtle);
+  border-radius: 3px;
+}
+
+/* ─── Title area ─── */
+.title-area {
   max-width: 1200px;
-  height: 85%;
-  display: grid;
-  grid-template-columns: 400px 1fr;
-  gap: 4rem;
-  background: var(--bg-secondary);
-  border: 1px solid var(--border-subtle);
-  border-radius: 3rem;
-  padding: 4rem;
-  overflow-y: auto;
-  box-shadow: 0 50px 100px rgba(0, 0, 0, 0.4);
-  scrollbar-width: thin;
-  scrollbar-color: var(--border-highlight) transparent;
-}
-
-.page-container::-webkit-scrollbar {
-  width: 6px;
-}
-
-.page-container::-webkit-scrollbar-track {
-  background: transparent;
-}
-
-.page-container::-webkit-scrollbar-thumb {
-  background: var(--border-subtle);
-  border-radius: 3px;
-}
-
-.page-container::-webkit-scrollbar-thumb:hover {
-  background: var(--border-highlight);
-}
-
-@media (max-width: 1024px) {
-  .page-container {
-    grid-template-columns: 1fr;
-    gap: 2rem;
-    padding: 3rem;
-    height: 90%;
-  }
-
-  .page-sidebar {
-    max-width: 100%;
-    border-right: none;
-    border-bottom: 1px solid var(--border-subtle);
-    padding-right: 0;
-    padding-bottom: 2rem;
-  }
-}
-
-@media (max-width: 640px) {
-  .page-container {
-    padding: 1.5rem;
-    border-radius: 2rem;
-    width: 95%;
-  }
-
-  .content-title {
-    font-size: 4rem;
-  }
-
-  .content-grid {
-    grid-template-columns: 1fr;
-  }
-
-  .close-btn {
-    top: 1rem;
-    right: 1rem;
-    width: 3rem;
-    height: 3rem;
-  }
-}
-
-.page-sidebar {
+  margin: 0 auto;
+  padding: 3rem 2rem 1rem;
+  min-height: 12rem;
   display: flex;
   flex-direction: column;
-  gap: 2rem;
-  border-right: 1px solid var(--border-subtle);
-  padding-right: 4rem;
-}
-
-.page-main {
-  display: flex;
-  flex-direction: column;
-  gap: 2.5rem;
-  overflow-y: auto;
-  padding-right: 1rem;
-}
-
-/* Custom Scrollbar for Main Content */
-.page-main {
-  scrollbar-width: thin;
-  scrollbar-color: var(--border-highlight) transparent;
-}
-
-.page-main::-webkit-scrollbar {
-  width: 6px;
-}
-
-.page-main::-webkit-scrollbar-track {
-  background: transparent;
-}
-
-.page-main::-webkit-scrollbar-thumb {
-  background: var(--border-subtle);
-  border-radius: 3px;
-}
-
-.page-main::-webkit-scrollbar-thumb:hover {
-  background: var(--border-highlight);
+  justify-content: flex-end;
+  gap: 0.5rem;
 }
 
 .category-tag {
@@ -193,15 +134,44 @@ const emit = defineEmits(['close'])
   font-size: 0.9rem;
 }
 
-.content-title {
+/* Invisible placeholder to reserve space for the animated gravity word */
+.title-placeholder {
   font-family: 'Bebas Neue', sans-serif;
-  font-size: 6rem;
-  line-height: 0.9;
-  margin: 0.5rem 0 0;
+  font-size: clamp(5rem, 10vw, 10rem);
+  line-height: 0.85;
+  font-weight: 900;
+  text-transform: uppercase;
+  color: transparent;
+  pointer-events: none;
   white-space: pre-line;
-  background: linear-gradient(to bottom, #fff, #888);
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
+}
+
+/* ─── Page layout ─── */
+.page-container {
+  max-width: 1200px;
+  margin: 0 auto;
+  display: grid;
+  grid-template-columns: 380px 1fr;
+  gap: 3rem;
+  padding: 2rem;
+}
+
+.page-container.is-gallery {
+  grid-template-columns: 1fr;
+}
+
+.page-sidebar {
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+  border-right: 1px solid var(--border-subtle);
+  padding-right: 3rem;
+}
+
+.page-main {
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
 }
 
 .content-body {
@@ -225,7 +195,7 @@ const emit = defineEmits(['close'])
   display: grid;
   grid-template-columns: 1fr 1fr;
   gap: 1.5rem;
-  margin-top: 2rem;
+  margin-top: 1.5rem;
 }
 
 .grid-card {
@@ -248,14 +218,23 @@ const emit = defineEmits(['close'])
   opacity: 0.7;
 }
 
+/* ─── Gallery Grid ─── */
+.gallery-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+  gap: 3rem;
+  margin-top: 2rem;
+}
+
+/* ─── Close button ─── */
 .close-btn {
-  position: absolute;
-  top: 2.5rem;
-  right: 2.5rem;
-  width: 4rem;
-  height: 4rem;
+  position: fixed;
+  top: 1.5rem;
+  right: 1.5rem;
+  width: 3.5rem;
+  height: 3.5rem;
   border-radius: 50%;
-  background: var(--bg-tertiary);
+  background: rgba(30, 30, 36, 0.9);
   border: 1px solid var(--border-highlight);
   color: white;
   display: flex;
@@ -264,6 +243,8 @@ const emit = defineEmits(['close'])
   cursor: pointer;
   transition: all 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
   z-index: 1100;
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
 }
 
 .close-btn:hover {
@@ -272,8 +253,81 @@ const emit = defineEmits(['close'])
   border-color: white;
 }
 
+.close-btn:active {
+  transform: scale(0.95);
+}
+
 .close-btn svg {
-  width: 1.8rem;
-  height: 1.8rem;
+  width: 1.5rem;
+  height: 1.5rem;
+}
+
+/* ─── Tablet ─── */
+@media (max-width: 1024px) {
+  .page-container {
+    grid-template-columns: 1fr;
+    gap: 2rem;
+    padding: 1rem 2rem;
+  }
+
+  .page-sidebar {
+    border-right: none;
+    border-bottom: 1px solid var(--border-subtle);
+    padding-right: 0;
+    padding-bottom: 2rem;
+    flex-direction: row;
+    flex-wrap: wrap;
+    gap: 1.5rem;
+  }
+
+  .page-sidebar > * {
+    flex: 1 1 45%;
+    min-width: 200px;
+  }
+}
+
+/* ─── Phone ─── */
+@media (max-width: 640px) {
+  .modal-scroll {
+    padding: 0 1rem 3rem;
+  }
+
+  .page-container {
+    padding: 1rem 0.5rem 3rem;
+    gap: 1.5rem;
+  }
+
+  .page-sidebar {
+    flex-direction: column;
+  }
+
+  .page-sidebar > * {
+    flex: 1 1 100%;
+    min-width: auto;
+  }
+
+  .content-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .lead-text {
+    font-size: 1.2rem;
+  }
+
+  .content-body {
+    font-size: 1rem;
+  }
+
+  .close-btn {
+    top: 1rem;
+    right: 1rem;
+    width: 3rem;
+    height: 3rem;
+  }
+
+  .close-btn svg {
+    width: 1.3rem;
+    height: 1.3rem;
+  }
 }
 </style>
