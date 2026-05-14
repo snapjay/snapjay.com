@@ -11,8 +11,14 @@ const props = defineProps({
   }
 })
 
-const emit = defineEmits(['close'])
+const emit = defineEmits(['close', 'scroll', 'layout'])
 const scrollRef = ref(null)
+const titleRef = ref(null)
+let resizeObserver = null
+
+const handleScroll = (e) => {
+  emit('scroll', e.target.scrollTop)
+}
 
 // Esc key to close
 const onKeyDown = (e) => {
@@ -23,11 +29,27 @@ onMounted(() => {
   document.addEventListener('keydown', onKeyDown)
   // Lock body scroll when modal is open
   document.body.style.overflow = 'hidden'
+  
+  // Track exact position of title placeholder to sync gravity word
+  resizeObserver = new ResizeObserver(() => {
+    if (titleRef.value && scrollRef.value) {
+      const rect = titleRef.value.getBoundingClientRect()
+      // rect.top is relative to viewport. Add scrollTop to get absolute position in scroll content
+      emit('layout', { 
+        x: rect.left, 
+        y: rect.top + scrollRef.value.scrollTop,
+        width: rect.width,
+        height: rect.height
+      })
+    }
+  })
+  if (titleRef.value) resizeObserver.observe(titleRef.value)
 })
 
 onUnmounted(() => {
   document.removeEventListener('keydown', onKeyDown)
   document.body.style.overflow = ''
+  if (resizeObserver) resizeObserver.disconnect()
 })
 
 const activeView = computed(() => {
@@ -46,11 +68,11 @@ const activeView = computed(() => {
       </svg>
     </button>
 
-    <div class="modal-scroll" ref="scrollRef" @mousedown.stop @touchstart.stop>
+    <div class="modal-scroll" ref="scrollRef" @mousedown.stop @touchstart.stop @scroll="handleScroll">
       <!-- Title Area: Space for the gravity word to land -->
       <header class="title-area">
         <div class="category-tag">{{ word.category || 'Portfolio' }}</div>
-        <div class="title-placeholder">{{ word.label }}</div>
+        <div class="title-placeholder" ref="titleRef" :style="{ fontSize: `clamp(3rem, (3 + ${word.weight * 3}) * 1vw, 9rem)` }">{{ word.label.replace(/ /g, '\n') }}</div>
       </header>
 
       <!-- Content Views -->
@@ -123,14 +145,14 @@ const activeView = computed(() => {
 /* Invisible placeholder to reserve space for the animated gravity word */
 .title-placeholder {
   font-family: 'Bebas Neue', sans-serif;
-  font-size: clamp(5rem, 10vw, 10rem);
-  line-height: 0.85;
+  line-height: 0.72;
+  padding: 0.13em 0 0 0;
   font-weight: 900;
   text-transform: uppercase;
   color: transparent;
   pointer-events: none;
-  text-wrap: balance;
-  white-space: normal;
+  white-space: pre-line;
+  text-align: left;
 }
 
 /* ─── Close button ─── */

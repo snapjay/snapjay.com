@@ -17,6 +17,7 @@ defineProps({
         :key="index"
         :src="image.src"
         :caption="image.caption"
+        :href="image.href"
       />
     </aside>
 
@@ -78,7 +79,7 @@ defineProps({
   .page-container {
     grid-template-columns: 1fr;
     gap: 2rem;
-    padding: 1rem 2rem;
+    padding: 0 2rem;
   }
 
   .page-sidebar {

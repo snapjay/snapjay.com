@@ -45,12 +45,17 @@ watch(selectedId, (newId, oldId) => {
       const word = words[index]
       if (word && word.id === oldId) {
         Matter.Body.setStatic(body, false)
+        
+        // Calculate the drop coordinates based on where it visually is
+        const targetLeft = titleLayout.value.x || 64
+        const targetTop = titleLayout.value.y || 104
+        
         Matter.Body.setPosition(body, {
-          x: 32 + el.offsetWidth / 2,
-          y: 32 + el.offsetHeight / 2
+          x: targetLeft + el.offsetWidth / 2,
+          y: targetTop + el.offsetHeight / 2
         })
         Matter.Body.setAngle(body, 0)
-        Matter.Body.setVelocity(body, { x: 1, y: 2 })
+        Matter.Body.setVelocity(body, { x: 0, y: 1 }) // drop straight down
       }
     })
   }
@@ -87,6 +92,18 @@ const onTouchEnd = (word, e) => {
 
 const closeSelection = () => {
   router.push('/')
+  modalScrollY.value = 0
+}
+
+const modalScrollY = ref(0)
+const titleLayout = ref({ x: 0, y: 0, width: 0, height: 0 })
+
+const handleModalScroll = (y) => {
+  modalScrollY.value = y
+}
+
+const handleModalLayout = (layout) => {
+  titleLayout.value = layout
 }
 
 // Use a reliable height for mobile (accounts for address bar)
@@ -230,16 +247,29 @@ const initPhysics = async () => {
     // Re-measure words and scale bodies
     bodiesMap.forEach((body, el) => {
       if (!el || !body) return;
+      const originalTransition = el.style.transition;
       const originalTransform = el.style.transform;
+      const wasSelected = el.classList.contains('is-selected');
+      
+      // Temporarily remove selection and transitions to measure TRUE natural size
+      el.style.transition = 'none';
+      if (wasSelected) el.classList.remove('is-selected');
       el.style.transform = 'none';
       
       const newW = el.offsetWidth;
       const newH = el.offsetHeight;
       
-      if (body.prevWidth && body.prevHeight) {
+      // Restore states
+      if (wasSelected) el.classList.add('is-selected');
+      el.style.transition = originalTransition;
+      el.style.transform = originalTransform;
+      
+      if (body.prevWidth && body.prevHeight && newW > 0 && newH > 0) {
         const scaleX = newW / body.prevWidth;
         const scaleY = newH / body.prevHeight;
         Matter.Body.scale(body, scaleX, scaleY);
+        body.prevWidth = newW;
+        body.prevHeight = newH;
       }
       
       // Safety Nudge: If the window shrank, push words back into the new viewport
@@ -255,10 +285,6 @@ const initPhysics = async () => {
         Matter.Body.setPosition(body, { x: targetX, y: targetY });
         Matter.Body.setVelocity(body, { x: 0, y: 1 }); // Gentle drop
       }
-      
-      body.prevWidth = newW;
-      body.prevHeight = newH;
-      el.style.transform = originalTransform;
     });
   };
   window.addEventListener('resize', handleResize);
@@ -359,7 +385,11 @@ onUnmounted(() => {
 </script>
 
 <template>
-  <div class="gravity-container" ref="containerRef">
+  <div class="gravity-container" ref="containerRef" :style="{ 
+    '--modal-scroll': modalScrollY + 'px',
+    '--target-x': titleLayout.x ? titleLayout.x + 'px' : '4rem',
+    '--target-y': titleLayout.y ? titleLayout.y + 'px' : '6.5rem'
+  }">
     <div class="site-logo">
       <h1>snapjay</h1><h2>Engineer, Entrepreneur </h2><h1> Knoxville, TN</h1>
     
@@ -405,6 +435,8 @@ onUnmounted(() => {
           v-if="selectedWord" 
           :word="selectedWord" 
           @close="closeSelection"
+          @scroll="handleModalScroll"
+          @layout="handleModalLayout"
         />
       </Transition>
     </Teleport>
@@ -503,20 +535,23 @@ onUnmounted(() => {
 }
 
 .gravity-word.is-selected {
-  transition: all 1s cubic-bezier(0.23, 1, 0.32, 1);
+  /* Animate transform for the fly-in */
+  transition: transform 1s cubic-bezier(0.23, 1, 0.32, 1), 
+              color 1s cubic-bezier(0.23, 1, 0.32, 1);
   z-index: 1000;
-  /* Land in the title-area of the full-screen modal */
-  transform: translate(4rem, 6.5rem) rotate(0rad) !important;
-  font-size: clamp(5rem, 10vw, 10rem) !important;
+  
+  /* Target the absolute placeholder position */
+  transform: translate(var(--target-x, 4rem), var(--target-y, 6.5rem)) rotate(0rad) !important;
+  
+  /* Instant scroll sync without transition delay */
+  margin-top: calc(-1 * var(--modal-scroll, 0px));
+  
   filter: none;
   pointer-events: none;
 }
 
 @media (max-width: 640px) {
-  .gravity-word.is-selected {
-    transform: translate(1.5rem, 5rem) rotate(0rad) !important;
-    font-size: clamp(3.5rem, 14vw, 6rem) !important;
-  }
+  /* Placeholder for any future mobile overrides that don't include font-size */
 }
 
 

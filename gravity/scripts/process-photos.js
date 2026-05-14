@@ -33,7 +33,7 @@ async function processPhotos() {
 
     for (const file of images) {
       const inputPath = path.join(PHOTOS_DIR, file);
-      const outputFilename = path.basename(file, path.extname(file)) + '.jpg';
+      const outputFilename = path.basename(file, path.extname(file)) + '.webp';
       const outputPath = path.join(OUTPUT_DIR, outputFilename);
 
       console.log(`Processing: ${file} -> /photos/${outputFilename}`);
@@ -50,8 +50,8 @@ async function processPhotos() {
         })
         // Add a slight gamma correction for that washed-out vintage look
         .gamma(1.1)
-        // Convert to jpeg with good quality
-        .jpeg({ quality: 85, mozjpeg: true })
+        // Convert to webp with good quality
+        .webp({ quality: 80, effort: 6 })
         .toFile(outputPath);
 
       console.log(`\u2713 Saved to ${outputPath}`);

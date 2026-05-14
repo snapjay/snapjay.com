@@ -27,6 +27,7 @@ defineProps({
           :key="index"
           :src="image.src"
           :caption="image.caption"
+          :href="image.href"
         />
       </div>
     </main>
@@ -37,7 +38,7 @@ defineProps({
 .page-container {
   max-width: 1200px;
   margin: 0 auto;
-  padding: 2rem;
+  padding: 0 2rem;
 }
 
 .page-main {

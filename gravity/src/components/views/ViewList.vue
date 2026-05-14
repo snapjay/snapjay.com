@@ -24,7 +24,7 @@ defineProps({
       <div class="list-container">
         <div v-for="(image, index) in word.images" :key="index" class="list-item">
           <div class="list-photo">
-            <PolaroidPhoto :src="image.src" :caption="image.caption" />
+            <PolaroidPhoto :src="image.src" :caption="image.caption" :href="image.href" />
           </div>
           <div class="list-content">
             <h3 class="list-item-title">{{ image.title || image.caption }}</h3>
@@ -42,7 +42,7 @@ defineProps({
 .page-container {
   max-width: 1200px;
   margin: 0 auto;
-  padding: 2rem;
+  padding: 0 2rem;
 }
 
 .page-main {

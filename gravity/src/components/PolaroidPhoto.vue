@@ -3,10 +3,13 @@ import { computed } from 'vue';
 
 const props = defineProps({
   src: String,
-  caption: String
+  caption: String,
+  href: String
 })
 
 const randomRotation = Math.random() * 7 - 3.5; // Random rotation between -5 and 5 deg
+
+const isExternal = computed(() => props.href && (props.href.startsWith('http') || props.href.startsWith('mailto:')));
 
 const fontSize = computed(() => {
   if (!props.caption) return '2rem';
@@ -19,7 +22,13 @@ const fontSize = computed(() => {
 </script>
 
 <template>
-  <div class="polaroid-wrapper">
+  <component 
+    :is="href ? 'a' : 'div'" 
+    :href="href"
+    :target="isExternal ? '_blank' : undefined"
+    :rel="isExternal ? 'noopener noreferrer' : undefined"
+    class="polaroid-wrapper"
+  >
     <div class="polaroid" :style="{ transform: `rotate(${randomRotation}deg)` }">
       <div class="photo-container">
         <img :src="src" :alt="caption" />
@@ -31,7 +40,7 @@ const fontSize = computed(() => {
         </div>
       </div>
     </div>
-  </div>
+  </component>
 </template>
 
 <style scoped>
@@ -41,6 +50,8 @@ const fontSize = computed(() => {
   padding: 1rem;
   perspective: 1000px;
   transition: transform 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
+  text-decoration: none;
+  cursor: pointer;
 }
 
 .polaroid {
