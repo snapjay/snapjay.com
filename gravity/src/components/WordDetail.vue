@@ -1,8 +1,10 @@
 <script setup>
-import { onMounted, onUnmounted, ref } from 'vue'
-import PolaroidPhoto from './PolaroidPhoto.vue'
+import { onMounted, onUnmounted, ref, computed } from 'vue'
+import ViewDefault from './views/ViewDefault.vue'
+import ViewGallery from './views/ViewGallery.vue'
+import ViewList from './views/ViewList.vue'
 
-defineProps({
+const props = defineProps({
   word: {
     type: Object,
     required: true
@@ -27,6 +29,12 @@ onUnmounted(() => {
   document.removeEventListener('keydown', onKeyDown)
   document.body.style.overflow = ''
 })
+
+const activeView = computed(() => {
+  if (props.word.pageType === 'Gallery') return ViewGallery;
+  if (props.word.pageType === 'List') return ViewList;
+  return ViewDefault;
+})
 </script>
 
 <template>
@@ -39,38 +47,14 @@ onUnmounted(() => {
     </button>
 
     <div class="modal-scroll" ref="scrollRef" @mousedown.stop @touchstart.stop>
-    
-      <!-- Content -->
-      <div :class="['page-container', { 'is-gallery': word.pageType === 'Gallery' }]">
-        <aside v-if="word.pageType !== 'Gallery'" class="page-sidebar">
-          <PolaroidPhoto 
-            v-for="(image, index) in word.images"
-            :key="index"
-            :src="image.src"
-            :caption="image.caption"
-          />
-        </aside>
+      <!-- Title Area: Space for the gravity word to land -->
+      <header class="title-area">
+        <div class="category-tag">{{ word.category || 'Portfolio' }}</div>
+        <div class="title-placeholder">{{ word.label }}</div>
+      </header>
 
-        <main class="page-main">
-          <div class="content-body">
-            <p class="lead-text">
-              {{ word.leadText || 'Exploring the intersection of creativity and impact through the lens of ' + word.label.replace('\n', ' ') + '.' }}
-            </p>
-            <p>
-                {{ word.bodyText || 'This role embodies the core values of our gravity-based design philosophy. Every interaction is calculated, every collision intentional. In the world of physics-based typography, stands out as a high-weight component that anchors the visual experience.' }}
-            </p>
-          </div>
-
-          <div v-if="word.pageType === 'Gallery'" class="gallery-grid">
-            <PolaroidPhoto 
-              v-for="(image, index) in word.images"
-              :key="index"
-              :src="image.src"
-              :caption="image.caption"
-            />
-          </div>
-        </main>
-      </div>
+      <!-- Content Views -->
+      <component :is="activeView" :word="word" />
     </div>
   </div>
 </template>
@@ -145,87 +129,8 @@ onUnmounted(() => {
   text-transform: uppercase;
   color: transparent;
   pointer-events: none;
-  white-space: pre-line;
-}
-
-/* ─── Page layout ─── */
-.page-container {
-  max-width: 1200px;
-  margin: 0 auto;
-  display: grid;
-  grid-template-columns: 380px 1fr;
-  gap: 3rem;
-  padding: 2rem;
-}
-
-.page-container.is-gallery {
-  grid-template-columns: 1fr;
-}
-
-.page-sidebar {
-  display: flex;
-  flex-direction: column;
-  gap: 2rem;
-  border-right: 1px solid var(--border-subtle);
-  padding-right: 3rem;
-}
-
-.page-main {
-  display: flex;
-  flex-direction: column;
-  gap: 2rem;
-}
-
-.content-body {
-  display: flex;
-  flex-direction: column;
-  gap: 1.5rem;
-  font-family: 'Outfit', sans-serif;
-  line-height: 1.7;
-  color: rgba(255, 255, 255, 0.8);
-  font-size: 1.1rem;
-}
-
-.lead-text {
-  font-size: 1.4rem;
-  color: #fff;
-  font-weight: 500;
-  line-height: 1.5;
-}
-
-.content-grid {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 1.5rem;
-  margin-top: 1.5rem;
-}
-
-.grid-card {
-  padding: 2rem;
-  background: rgba(255, 255, 255, 0.03);
-  border: 1px solid rgba(255, 255, 255, 0.05);
-  border-radius: 1.5rem;
-}
-
-.grid-card h3 {
-  font-family: 'Bebas Neue', sans-serif;
-  font-size: 1.8rem;
-  margin-bottom: 0.5rem;
-  color: #fff;
-}
-
-.grid-card p {
-  font-size: 0.95rem;
-  margin: 0;
-  opacity: 0.7;
-}
-
-/* ─── Gallery Grid ─── */
-.gallery-grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
-  gap: 3rem;
-  margin-top: 2rem;
+  text-wrap: balance;
+  white-space: normal;
 }
 
 /* ─── Close button ─── */
@@ -266,58 +171,12 @@ onUnmounted(() => {
 
 /* ─── Tablet ─── */
 @media (max-width: 1024px) {
-  .page-container {
-    grid-template-columns: 1fr;
-    gap: 2rem;
-    padding: 1rem 2rem;
-  }
-
-  .page-sidebar {
-    border-right: none;
-    border-bottom: 1px solid var(--border-subtle);
-    padding-right: 0;
-    padding-bottom: 2rem;
-    flex-direction: row;
-    flex-wrap: wrap;
-    gap: 1.5rem;
-  }
-
-  .page-sidebar > * {
-    flex: 1 1 45%;
-    min-width: 200px;
-  }
 }
 
 /* ─── Phone ─── */
 @media (max-width: 640px) {
   .modal-scroll {
     padding: 0 1rem 3rem;
-  }
-
-  .page-container {
-    padding: 1rem 0.5rem 3rem;
-    gap: 1.5rem;
-  }
-
-  .page-sidebar {
-    flex-direction: column;
-  }
-
-  .page-sidebar > * {
-    flex: 1 1 100%;
-    min-width: auto;
-  }
-
-  .content-grid {
-    grid-template-columns: 1fr;
-  }
-
-  .lead-text {
-    font-size: 1.2rem;
-  }
-
-  .content-body {
-    font-size: 1rem;
   }
 
   .close-btn {

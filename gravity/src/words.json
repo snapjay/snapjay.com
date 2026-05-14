@@ -1,7 +1,7 @@
 [
   {
     "id": "software_engineer",
-    "label": "Software\nEngineer",
+    "label": "Software Engineer",
     "images": [
       {
         "src": "https://picsum.photos/seed/software/800/800",
@@ -21,20 +21,36 @@
     "pageType": "Gallery",
     "images": [
       {
-        "src": "/photos/Dirtbike.jpg",
+        "src": "/photos/dirtbike-Silverton.jpg",
         "caption": "Silverton, Colorado"
       },
       {
-        "src": "/photos/dirtbike2.jpg",
+        "src": "/photos/dirtbike-Waldon.jpg",
         "caption": "North Sand Hills, Waldon, Colorado"
       },
       {
-        "src": "/photos/dirtbike3.jpg",
+        "src": "/photos/dirtbike-SanJuan.jpg",
         "caption": "San Juan Mountains, Colorado"
       },
       {
-        "src": "/photos/dirtbike4.jpg",
+        "src": "/photos/dirtbike-durango.jpg",
         "caption": "Durango, Colorado"
+      },
+      {
+        "src": "/photos/dirtbike-rabbitEars.jpg",
+        "caption": "Rabbit Ears, Kremmling, Colorado"
+      },
+      {
+        "src": "/photos/dirtbike-montizuma.jpg",
+        "caption": "Montizuma, Colorado"
+      },
+      {
+        "src": "/photos/dirtrbike-flag.jpg",
+        "caption": "American Flag Mountain"
+      },
+      {
+        "src": "/photos/dirtbike-medicinebow.jpg",
+        "caption": "Medicine Bow, Wyoming"
       }
     ],
     "color": "#ef4444",
@@ -43,13 +59,22 @@
   {
     "id": "gardener",
     "label": "Gardener",
+    "pageType": "Gallery",
     "images": [
       {
-        "src": "/photos/garden1.jpg",
-        "caption": "Finding peace in the soil"
+        "src": "/photos/garden-raisedbeds.jpg",
+        "caption": "Building raised garden beds"
       },
       {
-        "src": "/photos/garden2.jpg",
+        "src": "/photos/garden-tomatoplant.jpg",
+        "caption": "Tomato plants"
+      },
+      {
+        "src": "/photos/garden-radish.jpg",
+        "caption": "First Radishes of the season"
+      },
+      {
+        "src": "/photos/garden-tomatos.jpg",
         "caption": "Finding peace in the soil"
       }
     ],
@@ -80,6 +105,26 @@
       {
         "src": "/photos/chef-chocolate.jpg",
         "caption": "Whiskey chocolate mousse"
+      },
+      {
+        "src": "/photos/chef-lamb.jpg",
+        "caption": "Rack of Lamb"
+      },
+      {
+        "src": "/photos/chef-bread.jpg",
+        "caption": "Sourdough Bread"
+      },
+      {
+        "src": "/photos/chef-pizza.jpg",
+        "caption": "Sourdough Pizza, prosciutto, Arugula, balsamic glaze"
+      },
+      {
+        "src": "/photos/chef-steak-arugula.jpg",
+        "caption": "Steak with Arugula, parmasar and roasted potatoes"
+      },
+      {
+        "src": "/photos/chef-taco.jpg",
+        "caption": "Smoked pork Butt Tacos"
       }
     ],
     "leadText": "I'm a bit of a foodie",
@@ -101,7 +146,7 @@
   },
   {
     "id": "woodworker",
-    "label": "Wood\nworker",
+    "label": "Wood worker",
     "pageType": "Gallery",
     "images": [
       {
@@ -130,8 +175,16 @@
     "pageType": "Gallery",
     "images": [
       {
+        "src": "/photos/vol-sledhockey.jpg",
+        "caption": "On-ice help for Youth Sled Hockey"
+      },
+      {
         "src": "/photos/vol-kkb.jpg",
         "caption": "Clearing Trash with Keep Knoxville Beautiful"
+      },
+      {
+        "src": "/photos/vol-tuff.jpg",
+        "caption": "Co-Founder of Toronto United Flag Football"
       },
       {
         "src": "/photos/vol-adfac.jpg",
@@ -154,16 +207,8 @@
         "caption": "Building campsites at Elkmont Campground"
       },
       {
-        "src": "/photos/vol-tuff.jpg",
-        "caption": "Co-Founder of Toronto United Flag Football"
-      },
-      {
         "src": "/photos/vol-ymca.jpg",
         "caption": "Painting YMCA rink (United Way)"
-      },
-      {
-        "src": "/photos/vol-sledhockey.jpg",
-        "caption": "On-ice help for Youth Sled Hockey"
       }
     ],
     "color": "#ec4899",
@@ -185,6 +230,10 @@
       {
         "src": "/photos/creative-ironSkillet.jpg",
         "caption": "The Iron Skillet Co - Prepard meals brandning"
+      },
+      {
+        "src": "/photos/creative-halloween.jpg",
+        "caption": "Interative issusion and AI driven"
       }
     ],
     "color": "#06b6d4",
@@ -192,7 +241,7 @@
   },
   {
     "id": "product_developer",
-    "label": "Product\nDeveloper",
+    "label": "Product Developer",
     "images": [
       {
         "src": "/photos/creative-ironSkillet.jpg",
@@ -213,10 +262,31 @@
   {
     "id": "entrepreneur",
     "label": "Entrepreneur",
+    "pageType": "List",
     "images": [
       {
         "src": "https://picsum.photos/seed/entrepreneur/800/800",
-        "caption": "Building something from nothing"
+        "caption": "jukebox.tools",
+        "title": "Jukebox Tools",
+        "detail": "Jukebox Tools is a company that makes tools for musicians."
+      },
+      {
+        "src": "https://picsum.photos/seed/entrepreneur/800/800",
+        "caption": "Drink Forge",
+        "title": "Drink Forge",
+        "detail": "Drink Forge is a company that makes tools for musicians."
+      },
+      {
+        "src": "https://picsum.photos/seed/entrepreneur/800/800",
+        "caption": "Old Boot",
+        "title": "Old Boot",
+        "detail": "Jukebox Tools is a company that makes tools for musicians."
+      },
+      {
+        "src": "https://picsum.photos/seed/entrepreneur/800/800",
+        "caption": "Sound Scapel",
+        "title": "Sound Scapel",
+        "detail": "Sound Scapel is a company that makes tools for musicians."
       }
     ],
     "color": "#f43f5e",
@@ -236,7 +306,7 @@
   },
   {
     "id": "chicken_wrangler",
-    "label": "Chicken\nWrangler",
+    "label": "Chicken Wrangler",
     "pageType": "Gallery",
     "images": [
       {
@@ -273,7 +343,7 @@
   },
   {
     "id": "mechanical_engineer",
-    "label": "Mechanical\nEngineer",
+    "label": "Mechanical Engineer",
     "images": [
       {
         "src": "https://picsum.photos/seed/gears/800/800",
@@ -309,7 +379,8 @@
   },
   {
     "id": "jukebox_builder",
-    "label": "Jukebox\nOwner",
+    "label": "Jukebox Collector",
+    "pageType": "Gallery",
     "images": [
       {
         "src": "/photos/jukebox-seeburg.jpg",
@@ -318,6 +389,10 @@
       {
         "src": "/photos/jukebox-wurlitzer.jpg",
         "caption": "Wurlitzer 1015"
+      },
+      {
+        "src": "/photos/jukebox-wall.jpg",
+        "caption": "Diner Table Unit"
       }
     ],
     "color": "#dc2626",
@@ -325,7 +400,7 @@
   },
   {
     "id": "hockey_player",
-    "label": "Hockey\nPlayer",
+    "label": "Hockey Player",
     "pageType": "Gallery",
     "images": [
       {
@@ -334,7 +409,11 @@
       },
       {
         "src": "/photos/hockey-goalie.jpg",
-        "caption": "Homemade Pond Rink"
+        "caption": "Pond Hockey"
+      },
+      {
+        "src": "/photos/hockey-avs.jpg",
+        "caption": "Playing Hockey"
       }
     ],
     "leadText": "Hockey is in my blood",
@@ -344,7 +423,7 @@
   },
   {
     "id": "softball_player",
-    "label": "Softball\nPlayer",
+    "label": "Softball Player",
     "images": [
       {
         "src": "https://picsum.photos/seed/softball/800/800",
@@ -356,7 +435,7 @@
   },
   {
     "id": "technical_editor",
-    "label": "Technical\nEditor",
+    "label": "Technical Editor",
     "images": [
       {
         "src": "/photos/book-1.jpg",

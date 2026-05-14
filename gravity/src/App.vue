@@ -427,7 +427,7 @@ onUnmounted(() => {
         fontSize: `clamp(3rem, (3 + ${word.weight * 3}) * 1vw, 9rem)`
       }"
     >
-      {{ word.label }}
+      {{ word.label.replace(/ /g, '\n') }}
     </div>
   </div>
 </template>
