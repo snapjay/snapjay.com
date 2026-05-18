@@ -45,6 +45,20 @@ body {
   overscroll-behavior: none;
 }
 
+a {
+  color: #fff;
+  font-weight: 600;
+}
+
+a:hover {
+  color: var(--accent);
+}
+
+a .caption {
+  text-decoration: none;
+  font-weight: 400;
+}
+
 #app {
   min-height: 100vh;
   display: flex;

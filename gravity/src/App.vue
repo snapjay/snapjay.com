@@ -390,44 +390,12 @@ onUnmounted(() => {
     '--target-x': titleLayout.x ? titleLayout.x + 'px' : '4rem',
     '--target-y': titleLayout.y ? titleLayout.y + 'px' : '6.5rem'
   }">
-    <div class="site-logo">
-      <h1>snapjay</h1><h2>Engineer, Entrepreneur </h2><h1> Knoxville, TN</h1>
+    <div class="site-logo" @click="!selectedId && router.push('/contact')">
+      <h1>snapjay</h1><h2>Engineer+Entrepreneur </h2><h1> Knoxville, TN</h1>
     
     </div>
 
-    <!-- Ambient Background SVG (Dark & Subtle) -->
-    <!-- <div class="ambient-bg">
-      <svg viewBox="0 0 100 100" preserveAspectRatio="xMidYMid slice">
-        <defs>
-          <radialGradient id="G1" cx="50%" cy="50%" fx="10%" fy="10%" r="0.6">
-            <stop offset="0%" :stop-color="selectedWord?.color || 'var(--accent)'" stop-opacity="0.15" />
-            <stop offset="100%" :stop-color="selectedWord?.color || 'var(--accent)'" stop-opacity="0" />
-            <animate attributeName="fx" dur="40s" values="0%;10%;0%" repeatCount="indefinite" />
-          </radialGradient>
-          <radialGradient id="G2" cx="50%" cy="50%" fx="90%" fy="90%" r="0.6">
-            <stop offset="0%" stop-color="#1e3a8a" stop-opacity="0.1" />
-            <stop offset="100%" stop-color="#1e3a8a" stop-opacity="0" />
-            <animate attributeName="fx" dur="30s" values="100%;90%;100%" repeatCount="indefinite" />
-          </radialGradient>
-          <radialGradient id="G3" cx="50%" cy="50%" fx="50%" fy="50%" r="0.5">
-            <stop offset="0%" stop-color="#4c1d95" stop-opacity="0.08" />
-            <stop offset="100%" stop-color="#4c1d95" stop-opacity="0" />
-          </radialGradient>
-        </defs>
-        <rect x="0" y="0" width="100" height="100" fill="url(#G1)">
-          <animate attributeName="x" dur="35s" values="-20%;20%;-20%" repeatCount="indefinite" />
-          <animate attributeName="y" dur="38s" values="-10%;10%;-10%" repeatCount="indefinite" />
-        </rect>
-        <rect x="0" y="0" width="100" height="100" fill="url(#G2)">
-          <animate attributeName="x" dur="42s" values="20%;-20%;20%" repeatCount="indefinite" />
-          <animate attributeName="y" dur="33s" values="10%;-10%;10%" repeatCount="indefinite" />
-        </rect>
-        <rect x="0" y="0" width="100" height="100" fill="url(#G3)">
-          <animateTransform attributeType="xml" attributeName="transform" type="rotate" from="0 50 50" to="360 50 50" dur="60s" repeatCount="indefinite" />
-        </rect>
-      </svg>
-    </div> -->
-
+  
     <!-- Selected Word Detail View (Teleported to body to escape gravity container) -->
     <Teleport to="body">
       <Transition name="fade">
@@ -486,11 +454,16 @@ onUnmounted(() => {
   font-size: clamp(1.5rem, 4vw, 3rem);
   color: var(--accent);
   z-index: 10; /* Behind the modal backdrop */
-  pointer-events: none;
   text-align: right;
   line-height: 0.8;
   opacity: 0.8;
   font-weight: 900;
+  cursor: pointer;
+  transition: opacity 0.2s;
+}
+
+.site-logo:hover {
+  opacity: 1;
 }
 
 .site-logo h1{
@@ -520,14 +493,21 @@ onUnmounted(() => {
   background-clip: text;
   color: transparent;
   user-select: none;
-  cursor: grab;
+  cursor: pointer;
   white-space: pre-line;
   text-align: left;
   box-sizing: border-box;
+  z-index: 10;
+  /* Keep z-index elevated for 0.5s on close so it doesn't fall behind the fading modal backdrop */
+  transition: z-index 0s 0.5s, filter 0.8s cubic-bezier(0.23, 1, 0.32, 1);
   /* text-shadow: 0 10px 30px rgba(0,0,0,0.5); */
   
   /* Start off-screen */
   transform: translateY(-1000px);
+}
+
+.gravity-word:hover {
+  filter: brightness(1.55) drop-shadow(0 0 15px rgba(255, 255, 255, 0.15));
 }
 
 .gravity-word:active {
@@ -537,7 +517,8 @@ onUnmounted(() => {
 .gravity-word.is-selected {
   /* Animate transform for the fly-in */
   transition: transform 1s cubic-bezier(0.23, 1, 0.32, 1), 
-              color 1s cubic-bezier(0.23, 1, 0.32, 1);
+              color 1s cubic-bezier(0.23, 1, 0.32, 1),
+              z-index 0s;
   z-index: 1000;
   
   /* Target the absolute placeholder position */

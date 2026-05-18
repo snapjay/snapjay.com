@@ -60,7 +60,7 @@ const activeView = computed(() => {
 </script>
 
 <template>
-  <div class="modal-backdrop" @mousedown.self="emit('close')" @touchend.self.prevent="emit('close')">
+  <div class="modal-backdrop" @click.self="emit('close')">
     <!-- Close button — fixed to viewport -->
     <button class="close-btn" @click="emit('close')" aria-label="Close">
       <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
@@ -68,7 +68,7 @@ const activeView = computed(() => {
       </svg>
     </button>
 
-    <div class="modal-scroll" ref="scrollRef" @mousedown.stop @touchstart.stop @scroll="handleScroll">
+    <div class="modal-scroll" ref="scrollRef" @click.self="emit('close')" @scroll="handleScroll">
       <!-- Title Area: Space for the gravity word to land -->
       <header class="title-area">
         <div class="category-tag">{{ word.category || 'Portfolio' }}</div>

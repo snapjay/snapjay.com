@@ -28,6 +28,7 @@ const fontSize = computed(() => {
     :target="isExternal ? '_blank' : undefined"
     :rel="isExternal ? 'noopener noreferrer' : undefined"
     class="polaroid-wrapper"
+    :class="{ 'no-link': !href }"
   >
     <div class="polaroid" :style="{ transform: `rotate(${randomRotation}deg)` }">
       <div class="photo-container">
@@ -47,11 +48,16 @@ const fontSize = computed(() => {
 @import url('https://fonts.googleapis.com/css2?family=Reenie+Beanie&display=swap');
 
 .polaroid-wrapper {
+  display: block; /* Ensure transform/perspective work correctly on <a> tags */
   padding: 1rem;
   perspective: 1000px;
   transition: transform 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
   text-decoration: none;
   cursor: pointer;
+}
+
+.polaroid-wrapper.no-link {
+  cursor: default;
 }
 
 .polaroid {
@@ -60,16 +66,24 @@ const fontSize = computed(() => {
   background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)' opacity='0.25'/%3E%3C/svg%3E");
   padding: 1.2rem;
   box-shadow: 
-    0 4px 15px rgba(0,0,0,0.2),
-    0 10px 30px rgba(0,0,0,0.1),
-    inset 0 0 20px rgba(0,0,0,0.03); /* slight inner shadow for aging */
-  transition: transform 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
+    0 4px 15px #000000e7,
+    0 10px 30px rgba(0, 0, 0, 0.603),
+    inset 0 0 20px rgba(0, 0, 0, 0.233); /* slight inner shadow for aging */
+  transition: transform 0.4s cubic-bezier(0.34, 1.56, 0.64, 1),
+              box-shadow 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
   border: 1px solid rgba(0,0,0,0.08);
 }
 
 .polaroid-wrapper:hover {
   transform: rotate(1deg) scale(1.02) translateY(-10px);
   z-index: 10;
+}
+
+.polaroid-wrapper:hover .polaroid {
+  box-shadow: 
+    0 25px 50px rgba(0,0,0,0.3),
+    0 20px 25px rgba(0,0,0,0.15),
+    inset 0 0 20px rgba(0,0,0,0.03);
 }
 
 .photo-container {

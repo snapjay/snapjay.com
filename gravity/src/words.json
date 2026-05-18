@@ -1,6 +1,7 @@
 [
   {
     "id": "software_engineer",
+    "category": "Profession",
     "label": "Software Engineer",
     "images": [
       {
@@ -17,6 +18,7 @@
   },
   {
     "id": "dirtbiker",
+    "category": "Lifestyle",
     "label": "Dirtbiker",
     "pageType": "Gallery",
     "images": [
@@ -58,6 +60,7 @@
   },
   {
     "id": "gardener",
+    "category": "Lifestyle",
     "label": "Gardener",
     "pageType": "Gallery",
     "images": [
@@ -87,16 +90,13 @@
   },
   {
     "id": "chef",
+    "category": "Lifestyle",
     "label": "Chef",
     "pageType": "Gallery",
     "images": [
       {
         "src": "/photos/chef-toast.webp",
         "caption": "Sourdough avacado toast with béarnaise sauce, cherry tomatoes, balsamic vinegar, basil"
-      },
-      {
-        "src": "/photos/chef-pork.webp",
-        "caption": "Spinach ravioli with smoked porkbutt, sage, goat cheese"
       },
       {
         "src": "/photos/chef-ravioli.webp",
@@ -115,6 +115,10 @@
         "caption": "Rack of Lamb"
       },
       {
+        "src": "/photos/chef-pork.webp",
+        "caption": "Spinach ravioli with smoked porkbutt, sage, goat cheese"
+      },
+      {
         "src": "/photos/chef-bread.webp",
         "caption": "Sourdough Bread"
       },
@@ -128,7 +132,7 @@
       },
       {
         "src": "/photos/chef-taco.webp",
-        "caption": "Smoked pork Butt Tacos"
+        "caption": "Smoked pork butt tacos"
       }
     ],
     "leadText": "I'm a bit of a foodie",
@@ -150,6 +154,7 @@
   },
   {
     "id": "woodworker",
+    "category": "Profession",
     "label": "Wood worker",
     "pageType": "Gallery",
     "images": [
@@ -175,6 +180,7 @@
   },
   {
     "id": "volunteer",
+    "category": "Community Service",
     "label": "Volunteer",
     "pageType": "Gallery",
     "images": [
@@ -220,6 +226,7 @@
   },
   {
     "id": "creative",
+    "category": "Creative",
     "label": "Creative",
     "pageType": "Gallery",
     "images": [
@@ -237,7 +244,7 @@
       },
       {
         "src": "/photos/creative-halloween.webp",
-        "caption": "Interative issusion and AI driven"
+        "caption": "Interative halloween display using illusion and AI"
       }
     ],
     "color": "#0d9488",
@@ -245,6 +252,7 @@
   },
   {
     "id": "product_developer",
+    "category": "Profession",
     "label": "Product Developer",
     "images": [
       {
@@ -265,26 +273,30 @@
   },
   {
     "id": "entrepreneur",
+    "category": "Profession",
     "label": "Entrepreneur",
     "pageType": "List",
     "images": [
       {
         "src": "/photos/ent-jukebox.tools-wordmarksq.webp",
         "caption": "jukebox.tools",
+        "href": "https://jukebox.tools",
         "title": "Jukebox Tools",
-        "detail": "Jukebox Tools is a company that makes tools for musicians."
+        "detail": "Jukebox Tools is the worlds most powerful suite of jukebox tools. A SaaS product that helps jukebox owners create title strips, organize their record collection, and manage their jukeboxes. <br />  This project was started from a need I had for my own jukebox. It's a passion project that turned into a profitable business. <br /><br />  <a href='https://jukebox.tools'>Visit Jukebox Tools</a>"
       },
       {
         "src": "/photos/ent-forge.webp",
         "caption": "Drink Forge",
+        "href": "https://drink-forge.com",
         "title": "Drink Forge",
-        "detail": "Drink Forge is a company that makes tools for musicians."
+        "detail": "Drink Forge is an electrolyte drink company that makes electrolyte drink powders for blue collar workers and physical laborers. <br /><br /> I started this company with the goal of creating a product for people who work hard as athletes, but don't get the recovery nutrition that they deserve.  <br /><br />  <a href='https://drink-forge.com'>Visit Drink Forge</a>"
       },
       {
         "src": "/photos/ent-boot.webp",
+        "href": "https://oldboot.us",
         "caption": "Old Boot",
         "title": "Old Boot",
-        "detail": "Jukebox Tools is a company that makes tools for musicians."
+        "detail": "Old Boot is my woodworking business. I specialize in making cutting boards, charcuterie boards, and other wood products.  <br /><br />  <a href='https://oldboot.us'>Visit Old Boot</a>"
       }
     ],
     "color": "#e11d48",
@@ -292,6 +304,7 @@
   },
   {
     "id": "farmer",
+    "category": "Lifestyle",
     "label": "Farmer",
     "images": [
       {
@@ -304,6 +317,7 @@
   },
   {
     "id": "chicken_wrangler",
+    "category": "Lifestyle",
     "label": "Chicken Wrangler",
     "pageType": "Gallery",
     "images": [
@@ -329,6 +343,7 @@
   },
   {
     "id": "adventurer",
+    "category": "Lifestyle",
     "label": "Adventurer",
     "images": [
       {
@@ -340,7 +355,21 @@
     "weight": 0.6
   },
   {
+    "id": "traveller",
+    "category": "Lifestyle",
+    "label": "Traveller",
+    "images": [
+      {
+        "src": "https://picsum.photos/seed/traveller/800/800",
+        "caption": "Seeking the unknown"
+      }
+    ],
+    "color": "#0891b2",
+    "weight": 0.3
+  },
+  {
     "id": "mechanical_engineer",
+    "category": "Lifestyle",
     "label": "Mechanical Engineer",
     "images": [
       {
@@ -353,6 +382,7 @@
   },
   {
     "id": "mechanic",
+    "category": "Lifestyle",
     "label": "Mechanic",
     "images": [
       {
@@ -365,6 +395,7 @@
   },
   {
     "id": "maker",
+    "category": "Lifestyle",
     "label": "Maker",
     "images": [
       {
@@ -377,6 +408,7 @@
   },
   {
     "id": "jukebox_collector",
+    "category": "Lifestyle",
     "label": "Jukebox Collector",
     "pageType": "Gallery",
     "images": [
@@ -398,6 +430,7 @@
   },
   {
     "id": "hockey_player",
+    "category": "Lifestyle",
     "label": "Hockey Player",
     "pageType": "Gallery",
     "images": [
@@ -421,6 +454,7 @@
   },
   {
     "id": "softball_player",
+    "category": "Lifestyle",
     "label": "Softball Player",
     "images": [
       {
@@ -433,6 +467,7 @@
   },
   {
     "id": "technical_editor",
+    "category": "Profession",
     "label": "Technical Editor",
     "images": [
       {
@@ -445,12 +480,15 @@
       }
     ],
     "color": "#14b8a6",
-    "weight": 0.6
+    "weight": 0.4
   },
   {
     "id": "contact",
+    "category": "Lets be friends",
     "label": "Contact",
     "pageType": "Gallery",
+    "leadText": "The sum is greater than its parts. People are many things; not just a job title.",
+    "bodyText": "If you look at an engine and just call it \"rotator\", you miss the combustion, the timing, and the chaos that actually makes it work. People are the same. We have a habit of using a single label to describe a complex person. We pick one prase \"Software Engineer\" and ignore the rest of the machine. But humans aren't built to be reduced to a single noun. You are a son, a daughter, a friend, a creator, a mess, a masterpiece.",
     "images": [
       {
         "src": "/photos/contact-email.webp",
@@ -461,6 +499,11 @@
         "src": "/photos/contact-github.webp",
         "caption": "Github",
         "href": "https://github.com/snapjay"
+      },
+      {
+        "src": "/photos/contact-phone.webp",
+        "caption": "Phone",
+        "href": "tel:+7207781129"
       }
     ],
     "color": "#f8fafc",

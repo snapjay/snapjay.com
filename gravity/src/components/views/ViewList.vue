@@ -28,8 +28,7 @@ defineProps({
           </div>
           <div class="list-content">
             <h3 class="list-item-title">{{ image.title || image.caption }}</h3>
-            <div class="list-item-detail">
-              {{ image.detail || 'This entry highlights a specific project milestone or creative endeavor within the ' + word.label + ' domain.' }}
+            <div class="list-item-detail" v-html="image.detail || 'This entry highlights a specific project milestone or creative endeavor within the ' + word.label + ' domain.'">
             </div>
           </div>
         </div>
