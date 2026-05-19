@@ -8,6 +8,7 @@ import WordDetail from './components/WordDetail.vue'
 const route = useRoute()
 const router = useRouter()
 const containerRef = ref(null)
+const particleCanvasRef = ref(null)
 const wordRefs = ref([])
 const mouseMoved = ref(false)
 let engine, runner, ground, bodiesMap, mouseConstraint;
@@ -18,6 +19,11 @@ let gravityRecoveryTimer = null
 
 const selectedId = computed(() => route.params.id || null)
 const selectedWord = computed(() => words.find(w => w.id === selectedId.value))
+
+// Pre-split labels into lines of characters for per-letter rendering
+const splitLines = computed(() => words.map(w => {
+  return w.label.split(' ').map(word => word.split(''))
+}))
 
 // Watch for route changes to sync physics state
 watch(selectedId, (newId, oldId) => {
@@ -139,6 +145,8 @@ const initPhysics = async () => {
   
   Composite.add(engine.world, [ground, wallLeft, wallRight]);
   
+  
+
   bodiesMap = new Map();
   
   wordRefs.value.forEach((el, index) => {
@@ -170,6 +178,38 @@ const initPhysics = async () => {
     bodiesMap.set(el, body);
   });
   
+  // --- Particle System for Collisions ---
+  let particles = [];
+  Matter.Events.on(engine, 'collisionStart', (event) => {
+    event.pairs.forEach(pair => {
+      const speedA = pair.bodyA.speed || 0;
+      const speedB = pair.bodyB.speed || 0;
+      const force = speedA + speedB;
+      
+      // Spawn dust if collision is hard enough
+      if (force > 8) {
+        const supports = pair.collision.supports;
+        if (supports && supports.length > 0) {
+          const contact = supports[0];
+          const numParticles = Math.min(Math.floor(force / 2), 6); // 4 to 6 puffs
+          
+          for (let i = 0; i < numParticles; i++) {
+            particles.push({
+              x: contact.x,
+              y: contact.y,
+              vx: (Math.random() - 0.5) * force * 0.5,
+              vy: (Math.random() - 0.5) * force * 0.5 - Math.random() * 2, // Upward bias
+              radius: Math.random() * 2 + 1, // Smaller, sharp particles
+              alpha: Math.random() * 0.6 + 0.4, // Less transparent
+              decay: Math.random() * 0.04 + 0.02 // Fade faster
+            });
+          }
+        }
+      }
+    });
+  });
+  // ------------------------------------
+  
   const mouse = Mouse.create(containerRef.value);
   mouseConstraint = MouseConstraint.create(engine, {
       mouse: mouse,
@@ -191,6 +231,39 @@ const initPhysics = async () => {
   const syncLoop = () => {
     const vw = containerRef.value ? containerRef.value.clientWidth : width;
     const vh = getViewportHeight();
+
+    // Render Impact Particles
+    const canvas = particleCanvasRef.value;
+    if (canvas) {
+      if (canvas.width !== vw || canvas.height !== vh) {
+        canvas.width = vw;
+        canvas.height = vh;
+      }
+      const ctx = canvas.getContext('2d');
+      ctx.clearRect(0, 0, vw, vh);
+
+      if (particles.length > 0) {
+        for (let i = particles.length - 1; i >= 0; i--) {
+          const p = particles[i];
+          p.x += p.vx;
+          p.y += p.vy;
+          p.alpha -= p.decay;
+          
+          if (p.alpha <= 0) {
+            particles.splice(i, 1);
+            continue;
+          }
+          
+          ctx.beginPath();
+          ctx.globalAlpha = p.alpha;
+          ctx.fillStyle = 'rgba(20, 20, 24, 0.8)'; // Dark, realistic dust
+          ctx.arc(p.x, p.y, p.radius, 0, Math.PI * 2);
+          ctx.fill();
+        }
+        ctx.globalAlpha = 1.0;
+        ctx.shadowBlur = 0;
+      }
+    }
 
     // Soft rescue zone — only intervene when words are FAR off-screen
     // This lets them fly out naturally and only rescues if truly lost
@@ -224,7 +297,32 @@ const initPhysics = async () => {
 
         const x = body.position.x - hw;
         const y = body.position.y - hh;
+        
         el.style.transform = `translate(${x}px, ${y}px) rotate(${body.angle}rad)`;
+
+        // Cloth ripple: stagger per-letter transforms based on velocity
+        const speed = body.speed || 0;
+        const letterSpans = el.querySelectorAll('.cloth-letter');
+        
+        if (speed > 2) {
+          const vx = body.velocity.x;
+          const vy = body.velocity.y;
+          const intensity = Math.min((speed - 2) * 0.8, 10); // Visible displacement on large text
+          const time = performance.now() * 0.006; // Wave animation ticker
+          
+          letterSpans.forEach((span, li) => {
+            // Staggered sine wave — each letter offset by its index
+            const phase = li * 0.5 + time;
+            const yOffset = Math.sin(phase) * intensity;
+            const rot = Math.sin(phase + 0.4) * intensity * 0.6; // Slight rotation
+            span.style.transform = `translateY(${yOffset}px) rotate(${rot}deg)`;
+          });
+        } else {
+          // At rest: snap all letters back to natural position
+          letterSpans.forEach(span => {
+            if (span.style.transform) span.style.transform = '';
+          });
+        }
       }
     });
     requestAnimationFrame(syncLoop);
@@ -243,6 +341,7 @@ const initPhysics = async () => {
     Matter.Body.setPosition(ground, { x: newWidth / 2, y: newHeight + 50 });
     Matter.Body.setPosition(wallLeft, { x: -50, y: newHeight / 2 });
     Matter.Body.setPosition(wallRight, { x: newWidth + 50, y: newHeight / 2 });
+
 
     // Re-measure words and scale bodies
     bodiesMap.forEach((body, el) => {
@@ -390,6 +489,14 @@ onUnmounted(() => {
     '--target-x': titleLayout.x ? titleLayout.x + 'px' : '4rem',
     '--target-y': titleLayout.y ? titleLayout.y + 'px' : '6.5rem'
   }">
+    <div class="ambient-bg">
+      <div class="orb orb-1"></div>
+      <div class="orb orb-2"></div>
+      <div class="orb orb-3"></div>
+    </div>
+
+    <canvas ref="particleCanvasRef" class="particle-canvas"></canvas>
+    
     <div class="site-logo" @click="!selectedId && router.push('/contact')">
       <h1>snapjay</h1><h2>Engineer+Entrepreneur </h2><h1> Knoxville, TN</h1>
     
@@ -423,11 +530,13 @@ onUnmounted(() => {
       @touchend="onTouchEnd(word, $event)"
       :style="{ 
         // backgroundImage: word.images && word.images[0] ? `url(${word.images[0].src})` : 'none',
-        backgroundColor: word.color || 'transparent',
+        '--word-color': word.color || 'transparent',
         fontSize: `clamp(3rem, (3 + ${word.weight * 3}) * 1vw, 9rem)`
       }"
     >
-      {{ word.label.replace(/ /g, '\n') }}
+      <span v-for="(line, lineIdx) in splitLines[index]" :key="lineIdx" class="cloth-line">
+        <span v-for="(char, ci) in line" :key="ci" class="cloth-letter">{{ char }}</span>
+      </span>
     </div>
   </div>
 </template>
@@ -444,6 +553,78 @@ onUnmounted(() => {
   background: transparent;
   touch-action: none; /* Prevent browser gestures (pull-to-refresh, scroll bounce) */
   overscroll-behavior: none;
+}
+
+.ambient-bg {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  overflow: hidden;
+  background: #c5cccd;
+  /* Cycles from blueish daylight through pinks to warm sunset orange */
+  animation: day-night-cycle 40s infinite alternate linear;
+}
+
+@keyframes day-night-cycle {
+  0% { filter: hue-rotate(0deg); }
+  100% { filter: hue-rotate(170deg); }
+}
+
+.orb {
+  position: absolute;
+  border-radius: 50%;
+  pointer-events: none;
+  opacity: 0.9;
+}
+
+/* Uses rgba so the edges fade out smoothly without expensive CSS blur */
+.orb-1 {
+  width: 120vw;
+  height: 120vh;
+  background: radial-gradient(circle, rgba(181, 217, 241, 0.8) 0%, rgba(181, 217, 241, 0) 60%);
+  top: -30vh;
+  left: -20vw;
+  animation: float1 25s infinite ease-in-out alternate;
+}
+
+.orb-2 {
+  width: 140vw;
+  height: 140vh;
+  background: radial-gradient(circle, rgba(161, 200, 230, 0.8) 0%, rgba(161, 200, 230, 0) 60%);
+  bottom: -40vh;
+  right: -30vw;
+  animation: float2 30s infinite ease-in-out alternate-reverse;
+}
+
+.orb-3 {
+  width: 100vw;
+  height: 100vh;
+  background: radial-gradient(circle, rgba(208, 228, 245, 0.5) 0%, rgba(208, 228, 245, 0) 60%);
+  top: 20vh;
+  left: 20vw;
+  animation: float3 35s infinite ease-in-out alternate;
+}
+
+@keyframes float1 {
+  0% { transform: translate(0, 0) scale(1); }
+  100% { transform: translate(25vw, 15vh) scale(1.1); }
+}
+
+@keyframes float2 {
+  0% { transform: translate(0, 0) scale(1); }
+  100% { transform: translate(-15vw, -20vh) scale(1.15); }
+}
+
+@keyframes float3 {
+  0% { transform: translate(0, 0) scale(1); }
+  100% { transform: translate(-20vw, 20vh) scale(0.9); }
+}
+
+.particle-canvas {
+  position: absolute;
+  inset: 0;
+  z-index: 5; /* Above background, behind words */
+  pointer-events: none;
 }
 
 .site-logo {
@@ -473,7 +654,7 @@ onUnmounted(() => {
 }
 .site-logo h2{
   font-size: clamp(1.5rem, 4vw, 3rem);
-  color: white;
+  color: rgb(0, 0, 0);
   display: inline-block;
 }
 
@@ -483,18 +664,13 @@ onUnmounted(() => {
   left: 0;
   font-family: 'Bebas Neue', sans-serif;
   font-weight: 900;
-  line-height: 0.72;
-  padding: 0.13em 0 0 0; /* Fixes top clipping for tight line-height */
+  line-height: .86;
+  padding: 0;
   text-transform: uppercase;
-  background-size: cover;
-  background-position: center;
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-  background-clip: text;
-  color: transparent;
   user-select: none;
   cursor: pointer;
-  white-space: pre-line;
+  white-space: nowrap;
+  overflow: visible; /* Prevent line-height clipping on inline-block letter spans */
   text-align: left;
   box-sizing: border-box;
   z-index: 10;
@@ -507,11 +683,31 @@ onUnmounted(() => {
 }
 
 .gravity-word:hover {
-  filter: brightness(1.55) drop-shadow(0 0 15px rgba(255, 255, 255, 0.15));
+  filter: brightness(0.75) drop-shadow(0 0 15px rgba(255, 255, 255, 0.15));
 }
 
 .gravity-word:active {
   cursor: grabbing;
+}
+
+.cloth-line {
+  display: block;
+  overflow: visible; /* Prevent glyph clipping at line level */
+}
+
+.cloth-line + .cloth-line {
+  margin-top: -0.18em; /* Pull second line up — pixel-perfect control */
+}
+
+.cloth-letter {
+  display: inline-block;
+  line-height: 0.88; /* Tight around glyphs — overflow:visible on parent prevents clipping */
+  background-color: var(--word-color, transparent);
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+  color: transparent;
+  will-change: transform;
 }
 
 .gravity-word.is-selected {

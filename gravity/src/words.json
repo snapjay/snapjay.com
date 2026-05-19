@@ -3,14 +3,12 @@
     "id": "software_engineer",
     "category": "Profession",
     "label": "Software Engineer",
+    "leadText": " I build modern, high-performance web applications across the full stack, specializing in frontend development with Vue.js and Angular while remaining deeply comfortable on the backend. I focus on usability, accessibility, and clean design systems, and I care about how things feel just as much as how they work. ",
+    "bodyText": "I approach problems with curiosity and a bias toward action, blending technical precision with creative thinking. I enjoy crafting seamless user experiences, architecting scalable solutions, and working across the full stack. My goal is to build things that are reliable, intuitive, and built to last.",
     "images": [
       {
-        "src": "https://picsum.photos/seed/software/800/800",
-        "caption": "Coding into the late night hours"
-      },
-      {
-        "src": "https://picsum.photos/seed/hardware/800/800",
-        "caption": "Hardware Engineering"
+        "src": "/photos/digital-workspaces-stockcake.webp",
+        "caption": "25 years of coding"
       }
     ],
     "color": "#0284c7",
@@ -83,6 +81,18 @@
       {
         "src": "/photos/garden-insecticide.webp",
         "caption": "Organic pest control"
+      },
+      {
+        "src": "/photos/garden-chard.webp",
+        "caption": "Swiss Chard"
+      },
+      {
+        "src": "/photos/garden-chard-2.webp",
+        "caption": "Swiss Chard"
+      },
+      {
+        "src": "/photos/garden-inground.webp",
+        "caption": "Inground garden beds"
       }
     ],
     "color": "#16a34a",
@@ -143,10 +153,12 @@
   {
     "id": "musician",
     "label": "Musician",
+    "leadText": "Composer and pianist",
+    "bodyText": "My musical journey began at the age of 5 with classical piano training, which instilled in me a deep appreciation for structure, harmony, and emotional expression. Over the years, I've expanded my horizons to explore jazz, electronic music, and various world music traditions. I find joy in the creative process of composing and performing, and I believe that music has the power to connect people and evoke powerful emotions.",
     "images": [
       {
-        "src": "https://picsum.photos/seed/musician/800/800",
-        "caption": "Melodies that move"
+        "src": "/photos/music-piano-books-stockcake.webp",
+        "caption": "Classical Piano"
       }
     ],
     "color": "#7c3aed",
@@ -155,6 +167,8 @@
   {
     "id": "woodworker",
     "category": "Profession",
+    "leadText": "Wood Wrorke",
+    "bodyText": "I've always had a passion for wood working and I enjoy making things out of wood. It's something that I enjoy doing in my free time and I've been doing it for as long as I can remember. I'm a bit of a wood worker and I enjoy making things out of wood.",
     "label": "Wood worker",
     "pageType": "Gallery",
     "images": [
@@ -173,6 +187,14 @@
       {
         "src": "/photos/wood-bench.webp",
         "caption": "1980 F-150 Tailgate bench"
+      },
+      {
+        "src": "/photos/wood-octodish.webp",
+        "caption": "CNC Machined Soap Dish"
+      },
+      {
+        "src": "/photos/wood-chicken-coop.jpg",
+        "caption": "Reclaimed wood chicken coop"
       }
     ],
     "color": "#92400e",
@@ -282,21 +304,21 @@
         "caption": "jukebox.tools",
         "href": "https://jukebox.tools",
         "title": "Jukebox Tools",
-        "detail": "Jukebox Tools is the worlds most powerful suite of jukebox tools. A SaaS product that helps jukebox owners create title strips, organize their record collection, and manage their jukeboxes. <br />  This project was started from a need I had for my own jukebox. It's a passion project that turned into a profitable business. <br /><br />  <a href='https://jukebox.tools'>Visit Jukebox Tools</a>"
+        "detail": "Jukebox Tools is the worlds most powerful suite of jukebox tools. A SaaS product that helps jukebox owners create title strips, organize their record collection, and manage their jukeboxes. <br />  This project was started from a need I had for my own jukebox. It's a passion project that turned into a profitable business. <br /><br />  <a href='https://jukebox.tools'>Visit Jukebox Tools &raquo;</a>"
       },
       {
         "src": "/photos/ent-forge.webp",
         "caption": "Drink Forge",
         "href": "https://drink-forge.com",
         "title": "Drink Forge",
-        "detail": "Drink Forge is an electrolyte drink company that makes electrolyte drink powders for blue collar workers and physical laborers. <br /><br /> I started this company with the goal of creating a product for people who work hard as athletes, but don't get the recovery nutrition that they deserve.  <br /><br />  <a href='https://drink-forge.com'>Visit Drink Forge</a>"
+        "detail": "Drink Forge is an electrolyte drink company that makes electrolyte drink powders for blue collar workers and physical laborers. <br /><br /> I started this company with the goal of creating a product for people who work hard as athletes, but don't get the recovery nutrition that they deserve.  <br /><br />  <a href='https://drink-forge.com'>Visit Drink Forge &raquo;</a>"
       },
       {
         "src": "/photos/ent-boot.webp",
         "href": "https://oldboot.us",
         "caption": "Old Boot",
         "title": "Old Boot",
-        "detail": "Old Boot is my woodworking business. I specialize in making cutting boards, charcuterie boards, and other wood products.  <br /><br />  <a href='https://oldboot.us'>Visit Old Boot</a>"
+        "detail": "Old Boot is my woodworking business. I specialize in making cutting boards, charcuterie boards, and other wood products.  <br /><br />  <a href='https://oldboot.us'>Visit Old Boot &raquo;</a>"
       }
     ],
     "color": "#e11d48",
@@ -336,6 +358,18 @@
       {
         "src": "/photos/chicken-group.webp",
         "caption": "Poultry's Motley Crew"
+      },
+      {
+        "src": "/photos/chicken-dirtnap.webp",
+        "caption": "Chicken dirt nap"
+      },
+      {
+        "src": "/photos/chicken-duck.webp",
+        "caption": "Chicken dirt nap"
+      },
+      {
+        "src": "/photos/chicken-peck.webp",
+        "caption": "Chicken dirt nap"
       }
     ],
     "color": "#ca8a04",
