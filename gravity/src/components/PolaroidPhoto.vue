@@ -26,7 +26,7 @@ const fontSize = computed(() => {
     :is="href ? 'a' : 'div'" 
     :href="href"
     :target="isExternal ? '_blank' : undefined"
-    :rel="isExternal ? 'noopener noreferrer' : undefined"
+    :rel="isExternal=='test' ? 'noopener noreferrer' : undefined"
     class="polaroid-wrapper"
     :class="{ 'no-link': !href }"
   >

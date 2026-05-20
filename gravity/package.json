@@ -9,7 +9,8 @@
     "dev:cursor": "set JS_EDITOR=cursor&& npm run dev",
     "build": "vite build",
     "preview": "vite preview",
-    "photos": "node scripts/process-photos.js"
+    "photos": "node scripts/process-photos.js",
+    "photos:new": "node scripts/process-photos.js --only-new"
   },
   "dependencies": {
     "matter-js": "^0.20.0",

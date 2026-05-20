@@ -23,11 +23,9 @@ defineProps({
 
     <main class="page-main">
       <div class="content-body">
-        <p class="lead-text">
-          {{ word.leadText || 'Exploring the intersection of creativity and impact through the lens of ' + word.label + '.' }}
+        <p class="lead-text" v-if="word.leadText" v-html="word.leadText">
         </p>
-        <p>
-            {{ word.bodyText || 'This role embodies the core values of our gravity-based design philosophy. Every interaction is calculated, every collision intentional. In the world of physics-based typography, stands out as a high-weight component that anchors the visual experience.' }}
+        <p v-if="word.bodyText" v-html="word.bodyText">
         </p>
       </div>
     </main>

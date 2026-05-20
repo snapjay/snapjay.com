@@ -51,9 +51,13 @@
       {
         "src": "/photos/dirtbike-medicinebow.webp",
         "caption": "Medicine Bow, Wyoming"
+      },
+      {
+        "src": "/photos/dirtbike-mountain.webp",
+        "caption": "Durango, Colorado"
       }
     ],
-    "color": "#dc2626",
+    "color": "#FF6600",
     "weight": 0.4
   },
   {
@@ -62,6 +66,10 @@
     "label": "Gardener",
     "pageType": "Gallery",
     "images": [
+      {
+        "src": "/photos/garden-inground.webp",
+        "caption": "Inground garden beds"
+      },
       {
         "src": "/photos/garden-raisedbeds.webp",
         "caption": "Building raised garden beds"
@@ -87,12 +95,8 @@
         "caption": "Swiss Chard"
       },
       {
-        "src": "/photos/garden-chard-2.webp",
+        "src": "/photos/garden-chard2.webp",
         "caption": "Swiss Chard"
-      },
-      {
-        "src": "/photos/garden-inground.webp",
-        "caption": "Inground garden beds"
       }
     ],
     "color": "#16a34a",
@@ -174,27 +178,38 @@
     "images": [
       {
         "src": "/photos/wood-green.webp",
-        "caption": "Walnut and epoxy cutting board"
+        "caption": "Walnut and epoxy cutting board",
+        "href": "https://oldboot.us/"
       },
       {
         "src": "/photos/wood-cow.webp",
-        "caption": "Walnut endgrain with CNC machined maple inlay"
+        "caption": "Walnut endgrain with CNC machined maple inlay",
+        "href": "https://oldboot.us/"
       },
       {
         "src": "/photos/wood-handle.webp",
-        "caption": "Walnut and Epoxy cutting board"
+        "caption": "Walnut and Epoxy cutting board",
+        "href": "https://oldboot.us/"
       },
       {
         "src": "/photos/wood-bench.webp",
-        "caption": "1980 F-150 Tailgate bench"
+        "caption": "1980 F-150 Tailgate bench",
+        "href": "https://oldboot.us/"
       },
       {
         "src": "/photos/wood-octodish.webp",
-        "caption": "CNC Machined Soap Dish"
+        "caption": "CNC Machined Soap Dish",
+        "href": "https://oldboot.us/"
       },
       {
-        "src": "/photos/wood-chicken-coop.jpg",
-        "caption": "Reclaimed wood chicken coop"
+        "src": "/photos/wood-chicken-coop.webp",
+        "caption": "Autonomous smart chicken coop from reclaimed materials",
+        "href": "https://oldboot.us/"
+      },
+      {
+        "src": "/photos/wood-wrench.webp",
+        "caption": "CNC Machined Salad Wrench",
+        "href": "https://oldboot.us/"
       }
     ],
     "color": "#92400e",
@@ -208,15 +223,15 @@
     "images": [
       {
         "src": "/photos/vol-sledhockey.webp",
-        "caption": "On-ice help for Youth Sled Hockey"
+        "caption": "On-ice support for Youth Sled Hockey"
       },
       {
         "src": "/photos/vol-kkb.webp",
-        "caption": "Clearing Trash with Keep Knoxville Beautiful"
+        "caption": "Clearing Trash with Keep Knoxville Beautiful (KKB)"
       },
       {
         "src": "/photos/vol-tuff.webp",
-        "caption": "Co-Founder of Toronto United Flag Football"
+        "caption": "Co-Founder of Toronto United Flag Football (TUFF)"
       },
       {
         "src": "/photos/vol-adfac.webp",
@@ -241,9 +256,13 @@
       {
         "src": "/photos/vol-ymca.webp",
         "caption": "Painting YMCA rink (United Way)"
+      },
+      {
+        "src": "/photos/vol-veterans.webp",
+        "caption": "Setup 6k+ candles for Veternas day (Colorado Freedom Memorial)"
       }
     ],
-    "color": "#db2777",
+    "color": "#FF8200",
     "weight": 0.7
   },
   {
@@ -275,8 +294,14 @@
   {
     "id": "product_developer",
     "category": "Profession",
+    "pageType": "Gallery",
     "label": "Product Developer",
     "images": [
+      {
+        "src": "/photos/ent-jukebox.tools-wordmarksq.webp",
+        "caption": "jukebox.tools- Saas Product",
+        "href": "https://jukebox.tools"
+      },
       {
         "src": "/photos/creative-ironSkillet.webp",
         "caption": "The Iron Skillet Co - Prepard meals brandning"
@@ -286,11 +311,17 @@
         "caption": "Cluckin' Clean - Soap Branding"
       },
       {
-        "src": "/photos/creative-soap.webp",
-        "caption": "Cluckin' Clean - Soap Branding"
+        "src": "/photos/prod-forge.webp",
+        "caption": "Drink Forge - Electrolyte Drink",
+        "href": "https://drink-forge.com"
+      },
+      {
+        "src": "/photos/wood-wrench.webp",
+        "caption": "Wood Salad Wrench",
+        "href": "https://oldboot.us/"
       }
     ],
-    "color": "#4f46e5",
+    "color": "#2ad14e",
     "weight": 0.9
   },
   {
@@ -378,11 +409,36 @@
   {
     "id": "adventurer",
     "category": "Lifestyle",
+    "pageType": "Gallery",
     "label": "Adventurer",
     "images": [
       {
-        "src": "https://picsum.photos/seed/adventurer/800/800",
-        "caption": "Seeking the unknown"
+        "src": "/photos/adventure-atv.webp",
+        "caption": "Riding ATVs Ute Mountain, New Mexico"
+      },
+      {
+        "src": "/photos/adventure-watchtower.webp",
+        "caption": "A night in a Watch tower"
+      },
+      {
+        "src": "/photos/adventure-snow.webp",
+        "caption": "Sledding in Medicine Bow National Forest, Wyoming"
+      },
+      {
+        "src": "/photos/adventure-kayak.webp",
+        "caption": "Kayaking on the Tennessee River"
+      },
+      {
+        "src": "/photos/adventure-mine.webp",
+        "caption": "Exploring abandoned mine"
+      },
+      {
+        "src": "/photos/adventure-camp.webp",
+        "caption": "Camping in the Rockies"
+      },
+      {
+        "src": "/photos/adventure-jump.webp",
+        "caption": "San Juan Mountains, Colorado"
       }
     ],
     "color": "#0891b2",
@@ -402,16 +458,21 @@
     "weight": 0.3
   },
   {
-    "id": "mechanical_engineer",
+    "id": "maker",
     "category": "Lifestyle",
-    "label": "Mechanical Engineer",
+    "pageType": "Gallery",
+    "label": "Maker",
     "images": [
       {
-        "src": "https://picsum.photos/seed/gears/800/800",
-        "caption": "The beauty of machinery"
+        "src": "/photos/mech-sponge-holder.webp",
+        "caption": "3D printed sponge holder for the kitchen"
+      },
+      {
+        "src": "/photos/mech-fly.webp",
+        "caption": "3D printed reinforcement for electric fly swatter"
       }
     ],
-    "color": "#64748b",
+    "color": "#33a145",
     "weight": 0.8
   },
   {
@@ -424,21 +485,8 @@
         "caption": "Fixing it right"
       }
     ],
-    "color": "#334155",
+    "color": "#82a0ad",
     "weight": 0.4
-  },
-  {
-    "id": "maker",
-    "category": "Lifestyle",
-    "label": "Maker",
-    "images": [
-      {
-        "src": "https://picsum.photos/seed/maker/800/800",
-        "caption": "Hands-on creation"
-      }
-    ],
-    "color": "#f97316",
-    "weight": 0.3
   },
   {
     "id": "jukebox_collector",
@@ -501,16 +549,23 @@
   },
   {
     "id": "technical_editor",
+    "pageType": "List",
     "category": "Profession",
     "label": "Technical Editor",
     "images": [
       {
         "src": "/photos/book-1.webp",
-        "caption": "Building an E-Commerce Application with MEAN"
+        "caption": "Building an E-Commerce Application with MEAN",
+        "href": "https://www.amazon.com/Building-Commerce-Application-Adrian-Mejia/dp/1785286552/ref=sr_1_1?tag=snapjay-20",
+        "title": "Building an E-Commerce Application with MEAN",
+        "detail": "After releasing <a href=\"https://github.com/snapjay/ngCart\" target=\"_blank\" rel=\"noopener noreferrer\">ngCart</a>, it was featured as a core component in a book exploring the development of e commerce solutions. As the creator of the ngCart library, I was invited to serve as the technical editor for the project."
       },
       {
         "src": "/photos/book-2.webp",
-        "caption": "MEAN Blueprints"
+        "caption": "MEAN Blueprints",
+        "href": "https://www.amazon.com/MEAN-Blueprints-Robert-Onodi/dp/1783553944/?tag=snapjay-20",
+        "title": "MEAN Blueprints",
+        "detail": "Following the success of the <em>\"Building an E-Commerce Application with MEAN\"</em>, a second publication was commissioned to explore the MEAN stack in greater depth. The book provided a more comprehensive look at MEAN stack technologies, and I served as the technical editor for the book."
       }
     ],
     "color": "#14b8a6",

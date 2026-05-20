@@ -5,6 +5,8 @@ import sharp from 'sharp';
 const PHOTOS_DIR = path.join(process.cwd(), '.photos');
 const OUTPUT_DIR = path.join(process.cwd(), 'public', 'photos');
 
+const onlyNew = process.argv.includes('--only-new') || process.argv.includes('-n');
+
 async function processPhotos() {
   try {
     // Ensure directories exist
@@ -29,14 +31,37 @@ async function processPhotos() {
       return;
     }
 
-    console.log(`Found ${images.length} images to process...`);
+    if (onlyNew) {
+      console.log(`Checking ${images.length} images for updates (--only-new)...`);
+    } else {
+      console.log(`Found ${images.length} images to process...`);
+    }
 
-    for (const file of images) {
+    let processedCount = 0;
+    let skippedCount = 0;
+
+    for (let i = 0; i < images.length; i++) {
+      const file = images[i];
+      const progress = `[${i + 1}/${images.length}]`;
       const inputPath = path.join(PHOTOS_DIR, file);
       const outputFilename = path.basename(file, path.extname(file)) + '.webp';
       const outputPath = path.join(OUTPUT_DIR, outputFilename);
 
-      console.log(`Processing: ${file} -> /photos/${outputFilename}`);
+      if (onlyNew) {
+        try {
+          const sourceStat = await fs.stat(inputPath);
+          const destStat = await fs.stat(outputPath);
+          if (sourceStat.mtimeMs <= destStat.mtimeMs) {
+            console.log(`${progress} Skipped (up-to-date): ${file}`);
+            skippedCount++;
+            continue;
+          }
+        } catch {
+          // File does not exist, proceed to process
+        }
+      }
+
+      console.log(`${progress} Processing: ${file} -> /photos/${outputFilename}`);
 
       await sharp(inputPath)
         .resize(800, 800, {
@@ -54,10 +79,10 @@ async function processPhotos() {
         .webp({ quality: 80, effort: 6 })
         .toFile(outputPath);
 
-      console.log(`\u2713 Saved to ${outputPath}`);
+      processedCount++;
     }
 
-    console.log('\nAll photos processed!');
+    console.log(`\nProcessing complete! ${processedCount} processed, ${skippedCount} skipped.`);
 
   } catch (err) {
     console.error('Error processing photos:', err);
