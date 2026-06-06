@@ -13,9 +13,8 @@ const props = defineProps({
 
 const fontFamilies = {
   'moms-typewriter': "'Moms Typewriter', 'Courier New', monospace",
-  'jetbrains-mono': "'JetBrains Mono', monospace",
+  'playfair-display': "'Playfair Display', Georgia, serif",
   'special-elite': "'Special Elite', 'Courier New', monospace",
-  'ubuntu': "'Ubuntu', sans-serif",
   'alegreya': "'Alegreya', Georgia, serif",
   'bebas-neue': "'Bebas Neue', sans-serif",
   'jim-nightshade': "'Jim Nightshade', cursive",
@@ -50,14 +49,14 @@ onMounted(() => {
   document.addEventListener('keydown', onKeyDown)
   // Lock body scroll when modal is open
   document.body.style.overflow = 'hidden'
-  
+
   // Track exact position of title placeholder to sync gravity word
   resizeObserver = new ResizeObserver(() => {
     if (titleRef.value && scrollRef.value) {
       const rect = titleRef.value.getBoundingClientRect()
       // rect.top is relative to viewport. Add scrollTop to get absolute position in scroll content
-      emit('layout', { 
-        x: rect.left, 
+      emit('layout', {
+        x: rect.left,
         y: rect.top + scrollRef.value.scrollTop,
         width: rect.width,
         height: rect.height
@@ -81,7 +80,8 @@ const activeView = computed(() => {
 </script>
 
 <template>
-  <div class="modal-backdrop" @click.self="emit('close')" :style="{ '--category-color': categoryColors[word.category || 'Portfolio'] || '#3592bf' }">
+  <div class="modal-backdrop" @click.self="emit('close')"
+    :style="{ '--category-color': categoryColors[word.category || 'Portfolio'] || '#3592bf' }">
     <!-- Close button — fixed to viewport -->
     <button class="close-btn" @click="emit('close')" aria-label="Close">
       <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
@@ -93,11 +93,16 @@ const activeView = computed(() => {
       <!-- Title Area: Space for the gravity word to land -->
       <header class="title-area">
         <div class="category-tag">{{ word.category || 'Portfolio' }}</div>
-        <div class="title-placeholder" ref="titleRef" :style="{ 
+        <div class="title-placeholder" ref="titleRef" :style="{
           fontSize: `clamp(1.3rem, (1.3 + ${word.weight * 1.5}) * 1vw, 3.8rem)`,
           fontFamily: fontFamilies[word.font] || fontFamilies['moms-typewriter'],
-          fontWeight: word.font === 'ubuntu' ? '700' : 'normal'
-        }">{{ word.label.replace(/ /g, '\n') }}</div>
+          fontWeight: (word.font === 'playfair-display') ? '900' : 'normal'
+        }">
+          <span v-for="(line, lineIdx) in word.label.split(' ')" :key="lineIdx" class="cloth-line">
+            {{ line }}
+            <span v-if="lineIdx === word.label.split(' ').length - 1" class="paper-dot"></span>
+          </span>
+        </div>
       </header>
 
       <!-- Content Views -->
@@ -112,9 +117,9 @@ const activeView = computed(() => {
   position: fixed;
   inset: 0;
   z-index: 500;
-  background: rgba(5, 5, 8, 0.78);
-  backdrop-filter: blur(24px) saturate(190%);
-  -webkit-backdrop-filter: blur(24px) saturate(190%);
+  background: rgba(5, 5, 8, 0.58);
+  backdrop-filter: blur(18px) saturate(190%);
+  -webkit-backdrop-filter: blur(14px) saturate(190%);
   /* Add subtle glass grain/noise */
   background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.65' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.035'/%3E%3C/svg%3E");
   display: flex;
@@ -174,15 +179,33 @@ const activeView = computed(() => {
 
 /* Invisible placeholder to reserve space for the animated gravity word */
 .title-placeholder {
-  font-family: 'Bebas Neue', sans-serif;
-  line-height: 0.72;
-  padding: 0.13em 0 0 0;
-  font-weight: 900;
-  text-transform: uppercase;
-  color: transparent;
+  display: inline-flex;
+  flex-direction: column;
+  align-self: flex-start;
+  padding: 0.35em 0.85em 0.3em;
+  line-height: 0.95;
+  text-transform: lowercase;
+  visibility: hidden;
   pointer-events: none;
-  white-space: pre-line;
   text-align: left;
+}
+
+.cloth-line {
+  display: block;
+  overflow: visible;
+}
+
+.cloth-line+.cloth-line {
+  margin-top: -0.05em;
+}
+
+.paper-dot {
+  display: inline-block;
+  width: 0.24em;
+  height: 0.24em;
+  border-radius: 50%;
+  margin-left: 0.08em;
+  vertical-align: baseline;
 }
 
 /* ─── Close button ─── */
@@ -225,8 +248,7 @@ const activeView = computed(() => {
 }
 
 /* ─── Tablet ─── */
-@media (max-width: 1024px) {
-}
+@media (max-width: 1024px) {}
 
 /* ─── Phone ─── */
 @media (max-width: 640px) {

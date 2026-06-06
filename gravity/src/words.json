@@ -12,7 +12,7 @@
       }
     ],
     "weight": 1,
-    "font": "alegreya"
+    "font": "special-elite"
   },
   {
     "id": "dirtbiker",
@@ -100,7 +100,7 @@
       }
     ],
     "weight": 0.3,
-    "font": "ubuntu"
+    "font": "cinzel"
   },
   {
     "id": "chef",
@@ -171,7 +171,7 @@
   {
     "id": "woodworker",
     "category": "Profession",
-    "leadText": "Wood Wrorke",
+    "leadText": "Wood Worker",
     "bodyText": "I've always had a passion for wood working and I enjoy making things out of wood. It's something that I enjoy doing in my free time and I've been doing it for as long as I can remember. I'm a bit of a wood worker and I enjoy making things out of wood.",
     "label": "Wood worker",
     "pageType": "Gallery",
@@ -256,7 +256,7 @@
       }
     ],
     "weight": 0.7,
-    "font": "jetbrains-mono"
+    "font": "playfair-display"
   },
   {
     "id": "creative",
@@ -435,7 +435,7 @@
       }
     ],
     "weight": 0.6,
-    "font": "jetbrains-mono"
+    "font": "playfair-display"
   },
   {
     "id": "traveller",
@@ -479,7 +479,7 @@
       }
     ],
     "weight": 0.4,
-    "font": "jetbrains-mono"
+    "font": "playfair-display"
   },
   {
     "id": "jukebox_collector",
@@ -501,7 +501,7 @@
       }
     ],
     "weight": 0.4,
-    "font": "moms-typewriter"
+    "font": "special-elite"
   },
   {
     "id": "hockey_player",
@@ -525,7 +525,7 @@
     "leadText": "Hockey is in my blood",
     "bodyText": "I grew up playing hockey, and I've been playing ever since. It's a sport that requires skill, speed, and strategy. It is a team sport that is played on ice and involves skating and stickhandling a puck.",
     "weight": 0.6,
-    "font": "special-elite"
+    "font": "bebas-neue"
   },
   {
     "id": "softball_player",
@@ -538,7 +538,7 @@
       }
     ],
     "weight": 0.2,
-    "font": "jetbrains-mono"
+    "font": "playfair-display"
   },
   {
     "id": "technical_editor",

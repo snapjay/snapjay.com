@@ -19,14 +19,13 @@ const paperBgs = [
 
 const fontFamilies: Record<string, string> = {
   'moms-typewriter': "'Moms Typewriter', 'Courier New', monospace",
-  'jetbrains-mono': "'JetBrains Mono', monospace",
+  'playfair-display': "'Playfair Display', Georgia, serif",
   'special-elite': "'Special Elite', 'Courier New', monospace",
-  'ubuntu': "'Ubuntu', sans-serif",
   'alegreya': "'Alegreya', Georgia, serif",
   'bebas-neue': "'Bebas Neue', sans-serif",
   'jim-nightshade': "'Jim Nightshade', cursive",
   'cinzel': "'Cinzel', Georgia, serif",
-  'courier-new': "'Courier New', Courier, monospace"
+  'courier-new': "'Courier New', Courier, monospace",
 }
 
 const categoryColors: Record<string, string> = {
@@ -145,7 +144,7 @@ usePhysics(containerRef, particleCanvasRef, wordRefs, selectedId, titleLayout)
       <div class="paper-tag" :class="'paper-torn-' + (index % 4 + 1)" :style="{
         '--paper-bg-url': `url(${paperBgs[index % paperBgs.length]})`,
         fontFamily: fontFamilies[word.font] || fontFamilies['moms-typewriter'],
-        fontWeight: word.font === 'ubuntu' ? '700' : 'normal'
+        fontWeight: (word.font === 'playfair-display') ? '900' : 'normal'
       }">
         <span class="paper-text">
           <span v-for="(line, lineIdx) in splitLines[index]" :key="lineIdx" class="cloth-line">
