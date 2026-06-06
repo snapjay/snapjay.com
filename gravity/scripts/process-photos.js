@@ -63,21 +63,36 @@ async function processPhotos() {
 
       console.log(`${progress} Processing: ${file} -> /photos/${outputFilename}`);
 
-      await sharp(inputPath)
-        .resize(800, 800, {
-          fit: 'cover',
-          position: 'attention',
-        })
+      const baseSharp = sharp(inputPath)
         .modulate({
           brightness: 1.05,
           saturation: 0.8,
           hue: 5 // slight color shift
         })
         // Add a slight gamma correction for that washed-out vintage look
-        .gamma(1.1)
-        // Convert to webp with good quality
+        .gamma(1.1);
+
+      // Save full 800x800 version
+      await baseSharp
+        .clone()
+        .resize(800, 800, {
+          fit: 'cover',
+          position: 'attention',
+        })
         .webp({ quality: 80, effort: 6 })
         .toFile(outputPath);
+
+      // Save 400x400 thumbnail version
+      const outputThumbFilename = path.basename(file, path.extname(file)) + '-thumb.webp';
+      const outputThumbPath = path.join(OUTPUT_DIR, outputThumbFilename);
+      await baseSharp
+        .clone()
+        .resize(400, 400, {
+          fit: 'cover',
+          position: 'attention',
+        })
+        .webp({ quality: 75, effort: 6 })
+        .toFile(outputThumbPath);
 
       processedCount++;
     }

@@ -1,5 +1,5 @@
 <script setup>
-import { computed } from 'vue';
+import { computed, ref, nextTick, onUnmounted } from 'vue';
 
 const props = defineProps({
   src: String,
@@ -7,7 +7,17 @@ const props = defineProps({
   href: String
 })
 
-const randomRotation = Math.random() * 7 - 3.5; // Random rotation between -5 and 5 deg
+const isExpanded = ref(false);
+const animatingActive = ref(false);
+const rect = ref({ top: 0, left: 0, width: 0, height: 0 });
+const highResLoaded = ref(false);
+
+const windowWidth = ref(window.innerWidth);
+const windowHeight = ref(window.innerHeight);
+
+const originalPolaroidRef = ref(null);
+
+const randomRotation = Math.random() * 7 - 3.5; // Random rotation between -3.5 and 3.5 deg
 
 const isExternal = computed(() => props.href && (props.href.startsWith('http') || props.href.startsWith('mailto:')));
 
@@ -19,6 +29,110 @@ const fontSize = computed(() => {
   if (len < 50) return '1.8rem';
   return '1.5rem';
 });
+
+const thumbSrc = computed(() => {
+  if (props.src && props.src.startsWith('/photos/') && props.src.endsWith('.webp')) {
+    return props.src.replace('.webp', '-thumb.webp');
+  }
+  return props.src;
+});
+
+const updateRect = () => {
+  const polaroidEl = originalPolaroidRef.value;
+  if (polaroidEl) {
+    const wrapperEl = polaroidEl.parentElement;
+    
+    // Save original styles
+    const originalWrapperTransform = wrapperEl ? wrapperEl.style.transform : '';
+    const originalPolaroidTransform = polaroidEl.style.transform;
+    const originalWrapperTransition = wrapperEl ? wrapperEl.style.transition : '';
+    const originalPolaroidTransition = polaroidEl.style.transition;
+    
+    // Clear transforms and transitions temporarily to measure unrotated/unhovered resting rect
+    if (wrapperEl) {
+      wrapperEl.style.transform = 'none';
+      wrapperEl.style.transition = 'none';
+    }
+    polaroidEl.style.transform = 'none';
+    polaroidEl.style.transition = 'none';
+    
+    // Force layout reflow and measure unhovered resting position
+    rect.value = polaroidEl.getBoundingClientRect();
+    
+    // Restore original styles instantly
+    if (wrapperEl) {
+      wrapperEl.style.transform = originalWrapperTransform;
+      wrapperEl.style.transition = originalWrapperTransition;
+    }
+    polaroidEl.style.transform = originalPolaroidTransform;
+    polaroidEl.style.transition = originalPolaroidTransition;
+  }
+}
+
+const handleResize = () => {
+  windowWidth.value = window.innerWidth;
+  windowHeight.value = window.innerHeight;
+  updateRect();
+}
+
+const handlePhotoClick = (e) => {
+  if (!props.href) {
+    e.preventDefault();
+    
+    updateRect();
+    
+    isExpanded.value = true;
+    highResLoaded.value = false; // Reset high-res loaded state
+    
+    nextTick(() => {
+      requestAnimationFrame(() => {
+        animatingActive.value = true;
+      });
+    });
+    
+    window.addEventListener('resize', handleResize);
+  }
+}
+
+const closeLightbox = () => {
+  animatingActive.value = false;
+  window.removeEventListener('resize', handleResize);
+  setTimeout(() => {
+    isExpanded.value = false;
+  }, 600); // Wait for transition to finish
+}
+
+onUnmounted(() => {
+  window.removeEventListener('resize', handleResize);
+})
+
+const transformStyle = computed(() => {
+  if (!rect.value.width) return {};
+  
+  const cX = windowWidth.value / 2;
+  const cY = windowHeight.value / 2;
+  
+  const oX = rect.value.left + rect.value.width / 2;
+  const oY = rect.value.top + rect.value.height / 2;
+  
+  const dX = cX - oX;
+  const dY = cY - oY;
+  
+  // Dynamic scale up to 700px on desktop, or 95% width on mobile/tablet
+  const targetWidth = Math.min(700, windowWidth.value * 0.95);
+  const scale = targetWidth / rect.value.width;
+  
+  return {
+    '--start-top': `${rect.value.top}px`,
+    '--start-left': `${rect.value.left}px`,
+    '--start-width': `${rect.value.width}px`,
+    '--start-height': `${rect.value.height}px`,
+    '--dx': `${dX}px`,
+    '--dy': `${dY}px`,
+    '--scale': scale,
+    '--start-rotation': `${randomRotation}deg`
+  };
+});
 </script>
 
 <template>
@@ -29,10 +143,16 @@ const fontSize = computed(() => {
     :rel="isExternal=='test' ? 'noopener noreferrer' : undefined"
     class="polaroid-wrapper"
     :class="{ 'no-link': !href }"
+    @click="handlePhotoClick"
   >
-    <div class="polaroid" :style="{ transform: `rotate(${randomRotation}deg)` }">
+    <div 
+      ref="originalPolaroidRef"
+      class="polaroid" 
+      :class="{ 'is-hidden-in-grid': isExpanded }"
+      :style="{ transform: `rotate(${randomRotation}deg)` }"
+    >
       <div class="photo-container">
-        <img :src="src" :alt="caption" />
+        <img :src="thumbSrc" :alt="caption" />
         <div class="photo-glare"></div>
       </div>
       <div class="caption-container">
@@ -42,6 +162,51 @@ const fontSize = computed(() => {
       </div>
     </div>
   </component>
+
+  <!-- Lightbox for non-link photos with FLIP transition -->
+  <Teleport to="body">
+    <div 
+      v-if="isExpanded" 
+      class="lightbox-overlay" 
+      :class="{ 'is-visible': animatingActive }" 
+      @click="closeLightbox"
+      @wheel.prevent
+      @touchmove.prevent
+    >
+      <button class="lightbox-close" @click="closeLightbox" aria-label="Close image">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+          <path d="M18 6L6 18M6 6l12 12" stroke-linecap="round" stroke-linejoin="round" />
+        </svg>
+      </button>
+      <div class="lightbox-content">
+        <div 
+          class="polaroid expanded-polaroid" 
+          :class="{ 'is-centered': animatingActive }" 
+          :style="transformStyle"
+        >
+          <div class="photo-container">
+            <!-- Thumbnail loaded instantly as a placeholder -->
+            <img :src="thumbSrc" class="photo-placeholder" :alt="caption" />
+            
+            <!-- High-res photo stacked on top, fading in seamlessly when fully loaded -->
+            <img 
+              :src="src" 
+              class="photo-highres" 
+              :class="{ 'is-loaded': highResLoaded }"
+              @load="highResLoaded = true"
+              :alt="caption" 
+            />
+            <div class="photo-glare"></div>
+          </div>
+          <div class="caption-container">
+            <div class="caption" :style="{ fontSize: fontSize }">
+              {{ caption }}
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </Teleport>
 </template>
 
 <style scoped>
@@ -57,7 +222,7 @@ const fontSize = computed(() => {
 }
 
 .polaroid-wrapper.no-link {
-  cursor: default;
+  cursor: zoom-in;
 }
 
 .polaroid {
@@ -72,6 +237,12 @@ const fontSize = computed(() => {
   transition: transform 0.4s cubic-bezier(0.34, 1.56, 0.64, 1),
               box-shadow 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
   border: 1px solid rgba(0,0,0,0.08);
+}
+
+/* Instant visibility grid handoff: Hides original element immediately on click to prevent double imaging */
+.polaroid.is-hidden-in-grid {
+  opacity: 0 !important;
+  pointer-events: none !important;
 }
 
 .polaroid-wrapper:hover {
@@ -103,12 +274,32 @@ const fontSize = computed(() => {
   filter: contrast(1.1) brightness(1.05) saturate(0.9);
 }
 
+/* Progressive loading positions */
+.photo-placeholder {
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+}
+
+.photo-highres {
+  position: absolute;
+  inset: 0;
+  z-index: 2;
+  opacity: 0;
+  transition: opacity 0.4s ease-out;
+}
+
+.photo-highres.is-loaded {
+  opacity: 1;
+}
+
 .photo-glare {
   position: absolute;
   inset: 0;
   background: linear-gradient(135deg, rgba(255,255,255,0.15) 0%, transparent 40%, transparent 60%, rgba(255,255,255,0.05) 100%);
   pointer-events: none;
   mix-blend-mode: screen;
+  z-index: 3;
 }
 
 .caption-container {
@@ -132,4 +323,99 @@ const fontSize = computed(() => {
   /* Optional: subtle ink bleed effect */
   text-shadow: 0px 0px 1px rgba(26, 51, 122, 0.2);
 }
+
+/* Lightbox styles */
+.lightbox-overlay {
+  position: fixed;
+  inset: 0;
+  z-index: 2000;
+  background: rgba(10, 10, 12, 0);
+  backdrop-filter: blur(0px);
+  -webkit-backdrop-filter: blur(0px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 2rem;
+  cursor: zoom-out;
+  transition: background 0.6s ease, backdrop-filter 0.6s ease;
+  pointer-events: none;
+}
+
+.lightbox-overlay.is-visible {
+  background: rgba(10, 10, 12, 0.85);
+  backdrop-filter: blur(15px);
+  -webkit-backdrop-filter: blur(15px);
+  pointer-events: auto;
+}
+
+.lightbox-close {
+  position: absolute;
+  top: 1.5rem;
+  right: 1.5rem;
+  width: 3rem;
+  height: 3rem;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.1);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  color: white;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  opacity: 0;
+  transition: all 0.3s ease;
+  z-index: 2100;
+}
+
+.lightbox-overlay.is-visible .lightbox-close {
+  opacity: 1;
+}
+
+.lightbox-close:hover {
+  background: rgba(255, 255, 255, 0.2);
+  transform: scale(1.1);
+}
+
+.lightbox-close svg {
+  width: 1.2rem;
+  height: 1.2rem;
+}
+
+.lightbox-content {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.expanded-polaroid {
+  position: fixed;
+  top: var(--start-top);
+  left: var(--start-left);
+  width: var(--start-width);
+  height: var(--start-height);
+  margin: 0 !important;
+  box-shadow: 
+    0 4px 15px #000000e7,
+    0 10px 30px rgba(0, 0, 0, 0.603),
+    inset 0 0 20px rgba(0, 0, 0, 0.233) !important;
+  
+  transform: translate(0, 0) scale(1) rotate(var(--start-rotation));
+  transform-origin: center center;
+  transition: transform 0.6s cubic-bezier(0.34, 1.56, 0.64, 1),
+               box-shadow 0.6s cubic-bezier(0.34, 1.56, 0.64, 1),
+               padding 0.6s cubic-bezier(0.34, 1.56, 0.64, 1);
+  will-change: transform;
+  pointer-events: auto;
+  cursor: zoom-out;
+}
+
+.expanded-polaroid.is-centered {
+  transform: translate(var(--dx), var(--dy)) scale(var(--scale)) rotate(0deg);
+  padding: 1.5rem 1.5rem 2rem 1.5rem !important;
+  box-shadow: 0 30px 70px rgba(0, 0, 0, 0.65) !important;
+}
 </style>
+

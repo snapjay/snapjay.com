@@ -9,10 +9,7 @@ import { createHtmlPlugin } from 'vite-plugin-html';
 export default defineConfig({
   plugins: [
     vue(),
-    vueDevTools({
-      // Use the wrapper script to handle file:line:column formatting
-      launchEditor: fileURLToPath(new URL("./launch-editor.cmd", import.meta.url)),
-    }),
+    vueDevTools(),
     createHtmlPlugin({
       minify: {
         removeComments: false,

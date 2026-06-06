@@ -21,6 +21,10 @@
     "pageType": "Gallery",
     "images": [
       {
+        "src": "/photos/dirtbike-windrock.webp",
+        "caption": "Windrock, Tennessee"
+      },
+      {
         "src": "/photos/dirtbike-Silverton.webp",
         "caption": "Silverton, Colorado"
       },
@@ -37,8 +41,8 @@
         "caption": "Durango, Colorado"
       },
       {
-        "src": "/photos/dirtbike-rabbitEars.webp",
-        "caption": "Rabbit Ears, Kremmling, Colorado"
+        "src": "/photos/dirtbike-track.webp",
+        "caption": "Moto Track ride"
       },
       {
         "src": "/photos/dirtbike-montizuma.webp",
@@ -51,10 +55,6 @@
       {
         "src": "/photos/dirtbike-medicinebow.webp",
         "caption": "Medicine Bow, Wyoming"
-      },
-      {
-        "src": "/photos/dirtbike-mountain.webp",
-        "caption": "Durango, Colorado"
       }
     ],
     "color": "#FF6600",
@@ -178,38 +178,31 @@
     "images": [
       {
         "src": "/photos/wood-green.webp",
-        "caption": "Walnut and epoxy cutting board",
-        "href": "https://oldboot.us/"
+        "caption": "Walnut and epoxy cutting board"
       },
       {
         "src": "/photos/wood-cow.webp",
-        "caption": "Walnut endgrain with CNC machined maple inlay",
-        "href": "https://oldboot.us/"
+        "caption": "Walnut endgrain with CNC machined maple inlay"
       },
       {
         "src": "/photos/wood-handle.webp",
-        "caption": "Walnut and Epoxy cutting board",
-        "href": "https://oldboot.us/"
+        "caption": "Walnut and Epoxy cutting board"
       },
       {
         "src": "/photos/wood-bench.webp",
-        "caption": "1980 F-150 Tailgate bench",
-        "href": "https://oldboot.us/"
+        "caption": "1980 F-150 Tailgate bench"
       },
       {
         "src": "/photos/wood-octodish.webp",
-        "caption": "CNC Machined Soap Dish",
-        "href": "https://oldboot.us/"
+        "caption": "CNC Machined Soap Dish"
       },
       {
         "src": "/photos/wood-chicken-coop.webp",
-        "caption": "Autonomous smart chicken coop from reclaimed materials",
-        "href": "https://oldboot.us/"
+        "caption": "Autonomous smart chicken coop from reclaimed materials"
       },
       {
         "src": "/photos/wood-wrench.webp",
-        "caption": "CNC Machined Salad Wrench",
-        "href": "https://oldboot.us/"
+        "caption": "CNC Machined Salad Wrench"
       }
     ],
     "color": "#92400e",
