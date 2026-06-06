@@ -1,26 +1,28 @@
 :root {
   --font-family: 'Outfit', 'Inter', system-ui, -apple-system, sans-serif;
 
-  /* Modern Slate & Violet Theme */
-  --bg-primary: #0a0a0c;
-  --bg-secondary: #141418;
-  --bg-tertiary: #1c1c22;
+  /* Premium Obsidian & Slate Theme */
+  --bg-primary: #050507;
+  --bg-secondary: #0d0d11;
+  --bg-tertiary: #14141c;
 
   --text-primary: #f8fafc;
   --text-secondary: #94a3b8;
   --text-tertiary: #64748b;
 
   --accent: #3592bf;
-  --accent-glow: rgba(53, 146, 191, 0.5);
-  --accent-soft: rgba(53, 146, 191, 0.1);
+  --accent-rgb: 53, 146, 191;
+  --accent-glow: rgba(53, 146, 191, 0.4);
+  --accent-soft: rgba(53, 146, 191, 0.08);
 
-  --border-subtle: rgba(255, 255, 255, 0.08);
-  --border-highlight: rgba(255, 255, 255, 0.15);
+  --border-subtle: rgba(255, 255, 255, 0.05);
+  --border-highlight: rgba(255, 255, 255, 0.12);
 
-  --glass: rgba(20, 20, 24, 0.8);
-  --glass-border: rgba(255, 255, 255, 0.1);
+  --glass: rgba(13, 13, 18, 0.75);
+  --glass-border: rgba(255, 255, 255, 0.07);
 
-  --shadow-lg: 0 20px 25px -5px rgba(0, 0, 0, 0.5), 0 10px 10px -5px rgba(0, 0, 0, 0.4);
+  --shadow-lg: 0 20px 40px -5px rgba(0, 0, 0, 0.7), 0 10px 20px -10px rgba(0, 0, 0, 0.5);
+  --shadow-glow: 0 0 30px rgba(53, 146, 191, 0.1);
 }
 
 * {
@@ -32,6 +34,7 @@
 html {
   overflow: hidden;
   overscroll-behavior: none;
+  background-color: var(--bg-primary);
 }
 
 body {
@@ -46,12 +49,14 @@ body {
 }
 
 a {
-  color: #fff;
+  color: var(--accent);
   font-weight: 600;
+  text-decoration: none;
+  transition: all 0.2s cubic-bezier(0.25, 0.8, 0.25, 1);
 }
 
 a:hover {
-  color: var(--accent);
+  color: #fff;
 }
 
 a .caption {
@@ -68,7 +73,6 @@ a .caption {
   position: relative;
 }
 
-
 .container {
   max-width: 1200px;
   width: 100%;
@@ -76,15 +80,32 @@ a .caption {
   text-align: center;
 }
 
+/* Scrollbar styles for modal windows */
+.custom-scrollbar::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+}
 
+.custom-scrollbar::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+.custom-scrollbar::-webkit-scrollbar-thumb {
+  background: rgba(255, 255, 255, 0.1);
+  border-radius: 999px;
+  transition: background 0.2s ease;
+}
+
+.custom-scrollbar::-webkit-scrollbar-thumb:hover {
+  background: rgba(255, 255, 255, 0.2);
+}
 
 /* Animations */
 @keyframes fadeIn {
   from {
     opacity: 0;
-    transform: translateY(20px);
+    transform: translateY(15px);
   }
-
   to {
     opacity: 1;
     transform: translateY(0);
@@ -92,23 +113,5 @@ a .caption {
 }
 
 .animate-fade-in {
-  animation: fadeIn 0.8s ease forwards;
-}
-
-/* Ambient Background */
-.ambient-bg {
-  position: absolute;
-  inset: 0;
-  z-index: -1;
-  overflow: hidden;
-  background: #050505;
-  /* Solid dark base */
-}
-
-.ambient-bg svg {
-  width: 100%;
-  height: 100%;
-  opacity: 0.8;
-  filter: blur(40px);
-  /* Softens the SVG gradients further */
+  animation: fadeIn 0.8s cubic-bezier(0.25, 0.8, 0.25, 1) forwards;
 }

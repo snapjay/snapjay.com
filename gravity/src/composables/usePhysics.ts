@@ -106,10 +106,10 @@ export function usePhysics(
       const startY = -Math.random() * 800 - 200;
       
       const body = Bodies.rectangle(startX, startY, rect.width, rect.height, {
-        restitution: 0.5,
-        friction: 0.1,
-        angle: (Math.random() - 0.5) * 1.5,
-        chamfer: { radius: 4 },
+        restitution: 0.55,
+        friction: 0.08,
+        angle: (Math.random() - 0.5) * 1.2,
+        chamfer: { radius: 16 },
         render: { visible: false }
       }) as any;
       
@@ -117,6 +117,10 @@ export function usePhysics(
       
       body.prevWidth = rect.width;
       body.prevHeight = rect.height;
+      
+      // Store word color metadata on the physics body
+      const word = words[index];
+      body.wordColor = word ? (word.color || '#3592bf') : '#3592bf';
       
       Composite.add(engine.world, body);
       bodiesMap!.set(el, body);
@@ -128,21 +132,27 @@ export function usePhysics(
         const speedB = pair.bodyB.speed || 0;
         const force = speedA + speedB;
         
-        if (force > 8) {
+        if (force > 6) {
           const supports = pair.collision.supports;
           if (supports && supports.length > 0) {
             const contact = supports[0];
-            const numParticles = Math.min(Math.floor(force / 2), 6);
+            const numParticles = Math.min(Math.floor(force / 1.8), 8);
+            
+            // Extract colors from the colliding physical bodies
+            const colorA = (pair.bodyA as any).wordColor;
+            const colorB = (pair.bodyB as any).wordColor;
+            const sparkColor = colorA || colorB || '#3592bf';
             
             for (let i = 0; i < numParticles; i++) {
               particles.push({
                 x: contact.x,
                 y: contact.y,
-                vx: (Math.random() - 0.5) * force * 0.5,
-                vy: (Math.random() - 0.5) * force * 0.5 - Math.random() * 2,
-                radius: Math.random() * 2 + 1,
-                alpha: Math.random() * 0.6 + 0.4,
-                decay: Math.random() * 0.04 + 0.02
+                vx: (Math.random() - 0.5) * force * 0.45,
+                vy: (Math.random() - 0.5) * force * 0.45 - Math.random() * 1.8,
+                radius: Math.random() * 2.2 + 1.2,
+                alpha: Math.random() * 0.8 + 0.5,
+                decay: Math.random() * 0.02 + 0.015,
+                color: sparkColor
               });
             }
           }
@@ -196,7 +206,9 @@ export function usePhysics(
               
               ctx.beginPath();
               ctx.globalAlpha = p.alpha;
-              ctx.fillStyle = 'rgba(20, 20, 24, 0.8)';
+              ctx.fillStyle = p.color;
+              ctx.shadowColor = p.color;
+              ctx.shadowBlur = 6;
               ctx.arc(p.x, p.y, p.radius, 0, Math.PI * 2);
               ctx.fill();
             }

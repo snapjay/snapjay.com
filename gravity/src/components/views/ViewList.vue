@@ -54,21 +54,21 @@ defineProps({
   gap: 1.5rem;
   font-family: 'Outfit', sans-serif;
   line-height: 1.7;
-  color: rgba(255, 255, 255, 0.8);
-  font-size: 1.1rem;
+  color: rgba(255, 255, 255, 0.85);
+  font-size: 1.15rem;
 }
 
 .lead-text {
-  font-size: 1.4rem;
+  font-size: 1.45rem;
   color: #fff;
-  font-weight: 500;
+  font-weight: 600;
   line-height: 1.5;
 }
 
 .list-container {
   display: flex;
   flex-direction: column;
-  gap: 5rem;
+  gap: 4rem;
 }
 
 .list-item {
@@ -76,6 +76,13 @@ defineProps({
   grid-template-columns: 320px 1fr;
   gap: 4rem;
   align-items: start;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+  padding-bottom: 4rem;
+}
+
+.list-item:last-child {
+  border-bottom: none;
+  padding-bottom: 0;
 }
 
 .list-photo {
@@ -83,10 +90,10 @@ defineProps({
 }
 
 .list-content {
-  padding-top: 1.5rem;
+  padding-top: 1.2rem;
   display: flex;
   flex-direction: column;
-  gap: 1.5rem;
+  gap: 1.2rem;
 }
 
 .list-item-title {
@@ -100,20 +107,38 @@ defineProps({
 
 .list-item-detail {
   font-family: 'Outfit', sans-serif;
-  font-size: 1.15rem;
+  font-size: 1.1rem;
   line-height: 1.8;
   color: rgba(255, 255, 255, 0.7);
-  max-width: 65ch;
+  max-width: 70ch;
+}
+
+/* Deep link styling for dynamic HTML inside details */
+.list-item-detail :deep(a) {
+  color: var(--accent);
+  text-decoration: none;
+  font-weight: 600;
+  border-bottom: 1.5px solid color-mix(in srgb, var(--accent) 30%, transparent);
+  transition: all 0.2s cubic-bezier(0.25, 0.8, 0.25, 1);
+  padding-bottom: 2px;
+  display: inline-flex;
+  align-items: center;
+}
+
+.list-item-detail :deep(a:hover) {
+  color: #fff;
+  border-bottom-color: #fff;
 }
 
 @media (max-width: 800px) {
   .list-item {
     grid-template-columns: 1fr;
     gap: 2rem;
+    padding-bottom: 3rem;
   }
   
   .list-photo {
-    max-width: 400px;
+    max-width: 380px;
     margin: 0 auto;
   }
   

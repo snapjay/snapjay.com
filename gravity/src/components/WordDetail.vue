@@ -87,11 +87,11 @@ const activeView = computed(() => {
   position: fixed;
   inset: 0;
   z-index: 500;
-  background: rgba(15, 15, 20, 0.7);
-  backdrop-filter: blur(20px) saturate(180%);
-  -webkit-backdrop-filter: blur(20px) saturate(180%);
+  background: rgba(5, 5, 8, 0.78);
+  backdrop-filter: blur(24px) saturate(190%);
+  -webkit-backdrop-filter: blur(24px) saturate(190%);
   /* Add subtle glass grain/noise */
-  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.65' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.05'/%3E%3C/svg%3E");
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.65' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.035'/%3E%3C/svg%3E");
   display: flex;
   flex-direction: column;
 }
@@ -125,21 +125,26 @@ const activeView = computed(() => {
 .title-area {
   max-width: 1200px;
   margin: 0 auto;
-  padding: 3rem 2rem 1rem;
-  min-height: 12rem;
+  padding: 4rem 2rem 1rem;
+  min-height: 14rem;
   display: flex;
   flex-direction: column;
   justify-content: flex-end;
-  gap: 0.5rem;
+  gap: 0.8rem;
 }
 
 .category-tag {
   font-family: 'Outfit', sans-serif;
   color: var(--accent);
-  font-weight: 600;
+  font-weight: 700;
   text-transform: uppercase;
-  letter-spacing: 0.2em;
-  font-size: 0.9rem;
+  letter-spacing: 0.25em;
+  font-size: 0.8rem;
+  opacity: 0.9;
+  border-bottom: 2px solid color-mix(in srgb, var(--accent) 30%, transparent);
+  align-self: flex-start;
+  padding-bottom: 0.3rem;
+  margin-bottom: 0.5rem;
 }
 
 /* Invisible placeholder to reserve space for the animated gravity word */
@@ -158,28 +163,31 @@ const activeView = computed(() => {
 /* ─── Close button ─── */
 .close-btn {
   position: fixed;
-  top: 1.5rem;
-  right: 1.5rem;
-  width: 3.5rem;
-  height: 3.5rem;
+  top: 2rem;
+  right: 2rem;
+  width: 3.2rem;
+  height: 3.2rem;
   border-radius: 50%;
-  background: rgba(30, 30, 36, 0.9);
-  border: 1px solid var(--border-highlight);
-  color: white;
+  background: rgba(13, 13, 18, 0.6);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  color: var(--text-secondary);
   display: flex;
   align-items: center;
   justify-content: center;
   cursor: pointer;
-  transition: all 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
+  transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
   z-index: 1100;
-  backdrop-filter: blur(10px);
-  -webkit-backdrop-filter: blur(10px);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
 }
 
 .close-btn:hover {
-  transform: scale(1.1) rotate(90deg);
+  transform: scale(1.08) rotate(90deg);
   background: var(--accent);
-  border-color: white;
+  border-color: rgba(255, 255, 255, 0.3);
+  color: white;
+  box-shadow: 0 0 20px color-mix(in srgb, var(--accent) 40%, transparent);
 }
 
 .close-btn:active {
@@ -187,8 +195,8 @@ const activeView = computed(() => {
 }
 
 .close-btn svg {
-  width: 1.5rem;
-  height: 1.5rem;
+  width: 1.4rem;
+  height: 1.4rem;
 }
 
 /* ─── Tablet ─── */
@@ -204,13 +212,13 @@ const activeView = computed(() => {
   .close-btn {
     top: 1rem;
     right: 1rem;
-    width: 3rem;
-    height: 3rem;
+    width: 2.8rem;
+    height: 2.8rem;
   }
 
   .close-btn svg {
-    width: 1.3rem;
-    height: 1.3rem;
+    width: 1.2rem;
+    height: 1.2rem;
   }
 }
 </style>

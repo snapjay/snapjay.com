@@ -61,9 +61,23 @@ defineProps({
   flex-direction: column;
   gap: 1.5rem;
   font-family: 'Outfit', sans-serif;
-  line-height: 1.7;
-  color: rgba(255, 255, 255, 0.8);
+  line-height: 1.8;
+  color: rgba(255, 255, 255, 0.85);
   font-size: 1.1rem;
+}
+
+.content-body :deep(a) {
+  color: var(--accent);
+  text-decoration: none;
+  font-weight: 600;
+  border-bottom: 1.5px solid color-mix(in srgb, var(--accent) 30%, transparent);
+  transition: all 0.2s cubic-bezier(0.25, 0.8, 0.25, 1);
+  padding-bottom: 2px;
+}
+
+.content-body :deep(a:hover) {
+  color: #fff;
+  border-bottom-color: #fff;
 }
 
 .lead-text {
