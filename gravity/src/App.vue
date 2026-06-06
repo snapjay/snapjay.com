@@ -5,6 +5,39 @@ import words from './words.json'
 import WordDetail from './components/WordDetail.vue'
 import { usePhysics } from './composables/usePhysics'
 
+const paperBgs = [
+  '/paper/240_F_1868267006_OpY942D4rtZ6nbxuAqSbbqKfglKpuh0a.jpg',
+  '/paper/240_F_1984490889_qbr6AJvykYEg8jFDm6f8N15cAPvnmbSQ.jpg',
+  '/paper/240_F_2009359561_8u5uAmCszlfeQQGETVz8dOER8jVkIBzy.jpg',
+  '/paper/240_F_261261445_elk4rgJ9pnofaTj78Xw1tKsQlCVGbmu6.jpg',
+  '/paper/240_F_312312418_uyrEv9Mq4zbL0Sdi0fA5xnDAukpypE9a.jpg',
+  '/paper/240_F_444013321_vzwRWzfmRQNlCFwYJmMaqssq6HuKENuf.jpg',
+  '/paper/240_F_470922875_gKHd4c5VjOkquYNcN2FjUTVzv9jEE6E7.jpg',
+  '/paper/360_F_1885679285_lN5T3BazdzdvSFjgNFHr7wWjDxqdAwyX.jpg',
+  '/paper/czNmcy1wcml2YXRlL3Jhd3BpeGVsX2ltYWdlcy93ZWJzaXRlX2NvbnRlbnQvcHg2NTA4NDctaW1hZ2Utam9iNjMwLWctbDBnMDlscTUuanBn.webp'
+]
+
+const fontFamilies: Record<string, string> = {
+  'moms-typewriter': "'Moms Typewriter', 'Courier New', monospace",
+  'jetbrains-mono': "'JetBrains Mono', monospace",
+  'special-elite': "'Special Elite', 'Courier New', monospace",
+  'ubuntu': "'Ubuntu', sans-serif",
+  'alegreya': "'Alegreya', Georgia, serif",
+  'bebas-neue': "'Bebas Neue', sans-serif",
+  'jim-nightshade': "'Jim Nightshade', cursive",
+  'cinzel': "'Cinzel', Georgia, serif",
+  'courier-new': "'Courier New', Courier, monospace"
+}
+
+const categoryColors: Record<string, string> = {
+  'Profession': '#00a2ff',
+  'Lifestyle': '#ff6600',
+  'Community Service': '#a855f7',
+  'Creative': '#10b981',
+  'Lets be friends': '#f43f5e',
+  'Portfolio': '#eab308'
+}
+
 const route = useRoute()
 const router = useRouter()
 const containerRef = ref<HTMLElement | null>(null)
@@ -74,7 +107,7 @@ usePhysics(containerRef, particleCanvasRef, wordRefs, selectedId, titleLayout)
 </script>
 
 <template>
-  <div class="gravity-container" ref="containerRef" :style="{ 
+  <div class="gravity-container" ref="containerRef" :style="{
     '--modal-scroll': modalScrollY + 'px',
     '--target-x': titleLayout.x ? titleLayout.x + 'px' : '4rem',
     '--target-y': titleLayout.y ? titleLayout.y + 'px' : '6.5rem'
@@ -86,50 +119,41 @@ usePhysics(containerRef, particleCanvasRef, wordRefs, selectedId, titleLayout)
     </div>
 
     <canvas ref="particleCanvasRef" class="particle-canvas"></canvas>
-    
+
     <div class="site-logo" @click="!selectedId && router.push('/contact')">
-      <span class="logo-brand">snapjay</span>
-      <div class="logo-tagline">
-        <span>Engineer + Entrepreneur</span>
-        <span class="logo-dot">•</span>
-        <span>Knoxville, TN</span>
-      </div>
+      <h1>snapjay</h1>
+      <h2>Engineer+Entrepreneur </h2>
+      <h1> Knoxville, TN</h1>
     </div>
 
     <!-- Selected Word Detail View (Teleported to body to escape gravity container) -->
     <Teleport to="body">
       <Transition name="fade">
-        <WordDetail 
-          v-if="selectedWord" 
-          :word="selectedWord" 
-          @close="closeSelection"
-          @scroll="handleModalScroll"
-          @layout="handleModalLayout"
-        />
+        <WordDetail v-if="selectedWord" :word="selectedWord" @close="closeSelection" @scroll="handleModalScroll"
+          @layout="handleModalLayout" />
       </Transition>
     </Teleport>
 
-    <div 
-      v-for="(word, index) in words" 
-      :key="word.id"
-      ref="wordRefs"
-      class="gravity-word"
-      :class="{ 'is-selected': selectedId === word.id }"
-      @mousedown="onPointerDown"
-      @mousemove="onPointerMove"
-      @mouseup="handleWordClick(word)"
-      @touchstart.passive="onPointerDown"
-      @touchmove.passive="onPointerMove"
-      @touchend="onTouchEnd(word, $event)"
-      :style="{ 
-        '--word-color': word.color || 'transparent',
+    <div v-for="(word, index) in words" :key="word.id" ref="wordRefs" class="gravity-word"
+      :class="{ 'is-selected': selectedId === word.id }" @mousedown="onPointerDown" @mousemove="onPointerMove"
+      @mouseup="handleWordClick(word)" @touchstart.passive="onPointerDown" @touchmove.passive="onPointerMove"
+      @touchend="onTouchEnd(word, $event)" :style="{
+        '--word-color': categoryColors[word.category || 'Portfolio'] || '#3592bf',
         '--word-weight': word.weight || 0.5,
-        fontSize: `clamp(1.6rem, (1.6 + ${word.weight * 2}) * 1vw, 5rem)`
-      }"
-    >
-      <span v-for="(line, lineIdx) in splitLines[index]" :key="lineIdx" class="cloth-line">
-        <span v-for="(char, ci) in line" :key="ci" class="cloth-letter">{{ char }}</span>
-      </span>
+        fontSize: `clamp(1.3rem, (1.3 + ${word.weight * 1.5}) * 1vw, 3.8rem)`
+      }">
+      <div class="paper-tag" :class="'paper-torn-' + (index % 4 + 1)" :style="{
+        '--paper-bg-url': `url(${paperBgs[index % paperBgs.length]})`,
+        fontFamily: fontFamilies[word.font] || fontFamilies['moms-typewriter'],
+        fontWeight: word.font === 'ubuntu' ? '700' : 'normal'
+      }">
+        <span class="paper-text">
+          <span v-for="(line, lineIdx) in splitLines[index]" :key="lineIdx" class="cloth-line">
+            <span v-for="(char, ci) in line" :key="ci" class="cloth-letter">{{ char }}</span>
+            <span v-if="lineIdx === splitLines[index].length - 1" class="paper-dot"></span>
+          </span>
+        </span>
+      </div>
     </div>
   </div>
 </template>
@@ -193,18 +217,33 @@ usePhysics(containerRef, particleCanvasRef, wordRefs, selectedId, titleLayout)
 }
 
 @keyframes float1 {
-  0% { transform: translate(0, 0) scale(1); }
-  100% { transform: translate(15vw, 10vh) scale(1.1); }
+  0% {
+    transform: translate(0, 0) scale(1);
+  }
+
+  100% {
+    transform: translate(15vw, 10vh) scale(1.1);
+  }
 }
 
 @keyframes float2 {
-  0% { transform: translate(0, 0) scale(1); }
-  100% { transform: translate(-10vw, -15vh) scale(1.15); }
+  0% {
+    transform: translate(0, 0) scale(1);
+  }
+
+  100% {
+    transform: translate(-10vw, -15vh) scale(1.15);
+  }
 }
 
 @keyframes float3 {
-  0% { transform: translate(0, 0) scale(1); }
-  100% { transform: translate(-15vw, 15vh) scale(0.9); }
+  0% {
+    transform: translate(0, 0) scale(1);
+  }
+
+  100% {
+    transform: translate(-15vw, 15vh) scale(0.9);
+  }
 }
 
 .particle-canvas {
@@ -216,108 +255,124 @@ usePhysics(containerRef, particleCanvasRef, wordRefs, selectedId, titleLayout)
 
 .site-logo {
   position: fixed;
-  top: 2.5rem;
-  right: 3rem;
+  top: 2rem;
+  right: 2rem;
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: clamp(1.5rem, 4vw, 3rem);
+  color: var(--accent);
   z-index: 10;
+  /* Behind the modal backdrop */
   text-align: right;
+  line-height: 0.8;
+  opacity: 0.8;
+  font-weight: 900;
   cursor: pointer;
-  transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
-  display: flex;
-  flex-direction: column;
-  align-items: flex-end;
-  gap: 0.3rem;
-}
-
-.site-logo:hover {
-  transform: translateY(-2px);
-}
-
-.logo-brand {
-  font-family: var(--font-family);
-  font-size: 2rem;
-  font-weight: 800;
-  letter-spacing: -0.03em;
-  color: var(--text-primary);
-  line-height: 1;
-  background: linear-gradient(135deg, #fff 0%, #cbd5e1 50%, var(--accent) 100%);
-  -webkit-background-clip: text;
-  background-clip: text;
-  -webkit-text-fill-color: transparent;
   transition: opacity 0.2s;
 }
 
-.site-logo:hover .logo-brand {
-  opacity: 0.9;
+.site-logo:hover {
+  opacity: 1;
 }
 
-.logo-tagline {
-  font-family: var(--font-family);
-  font-size: 0.72rem;
-  font-weight: 600;
-  letter-spacing: 0.15em;
-  text-transform: uppercase;
-  color: var(--text-secondary);
-  display: flex;
-  align-items: center;
-  gap: 0.5rem;
-  opacity: 0.85;
+.site-logo h1 {
+  display: inline-block;
+  font-size: clamp(1.5rem, 4vw, 3rem);
+  margin: 0 1rem;
 }
 
-.logo-dot {
-  color: var(--accent);
-  font-weight: 800;
+.site-logo h2 {
+  font-size: clamp(1.5rem, 4vw, 3rem);
+  color: #fff;
+  display: inline-block;
 }
 
 .gravity-word {
   position: absolute;
   top: 0;
   left: 0;
-  font-family: 'Bebas Neue', sans-serif;
-  font-weight: 900;
-  line-height: 0.82;
-  padding: 0.15em 0.375em 0.15em;
-  text-transform: uppercase;
   user-select: none;
   cursor: pointer;
-  white-space: nowrap;
-  overflow: visible;
-  text-align: center;
   box-sizing: border-box;
   z-index: 10;
-  border-radius: 16px;
-  background: rgba(13, 13, 18, 0.45);
-  backdrop-filter: blur(12px);
-  -webkit-backdrop-filter: blur(12px);
-  border: 1px solid color-mix(in srgb, var(--word-color) 20%, rgba(255, 255, 255, 0.05));
-  box-shadow: 
-    0 8px 25px -5px rgba(0, 0, 0, 0.5),
-    inset 0 1px 0 rgba(255, 255, 255, 0.06);
-  
+  text-transform: uppercase;
+
+  /* Parent filter renders shadow matching the clipped child shape */
+  filter: drop-shadow(0 6px 12px rgba(0, 0, 0, 0.45));
+
   /* Retain elevated z-index on close so it doesn't clip under backdrop */
-  transition: z-index 0s 0.5s, 
-              filter 0.5s cubic-bezier(0.25, 0.8, 0.25, 1),
-              background 0.3s ease,
-              border-color 0.3s ease,
-              box-shadow 0.3s ease,
-              padding 0.8s cubic-bezier(0.25, 0.8, 0.25, 1),
-              font-size 0.8s cubic-bezier(0.25, 0.8, 0.25, 1),
-              line-height 0.8s cubic-bezier(0.25, 0.8, 0.25, 1);
-  
+  transition: z-index 0s 0.5s,
+    filter 0.5s cubic-bezier(0.25, 0.8, 0.25, 1);
+
   transform: translateY(-1000px);
 }
 
 .gravity-word:hover {
-  background: rgba(20, 20, 28, 0.65);
-  border-color: color-mix(in srgb, var(--word-color) 50%, rgba(255, 255, 255, 0.15));
-  box-shadow: 
-    0 15px 35px -5px rgba(0, 0, 0, 0.6),
-    0 0 20px -5px color-mix(in srgb, var(--word-color) 35%, transparent),
-    inset 0 1px 0 rgba(255, 255, 255, 0.12);
-  filter: brightness(1.05);
+  filter: drop-shadow(0 12px 20px rgba(0, 0, 0, 0.55));
+}
+
+.paper-tag {
+  background-color: #f5f4ed;
+  background-image:
+    url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.8' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)' opacity='0.12'/%3E%3C/svg%3E"),
+    var(--paper-bg-url, none);
+  background-size: auto, cover;
+  background-position: center;
+  background-repeat: repeat, no-repeat;
+  padding: 0.35em 0.85em 0.3em;
+  border: 1px solid rgba(0, 0, 0, 0.06);
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.05em;
+
+  font-family: 'Moms Typewriter', 'Courier New', Courier, monospace;
+  font-weight: normal;
+  line-height: 0.95;
+  text-transform: lowercase;
+
+  transition: transform 0.3s cubic-bezier(0.25, 0.8, 0.25, 1),
+    background-color 0.3s ease,
+    padding 0.8s cubic-bezier(0.25, 0.8, 0.25, 1),
+    font-size 0.8s cubic-bezier(0.25, 0.8, 0.25, 1),
+    line-height 0.8s cubic-bezier(0.25, 0.8, 0.25, 1);
+}
+
+.gravity-word:hover .paper-tag {
+  transform: translateY(-3px) scale(1.03) rotate(-0.5deg);
+  background-color: #fbfbfa;
 }
 
 .gravity-word:active {
   cursor: grabbing;
+}
+
+/* Four randomized jagged clip-path variations for authentic torn edges */
+.paper-torn-1 {
+  clip-path: polygon(0.5% 3%, 12% 1.5%, 28% 4%, 42% 1.2%, 58% 3.5%, 72% 1.8%, 88% 4.2%, 99% 2%,
+      98% 18%, 99.5% 38%, 98.2% 58%, 99.1% 78%, 98.5% 97%,
+      86% 98.5%, 74% 96.5%, 58% 99%, 44% 97.2%, 28% 98.8%, 14% 96.2%, 1% 98%,
+      1.8% 82%, 0.5% 62%, 1.2% 42%, 0.8% 22%);
+}
+
+.paper-torn-2 {
+  clip-path: polygon(1.5% 2%, 18% 3.5%, 32% 1.2%, 48% 4.1%, 64% 1.8%, 82% 3.2%, 98.5% 1.5%,
+      97.5% 22%, 99% 45%, 97.8% 68%, 99.2% 96.5%,
+      88% 95.2%, 72% 97.8%, 56% 95.8%, 38% 98.2%, 22% 95.5%, 1.2% 97.2%,
+      0.8% 76%, 2% 52%, 0.5% 28%);
+}
+
+.paper-torn-3 {
+  clip-path: polygon(0.8% 4%, 15% 1.8%, 35% 3.2%, 55% 1.5%, 75% 3.8%, 92% 2.1%, 99.2% 3.5%,
+      98.1% 28%, 99% 48%, 97.5% 72%, 98.8% 98%,
+      82% 97.1%, 64% 98.8%, 46% 96.5%, 28% 98.2%, 12% 96.8%, 1.5% 97.5%,
+      1.2% 78%, 0.5% 58%, 1.8% 32%);
+}
+
+.paper-torn-4 {
+  clip-path: polygon(1.2% 1.8%, 22% 3.2%, 42% 1.5%, 62% 3.8%, 82% 2.1%, 98.8% 3.2%,
+      97.5% 18%, 99.1% 42%, 97.8% 68%, 99.2% 97.8%,
+      84% 96.8%, 68% 98.5%, 52% 96.2%, 36% 98.8%, 18% 97.2%, 0.8% 96.2%,
+      1.5% 72%, 0.8% 48%, 2.1% 24%);
 }
 
 .cloth-line {
@@ -325,14 +380,15 @@ usePhysics(containerRef, particleCanvasRef, wordRefs, selectedId, titleLayout)
   overflow: visible;
 }
 
-.cloth-line + .cloth-line {
-  margin-top: -0.1em;
+.cloth-line+.cloth-line {
+  margin-top: -0.05em;
 }
 
 .cloth-letter {
   display: inline-block;
   line-height: 0.88;
-  background-color: var(--word-color, transparent);
+  /* Dark typewriter ink style on the homepage */
+  background-color: #1c1c1f;
   -webkit-background-clip: text;
   background-clip: text;
   -webkit-text-fill-color: transparent;
@@ -340,47 +396,37 @@ usePhysics(containerRef, particleCanvasRef, wordRefs, selectedId, titleLayout)
   will-change: transform;
 }
 
+.paper-dot {
+  display: inline-block;
+  width: 0.24em;
+  height: 0.24em;
+  border-radius: 50%;
+  background-color: currentColor;
+  color: var(--word-color);
+  margin-left: 0.08em;
+  vertical-align: baseline;
+}
+
 .gravity-word.is-selected {
-  transition: transform 1s cubic-bezier(0.23, 1, 0.32, 1), 
-              color 1s cubic-bezier(0.23, 1, 0.32, 1),
-              padding 1s cubic-bezier(0.23, 1, 0.32, 1),
-              font-size 1s cubic-bezier(0.23, 1, 0.32, 1),
-              line-height 1s cubic-bezier(0.23, 1, 0.32, 1),
-              z-index 0s;
+  transition: transform 1s cubic-bezier(0.23, 1, 0.32, 1),
+    z-index 0s;
   z-index: 1000;
-  
   transform: translate(var(--target-x, 4rem), var(--target-y, 6.5rem)) rotate(0rad) !important;
   margin-top: calc(-1 * var(--modal-scroll, 0px));
-  
-  filter: none;
   pointer-events: none;
-  
-  /* Morph styles to fit cleanly into header detail text layout */
-  background: transparent !important;
-  border-color: transparent !important;
-  box-shadow: none !important;
-  backdrop-filter: none !important;
-  -webkit-backdrop-filter: none !important;
-  padding: 0.13em 0 0 0 !important;
-  font-size: clamp(3rem, (3 + var(--word-weight) * 3) * 1vw, 9rem) !important;
-  line-height: 0.72 !important;
+}
+
+.gravity-word.is-selected .paper-tag {
+  line-height: 0.95 !important;
+
+  transition: transform 1s cubic-bezier(0.23, 1, 0.32, 1),
+    padding 1s cubic-bezier(0.23, 1, 0.32, 1),
+    font-size 1s cubic-bezier(0.23, 1, 0.32, 1),
+    line-height 1s cubic-bezier(0.23, 1, 0.32, 1);
 }
 
 @media (max-width: 640px) {
-  .site-logo {
-    top: 1.5rem;
-    right: 1.5rem;
-    gap: 0.2rem;
-  }
-  
-  .logo-brand {
-    font-size: 1.5rem;
-  }
-  
-  .logo-tagline {
-    font-size: 0.65rem;
-    letter-spacing: 0.12em;
-  }
+  /* Placeholder for any future mobile overrides that don't include font-size */
 }
 </style>
 

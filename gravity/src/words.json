@@ -11,8 +11,8 @@
         "caption": "25 years of coding"
       }
     ],
-    "color": "#0284c7",
-    "weight": 1
+    "weight": 1,
+    "font": "alegreya"
   },
   {
     "id": "dirtbiker",
@@ -57,8 +57,8 @@
         "caption": "Medicine Bow, Wyoming"
       }
     ],
-    "color": "#FF6600",
-    "weight": 0.4
+    "weight": 0.4,
+    "font": "special-elite"
   },
   {
     "id": "gardener",
@@ -99,8 +99,8 @@
         "caption": "Swiss Chard"
       }
     ],
-    "color": "#16a34a",
-    "weight": 0.3
+    "weight": 0.3,
+    "font": "ubuntu"
   },
   {
     "id": "chef",
@@ -151,8 +151,8 @@
     ],
     "leadText": "I'm a bit of a foodie",
     "bodyText": "I've always had a passion for food and cooking. It's something that I enjoy doing in my free time and I've been doing it for as long as I can remember. I'm a bit of a foodie and I enjoy trying new foods and restaurants.",
-    "color": "#ea580c",
-    "weight": 0.9
+    "weight": 0.9,
+    "font": "moms-typewriter"
   },
   {
     "id": "musician",
@@ -165,8 +165,8 @@
         "caption": "Classical Piano"
       }
     ],
-    "color": "#7c3aed",
-    "weight": 0.2
+    "weight": 0.2,
+    "font": "jim-nightshade"
   },
   {
     "id": "woodworker",
@@ -205,8 +205,8 @@
         "caption": "CNC Machined Salad Wrench"
       }
     ],
-    "color": "#92400e",
-    "weight": 0.6
+    "weight": 0.6,
+    "font": "bebas-neue"
   },
   {
     "id": "volunteer",
@@ -255,8 +255,8 @@
         "caption": "Setup 6k+ candles for Veternas day (Colorado Freedom Memorial)"
       }
     ],
-    "color": "#FF8200",
-    "weight": 0.7
+    "weight": 0.7,
+    "font": "jetbrains-mono"
   },
   {
     "id": "creative",
@@ -281,8 +281,8 @@
         "caption": "Interative halloween display using illusion and AI"
       }
     ],
-    "color": "#0d9488",
-    "weight": 0.4
+    "weight": 0.4,
+    "font": "jim-nightshade"
   },
   {
     "id": "product_developer",
@@ -314,8 +314,8 @@
         "href": "https://oldboot.us/"
       }
     ],
-    "color": "#2ad14e",
-    "weight": 0.9
+    "weight": 0.9,
+    "font": "alegreya"
   },
   {
     "id": "entrepreneur",
@@ -345,8 +345,8 @@
         "detail": "Old Boot is my woodworking business. I specialize in making cutting boards, charcuterie boards, and other wood products.  <br /><br />  <a href='https://oldboot.us'>Visit Old Boot &raquo;</a>"
       }
     ],
-    "color": "#e11d48",
-    "weight": 1.0
+    "weight": 1,
+    "font": "cinzel"
   },
   {
     "id": "farmer",
@@ -358,8 +358,8 @@
         "caption": "Harvesting hope"
       }
     ],
-    "color": "#65a30d",
-    "weight": 0.4
+    "weight": 0.4,
+    "font": "moms-typewriter"
   },
   {
     "id": "chicken_wrangler",
@@ -396,8 +396,8 @@
         "caption": "Chicken dirt nap"
       }
     ],
-    "color": "#ca8a04",
-    "weight": 0.5
+    "weight": 0.5,
+    "font": "special-elite"
   },
   {
     "id": "adventurer",
@@ -434,8 +434,8 @@
         "caption": "San Juan Mountains, Colorado"
       }
     ],
-    "color": "#0891b2",
-    "weight": 0.6
+    "weight": 0.6,
+    "font": "jetbrains-mono"
   },
   {
     "id": "traveller",
@@ -447,8 +447,8 @@
         "caption": "Seeking the unknown"
       }
     ],
-    "color": "#0891b2",
-    "weight": 0.3
+    "weight": 0.3,
+    "font": "jim-nightshade"
   },
   {
     "id": "maker",
@@ -465,8 +465,8 @@
         "caption": "3D printed reinforcement for electric fly swatter"
       }
     ],
-    "color": "#33a145",
-    "weight": 0.8
+    "weight": 0.8,
+    "font": "bebas-neue"
   },
   {
     "id": "mechanic",
@@ -478,8 +478,8 @@
         "caption": "Fixing it right"
       }
     ],
-    "color": "#82a0ad",
-    "weight": 0.4
+    "weight": 0.4,
+    "font": "jetbrains-mono"
   },
   {
     "id": "jukebox_collector",
@@ -500,8 +500,8 @@
         "caption": "Diner Table Unit"
       }
     ],
-    "color": "#9f1239",
-    "weight": 0.4
+    "weight": 0.4,
+    "font": "moms-typewriter"
   },
   {
     "id": "hockey_player",
@@ -524,8 +524,8 @@
     ],
     "leadText": "Hockey is in my blood",
     "bodyText": "I grew up playing hockey, and I've been playing ever since. It's a sport that requires skill, speed, and strategy. It is a team sport that is played on ice and involves skating and stickhandling a puck.",
-    "color": "#2563eb",
-    "weight": 0.6
+    "weight": 0.6,
+    "font": "special-elite"
   },
   {
     "id": "softball_player",
@@ -537,8 +537,8 @@
         "caption": "Diamonds are forever"
       }
     ],
-    "color": "#bef264",
-    "weight": 0.2
+    "weight": 0.2,
+    "font": "jetbrains-mono"
   },
   {
     "id": "technical_editor",
@@ -561,8 +561,8 @@
         "detail": "Following the success of the <em>\"Building an E-Commerce Application with MEAN\"</em>, a second publication was commissioned to explore the MEAN stack in greater depth. The book provided a more comprehensive look at MEAN stack technologies, and I served as the technical editor for the book."
       }
     ],
-    "color": "#14b8a6",
-    "weight": 0.4
+    "weight": 0.4,
+    "font": "cinzel"
   },
   {
     "id": "contact",
@@ -588,7 +588,7 @@
         "href": "tel:+7207781129"
       }
     ],
-    "color": "#f8fafc",
-    "weight": 0.6
+    "weight": 0.6,
+    "font": "moms-typewriter"
   }
 ]

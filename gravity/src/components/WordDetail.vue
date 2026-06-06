@@ -11,6 +11,27 @@ const props = defineProps({
   }
 })
 
+const fontFamilies = {
+  'moms-typewriter': "'Moms Typewriter', 'Courier New', monospace",
+  'jetbrains-mono': "'JetBrains Mono', monospace",
+  'special-elite': "'Special Elite', 'Courier New', monospace",
+  'ubuntu': "'Ubuntu', sans-serif",
+  'alegreya': "'Alegreya', Georgia, serif",
+  'bebas-neue': "'Bebas Neue', sans-serif",
+  'jim-nightshade': "'Jim Nightshade', cursive",
+  'cinzel': "'Cinzel', Georgia, serif",
+  'courier-new': "'Courier New', Courier, monospace"
+}
+
+const categoryColors = {
+  'Profession': '#00a2ff',
+  'Lifestyle': '#ff6600',
+  'Community Service': '#a855f7',
+  'Creative': '#10b981',
+  'Lets be friends': '#f43f5e',
+  'Portfolio': '#eab308'
+}
+
 const emit = defineEmits(['close', 'scroll', 'layout'])
 const scrollRef = ref(null)
 const titleRef = ref(null)
@@ -60,7 +81,7 @@ const activeView = computed(() => {
 </script>
 
 <template>
-  <div class="modal-backdrop" @click.self="emit('close')">
+  <div class="modal-backdrop" @click.self="emit('close')" :style="{ '--category-color': categoryColors[word.category || 'Portfolio'] || '#3592bf' }">
     <!-- Close button — fixed to viewport -->
     <button class="close-btn" @click="emit('close')" aria-label="Close">
       <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
@@ -72,7 +93,11 @@ const activeView = computed(() => {
       <!-- Title Area: Space for the gravity word to land -->
       <header class="title-area">
         <div class="category-tag">{{ word.category || 'Portfolio' }}</div>
-        <div class="title-placeholder" ref="titleRef" :style="{ fontSize: `clamp(3rem, (3 + ${word.weight * 3}) * 1vw, 9rem)` }">{{ word.label.replace(/ /g, '\n') }}</div>
+        <div class="title-placeholder" ref="titleRef" :style="{ 
+          fontSize: `clamp(1.3rem, (1.3 + ${word.weight * 1.5}) * 1vw, 3.8rem)`,
+          fontFamily: fontFamilies[word.font] || fontFamilies['moms-typewriter'],
+          fontWeight: word.font === 'ubuntu' ? '700' : 'normal'
+        }">{{ word.label.replace(/ /g, '\n') }}</div>
       </header>
 
       <!-- Content Views -->
@@ -135,13 +160,13 @@ const activeView = computed(() => {
 
 .category-tag {
   font-family: 'Outfit', sans-serif;
-  color: var(--accent);
+  color: var(--category-color);
   font-weight: 700;
   text-transform: uppercase;
   letter-spacing: 0.25em;
   font-size: 0.8rem;
   opacity: 0.9;
-  border-bottom: 2px solid color-mix(in srgb, var(--accent) 30%, transparent);
+  border-bottom: 2px solid color-mix(in srgb, var(--category-color) 30%, transparent);
   align-self: flex-start;
   padding-bottom: 0.3rem;
   margin-bottom: 0.5rem;
@@ -184,10 +209,10 @@ const activeView = computed(() => {
 
 .close-btn:hover {
   transform: scale(1.08) rotate(90deg);
-  background: var(--accent);
+  background: var(--category-color);
   border-color: rgba(255, 255, 255, 0.3);
   color: white;
-  box-shadow: 0 0 20px color-mix(in srgb, var(--accent) 40%, transparent);
+  box-shadow: 0 0 20px color-mix(in srgb, var(--category-color) 40%, transparent);
 }
 
 .close-btn:active {

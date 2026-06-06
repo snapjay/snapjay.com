@@ -25,6 +25,8 @@ export function usePhysics(
   let mouseConstraint: Matter.MouseConstraint | undefined;
   let gravityRecoveryTimer: ReturnType<typeof setTimeout> | null = null;
   let particles: any[] = [];
+  let lastWidth = 0;
+  let lastHeight = 0;
 
   const getViewportHeight = () => {
     return window.innerHeight;
@@ -77,6 +79,8 @@ export function usePhysics(
     
     const width = containerRef.value.clientWidth;
     const height = getViewportHeight();
+    lastWidth = width;
+    lastHeight = height;
     
     const Engine = Matter.Engine,
           Runner = Matter.Runner,
@@ -109,7 +113,7 @@ export function usePhysics(
         restitution: 0.55,
         friction: 0.08,
         angle: (Math.random() - 0.5) * 1.2,
-        chamfer: { radius: 16 },
+        chamfer: { radius: 6 },
         render: { visible: false }
       }) as any;
       
@@ -118,9 +122,19 @@ export function usePhysics(
       body.prevWidth = rect.width;
       body.prevHeight = rect.height;
       
-      // Store word color metadata on the physics body
+      // Store word color metadata on the physics body based on category
+      const categoryColors: Record<string, string> = {
+        'Profession': '#00a2ff',
+        'Lifestyle': '#ff6600',
+        'Community Service': '#a855f7',
+        'Creative': '#10b981',
+        'Lets be friends': '#f43f5e',
+        'Portfolio': '#eab308'
+      };
+      
       const word = words[index];
-      body.wordColor = word ? (word.color || '#3592bf') : '#3592bf';
+      const category = word ? (word.category || 'Portfolio') : 'Portfolio';
+      body.wordColor = categoryColors[category] || '#3592bf';
       
       Composite.add(engine.world, body);
       bodiesMap!.set(el, body);
@@ -249,24 +263,7 @@ export function usePhysics(
           
           el.style.transform = `translate(${x}px, ${y}px) rotate(${body.angle}rad)`;
 
-          const speed = body.speed || 0;
-          const letterSpans = el.querySelectorAll('.cloth-letter') as NodeListOf<HTMLElement>;
-          
-          if (speed > 2) {
-            const intensity = Math.min((speed - 2) * 0.8, 10);
-            const time = performance.now() * 0.006;
-            
-            letterSpans.forEach((span, li) => {
-              const phase = li * 0.5 + time;
-              const yOffset = Math.sin(phase) * intensity;
-              const rot = Math.sin(phase + 0.4) * intensity * 0.6;
-              span.style.transform = `translateY(${yOffset}px) rotate(${rot}deg)`;
-            });
-          } else {
-            letterSpans.forEach(span => {
-              if (span.style.transform) span.style.transform = '';
-            });
-          }
+
         }
       });
       requestAnimationFrame(syncLoop);
@@ -278,6 +275,12 @@ export function usePhysics(
     if (!containerRef.value || !bodiesMap) return;
     const newWidth = containerRef.value.clientWidth;
     const newHeight = getViewportHeight();
+
+    const scaleFactorX = (lastWidth > 0 && newWidth > 0) ? newWidth / lastWidth : 1;
+    const scaleFactorY = (lastHeight > 0 && newHeight > 0) ? newHeight / lastHeight : 1;
+
+    lastWidth = newWidth;
+    lastHeight = newHeight;
 
     containerRef.value.style.height = newHeight + 'px';
 
@@ -312,18 +315,24 @@ export function usePhysics(
         body.prevHeight = newH;
       }
       
-      const padding = 40;
-      let targetX = body.position.x;
-      let targetY = body.position.y;
+      // Scale positions proportionally to match the screen layout transformation
+      let targetX = body.position.x * scaleFactorX;
+      let targetY = body.position.y * scaleFactorY;
 
-      if (targetX < padding) targetX = padding + newW/2;
-      if (targetX > newWidth - padding) targetX = newWidth - padding - newW/2;
-      if (targetY > newHeight - padding) targetY = newHeight - padding - newH/2;
+      // Keep it within boundaries
+      const halfW = newW / 2;
+      const halfH = newH / 2;
+      const padding = 20;
 
-      if (targetX !== body.position.x || targetY !== body.position.y) {
-        Matter.Body.setPosition(body, { x: targetX, y: targetY });
-        Matter.Body.setVelocity(body, { x: 0, y: 1 });
-      }
+      if (targetX < halfW + padding) targetX = halfW + padding;
+      if (targetX > newWidth - halfW - padding) targetX = newWidth - halfW - padding;
+      if (targetY < halfH + padding) targetY = halfH + padding;
+      if (targetY > newHeight - halfH - padding) targetY = newHeight - halfH - padding;
+
+      Matter.Body.setPosition(body, { x: targetX, y: targetY });
+      // Reset velocity to prevent massive momentum build-up during window resizing dragging
+      Matter.Body.setVelocity(body, { x: 0, y: 0 });
+      Matter.Body.setAngularVelocity(body, 0);
     });
   };
 

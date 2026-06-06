@@ -1,3 +1,10 @@
+@font-face {
+  font-family: 'Moms Typewriter';
+  src: url('/Mom«t___.ttf') format('truetype');
+  font-weight: normal;
+  font-style: normal;
+}
+
 :root {
   --font-family: 'Outfit', 'Inter', system-ui, -apple-system, sans-serif;
 

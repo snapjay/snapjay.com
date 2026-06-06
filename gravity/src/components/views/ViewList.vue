@@ -99,7 +99,7 @@ defineProps({
 .list-item-title {
   font-family: 'Bebas Neue', sans-serif;
   font-size: 2.5rem;
-  color: var(--accent);
+  color: var(--category-color, var(--accent));
   letter-spacing: 0.05em;
   margin: 0;
   line-height: 1;
@@ -115,10 +115,10 @@ defineProps({
 
 /* Deep link styling for dynamic HTML inside details */
 .list-item-detail :deep(a) {
-  color: var(--accent);
+  color: var(--category-color, var(--accent));
   text-decoration: none;
   font-weight: 600;
-  border-bottom: 1.5px solid color-mix(in srgb, var(--accent) 30%, transparent);
+  border-bottom: 1.5px solid color-mix(in srgb, var(--category-color, var(--accent)) 30%, transparent);
   transition: all 0.2s cubic-bezier(0.25, 0.8, 0.25, 1);
   padding-bottom: 2px;
   display: inline-flex;
