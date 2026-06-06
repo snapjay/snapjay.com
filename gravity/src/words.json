@@ -240,7 +240,7 @@
       },
       {
         "src": "/photos/vol-equestrian.webp",
-        "caption": "Night Check for Equestrian Therapy Program"
+        "caption": "Night Check for an Equestrian Therapy Program"
       },
       {
         "src": "/photos/vol-elkmont.webp",
@@ -297,7 +297,7 @@
       },
       {
         "src": "/photos/creative-ironSkillet.webp",
-        "caption": "The Iron Skillet Co - Prepard meals brandning"
+        "caption": "The Iron Skillet Co - Prepared  meals branding"
       },
       {
         "src": "/photos/creative-clucking-clean.webp",
@@ -312,6 +312,14 @@
         "src": "/photos/wood-wrench.webp",
         "caption": "Wood Salad Wrench",
         "href": "https://oldboot.us/"
+      },
+      {
+        "src": "/photos/mech-sponge-holder.webp",
+        "caption": "Magnetic holder for kitchen sponge"
+      },
+      {
+        "src": "/photos/mech-fly.webp",
+        "caption": "Brace strut for electric fly swatter"
       }
     ],
     "weight": 0.9,
@@ -458,11 +466,11 @@
     "images": [
       {
         "src": "/photos/mech-sponge-holder.webp",
-        "caption": "3D printed sponge holder for the kitchen"
+        "caption": "Magnetic holder for kitchen sponge"
       },
       {
         "src": "/photos/mech-fly.webp",
-        "caption": "3D printed reinforcement for electric fly swatter"
+        "caption": "Brace strut for electric fly swatter"
       }
     ],
     "weight": 0.8,
@@ -489,15 +497,15 @@
     "images": [
       {
         "src": "/photos/jukebox-seeburg.webp",
-        "caption": "Seeburg Select-o-Matic 100"
+        "caption": "1954 Seeburg Select-o-Matic 100"
       },
       {
         "src": "/photos/jukebox-wurlitzer.webp",
-        "caption": "Wurlitzer 1015"
+        "caption": "1947 Wurlitzer 1015"
       },
       {
         "src": "/photos/jukebox-wall.webp",
-        "caption": "Diner Table Unit"
+        "caption": "1950s countertop remote unit"
       }
     ],
     "weight": 0.4,

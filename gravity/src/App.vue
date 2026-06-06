@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { ref, computed } from 'vue'
+import { ref, computed, watch, nextTick } from 'vue'
 import { useRoute, useRouter } from 'vue-router'
 import words from './words.json'
 import WordDetail from './components/WordDetail.vue'
@@ -43,12 +43,29 @@ const containerRef = ref<HTMLElement | null>(null)
 const particleCanvasRef = ref<HTMLCanvasElement | null>(null)
 const wordRefs = ref<HTMLElement[]>([])
 const mouseMoved = ref(false)
+
 let startX = 0
 let startY = 0
 let isTouchDrag = false
 
 const selectedId = computed(() => (route.params.id as string) || null)
 const selectedWord = computed(() => words.find(w => w.id === selectedId.value))
+
+const handleWordKey = (word: any) => {
+  if (selectedId.value) return
+  router.push(`/${word.id}`)
+}
+
+watch(selectedId, (newId, oldId) => {
+  if (!newId && oldId) {
+    const index = words.findIndex(w => w.id === oldId)
+    if (index !== -1 && wordRefs.value[index]) {
+      nextTick(() => {
+        wordRefs.value[index]?.focus()
+      })
+    }
+  }
+})
 
 // Pre-split labels into lines of characters for per-letter rendering
 const splitLines = computed(() => words.map(w => {
@@ -119,7 +136,10 @@ usePhysics(containerRef, particleCanvasRef, wordRefs, selectedId, titleLayout)
 
     <canvas ref="particleCanvasRef" class="particle-canvas"></canvas>
 
-    <div class="site-logo" @click="!selectedId && router.push('/contact')">
+    <div class="site-logo" :tabindex="selectedId ? -1 : 0"
+      @click="!selectedId && router.push('/contact')"
+      @keydown.enter="!selectedId && router.push('/contact')"
+      @keydown.space.prevent="!selectedId && router.push('/contact')">
       <h1>snapjay</h1>
       <h2>Engineer+Entrepreneur </h2>
       <h1> Knoxville, TN</h1>
@@ -133,10 +153,16 @@ usePhysics(containerRef, particleCanvasRef, wordRefs, selectedId, titleLayout)
       </Transition>
     </Teleport>
 
-    <div v-for="(word, index) in words" :key="word.id" ref="wordRefs" class="gravity-word"
-      :class="{ 'is-selected': selectedId === word.id }" @mousedown="onPointerDown" @mousemove="onPointerMove"
+    <div v-for="(word, index) in words" :key="word.id"
+      :ref="el => { if (el) wordRefs[index] = el as HTMLElement }" class="gravity-word"
+      :class="{ 'is-selected': selectedId === word.id }"
+      :tabindex="selectedId ? -1 : 0"
+      @mousedown="onPointerDown" @mousemove="onPointerMove"
       @mouseup="handleWordClick(word)" @touchstart.passive="onPointerDown" @touchmove.passive="onPointerMove"
-      @touchend="onTouchEnd(word, $event)" :style="{
+      @touchend="onTouchEnd(word, $event)"
+      @keydown.enter="handleWordKey(word)"
+      @keydown.space.prevent="handleWordKey(word)"
+      :style="{
         '--word-color': categoryColors[word.category || 'Portfolio'] || '#3592bf',
         '--word-weight': word.weight || 0.5,
         fontSize: `clamp(1.3rem, (1.3 + ${word.weight * 1.5}) * 1vw, 3.8rem)`
@@ -422,6 +448,18 @@ usePhysics(containerRef, particleCanvasRef, wordRefs, selectedId, titleLayout)
     padding 1s cubic-bezier(0.23, 1, 0.32, 1),
     font-size 1s cubic-bezier(0.23, 1, 0.32, 1),
     line-height 1s cubic-bezier(0.23, 1, 0.32, 1);
+}
+
+.gravity-word:focus-visible {
+  outline: 3px solid var(--word-color);
+  outline-offset: 4px;
+  border-radius: 6px;
+}
+
+.site-logo:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 4px;
+  border-radius: 4px;
 }
 
 @media (max-width: 640px) {

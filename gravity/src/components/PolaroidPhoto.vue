@@ -1,11 +1,13 @@
 <script setup>
-import { computed, ref, nextTick, onUnmounted } from 'vue';
+import { computed, ref, nextTick, onUnmounted, inject } from 'vue';
 
 const props = defineProps({
   src: String,
   caption: String,
   href: String
 })
+
+const openLightbox = inject('openLightbox', null);
 
 const isExpanded = ref(false);
 const animatingActive = ref(false);
@@ -79,6 +81,11 @@ const handlePhotoClick = (e) => {
   if (!props.href) {
     e.preventDefault();
     
+    if (openLightbox) {
+      openLightbox(props.src);
+      return;
+    }
+    
     updateRect();
     
     isExpanded.value = true;
@@ -91,19 +98,74 @@ const handlePhotoClick = (e) => {
     });
     
     window.addEventListener('resize', handleResize);
+    window.addEventListener('keydown', handleGlobalKeydown);
   }
 }
 
 const closeLightbox = () => {
   animatingActive.value = false;
   window.removeEventListener('resize', handleResize);
+  window.removeEventListener('keydown', handleGlobalKeydown);
   setTimeout(() => {
     isExpanded.value = false;
   }, 600); // Wait for transition to finish
 }
 
+const closeLightboxInstant = () => {
+  animatingActive.value = false;
+  isExpanded.value = false;
+  window.removeEventListener('resize', handleResize);
+  window.removeEventListener('keydown', handleGlobalKeydown);
+}
+
+const navigateToSibling = (direction) => {
+  const zoomableElements = Array.from(document.querySelectorAll('.polaroid-wrapper.no-link'));
+  const myWrapper = originalPolaroidRef.value.closest('.polaroid-wrapper');
+  const myIndex = zoomableElements.indexOf(myWrapper);
+  if (myIndex === -1) return;
+  
+  let targetIndex = myIndex + direction;
+  if (targetIndex < 0) targetIndex = zoomableElements.length - 1;
+  if (targetIndex >= zoomableElements.length) targetIndex = 0;
+  
+  const targetElement = zoomableElements[targetIndex];
+  if (targetElement && targetElement !== myWrapper) {
+    closeLightboxInstant();
+    targetElement.click();
+    nextTick(() => {
+      targetElement.focus();
+    });
+  }
+}
+
+const handleGlobalKeydown = (e) => {
+  if (!isExpanded.value) return;
+  if (e.key === 'Escape') {
+    e.preventDefault();
+    closeLightbox();
+  } else if (e.key === 'ArrowRight' || e.key === 'Right') {
+    e.preventDefault();
+    navigateToSibling(1);
+  } else if (e.key === 'ArrowLeft' || e.key === 'Left') {
+    e.preventDefault();
+    navigateToSibling(-1);
+  }
+}
+
+const handlePhotoKey = (e) => {
+  const isLink = e.currentTarget.tagName === 'A';
+  if (e.key === ' ' || e.key === 'Spacebar') {
+    e.preventDefault();
+    e.currentTarget.click();
+  } else if (e.key === 'Enter' && !isLink) {
+    e.preventDefault();
+    e.currentTarget.click();
+  }
+}
+
 onUnmounted(() => {
   window.removeEventListener('resize', handleResize);
+  window.removeEventListener('keydown', handleGlobalKeydown);
 })
 
 const transformStyle = computed(() => {
@@ -143,7 +205,10 @@ const transformStyle = computed(() => {
     :rel="isExternal=='test' ? 'noopener noreferrer' : undefined"
     class="polaroid-wrapper"
     :class="{ 'no-link': !href }"
+    :data-src="src"
+    tabindex="0"
     @click="handlePhotoClick"
+    @keydown="handlePhotoKey"
   >
     <div 
       ref="originalPolaroidRef"
@@ -246,6 +311,14 @@ const transformStyle = computed(() => {
 }
 
 .polaroid-wrapper:hover {
+  transform: rotate(1deg) scale(1.02) translateY(-10px);
+  z-index: 10;
+}
+
+.polaroid-wrapper:focus-visible {
+  outline: 3px solid var(--category-color, var(--accent));
+  outline-offset: -2px;
+  border-radius: 4px;
   transform: rotate(1deg) scale(1.02) translateY(-10px);
   z-index: 10;
 }
