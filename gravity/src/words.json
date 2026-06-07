@@ -206,7 +206,7 @@
       }
     ],
     "weight": 0.6,
-    "font": "bebas-neue"
+    "font": "barbaro-punta"
   },
   {
     "id": "volunteer",
@@ -367,7 +367,7 @@
       }
     ],
     "weight": 0.4,
-    "font": "moms-typewriter"
+    "font": "barbaro-punta"
   },
   {
     "id": "chicken_wrangler",

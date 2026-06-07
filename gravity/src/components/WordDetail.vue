@@ -19,7 +19,9 @@ const fontFamilies = {
   'bebas-neue': "'Bebas Neue', sans-serif",
   'jim-nightshade': "'Jim Nightshade', cursive",
   'cinzel': "'Cinzel', Georgia, serif",
-  'courier-new': "'Courier New', Courier, monospace"
+  'courier-new': "'Courier New', Courier, monospace",
+  'barbaro-punta': "'Barbaro Punta', 'Courier New', monospace",
+  'barbaro': "'Barbaro', 'Courier New', monospace"
 }
 
 const categoryColors = {
@@ -163,7 +165,7 @@ const activeView = computed(() => {
       <header class="title-area">
         <div class="category-tag">{{ word.category || 'Portfolio' }}</div>
         <div class="title-placeholder" ref="titleRef" :style="{
-          fontSize: `clamp(1.3rem, (1.3 + ${word.weight * 1.5}) * 1vw, 3.8rem)`,
+          fontSize: `clamp(1.3rem, (1.3 + 0.5 * 1.5) * 1vw, 3.8rem)`, // Ignore word.weight to keep all sizes the same
           fontFamily: fontFamilies[word.font] || fontFamilies['moms-typewriter'],
           fontWeight: (word.font === 'playfair-display') ? '900' : 'normal'
         }">

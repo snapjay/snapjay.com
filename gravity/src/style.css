@@ -5,6 +5,20 @@
   font-style: normal;
 }
 
+@font-face {
+  font-family: 'Barbaro Punta';
+  src: url('/barbaro punta.ttf') format('truetype');
+  font-weight: normal;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: 'Barbaro';
+  src: url('/barbaro.ttf') format('truetype');
+  font-weight: normal;
+  font-style: normal;
+}
+
 :root {
   --font-family: 'Outfit', 'Inter', system-ui, -apple-system, sans-serif;
 

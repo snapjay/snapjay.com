@@ -26,6 +26,8 @@ const fontFamilies: Record<string, string> = {
   'jim-nightshade': "'Jim Nightshade', cursive",
   'cinzel': "'Cinzel', Georgia, serif",
   'courier-new': "'Courier New', Courier, monospace",
+  'barbaro-punta': "'Barbaro Punta', 'Courier New', monospace",
+  'barbaro': "'Barbaro', 'Courier New', monospace",
 }
 
 const categoryColors: Record<string, string> = {
@@ -164,8 +166,8 @@ usePhysics(containerRef, particleCanvasRef, wordRefs, selectedId, titleLayout)
       @keydown.space.prevent="handleWordKey(word)"
       :style="{
         '--word-color': categoryColors[word.category || 'Portfolio'] || '#3592bf',
-        '--word-weight': word.weight || 0.5,
-        fontSize: `clamp(1.3rem, (1.3 + ${word.weight * 1.5}) * 1vw, 3.8rem)`
+        '--word-weight': 0.5, // Ignore word.weight to keep all sizes the same
+        fontSize: `clamp(1.3rem, (1.3 + 0.5 * 1.5) * 1vw, 3.8rem)`
       }">
       <div class="paper-tag" :class="'paper-torn-' + (index % 4 + 1)" :style="{
         '--paper-bg-url': `url(${paperBgs[index % paperBgs.length]})`,
