@@ -36,7 +36,6 @@ const categoryColors: Record<string, string> = {
   'Community Service': '#a855f7',
   'Creative': '#10b981',
   'Lets be friends': '#f43f5e',
-  'Portfolio': '#eab308'
 }
 
 const route = useRoute()
@@ -119,8 +118,10 @@ const handleModalLayout = (layout: any) => {
   titleLayout.value = layout
 }
 
+const isGravityOff = ref(false)
+
 // Initialize physics system
-usePhysics(containerRef, particleCanvasRef, wordRefs, selectedId, titleLayout)
+usePhysics(containerRef, particleCanvasRef, wordRefs, selectedId, titleLayout, isGravityOff)
 
 </script>
 
@@ -138,8 +139,15 @@ usePhysics(containerRef, particleCanvasRef, wordRefs, selectedId, titleLayout)
 
     <canvas ref="particleCanvasRef" class="particle-canvas"></canvas>
 
-    <div class="site-logo" :tabindex="selectedId ? -1 : 0"
-      @click="!selectedId && router.push('/contact')"
+    <button class="gravity-toggle-btn" :class="{ 'is-active': isGravityOff }" :tabindex="selectedId ? -1 : 0"
+      @click="isGravityOff = !isGravityOff" aria-label="Toggle gravity mode">
+      <span class="toggle-track">
+        <span class="toggle-knob"></span>
+      </span>
+      <span class="toggle-label">{{ isGravityOff ? 'Zero Gravity' : 'Gravity On' }}</span>
+    </button>
+
+    <div class="site-logo" :tabindex="selectedId ? -1 : 0" @click="!selectedId && router.push('/contact')"
       @keydown.enter="!selectedId && router.push('/contact')"
       @keydown.space.prevent="!selectedId && router.push('/contact')">
       <h1>snapjay</h1>
@@ -155,16 +163,11 @@ usePhysics(containerRef, particleCanvasRef, wordRefs, selectedId, titleLayout)
       </Transition>
     </Teleport>
 
-    <div v-for="(word, index) in words" :key="word.id"
-      :ref="el => { if (el) wordRefs[index] = el as HTMLElement }" class="gravity-word"
-      :class="{ 'is-selected': selectedId === word.id }"
-      :tabindex="selectedId ? -1 : 0"
-      @mousedown="onPointerDown" @mousemove="onPointerMove"
-      @mouseup="handleWordClick(word)" @touchstart.passive="onPointerDown" @touchmove.passive="onPointerMove"
-      @touchend="onTouchEnd(word, $event)"
-      @keydown.enter="handleWordKey(word)"
-      @keydown.space.prevent="handleWordKey(word)"
-      :style="{
+    <div v-for="(word, index) in words" :key="word.id" :ref="el => { if (el) wordRefs[index] = el as HTMLElement }"
+      class="gravity-word" :class="{ 'is-selected': selectedId === word.id }" :tabindex="selectedId ? -1 : 0"
+      @mousedown="onPointerDown" @mousemove="onPointerMove" @mouseup="handleWordClick(word)"
+      @touchstart.passive="onPointerDown" @touchmove.passive="onPointerMove" @touchend="onTouchEnd(word, $event)"
+      @keydown.enter="handleWordKey(word)" @keydown.space.prevent="handleWordKey(word)" :style="{
         '--word-color': categoryColors[word.category || 'Portfolio'] || '#3592bf',
         '--word-weight': 0.5, // Ignore word.weight to keep all sizes the same
         fontSize: `clamp(1.3rem, (1.3 + 0.5 * 1.5) * 1vw, 3.8rem)`
@@ -466,6 +469,117 @@ usePhysics(containerRef, particleCanvasRef, wordRefs, selectedId, titleLayout)
 
 @media (max-width: 640px) {
   /* Placeholder for any future mobile overrides that don't include font-size */
+}
+
+.gravity-toggle-btn {
+  position: fixed;
+  top: 2rem;
+  left: 2rem;
+  z-index: 100;
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  background: var(--glass);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border: 1px solid var(--glass-border);
+  border-radius: 30px;
+  padding: 0.6rem 1.1rem;
+  color: var(--text-primary);
+  font-family: var(--font-family);
+  font-size: 0.85rem;
+  font-weight: 500;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+  cursor: pointer;
+  box-shadow: var(--shadow-lg), var(--shadow-glow);
+  transition: all 0.4s cubic-bezier(0.25, 0.8, 0.25, 1);
+  user-select: none;
+}
+
+.gravity-toggle-btn:hover {
+  background: rgba(20, 20, 28, 0.85);
+  border-color: rgba(53, 146, 191, 0.3);
+  transform: translateY(-2px);
+  box-shadow: var(--shadow-lg), 0 0 20px rgba(53, 146, 191, 0.25);
+}
+
+.gravity-toggle-btn:active {
+  transform: translateY(0);
+}
+
+.toggle-track {
+  position: relative;
+  width: 38px;
+  height: 20px;
+  background: rgba(255, 255, 255, 0.1);
+  border-radius: 20px;
+  border: 1px solid rgba(255, 255, 255, 0.05);
+  transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+}
+
+.gravity-toggle-btn:hover .toggle-track {
+  background: rgba(255, 255, 255, 0.15);
+}
+
+.toggle-knob {
+  position: absolute;
+  top: 2px;
+  left: 2px;
+  width: 14px;
+  height: 14px;
+  background: var(--text-secondary);
+  border-radius: 50%;
+  transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+}
+
+.toggle-label {
+  transition: color 0.3s ease, text-shadow 0.3s ease;
+}
+
+/* Active State */
+.gravity-toggle-btn.is-active {
+  border-color: rgba(53, 146, 191, 0.5);
+}
+
+.gravity-toggle-btn.is-active .toggle-track {
+  background: rgba(53, 146, 191, 0.25);
+  border-color: rgba(53, 146, 191, 0.3);
+}
+
+.gravity-toggle-btn.is-active .toggle-knob {
+  transform: translateX(18px);
+  background: var(--accent);
+  box-shadow: 0 0 8px var(--accent-glow);
+}
+
+.gravity-toggle-btn.is-active .toggle-label {
+  color: var(--accent);
+  text-shadow: 0 0 10px rgba(53, 146, 191, 0.3);
+}
+
+.gravity-toggle-btn:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 4px;
+}
+
+@media (max-width: 900px) {
+  .gravity-toggle-btn {
+    top: auto;
+    bottom: 2rem;
+    left: 50%;
+    transform: translateX(-50%);
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.5), var(--shadow-glow);
+  }
+
+  .gravity-toggle-btn:hover {
+    transform: translateX(-50%) translateY(-2px);
+  }
+
+  .gravity-toggle-btn:active {
+    transform: translateX(-50%) translateY(0);
+  }
 }
 </style>
 

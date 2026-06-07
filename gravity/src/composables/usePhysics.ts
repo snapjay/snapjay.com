@@ -14,7 +14,8 @@ export function usePhysics(
   particleCanvasRef: Ref<HTMLCanvasElement | null>,
   wordRefs: Ref<HTMLElement[]>,
   selectedId: Ref<string | null>,
-  titleLayout: Ref<TitleLayout>
+  titleLayout: Ref<TitleLayout>,
+  isGravityOff: Ref<boolean>
 ) {
   let engine: Matter.Engine;
   let runner: Matter.Runner;
@@ -24,9 +25,60 @@ export function usePhysics(
   let bodiesMap: Map<HTMLElement, Matter.Body> | undefined;
   let mouseConstraint: Matter.MouseConstraint | undefined;
   let gravityRecoveryTimer: ReturnType<typeof setTimeout> | null = null;
+  let collisionRestoreTimer: ReturnType<typeof setTimeout> | null = null;
   let particles: any[] = [];
   let lastWidth = 0;
   let lastHeight = 0;
+  let floatTime = 0;
+
+  interface TargetPosition {
+    x: number;
+    y: number;
+  }
+  let targetPositions: TargetPosition[] = [];
+
+  const updateGridTargets = () => {
+    if (!containerRef.value) return;
+    const W = containerRef.value.clientWidth;
+    const H = getViewportHeight();
+    const numWords = wordRefs.value.length;
+    if (numWords === 0) return;
+
+    let cols = 5;
+    if (W < 600) {
+      cols = 2;
+    } else if (W < 900) {
+      cols = 3;
+    } else if (W < 1300) {
+      cols = 4;
+    } else {
+      cols = 5;
+    }
+    const rows = Math.ceil(numWords / cols);
+
+    const paddingX = Math.max(30, W * 0.06);
+    const paddingY = Math.max(50, H * 0.08);
+    
+    const availableWidth = W - paddingX * 2;
+    const availableHeight = H - paddingY * 2;
+    
+    const cellWidth = availableWidth / cols;
+    const cellHeight = availableHeight / rows;
+
+    targetPositions = [];
+    for (let i = 0; i < numWords; i++) {
+      const col = i % cols;
+      const row = Math.floor(i / cols);
+      
+      const itemsInThisRow = (row === rows - 1) ? (numWords - row * cols) : cols;
+      const rowStartX = paddingX + (availableWidth - itemsInThisRow * cellWidth) / 2;
+      
+      const targetX = rowStartX + col * cellWidth + cellWidth / 2;
+      const targetY = paddingY + row * cellHeight + cellHeight / 2;
+      
+      targetPositions.push({ x: targetX, y: targetY });
+    }
+  };
 
   const getViewportHeight = () => {
     return window.innerHeight;
@@ -65,8 +117,64 @@ export function usePhysics(
           Matter.Body.setVelocity(body, { x: 0, y: 1 });
         }
       });
+
+      if (isGravityOff.value) {
+        if (collisionRestoreTimer) {
+          clearTimeout(collisionRestoreTimer);
+          collisionRestoreTimer = null;
+        }
+
+        bodiesMap?.forEach((body) => {
+          body.collisionFilter.mask = 0;
+        });
+
+        collisionRestoreTimer = setTimeout(() => {
+          bodiesMap?.forEach((body) => {
+            body.collisionFilter.mask = 0xFFFFFFFF;
+          });
+        }, 1500);
+      }
     }
   }, { immediate: true });
+
+  watch(isGravityOff, (val) => {
+    if (engine) {
+      if (collisionRestoreTimer) {
+        clearTimeout(collisionRestoreTimer);
+        collisionRestoreTimer = null;
+      }
+
+      if (val) {
+        engine.world.gravity.x = 0;
+        engine.world.gravity.y = 0;
+        bodiesMap?.forEach((body) => {
+          Matter.Body.setVelocity(body, { x: body.velocity.x * 0.2, y: body.velocity.y * 0.2 });
+          Matter.Body.setAngularVelocity(body, body.angularVelocity * 0.2);
+          // Temporarily disable collisions to allow words to cross paths and settle
+          body.collisionFilter.mask = 0;
+        });
+
+        // Re-enable collisions after settling
+        collisionRestoreTimer = setTimeout(() => {
+          bodiesMap?.forEach((body) => {
+            body.collisionFilter.mask = 0xFFFFFFFF;
+          });
+        }, 1500);
+      } else {
+        engine.world.gravity.x = 0;
+        engine.world.gravity.y = 1;
+        bodiesMap?.forEach((body) => {
+          if (!body.isStatic) {
+            // Re-enable collisions immediately upon return of gravity
+            body.collisionFilter.mask = 0xFFFFFFFF;
+            Matter.Body.setAngle(body, 0);
+            Matter.Body.setVelocity(body, { x: (Math.random() - 0.5) * 2.5, y: (Math.random() - 0.5) * 2.5});
+            Matter.Body.setAngularVelocity(body,  (Math.random() - 0.04) * 0.04);
+          }
+        });
+      }
+    }
+  });
 
   const initPhysics = async () => {
     await nextTick();
@@ -90,6 +198,10 @@ export function usePhysics(
           MouseConstraint = Matter.MouseConstraint;
           
     engine = Engine.create();
+    if (isGravityOff.value) {
+      engine.world.gravity.x = 0;
+      engine.world.gravity.y = 0;
+    }
     
     ground = Bodies.rectangle(width / 2, height + 50, width * 3, 100, { isStatic: true });
     wallLeft = Bodies.rectangle(-50, height / 2, 100, height * 4, { isStatic: true });
@@ -139,6 +251,8 @@ export function usePhysics(
       Composite.add(engine.world, body);
       bodiesMap!.set(el, body);
     });
+
+    updateGridTargets();
     
     Matter.Events.on(engine, 'collisionStart', (event) => {
       event.pairs.forEach(pair => {
@@ -196,6 +310,10 @@ export function usePhysics(
       const vw = containerRef.value.clientWidth;
       const vh = getViewportHeight();
 
+      if (isGravityOff.value) {
+        floatTime += 0.015;
+      }
+
       const canvas = particleCanvasRef.value;
       if (canvas) {
         if (canvas.width !== vw || canvas.height !== vh) {
@@ -244,26 +362,55 @@ export function usePhysics(
         if (body && el) {
           const hw = el.offsetWidth / 2;
           const hh = el.offsetHeight / 2;
-          let bx = body.position.x;
-          let by = body.position.y;
-          let rescued = false;
 
-          if (bx < -rescueMarginX) { bx = hw + 20; rescued = true; }
-          if (bx > vw + rescueMarginX) { bx = vw - hw - 20; rescued = true; }
-          if (by < -rescueMarginTop) { by = -100; rescued = true; }
-          if (by > vh + rescueMarginBottom) { by = vh - hh - 20; rescued = true; }
+          if (isGravityOff.value) {
+            const target = targetPositions[index];
+            if (target) {
+              const uniqueOffset = index * 0.5;
+              const bobX = Math.sin(floatTime + uniqueOffset) * 6;
+              const bobY = Math.cos(floatTime * 0.85 + uniqueOffset) * 6;
+              const bobAngle = Math.sin(floatTime * 0.4 + uniqueOffset) * 0.03;
 
-          if (rescued) {
-            Matter.Body.setPosition(body, { x: bx, y: by });
-            Matter.Body.setVelocity(body, { x: (vw / 2 - bx) * 0.02, y: 2 });
+              const tx = target.x + bobX;
+              const ty = target.y + bobY;
+              const ta = bobAngle;
+
+              const isDragged = mouseConstraint && mouseConstraint.body === body;
+
+              if (!isDragged) {
+                const dx = tx - body.position.x;
+                const dy = ty - body.position.y;
+                
+                Matter.Body.setVelocity(body, {
+                  x: body.velocity.x * 0.75 + dx * 0.05,
+                  y: body.velocity.y * 0.75 + dy * 0.05
+                });
+                
+                let da = ta - body.angle;
+                da = Math.atan2(Math.sin(da), Math.cos(da));
+                Matter.Body.setAngularVelocity(body, body.angularVelocity * 0.75 + da * 0.05);
+              }
+            }
+          } else {
+            let bx = body.position.x;
+            let by = body.position.y;
+            let rescued = false;
+
+            if (bx < -rescueMarginX) { bx = hw + 20; rescued = true; }
+            if (bx > vw + rescueMarginX) { bx = vw - hw - 20; rescued = true; }
+            if (by < -rescueMarginTop) { by = -100; rescued = true; }
+            if (by > vh + rescueMarginBottom) { by = vh - hh - 20; rescued = true; }
+
+            if (rescued) {
+              Matter.Body.setPosition(body, { x: bx, y: by });
+              Matter.Body.setVelocity(body, { x: (vw / 2 - bx) * 0.02, y: 2 });
+            }
           }
 
           const x = body.position.x - hw;
           const y = body.position.y - hh;
           
           el.style.transform = `translate(${x}px, ${y}px) rotate(${body.angle}rad)`;
-
-
         }
       });
       requestAnimationFrame(syncLoop);
@@ -334,13 +481,15 @@ export function usePhysics(
       Matter.Body.setVelocity(body, { x: 0, y: 0 });
       Matter.Body.setAngularVelocity(body, 0);
     });
+
+    updateGridTargets();
   };
 
   let lastGx = 0;
   let lastGy = 1;
 
   const handleOrientation = (event: DeviceOrientationEvent) => {
-    if (!engine || selectedId.value || event.gamma === null || event.beta === null) return;
+    if (!engine || selectedId.value || isGravityOff.value || event.gamma === null || event.beta === null) return;
 
     const gx = Math.max(-1.5, Math.min(1.5, (event.gamma || 0) / 30));
     const gy = Math.max(-1.5, Math.min(1.5, (event.beta || 0) / 30));
@@ -409,6 +558,7 @@ export function usePhysics(
     }
     document.removeEventListener('touchmove', preventPullToRefresh);
     if (gravityRecoveryTimer) clearTimeout(gravityRecoveryTimer);
+    if (collisionRestoreTimer) clearTimeout(collisionRestoreTimer);
     if (runner) Matter.Runner.stop(runner);
     if (engine) Matter.Engine.clear(engine);
   });
