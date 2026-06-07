@@ -21,6 +21,10 @@ const originalPolaroidRef = ref(null);
 
 const randomRotation = Math.random() * 7 - 3.5; // Random rotation between -3.5 and 3.5 deg
 
+const isVideo = (src) => {
+  return typeof src === 'string' && /\.(mp4|webm|ogg|mov)/i.test(src);
+}
+
 const isExternal = computed(() => props.href && (props.href.startsWith('http') || props.href.startsWith('mailto:')));
 
 const fontSize = computed(() => {
@@ -217,7 +221,15 @@ const transformStyle = computed(() => {
       :style="{ transform: `rotate(${randomRotation}deg)` }"
     >
       <div class="photo-container">
-        <img :src="thumbSrc" :alt="caption" />
+        <video 
+          v-if="isVideo(src)"
+          :src="src"
+          autoplay
+          loop
+          muted
+          playsinline
+        ></video>
+        <img v-else :src="thumbSrc" :alt="caption" />
         <div class="photo-glare"></div>
       </div>
       <div class="caption-container">
@@ -238,7 +250,7 @@ const transformStyle = computed(() => {
       @wheel.prevent
       @touchmove.prevent
     >
-      <button class="lightbox-close" @click="closeLightbox" aria-label="Close image">
+      <button class="close-btn" @click="closeLightbox" aria-label="Close image">
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
           <path d="M18 6L6 18M6 6l12 12" stroke-linecap="round" stroke-linejoin="round" />
         </svg>
@@ -250,17 +262,28 @@ const transformStyle = computed(() => {
           :style="transformStyle"
         >
           <div class="photo-container">
-            <!-- Thumbnail loaded instantly as a placeholder -->
-            <img :src="thumbSrc" class="photo-placeholder" :alt="caption" />
-            
-            <!-- High-res photo stacked on top, fading in seamlessly when fully loaded -->
-            <img 
-              :src="src" 
-              class="photo-highres" 
-              :class="{ 'is-loaded': highResLoaded }"
-              @load="highResLoaded = true"
-              :alt="caption" 
-            />
+            <template v-if="isVideo(src)">
+              <video 
+                :src="src"
+                autoplay
+                loop
+                muted
+                playsinline
+              ></video>
+            </template>
+            <template v-else>
+              <!-- Thumbnail loaded instantly as a placeholder -->
+              <img :src="thumbSrc" class="photo-placeholder" :alt="caption" />
+              
+              <!-- High-res photo stacked on top, fading in seamlessly when fully loaded -->
+              <img 
+                :src="src" 
+                class="photo-highres" 
+                :class="{ 'is-loaded': highResLoaded }"
+                @load="highResLoaded = true"
+                :alt="caption" 
+              />
+            </template>
             <div class="photo-glare"></div>
           </div>
           <div class="caption-container">
@@ -340,7 +363,8 @@ const transformStyle = computed(() => {
   box-shadow: inset 0 0 10px rgba(0,0,0,0.5);
 }
 
-.photo-container img {
+.photo-container img,
+.photo-container video {
   width: 100%;
   height: 100%;
   object-fit: cover;
@@ -421,37 +445,13 @@ const transformStyle = computed(() => {
   pointer-events: auto;
 }
 
-.lightbox-close {
-  position: absolute;
-  top: 1.5rem;
-  right: 1.5rem;
-  width: 3rem;
-  height: 3rem;
-  border-radius: 50%;
-  background: rgba(255, 255, 255, 0.1);
-  border: 1px solid rgba(255, 255, 255, 0.2);
-  color: white;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  cursor: pointer;
+.lightbox-overlay .close-btn {
   opacity: 0;
-  transition: all 0.3s ease;
-  z-index: 2100;
+  transition: opacity 0.3s ease, transform 0.4s cubic-bezier(0.16, 1, 0.3, 1), background 0.4s, border-color 0.4s, color 0.4s, box-shadow 0.4s;
 }
 
-.lightbox-overlay.is-visible .lightbox-close {
+.lightbox-overlay.is-visible .close-btn {
   opacity: 1;
-}
-
-.lightbox-close:hover {
-  background: rgba(255, 255, 255, 0.2);
-  transform: scale(1.1);
-}
-
-.lightbox-close svg {
-  width: 1.2rem;
-  height: 1.2rem;
 }
 
 .lightbox-content {

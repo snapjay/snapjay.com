@@ -475,6 +475,14 @@
       {
         "src": "/photos/creative-clucking-clean.webp",
         "caption": "Homemade Soap with food safe ingrediants"
+      },
+      {
+        "src": "/videos/maker-targets.mp4",
+        "caption": "Moving targets made from wiper motor and dirtbike battery."
+      },
+      {
+        "src": "/videos/maker-puppet.mp4",
+        "caption": "Yeah, I don't know what this is either!"
       }
     ],
     "weight": 0.8,

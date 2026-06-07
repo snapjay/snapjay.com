@@ -43,6 +43,10 @@ const activeZoomIndex = ref(-1)
 const carouselTransitionName = ref('slide-left')
 const lightboxCloseBtnRef = ref(null)
 
+const isVideo = (src) => {
+  return typeof src === 'string' && /\.(mp4|webm|ogg|mov)/i.test(src);
+}
+
 const zoomableImages = computed(() => {
   if (!props.word.images) return []
   return props.word.images.filter(img => !img.href)
@@ -185,7 +189,7 @@ const activeView = computed(() => {
       <Transition name="fade">
         <div v-if="activeZoomIndex !== -1" class="shared-lightbox-overlay" @click.self="closeSharedLightbox" @wheel.prevent @touchmove.prevent>
           
-          <button ref="lightboxCloseBtnRef" class="lightbox-close" @click="closeSharedLightbox" aria-label="Close image">
+          <button ref="lightboxCloseBtnRef" class="close-btn" @click="closeSharedLightbox" aria-label="Close image">
             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
               <path d="M18 6L6 18M6 6l12 12" stroke-linecap="round" stroke-linejoin="round" />
             </svg>
@@ -209,8 +213,19 @@ const activeView = computed(() => {
             <Transition :name="carouselTransitionName">
               <div :key="activeZoomIndex" class="polaroid expanded-polaroid" @click="closeSharedLightbox">
                 <div class="photo-container">
-                  <img :src="zoomableImages[activeZoomIndex].src.replace('.webp', '-thumb.webp')" class="photo-placeholder" :alt="zoomableImages[activeZoomIndex].caption" />
-                  <img :src="zoomableImages[activeZoomIndex].src" class="photo-highres" :alt="zoomableImages[activeZoomIndex].caption" />
+                  <template v-if="isVideo(zoomableImages[activeZoomIndex].src)">
+                    <video 
+                      :src="zoomableImages[activeZoomIndex].src"
+                      autoplay
+                      loop
+                      muted
+                      playsinline
+                    ></video>
+                  </template>
+                  <template v-else>
+                    <img :src="zoomableImages[activeZoomIndex].src.replace('.webp', '-thumb.webp')" class="photo-placeholder" :alt="zoomableImages[activeZoomIndex].caption" />
+                    <img :src="zoomableImages[activeZoomIndex].src" class="photo-highres" :alt="zoomableImages[activeZoomIndex].caption" />
+                  </template>
                   <div class="photo-glare"></div>
                 </div>
                 <div class="caption-container">
@@ -286,28 +301,7 @@ const activeView = computed(() => {
   cursor: zoom-out;
 }
 
-.lightbox-close {
-  position: absolute;
-  top: 1.5rem;
-  right: 1.5rem;
-  width: 3rem;
-  height: 3rem;
-  border-radius: 50%;
-  background: rgba(255, 255, 255, 0.1);
-  border: 1px solid rgba(255, 255, 255, 0.2);
-  color: white;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  cursor: pointer;
-  transition: all 0.3s ease;
-  z-index: 2100;
-}
 
-.lightbox-close:hover {
-  background: rgba(255, 255, 255, 0.2);
-  transform: scale(1.1);
-}
 
 .carousel-nav {
   position: absolute;
@@ -379,7 +373,8 @@ const activeView = computed(() => {
   border: 2px solid rgba(0,0,0,0.15);
 }
 
-.photo-container img {
+.photo-container img,
+.photo-container video {
   width: 100%;
   height: 100%;
   object-fit: cover;
@@ -517,50 +512,6 @@ const activeView = computed(() => {
 }
 
 /* ─── Close button ─── */
-.close-btn {
-  position: fixed;
-  top: 2rem;
-  right: 2rem;
-  width: 3.2rem;
-  height: 3.2rem;
-  border-radius: 50%;
-  background: rgba(13, 13, 18, 0.6);
-  border: 1px solid rgba(255, 255, 255, 0.08);
-  color: var(--text-secondary);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  cursor: pointer;
-  transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
-  z-index: 1100;
-  backdrop-filter: blur(12px);
-  -webkit-backdrop-filter: blur(12px);
-  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
-}
-
-.close-btn:hover {
-  transform: scale(1.08) rotate(90deg);
-  background: var(--category-color);
-  border-color: rgba(255, 255, 255, 0.3);
-  color: white;
-  box-shadow: 0 0 20px color-mix(in srgb, var(--category-color) 40%, transparent);
-}
-
-.close-btn:focus-visible {
-  outline: 2px solid var(--category-color);
-  outline-offset: 3px;
-  box-shadow: 0 0 15px color-mix(in srgb, var(--category-color) 30%, transparent);
-}
-
-.close-btn:active {
-  transform: scale(0.95);
-}
-
-.close-btn svg {
-  width: 1.4rem;
-  height: 1.4rem;
-}
-
 /* ─── Tablet ─── */
 @media (max-width: 1024px) {}
 
@@ -568,18 +519,6 @@ const activeView = computed(() => {
 @media (max-width: 640px) {
   .modal-scroll {
     padding: 0 1rem 3rem;
-  }
-
-  .close-btn {
-    top: 1rem;
-    right: 1rem;
-    width: 2.8rem;
-    height: 2.8rem;
-  }
-
-  .close-btn svg {
-    width: 1.2rem;
-    height: 1.2rem;
   }
 }
 </style>

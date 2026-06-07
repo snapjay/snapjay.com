@@ -25,7 +25,6 @@ export function usePhysics(
   let bodiesMap: Map<HTMLElement, Matter.Body> | undefined;
   let mouseConstraint: Matter.MouseConstraint | undefined;
   let gravityRecoveryTimer: ReturnType<typeof setTimeout> | null = null;
-  let collisionRestoreTimer: ReturnType<typeof setTimeout> | null = null;
   let particles: any[] = [];
   let lastWidth = 0;
   let lastHeight = 0;
@@ -117,49 +116,20 @@ export function usePhysics(
           Matter.Body.setVelocity(body, { x: 0, y: 1 });
         }
       });
-
-      if (isGravityOff.value) {
-        if (collisionRestoreTimer) {
-          clearTimeout(collisionRestoreTimer);
-          collisionRestoreTimer = null;
-        }
-
-        bodiesMap?.forEach((body) => {
-          body.collisionFilter.mask = 0;
-        });
-
-        collisionRestoreTimer = setTimeout(() => {
-          bodiesMap?.forEach((body) => {
-            body.collisionFilter.mask = 0xFFFFFFFF;
-          });
-        }, 1500);
-      }
     }
   }, { immediate: true });
 
   watch(isGravityOff, (val) => {
     if (engine) {
-      if (collisionRestoreTimer) {
-        clearTimeout(collisionRestoreTimer);
-        collisionRestoreTimer = null;
-      }
-
       if (val) {
         engine.world.gravity.x = 0;
         engine.world.gravity.y = 0;
         bodiesMap?.forEach((body) => {
           Matter.Body.setVelocity(body, { x: body.velocity.x * 0.2, y: body.velocity.y * 0.2 });
           Matter.Body.setAngularVelocity(body, body.angularVelocity * 0.2);
-          // Temporarily disable collisions to allow words to cross paths and settle
+          // Disable collisions entirely while in Zero-Gravity to prevent words getting stuck
           body.collisionFilter.mask = 0;
         });
-
-        // Re-enable collisions after settling
-        collisionRestoreTimer = setTimeout(() => {
-          bodiesMap?.forEach((body) => {
-            body.collisionFilter.mask = 0xFFFFFFFF;
-          });
-        }, 1500);
       } else {
         engine.world.gravity.x = 0;
         engine.world.gravity.y = 1;
@@ -168,8 +138,9 @@ export function usePhysics(
             // Re-enable collisions immediately upon return of gravity
             body.collisionFilter.mask = 0xFFFFFFFF;
             Matter.Body.setAngle(body, 0);
-            Matter.Body.setVelocity(body, { x: (Math.random() - 0.5) * 2.5, y: (Math.random() - 0.5) * 2.5});
-            Matter.Body.setAngularVelocity(body,  (Math.random() - 0.04) * 0.04);
+            Matter.Body.setVelocity(body, {  x: (Math.random() - 0.5) * 2.5,
+              y: Math.random() * 2.5 });
+            Matter.Body.setAngularVelocity(body,  (Math.random() - 0.03) * 0.03);
           }
         });
       }
@@ -558,7 +529,6 @@ export function usePhysics(
     }
     document.removeEventListener('touchmove', preventPullToRefresh);
     if (gravityRecoveryTimer) clearTimeout(gravityRecoveryTimer);
-    if (collisionRestoreTimer) clearTimeout(collisionRestoreTimer);
     if (runner) Matter.Runner.stop(runner);
     if (engine) Matter.Engine.clear(engine);
   });

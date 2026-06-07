@@ -136,3 +136,67 @@ a .caption {
 .animate-fade-in {
   animation: fadeIn 0.8s cubic-bezier(0.25, 0.8, 0.25, 1) forwards;
 }
+
+/* Global Close Button Utility Class */
+.close-btn {
+  position: fixed;
+  top: 2rem;
+  right: 2rem;
+  width: 3.2rem;
+  height: 3.2rem;
+  border-radius: 50%;
+  background: rgba(13, 13, 18, 0.6);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  color: var(--text-secondary);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+  z-index: 2100;
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
+}
+
+.close-btn:hover {
+  transform: scale(1.08) rotate(90deg);
+  background: var(--category-color, var(--accent));
+  border-color: rgba(255, 255, 255, 0.3);
+  color: white;
+  box-shadow: 0 0 20px color-mix(in srgb, var(--category-color, var(--accent)) 40%, transparent);
+}
+
+.close-btn:focus-visible {
+  outline: 2px solid var(--category-color, var(--accent));
+  outline-offset: 3px;
+  box-shadow: 0 0 15px color-mix(in srgb, var(--category-color, var(--accent)) 30%, transparent);
+}
+
+.close-btn:active {
+  transform: scale(0.95);
+}
+
+.close-btn svg {
+  width: 1.4rem;
+  height: 1.4rem;
+  fill: none;
+  stroke: currentColor;
+  stroke-width: 2.5;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+
+@media (max-width: 640px) {
+  .close-btn {
+    top: 1rem;
+    right: 1rem;
+    width: 2.8rem;
+    height: 2.8rem;
+  }
+
+  .close-btn svg {
+    width: 1.2rem;
+    height: 1.2rem;
+  }
+}

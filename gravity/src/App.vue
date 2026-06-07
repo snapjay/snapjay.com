@@ -170,7 +170,7 @@ usePhysics(containerRef, particleCanvasRef, wordRefs, selectedId, titleLayout, i
       @keydown.enter="handleWordKey(word)" @keydown.space.prevent="handleWordKey(word)" :style="{
         '--word-color': categoryColors[word.category || 'Portfolio'] || '#3592bf',
         '--word-weight': 0.5, // Ignore word.weight to keep all sizes the same
-        fontSize: `clamp(1.3rem, (1.3 + 0.5 * 1.5) * 1vw, 3.8rem)`
+        fontSize: `clamp(1.3rem, 1vw + 1.3vh, 3.8rem)`
       }">
       <div class="paper-tag" :class="'paper-torn-' + (index % 4 + 1)" :style="{
         '--paper-bg-url': `url(${paperBgs[index % paperBgs.length]})`,
