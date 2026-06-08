@@ -19,7 +19,6 @@ export function usePhysics(
   isGravityOff: Ref<boolean>
 ) {
   let engine: Matter.Engine;
-  let runner: Matter.Runner;
   let ground: Matter.Body;
   let wallLeft: Matter.Body;
   let wallRight: Matter.Body;
@@ -30,6 +29,19 @@ export function usePhysics(
   let lastWidth = 0;
   let lastHeight = 0;
   let floatTime = 0;
+  let rafId = 0;
+  let lastTimestamp = 0;
+
+  // Sleep detection — skip physics when bodies are settled
+  let isSleeping = false;
+  let sleepFrames = 0;
+  const SLEEP_SPEED_THRESHOLD = 0.15;
+  const SLEEP_FRAME_COUNT = 120; // ~2 seconds at 60fps
+
+  const wakeEngine = () => {
+    isSleeping = false;
+    sleepFrames = 0;
+  };
 
   interface TargetPosition {
     x: number;
@@ -98,6 +110,7 @@ export function usePhysics(
         }
       });
     } else if (oldId) {
+      wakeEngine();
       if (mouseConstraint) mouseConstraint.constraint.stiffness = 0.2;
       
       bodiesMap?.forEach((body, el) => {
@@ -108,10 +121,11 @@ export function usePhysics(
           
           const targetLeft = titleLayout.value.x || 64;
           const targetTop = titleLayout.value.y || 104;
+          const bodyAny = body as any;
           
           Matter.Body.setPosition(body, {
-            x: targetLeft + el.offsetWidth / 2,
-            y: targetTop + el.offsetHeight / 2
+            x: targetLeft + (bodyAny.prevWidth || 100) / 2,
+            y: targetTop + (bodyAny.prevHeight || 40) / 2
           });
           Matter.Body.setAngle(body, 0);
           Matter.Body.setVelocity(body, { x: 0, y: 1 });
@@ -121,6 +135,7 @@ export function usePhysics(
   }, { immediate: true });
 
   watch(isGravityOff, (val) => {
+    wakeEngine();
     if (engine) {
       if (val) {
         engine.world.gravity.x = 0;
@@ -154,7 +169,10 @@ export function usePhysics(
 
     if (engine) {
       Matter.Engine.clear(engine);
-      Matter.Runner.stop(runner);
+    }
+    if (rafId) {
+      cancelAnimationFrame(rafId);
+      rafId = 0;
     }
     
     const width = containerRef.value.clientWidth;
@@ -163,7 +181,6 @@ export function usePhysics(
     lastHeight = height;
     
     const Engine = Matter.Engine,
-          Runner = Matter.Runner,
           Bodies = Matter.Bodies,
           Composite = Matter.Composite,
           Mouse = Matter.Mouse,
@@ -265,12 +282,34 @@ export function usePhysics(
     Composite.add(engine.world, mouseConstraint);
 
     if (selectedId.value && mouseConstraint) mouseConstraint.constraint.stiffness = 0;
+
+    // Wake engine on mouse/touch interaction
+    Matter.Events.on(mouseConstraint, 'startdrag', wakeEngine);
+    if (containerRef.value) {
+      containerRef.value.addEventListener('mousedown', wakeEngine);
+      containerRef.value.addEventListener('touchstart', wakeEngine, { passive: true });
+    }
+
+    lastTimestamp = 0;
+    wakeEngine();
     
-    runner = Runner.create();
-    Runner.run(runner, engine);
-    
-    const syncLoop = () => {
+    const syncLoop = (timestamp: number) => {
+      rafId = requestAnimationFrame(syncLoop);
+
       if (!containerRef.value || !bodiesMap) return;
+
+      // Skip all work when modal is open — physics is invisible behind the overlay
+      if (selectedId.value) return;
+
+      // Calculate delta for manual Engine.update (capped at 32ms to avoid spiral of death)
+      const delta = lastTimestamp ? Math.min(timestamp - lastTimestamp, 32) : 16.667;
+      lastTimestamp = timestamp;
+
+      // Step physics engine (skip when sleeping)
+      if (!isSleeping) {
+        Matter.Engine.update(engine, delta);
+      }
+
       const vw = containerRef.value.clientWidth;
       const vh = getViewportHeight();
 
@@ -278,6 +317,7 @@ export function usePhysics(
         floatTime += 0.015;
       }
 
+      // --- Particle rendering (only when particles exist) ---
       const canvas = particleCanvasRef.value;
       if (canvas) {
         if (canvas.width !== vw || canvas.height !== vh) {
@@ -286,9 +326,9 @@ export function usePhysics(
         }
         const ctx = canvas.getContext('2d');
         if (ctx) {
-          ctx.clearRect(0, 0, vw, vh);
-
           if (particles.length > 0) {
+            ctx.clearRect(0, 0, vw, vh);
+
             for (let i = particles.length - 1; i >= 0; i--) {
               const p = particles[i];
               p.x += p.vx;
@@ -296,36 +336,52 @@ export function usePhysics(
               p.alpha -= p.decay;
               
               if (p.alpha <= 0) {
-                particles.splice(i, 1);
+                // Swap-and-pop instead of splice for O(1) removal
+                particles[i] = particles[particles.length - 1];
+                particles.pop();
                 continue;
               }
               
-              ctx.beginPath();
-              ctx.globalAlpha = p.alpha;
+              // Draw glow layer (larger, semi-transparent) — replaces expensive shadowBlur
+              ctx.globalAlpha = p.alpha * 0.3;
               ctx.fillStyle = p.color;
-              ctx.shadowColor = p.color;
-              ctx.shadowBlur = 6;
+              ctx.beginPath();
+              ctx.arc(p.x, p.y, p.radius * 2.5, 0, Math.PI * 2);
+              ctx.fill();
+
+              // Draw core particle
+              ctx.globalAlpha = p.alpha;
+              ctx.beginPath();
               ctx.arc(p.x, p.y, p.radius, 0, Math.PI * 2);
               ctx.fill();
             }
             ctx.globalAlpha = 1.0;
-            ctx.shadowBlur = 0;
+          } else if (canvas.width > 0) {
+            // Only clear once when particles finish
+            ctx.clearRect(0, 0, vw, vh);
           }
         }
       }
+
+      // --- Skip DOM sync when sleeping (nothing moved) ---
+      if (isSleeping) return;
 
       const rescueMarginX = vw * 0.5;
       const rescueMarginTop = vh * 2;
       const rescueMarginBottom = vh * 0.3;
 
+      // Sleep detection: track if all bodies are settled
+      let allSettled = !isGravityOff.value;
+
       wordRefs.value.forEach((el, index) => {
         const word = words[index];
         if (word && word.id === selectedId.value) return;
 
-        const body = bodiesMap!.get(el);
+        const body = bodiesMap!.get(el) as any;
         if (body && el) {
-          const hw = el.offsetWidth / 2;
-          const hh = el.offsetHeight / 2;
+          // Use cached dimensions instead of forcing layout reflow
+          const hw = (body.prevWidth || 100) / 2;
+          const hh = (body.prevHeight || 40) / 2;
 
           if (isGravityOff.value) {
             const target = targetPositions[index];
@@ -369,6 +425,11 @@ export function usePhysics(
               Matter.Body.setPosition(body, { x: bx, y: by });
               Matter.Body.setVelocity(body, { x: (vw / 2 - bx) * 0.02, y: 2 });
             }
+
+            // Check if this body is still moving (for sleep detection)
+            if (allSettled && (body.speed > SLEEP_SPEED_THRESHOLD || body.angularSpeed > SLEEP_SPEED_THRESHOLD)) {
+              allSettled = false;
+            }
           }
 
           const x = body.position.x - hw;
@@ -377,9 +438,18 @@ export function usePhysics(
           el.style.transform = `translate(${x}px, ${y}px) rotate(${body.angle}rad)`;
         }
       });
-      requestAnimationFrame(syncLoop);
+
+      // Sleep detection: bodies settled for enough frames → sleep
+      if (allSettled && !isGravityOff.value) {
+        sleepFrames++;
+        if (sleepFrames >= SLEEP_FRAME_COUNT) {
+          isSleeping = true;
+        }
+      } else {
+        sleepFrames = 0;
+      }
     };
-    syncLoop();
+    rafId = requestAnimationFrame(syncLoop);
   };
 
   const handleResize = () => {
@@ -454,6 +524,7 @@ export function usePhysics(
 
   const handleOrientation = (event: DeviceOrientationEvent) => {
     if (!engine || selectedId.value || isGravityOff.value || event.gamma === null || event.beta === null) return;
+    wakeEngine();
 
     const gx = Math.max(-1.5, Math.min(1.5, (event.gamma || 0) / 30));
     const gy = Math.max(-1.5, Math.min(1.5, (event.beta || 0) / 30));
@@ -556,9 +627,13 @@ export function usePhysics(
     if (window.DeviceOrientationEvent) {
       window.removeEventListener('deviceorientation', handleOrientation);
     }
+    if (containerRef.value) {
+      containerRef.value.removeEventListener('mousedown', wakeEngine);
+      containerRef.value.removeEventListener('touchstart', wakeEngine);
+    }
     document.removeEventListener('touchmove', preventPullToRefresh);
     if (gravityRecoveryTimer) clearTimeout(gravityRecoveryTimer);
-    if (runner) Matter.Runner.stop(runner);
+    if (rafId) cancelAnimationFrame(rafId);
     if (engine) Matter.Engine.clear(engine);
   });
 }
