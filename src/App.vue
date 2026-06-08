@@ -122,7 +122,9 @@ usePhysics(containerRef, particleCanvasRef, wordRefs, selectedId, titleLayout, i
   <div class="gravity-container" ref="containerRef" :style="{
     '--modal-scroll': modalScrollY + 'px',
     '--target-x': titleLayout.x ? titleLayout.x + 'px' : '4rem',
-    '--target-y': titleLayout.y ? titleLayout.y + 'px' : '6.5rem'
+    '--target-y': titleLayout.y ? titleLayout.y + 'px' : '6.5rem',
+    pointerEvents: selectedId ? 'none' : 'auto',
+    touchAction: selectedId ? 'auto' : 'none'
   }">
     <div class="ambient-bg">
       <div class="orb orb-1"></div>
