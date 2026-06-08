@@ -85,13 +85,13 @@ const closeSharedLightbox = () => {
 
 const navigateCarousel = (direction) => {
   if (zoomableImages.value.length <= 1) return
-  
+
   carouselTransitionName.value = direction > 0 ? 'slide-left' : 'slide-right'
-  
+
   let nextIndex = activeZoomIndex.value + direction
   if (nextIndex < 0) nextIndex = zoomableImages.value.length - 1
   if (nextIndex >= zoomableImages.value.length) nextIndex = 0
-  
+
   activeZoomIndex.value = nextIndex
 }
 
@@ -195,8 +195,9 @@ const activeView = computed(() => {
     <!-- Shared Lightbox Carousel inside WordDetail.vue -->
     <Teleport to="body">
       <Transition name="fade">
-        <div v-if="activeZoomIndex !== -1" class="shared-lightbox-overlay" @click.self="closeSharedLightbox" @wheel.prevent @touchmove.prevent>
-          
+        <div v-if="activeZoomIndex !== -1" class="shared-lightbox-overlay" @click.self="closeSharedLightbox"
+          @wheel.prevent @touchmove.prevent>
+
           <button ref="lightboxCloseBtnRef" class="close-btn" @click="closeSharedLightbox" aria-label="Close image">
             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
               <path d="M18 6L6 18M6 6l12 12" stroke-linecap="round" stroke-linejoin="round" />
@@ -204,13 +205,15 @@ const activeView = computed(() => {
           </button>
 
           <!-- Carousel Controls -->
-          <button v-if="zoomableImages.length > 1" class="carousel-nav prev" @click="navigateCarousel(-1)" aria-label="Previous image">
+          <button v-if="zoomableImages.length > 1" class="carousel-nav prev" @click="navigateCarousel(-1)"
+            aria-label="Previous image">
             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3">
               <path d="M15 19l-7-7 7-7" stroke-linecap="round" stroke-linejoin="round" />
             </svg>
           </button>
-          
-          <button v-if="zoomableImages.length > 1" class="carousel-nav next" @click="navigateCarousel(1)" aria-label="Next image">
+
+          <button v-if="zoomableImages.length > 1" class="carousel-nav next" @click="navigateCarousel(1)"
+            aria-label="Next image">
             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3">
               <path d="M9 5l7 7-7 7" stroke-linecap="round" stroke-linejoin="round" />
             </svg>
@@ -222,17 +225,14 @@ const activeView = computed(() => {
               <div :key="activeZoomIndex" class="polaroid expanded-polaroid" @click="closeSharedLightbox">
                 <div class="photo-container">
                   <template v-if="isVideo(zoomableImages[activeZoomIndex].src)">
-                    <video 
-                      :src="transformCdnUrl(zoomableImages[activeZoomIndex].src)"
-                      autoplay
-                      loop
-                      muted
-                      playsinline
-                    ></video>
+                    <video :src="transformCdnUrl(zoomableImages[activeZoomIndex].src)" autoplay loop muted
+                      playsinline></video>
                   </template>
                   <template v-else>
-                    <img :src="transformCdnUrl(zoomableImages[activeZoomIndex].src.replace('.webp', '-thumb.webp'))" class="photo-placeholder" :alt="zoomableImages[activeZoomIndex].caption" />
-                    <img :src="transformCdnUrl(zoomableImages[activeZoomIndex].src)" class="photo-highres" :alt="zoomableImages[activeZoomIndex].caption" />
+                    <img :src="transformCdnUrl(zoomableImages[activeZoomIndex].src.replace('.webp', '-thumb.webp'))"
+                      class="photo-placeholder" :alt="zoomableImages[activeZoomIndex].caption" />
+                    <img :src="transformCdnUrl(zoomableImages[activeZoomIndex].src)" class="photo-highres"
+                      :alt="zoomableImages[activeZoomIndex].caption" />
                   </template>
                   <div class="photo-glare"></div>
                 </div>
@@ -271,7 +271,11 @@ const activeView = computed(() => {
   overflow-y: scroll;
   overflow-x: hidden;
   -webkit-overflow-scrolling: touch;
+  touch-action: pan-y;
   overscroll-behavior-y: contain;
+  height: 100%;
+  max-height: 100vh;
+  overflow-y: auto;
   padding: 0 2rem 4rem;
   scrollbar-width: thin;
   scrollbar-color: var(--border-highlight) transparent;
@@ -369,7 +373,7 @@ const activeView = computed(() => {
   background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)' opacity='0.25'/%3E%3C/svg%3E");
   padding: 1.5rem 1.5rem 2.5rem 1.5rem;
   box-shadow: 0 30px 70px rgba(0, 0, 0, 0.65);
-  border: 1px solid rgba(0,0,0,0.08);
+  border: 1px solid rgba(0, 0, 0, 0.08);
 }
 
 .photo-container {
@@ -378,7 +382,7 @@ const activeView = computed(() => {
   overflow: hidden;
   background: #222;
   position: relative;
-  border: 2px solid rgba(0,0,0,0.15);
+  border: 2px solid rgba(0, 0, 0, 0.15);
 }
 
 .photo-container img,
@@ -403,7 +407,7 @@ const activeView = computed(() => {
 .photo-glare {
   position: absolute;
   inset: 0;
-  background: linear-gradient(135deg, rgba(255,255,255,0.15) 0%, transparent 40%, transparent 60%, rgba(255,255,255,0.05) 100%);
+  background: linear-gradient(135deg, rgba(255, 255, 255, 0.15) 0%, transparent 40%, transparent 60%, rgba(255, 255, 255, 0.05) 100%);
   pointer-events: none;
   mix-blend-mode: screen;
   z-index: 3;

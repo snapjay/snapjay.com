@@ -488,8 +488,34 @@ export function usePhysics(
   };
 
   const preventPullToRefresh = (e: TouchEvent) => {
-    if (document.scrollingElement && document.scrollingElement.scrollTop <= 0) {
+    // Only prevent pull-to-refresh when no modal is open and the touch is inside the gravity container
+    if (selectedId.value) return;
+    const target = e.target as HTMLElement;
+    if (containerRef.value && containerRef.value.contains(target)) {
       e.preventDefault();
+    }
+  };
+
+  const startOrientationListening = () => {
+    window.addEventListener('deviceorientation', handleOrientation);
+  };
+
+  const requestOrientationPermission = () => {
+    const DOE = DeviceOrientationEvent as any;
+    if (typeof DOE.requestPermission === 'function') {
+      // iOS 13+ requires permission from a user gesture
+      DOE.requestPermission()
+        .then((state: string) => {
+          if (state === 'granted') {
+            startOrientationListening();
+          }
+        })
+        .catch(() => {
+          // Permission denied or failed — silently continue without accelerometer
+        });
+    } else {
+      // Android and other browsers — just start listening
+      startOrientationListening();
     }
   };
 
@@ -509,9 +535,19 @@ export function usePhysics(
     }
 
     window.addEventListener('resize', handleResize);
+
+    // Request orientation permission on first user interaction (required by iOS)
     if (window.DeviceOrientationEvent) {
-      window.addEventListener('deviceorientation', handleOrientation);
+      const onFirstInteraction = () => {
+        requestOrientationPermission();
+        containerRef.value?.removeEventListener('touchstart', onFirstInteraction);
+        window.removeEventListener('click', onFirstInteraction);
+      };
+      containerRef.value?.addEventListener('touchstart', onFirstInteraction, { once: true, passive: true });
+      // Also listen for click as fallback (e.g. desktop with accelerometer)
+      window.addEventListener('click', onFirstInteraction, { once: true });
     }
+
     document.addEventListener('touchmove', preventPullToRefresh, { passive: false });
   });
 
