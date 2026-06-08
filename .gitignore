@@ -26,3 +26,8 @@ public/photos
 *.sw?
 
 .env
+
+# Old backups
+.old*/
+.old.panels/
+.oldv2.2.backup/

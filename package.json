@@ -4,9 +4,9 @@
   "version": "0.0.0",
   "type": "module",
   "scripts": {
-    "dev": "vite",
-    "dev:antigravity": "set JS_EDITOR=antigravity&& npm run dev",
-    "dev:cursor": "set JS_EDITOR=cursor&& npm run dev",
+    "dev": "set LAUNCH_EDITOR=launch-editor.cmd&& vite",
+    "dev:antigravity": "set LAUNCH_EDITOR=launch-editor.cmd&& set JS_EDITOR=antigravity&& npm run dev",
+    "dev:cursor": "set LAUNCH_EDITOR=launch-editor.cmd&& set JS_EDITOR=cursor&& npm run dev",
     "build": "vite build",
     "preview": "vite preview",
     "photos": "node scripts/process-photos.js",

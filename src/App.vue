@@ -163,7 +163,7 @@ usePhysics(containerRef, particleCanvasRef, wordRefs, selectedId, titleLayout, i
       @keydown.enter="handleWordKey(word)" @keydown.space.prevent="handleWordKey(word)" :style="{
         '--word-color': categoryColors[word.category || 'Portfolio'] || '#3592bf',
         '--word-weight': 0.5, // Ignore word.weight to keep all sizes the same
-        fontSize: `clamp(1.3rem, 1vw + 1.3vh, 3.8rem)`
+        fontSize: `clamp(1.6rem, 1.5vw + 1.5vh, 4.5rem)`
       }">
       <div class="paper-tag" :class="'paper-torn-' + (index % 4 + 1)" :style="{
         '--paper-bg-url': `url(${paperBgs[index % paperBgs.length]})`,
@@ -559,19 +559,19 @@ usePhysics(containerRef, particleCanvasRef, wordRefs, selectedId, titleLayout, i
 
 @media (max-width: 900px) {
   .gravity-toggle-btn {
-    top: auto;
-    bottom: 2rem;
-    left: 50%;
-    transform: translateX(-50%);
-    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.5), var(--shadow-glow);
+    top: 1rem;
+    left: 1rem;
+    bottom: auto;
+    transform: none;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3), var(--shadow-glow);
   }
 
   .gravity-toggle-btn:hover {
-    transform: translateX(-50%) translateY(-2px);
+    transform: translateY(-2px);
   }
 
   .gravity-toggle-btn:active {
-    transform: translateX(-50%) translateY(0);
+    transform: translateY(0);
   }
 }
 </style>

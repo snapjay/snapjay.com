@@ -177,7 +177,7 @@ const activeView = computed(() => {
       <header class="title-area">
         <div class="category-tag">{{ word.category || 'Portfolio' }}</div>
         <div class="title-placeholder" ref="titleRef" :style="{
-          fontSize: `clamp(1.3rem, (1.3 + 0.5 * 1.5) * 1vw, 3.8rem)`, // Ignore word.weight to keep all sizes the same
+          fontSize: `clamp(1.6rem, 1.5vw + 1.5vh, 4.5rem)`, // Ignore word.weight to keep all sizes the same
           fontFamily: fontFamilies[word.font] || fontFamilies['moms-typewriter'],
           fontWeight: (word.font === 'playfair-display') ? '900' : 'normal'
         }">
@@ -257,8 +257,8 @@ const activeView = computed(() => {
   inset: 0;
   z-index: 500;
   background: rgba(5, 5, 8, 0.58);
+  -webkit-backdrop-filter: blur(18px) saturate(190%);
   backdrop-filter: blur(18px) saturate(190%);
-  -webkit-backdrop-filter: blur(14px) saturate(190%);
   /* Add subtle glass grain/noise */
   background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.65' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.035'/%3E%3C/svg%3E");
   display: flex;
@@ -268,10 +268,10 @@ const activeView = computed(() => {
 /* ─── Scrollable content ─── */
 .modal-scroll {
   flex: 1;
+  min-height: 0;
   overflow-y: auto;
   overflow-x: hidden;
   -webkit-overflow-scrolling: touch;
-  overscroll-behavior-y: contain;
   padding: 0 2rem 4rem;
   scrollbar-width: thin;
   scrollbar-color: var(--border-highlight) transparent;
@@ -300,8 +300,8 @@ const activeView = computed(() => {
   inset: 0;
   z-index: 2000;
   background: rgba(10, 10, 12, 0.85);
-  backdrop-filter: blur(15px);
   -webkit-backdrop-filter: blur(15px);
+  backdrop-filter: blur(15px);
   display: flex;
   align-items: center;
   justify-content: center;
