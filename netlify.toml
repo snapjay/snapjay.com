@@ -5,6 +5,7 @@ ID = "snapjay.com"
   base    = "/"
   publish = "dist"
   command = "npm run build"
+  ignore  = "git diff --quiet HEAD^ HEAD -- . ':!.photos' ':!.old.panels' ':!.oldv2.2.backup' ':!.vscode'"
 
 [[redirects]]
   from = "/*"

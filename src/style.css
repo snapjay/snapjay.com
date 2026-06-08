@@ -1,0 +1,202 @@
+@font-face {
+  font-family: 'Moms Typewriter';
+  src: url('/Mom«t___.ttf') format('truetype');
+  font-weight: normal;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: 'Barbaro Punta';
+  src: url('/barbaro punta.ttf') format('truetype');
+  font-weight: normal;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: 'Barbaro';
+  src: url('/barbaro.ttf') format('truetype');
+  font-weight: normal;
+  font-style: normal;
+}
+
+:root {
+  --font-family: 'Outfit', 'Inter', system-ui, -apple-system, sans-serif;
+
+  /* Premium Obsidian & Slate Theme */
+  --bg-primary: #050507;
+  --bg-secondary: #0d0d11;
+  --bg-tertiary: #14141c;
+
+  --text-primary: #f8fafc;
+  --text-secondary: #94a3b8;
+  --text-tertiary: #64748b;
+
+  --accent: #3592bf;
+  --accent-rgb: 53, 146, 191;
+  --accent-glow: rgba(53, 146, 191, 0.4);
+  --accent-soft: rgba(53, 146, 191, 0.08);
+
+  --border-subtle: rgba(255, 255, 255, 0.05);
+  --border-highlight: rgba(255, 255, 255, 0.12);
+
+  --glass: rgba(13, 13, 18, 0.75);
+  --glass-border: rgba(255, 255, 255, 0.07);
+
+  --shadow-lg: 0 20px 40px -5px rgba(0, 0, 0, 0.7), 0 10px 20px -10px rgba(0, 0, 0, 0.5);
+  --shadow-glow: 0 0 30px rgba(53, 146, 191, 0.1);
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+html {
+  overflow: hidden;
+  overscroll-behavior: none;
+  background-color: var(--bg-primary);
+}
+
+body {
+  background-color: var(--bg-primary);
+  color: var(--text-primary);
+  font-family: var(--font-family);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  min-height: 100vh;
+  overflow: hidden;
+  overscroll-behavior: none;
+}
+
+a {
+  color: var(--accent);
+  font-weight: 600;
+  text-decoration: none;
+  transition: all 0.2s cubic-bezier(0.25, 0.8, 0.25, 1);
+}
+
+a:hover {
+  color: #fff;
+}
+
+a .caption {
+  text-decoration: none;
+  font-weight: 400;
+}
+
+#app {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+}
+
+.container {
+  max-width: 1200px;
+  width: 100%;
+  padding: 2rem;
+  text-align: center;
+}
+
+/* Scrollbar styles for modal windows */
+.custom-scrollbar::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+}
+
+.custom-scrollbar::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+.custom-scrollbar::-webkit-scrollbar-thumb {
+  background: rgba(255, 255, 255, 0.1);
+  border-radius: 999px;
+  transition: background 0.2s ease;
+}
+
+.custom-scrollbar::-webkit-scrollbar-thumb:hover {
+  background: rgba(255, 255, 255, 0.2);
+}
+
+/* Animations */
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(15px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.animate-fade-in {
+  animation: fadeIn 0.8s cubic-bezier(0.25, 0.8, 0.25, 1) forwards;
+}
+
+/* Global Close Button Utility Class */
+.close-btn {
+  position: fixed;
+  top: 2rem;
+  right: 2rem;
+  width: 3.2rem;
+  height: 3.2rem;
+  border-radius: 50%;
+  background: rgba(13, 13, 18, 0.6);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  color: var(--text-secondary);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+  z-index: 2100;
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
+}
+
+.close-btn:hover {
+  transform: scale(1.08) rotate(90deg);
+  background: var(--category-color, var(--accent));
+  border-color: rgba(255, 255, 255, 0.3);
+  color: white;
+  box-shadow: 0 0 20px color-mix(in srgb, var(--category-color, var(--accent)) 40%, transparent);
+}
+
+.close-btn:focus-visible {
+  outline: 2px solid var(--category-color, var(--accent));
+  outline-offset: 3px;
+  box-shadow: 0 0 15px color-mix(in srgb, var(--category-color, var(--accent)) 30%, transparent);
+}
+
+.close-btn:active {
+  transform: scale(0.95);
+}
+
+.close-btn svg {
+  width: 1.4rem;
+  height: 1.4rem;
+  fill: none;
+  stroke: currentColor;
+  stroke-width: 2.5;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+
+@media (max-width: 640px) {
+  .close-btn {
+    top: 1rem;
+    right: 1rem;
+    width: 2.8rem;
+    height: 2.8rem;
+  }
+
+  .close-btn svg {
+    width: 1.2rem;
+    height: 1.2rem;
+  }
+}
