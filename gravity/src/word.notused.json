@@ -1,0 +1,42 @@
+[
+    {
+        "id": "musician",
+        "label": "Musician",
+        "leadText": "Composer and pianist",
+        "bodyText": "My musical journey began at the age of 5 with classical piano training, which instilled in me a deep appreciation for structure, harmony, and emotional expression. Over the years, I've expanded my horizons to explore jazz, electronic music, and various world music traditions. I find joy in the creative process of composing and performing, and I believe that music has the power to connect people and evoke powerful emotions.",
+        "images": [
+            {
+                "src": "/photos/music-piano-books-stockcake.webp",
+                "caption": "Classical Piano"
+            }
+        ],
+        "weight": 0.2,
+        "font": "jim-nightshade"
+    },
+    {
+        "id": "mechanic",
+        "category": "Lifestyle",
+        "label": "Mechanic",
+        "images": [
+            {
+                "src": "https://picsum.photos/seed/mechanic/800/800",
+                "caption": "Fixing it right"
+            }
+        ],
+        "weight": 0.4,
+        "font": "playfair-display"
+    },
+    {
+        "id": "softball_player",
+        "category": "Lifestyle",
+        "label": "Softball Player",
+        "images": [
+            {
+                "src": "https://picsum.photos/seed/softball/800/800",
+                "caption": "Diamonds are forever"
+            }
+        ],
+        "weight": 0.2,
+        "font": "playfair-display"
+    }
+]

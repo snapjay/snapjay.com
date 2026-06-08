@@ -28,12 +28,12 @@ const isVideo = (src) => {
 const isExternal = computed(() => props.href && (props.href.startsWith('http') || props.href.startsWith('mailto:')));
 
 const fontSize = computed(() => {
-  if (!props.caption) return '2rem';
+  if (!props.caption) return '2.2rem';
   const len = props.caption.length;
   if (len < 20) return '2.2rem';
-  if (len < 35) return '2rem';
-  if (len < 50) return '1.8rem';
-  return '1.5rem';
+  if (len < 35) return '1.9rem';
+  if (len < 45) return '1.6rem';
+  return '1.35rem';
 });
 
 const thumbSrc = computed(() => {
@@ -401,7 +401,7 @@ const transformStyle = computed(() => {
 
 .caption-container {
   margin-top: 1rem;
-  height: 4.5rem; /* Fixed height to enforce paper shape */
+  height: 4.8rem; /* Fixed height to enforce paper shape */
   display: flex;
   align-items: center;
   justify-content: center;

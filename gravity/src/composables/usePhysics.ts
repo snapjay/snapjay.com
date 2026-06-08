@@ -1,6 +1,7 @@
 import { watch, onMounted, onUnmounted, nextTick, Ref } from 'vue';
 import Matter from 'matter-js';
 import words from '../words.json';
+import { categoryColors } from '../constants';
 
 interface TitleLayout {
   x: number;
@@ -205,15 +206,7 @@ export function usePhysics(
       body.prevWidth = rect.width;
       body.prevHeight = rect.height;
       
-      // Store word color metadata on the physics body based on category
-      const categoryColors: Record<string, string> = {
-        'Profession': '#00a2ff',
-        'Lifestyle': '#ff6600',
-        'Community Service': '#a855f7',
-        'Creative': '#10b981',
-        'Lets be friends': '#f43f5e',
-        'Portfolio': '#eab308'
-      };
+
       
       const word = words[index];
       const category = word ? (word.category || 'Portfolio') : 'Portfolio';

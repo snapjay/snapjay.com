@@ -4,6 +4,7 @@ import { useRoute, useRouter } from 'vue-router'
 import words from './words.json'
 import WordDetail from './components/WordDetail.vue'
 import { usePhysics } from './composables/usePhysics'
+import { categoryColors, fontFamilies } from './constants'
 
 const paperBgs = [
   '/paper/240_F_1868267006_OpY942D4rtZ6nbxuAqSbbqKfglKpuh0a.jpg',
@@ -16,27 +17,6 @@ const paperBgs = [
   '/paper/360_F_1885679285_lN5T3BazdzdvSFjgNFHr7wWjDxqdAwyX.jpg',
   '/paper/czNmcy1wcml2YXRlL3Jhd3BpeGVsX2ltYWdlcy93ZWJzaXRlX2NvbnRlbnQvcHg2NTA4NDctaW1hZ2Utam9iNjMwLWctbDBnMDlscTUuanBn.webp'
 ]
-
-const fontFamilies: Record<string, string> = {
-  'moms-typewriter': "'Moms Typewriter', 'Courier New', monospace",
-  'playfair-display': "'Playfair Display', Georgia, serif",
-  'special-elite': "'Special Elite', 'Courier New', monospace",
-  'alegreya': "'Alegreya', Georgia, serif",
-  'bebas-neue': "'Bebas Neue', sans-serif",
-  'jim-nightshade': "'Jim Nightshade', cursive",
-  'cinzel': "'Cinzel', Georgia, serif",
-  'courier-new': "'Courier New', Courier, monospace",
-  'barbaro-punta': "'Barbaro Punta', 'Courier New', monospace",
-  'barbaro': "'Barbaro', 'Courier New', monospace",
-}
-
-const categoryColors: Record<string, string> = {
-  'Profession': '#00a2ff',
-  'Lifestyle': '#ff6600',
-  'Community Service': '#a855f7',
-  'Creative': '#10b981',
-  'Lets be friends': '#f43f5e',
-}
 
 const route = useRoute()
 const router = useRouter()
@@ -73,15 +53,24 @@ const splitLines = computed(() => words.map(w => {
   return w.label.split(' ').map(word => word.split(''))
 }))
 
-const onPointerDown = (e: MouseEvent | TouchEvent) => {
+let clickedWord: any = null
+let clickStartTime = 0
+
+const onPointerDown = (word: any, e: MouseEvent | TouchEvent) => {
   const pt = 'touches' in e ? e.touches[0] : e
   startX = pt.clientX
   startY = pt.clientY
   mouseMoved.value = false
   isTouchDrag = false
+  clickedWord = word
+  clickStartTime = Date.now()
+  
+  window.addEventListener('mouseup', onGlobalPointerUp)
+  window.addEventListener('touchend', onGlobalPointerUp, { passive: false })
 }
 
 const onPointerMove = (e: MouseEvent | TouchEvent) => {
+  if (!clickedWord) return
   const pt = 'touches' in e ? e.touches[0] : e
   if (Math.abs(pt.clientX - startX) > 8 || Math.abs(pt.clientY - startY) > 8) {
     mouseMoved.value = true
@@ -89,17 +78,21 @@ const onPointerMove = (e: MouseEvent | TouchEvent) => {
   }
 }
 
-const handleWordClick = (word: any) => {
-  if (mouseMoved.value || selectedId.value) return
-  router.push(`/${word.id}`)
-}
-
-// Touch-specific: tap detection (touchend without drag)
-const onTouchEnd = (word: any, e: TouchEvent) => {
-  if (!isTouchDrag && !selectedId.value) {
-    e.preventDefault()
-    router.push(`/${word.id}`)
+const onGlobalPointerUp = (e: Event) => {
+  window.removeEventListener('mouseup', onGlobalPointerUp)
+  window.removeEventListener('touchend', onGlobalPointerUp)
+  
+  if (!clickedWord) return
+  
+  const clickDuration = Date.now() - clickStartTime
+  const moved = mouseMoved.value || isTouchDrag
+  
+  if (!moved && clickDuration < 350 && !selectedId.value) {
+    if (e.cancelable) e.preventDefault()
+    router.push(`/${clickedWord.id}`)
   }
+  
+  clickedWord = null
 }
 
 const closeSelection = () => {
@@ -165,8 +158,8 @@ usePhysics(containerRef, particleCanvasRef, wordRefs, selectedId, titleLayout, i
 
     <div v-for="(word, index) in words" :key="word.id" :ref="el => { if (el) wordRefs[index] = el as HTMLElement }"
       class="gravity-word" :class="{ 'is-selected': selectedId === word.id }" :tabindex="selectedId ? -1 : 0"
-      @mousedown="onPointerDown" @mousemove="onPointerMove" @mouseup="handleWordClick(word)"
-      @touchstart.passive="onPointerDown" @touchmove.passive="onPointerMove" @touchend="onTouchEnd(word, $event)"
+      @mousedown="onPointerDown(word, $event)" @mousemove="onPointerMove"
+      @touchstart.passive="onPointerDown(word, $event)" @touchmove.passive="onPointerMove"
       @keydown.enter="handleWordKey(word)" @keydown.space.prevent="handleWordKey(word)" :style="{
         '--word-color': categoryColors[word.category || 'Portfolio'] || '#3592bf',
         '--word-weight': 0.5, // Ignore word.weight to keep all sizes the same

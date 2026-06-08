@@ -3,6 +3,8 @@ import { onMounted, onUnmounted, ref, computed, nextTick, provide } from 'vue'
 import ViewDefault from './views/ViewDefault.vue'
 import ViewGallery from './views/ViewGallery.vue'
 import ViewList from './views/ViewList.vue'
+import ViewSoftwareEngineer from './views/ViewSoftwareEngineer.vue'
+import { categoryColors, fontFamilies } from '../constants'
 
 const props = defineProps({
   word: {
@@ -10,28 +12,6 @@ const props = defineProps({
     required: true
   }
 })
-
-const fontFamilies = {
-  'moms-typewriter': "'Moms Typewriter', 'Courier New', monospace",
-  'playfair-display': "'Playfair Display', Georgia, serif",
-  'special-elite': "'Special Elite', 'Courier New', monospace",
-  'alegreya': "'Alegreya', Georgia, serif",
-  'bebas-neue': "'Bebas Neue', sans-serif",
-  'jim-nightshade': "'Jim Nightshade', cursive",
-  'cinzel': "'Cinzel', Georgia, serif",
-  'courier-new': "'Courier New', Courier, monospace",
-  'barbaro-punta': "'Barbaro Punta', 'Courier New', monospace",
-  'barbaro': "'Barbaro', 'Courier New', monospace"
-}
-
-const categoryColors = {
-  'Profession': '#00a2ff',
-  'Lifestyle': '#ff6600',
-  'Community Service': '#a855f7',
-  'Creative': '#10b981',
-  'Lets be friends': '#f43f5e',
-  'Portfolio': '#eab308'
-}
 
 const emit = defineEmits(['close', 'scroll', 'layout'])
 const scrollRef = ref(null)
@@ -47,10 +27,36 @@ const isVideo = (src) => {
   return typeof src === 'string' && /\.(mp4|webm|ogg|mov)/i.test(src);
 }
 
+const resolvedWord = computed(() => {
+  if (!props.word.images) return props.word;
+  return {
+    ...props.word,
+    images: props.word.images.map(img => {
+      if (img.src && !img.src.startsWith('/') && !img.src.startsWith('http://') && !img.src.startsWith('https://')) {
+        return {
+          ...img,
+          src: `/photos/${props.word.id}/${img.src}`
+        };
+      }
+      return img;
+    })
+  };
+});
+
 const zoomableImages = computed(() => {
-  if (!props.word.images) return []
-  return props.word.images.filter(img => !img.href)
+  if (!resolvedWord.value.images) return []
+  return resolvedWord.value.images.filter(img => !img.href)
 })
+
+const zoomFontSize = computed(() => {
+  const activeImg = zoomableImages.value[activeZoomIndex.value];
+  if (!activeImg || !activeImg.caption) return '2.2rem';
+  const len = activeImg.caption.length;
+  if (len < 20) return '2.2rem';
+  if (len < 35) return '1.9rem';
+  if (len < 45) return '1.6rem';
+  return '1.35rem';
+});
 
 const openLightbox = (src) => {
   const index = zoomableImages.value.findIndex(img => img.src === src)
@@ -148,6 +154,7 @@ onUnmounted(() => {
 })
 
 const activeView = computed(() => {
+  if (props.word.pageType === 'SoftwareEngineer') return ViewSoftwareEngineer;
   if (props.word.pageType === 'Gallery') return ViewGallery;
   if (props.word.pageType === 'List') return ViewList;
   return ViewDefault;
@@ -181,7 +188,7 @@ const activeView = computed(() => {
       </header>
 
       <!-- Content Views -->
-      <component :is="activeView" :word="word" />
+      <component :is="activeView" :word="resolvedWord" />
     </div>
 
     <!-- Shared Lightbox Carousel inside WordDetail.vue -->
@@ -229,7 +236,7 @@ const activeView = computed(() => {
                   <div class="photo-glare"></div>
                 </div>
                 <div class="caption-container">
-                  <div class="caption">
+                  <div class="caption" :style="{ fontSize: zoomFontSize }">
                     {{ zoomableImages[activeZoomIndex].caption }}
                   </div>
                 </div>
@@ -403,7 +410,7 @@ const activeView = computed(() => {
 
 .caption-container {
   margin-top: 1rem;
-  height: 4.5rem;
+  height: 4.8rem;
   display: flex;
   align-items: center;
   justify-content: center;
