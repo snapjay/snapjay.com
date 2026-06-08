@@ -488,6 +488,7 @@ usePhysics(containerRef, particleCanvasRef, wordRefs, selectedId, titleLayout, i
   box-shadow: var(--shadow-lg), var(--shadow-glow);
   transition: all 0.4s cubic-bezier(0.25, 0.8, 0.25, 1);
   user-select: none;
+  touch-action: manipulation;
 }
 
 .gravity-toggle-btn:hover {
@@ -559,11 +560,12 @@ usePhysics(containerRef, particleCanvasRef, wordRefs, selectedId, titleLayout, i
 
 @media (max-width: 900px) {
   .gravity-toggle-btn {
-    top: 1rem;
-    left: 1rem;
-    bottom: auto;
+    top: auto;
+    left: auto;
+    bottom: 1.5rem;
+    right: 1.5rem;
     transform: none;
-    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3), var(--shadow-glow);
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.5), var(--shadow-glow);
   }
 
   .gravity-toggle-btn:hover {

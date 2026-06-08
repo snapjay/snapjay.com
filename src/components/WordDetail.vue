@@ -272,6 +272,8 @@ const activeView = computed(() => {
   overflow-y: auto;
   overflow-x: hidden;
   -webkit-overflow-scrolling: touch;
+  overscroll-behavior-y: contain;
+  touch-action: pan-y;
   padding: 0 2rem 4rem;
   scrollbar-width: thin;
   scrollbar-color: var(--border-highlight) transparent;
