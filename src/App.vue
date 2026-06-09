@@ -109,6 +109,23 @@ usePhysics(containerRef, particleCanvasRef, wordRefs, selectedId, titleLayout, i
 </script>
 
 <template>
+  <button class="gravity-toggle-btn" :class="{ 'is-active': !isGravityOff }" :tabindex="selectedId ? -1 : 0"
+    @click="isGravityOff = !isGravityOff" aria-label="Toggle gravity mode">
+    <span class="toggle-track">
+      <span class="toggle-knob"></span>
+    </span>
+    <span class="toggle-label">{{ isGravityOff ? 'Zero Gravity' : 'Gravity On' }}</span>
+  </button>
+
+  <div class="site-logo" :tabindex="selectedId ? -1 : 0" 
+    @click="!selectedId && router.push('/contact')"
+    @keydown.enter="!selectedId && router.push('/contact')"
+    @keydown.space.prevent="!selectedId && router.push('/contact')">
+    <h1>snapjay</h1>
+    <h2>Engineer+Entrepreneur </h2>
+    <h1> Knoxville, TN</h1>
+  </div>
+
   <div class="gravity-container" ref="containerRef" :style="{
     '--target-x': titleLayout.x ? titleLayout.x + 'px' : '4rem',
     '--target-y': titleLayout.y ? titleLayout.y + 'px' : '6.5rem',
@@ -122,25 +139,6 @@ usePhysics(containerRef, particleCanvasRef, wordRefs, selectedId, titleLayout, i
     </div>
 
     <canvas ref="particleCanvasRef" class="particle-canvas"></canvas>
-
-    <button class="gravity-toggle-btn" :class="{ 'is-active': !isGravityOff }" :tabindex="selectedId ? -1 : 0"
-      @mousedown.stop @touchstart.stop
-      @click="isGravityOff = !isGravityOff" aria-label="Toggle gravity mode">
-      <span class="toggle-track">
-        <span class="toggle-knob"></span>
-      </span>
-      <span class="toggle-label">{{ isGravityOff ? 'Zero Gravity' : 'Gravity On' }}</span>
-    </button>
-
-    <div class="site-logo" :tabindex="selectedId ? -1 : 0" 
-      @mousedown.stop @touchstart.stop
-      @click="!selectedId && router.push('/contact')"
-      @keydown.enter="!selectedId && router.push('/contact')"
-      @keydown.space.prevent="!selectedId && router.push('/contact')">
-      <h1>snapjay</h1>
-      <h2>Engineer+Entrepreneur </h2>
-      <h1> Knoxville, TN</h1>
-    </div>
 
     <!-- Selected Word Detail View (Teleported to body to escape gravity container) -->
     <Teleport to="body">
