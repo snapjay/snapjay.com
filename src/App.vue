@@ -4,19 +4,7 @@ import { useRoute, useRouter } from 'vue-router'
 import words from './words.json'
 import WordDetail from './components/WordDetail.vue'
 import { usePhysics } from './composables/usePhysics'
-import { categoryColors, fontFamilies } from './constants'
-
-const paperBgs = [
-  '/paper/240_F_1868267006_OpY942D4rtZ6nbxuAqSbbqKfglKpuh0a.jpg',
-  '/paper/240_F_1984490889_qbr6AJvykYEg8jFDm6f8N15cAPvnmbSQ.jpg',
-  '/paper/240_F_2009359561_8u5uAmCszlfeQQGETVz8dOER8jVkIBzy.jpg',
-  '/paper/240_F_261261445_elk4rgJ9pnofaTj78Xw1tKsQlCVGbmu6.jpg',
-  '/paper/240_F_312312418_uyrEv9Mq4zbL0Sdi0fA5xnDAukpypE9a.jpg',
-  '/paper/240_F_444013321_vzwRWzfmRQNlCFwYJmMaqssq6HuKENuf.jpg',
-  '/paper/240_F_470922875_gKHd4c5VjOkquYNcN2FjUTVzv9jEE6E7.jpg',
-  '/paper/360_F_1885679285_lN5T3BazdzdvSFjgNFHr7wWjDxqdAwyX.jpg',
-  '/paper/czNmcy1wcml2YXRlL3Jhd3BpeGVsX2ltYWdlcy93ZWJzaXRlX2NvbnRlbnQvcHg2NTA4NDctaW1hZ2Utam9iNjMwLWctbDBnMDlscTUuanBn.webp'
-]
+import { categoryColors, fontFamilies, paperBgs } from './constants'
 
 const route = useRoute()
 const router = useRouter()
@@ -32,12 +20,20 @@ let isTouchDrag = false
 const selectedId = computed(() => (route.params.id as string) || null)
 const selectedWord = computed(() => words.find(w => w.id === selectedId.value))
 
+const wordLanded = ref(false)
+
 const handleWordKey = (word: any) => {
   if (selectedId.value) return
   router.push(`/${word.id}`)
 }
 
 watch(selectedId, (newId, oldId) => {
+  if (!newId) {
+    wordLanded.value = false
+  } else if (!oldId && newId) {
+    wordLanded.value = false
+  }
+
   if (!newId && oldId) {
     const index = words.findIndex(w => w.id === oldId)
     if (index !== -1 && wordRefs.value[index]) {
@@ -97,15 +93,9 @@ const onGlobalPointerUp = (e: Event) => {
 
 const closeSelection = () => {
   router.push('/')
-  modalScrollY.value = 0
 }
 
-const modalScrollY = ref(0)
 const titleLayout = ref({ x: 0, y: 0, width: 0, height: 0 })
-
-const handleModalScroll = (y: number) => {
-  modalScrollY.value = y
-}
 
 const handleModalLayout = (layout: any) => {
   titleLayout.value = layout
@@ -120,7 +110,6 @@ usePhysics(containerRef, particleCanvasRef, wordRefs, selectedId, titleLayout, i
 
 <template>
   <div class="gravity-container" ref="containerRef" :style="{
-    '--modal-scroll': modalScrollY + 'px',
     '--target-x': titleLayout.x ? titleLayout.x + 'px' : '4rem',
     '--target-y': titleLayout.y ? titleLayout.y + 'px' : '6.5rem',
     pointerEvents: selectedId ? 'none' : 'auto',
@@ -153,13 +142,13 @@ usePhysics(containerRef, particleCanvasRef, wordRefs, selectedId, titleLayout, i
     <!-- Selected Word Detail View (Teleported to body to escape gravity container) -->
     <Teleport to="body">
       <Transition name="fade">
-        <WordDetail v-if="selectedWord" :word="selectedWord" @close="closeSelection" @scroll="handleModalScroll"
+        <WordDetail v-if="selectedWord" :word="selectedWord" @close="closeSelection" @landed="wordLanded = true"
           @layout="handleModalLayout" />
       </Transition>
     </Teleport>
 
     <div v-for="(word, index) in words" :key="word.id" :ref="el => { if (el) wordRefs[index] = el as HTMLElement }"
-      class="gravity-word" :class="{ 'is-selected': selectedId === word.id }" :tabindex="selectedId ? -1 : 0"
+      class="gravity-word" :class="{ 'is-selected': selectedId === word.id, 'is-landed': selectedId === word.id && wordLanded }" :tabindex="selectedId ? -1 : 0"
       @mousedown="onPointerDown(word, $event)" @mousemove="onPointerMove"
       @touchstart.passive="onPointerDown(word, $event)" @touchmove.passive="onPointerMove"
       @keydown.enter="handleWordKey(word)" @keydown.space.prevent="handleWordKey(word)" :style="{
@@ -413,11 +402,7 @@ usePhysics(containerRef, particleCanvasRef, wordRefs, selectedId, titleLayout, i
   display: inline-block;
   line-height: 0.88;
   /* Dark typewriter ink style on the homepage */
-  background-color: #1c1c1f;
-  -webkit-background-clip: text;
-  background-clip: text;
-  -webkit-text-fill-color: transparent;
-  color: transparent;
+  color: #1c1c1f;
   will-change: transform;
 }
 
@@ -437,8 +422,12 @@ usePhysics(containerRef, particleCanvasRef, wordRefs, selectedId, titleLayout, i
     z-index 0s;
   z-index: 1000;
   transform: translate(var(--target-x, 4rem), var(--target-y, 6.5rem)) rotate(0rad) !important;
-  margin-top: calc(-1 * var(--modal-scroll, 0px));
   pointer-events: none;
+}
+
+.gravity-word.is-landed {
+  opacity: 0 !important;
+  transition: opacity 0s !important;
 }
 
 .gravity-word.is-selected .paper-tag {
@@ -590,5 +579,10 @@ usePhysics(containerRef, particleCanvasRef, wordRefs, selectedId, titleLayout, i
 .fade-enter-from,
 .fade-leave-to {
   opacity: 0;
+}
+
+.fade-leave-active .title-placeholder {
+  opacity: 0 !important;
+  transition: none !important;
 }
 </style>

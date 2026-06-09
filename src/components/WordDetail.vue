@@ -5,7 +5,8 @@ import ViewGallery from './views/ViewGallery.vue'
 import ViewList from './views/ViewList.vue'
 import ViewSoftwareEngineer from './views/ViewSoftwareEngineer.vue'
 import { transformCdnUrl } from '../utils/cdn'
-import { categoryColors, fontFamilies } from '../constants'
+import { categoryColors, fontFamilies, paperBgs } from '../constants'
+import words from '../words.json'
 
 const props = defineProps({
   word: {
@@ -14,7 +15,10 @@ const props = defineProps({
   }
 })
 
-const emit = defineEmits(['close', 'scroll', 'layout'])
+const wordIndex = computed(() => words.findIndex(w => w.id === props.word.id))
+
+const emit = defineEmits(['close', 'scroll', 'layout', 'landed'])
+const isLanded = ref(false)
 const scrollRef = ref(null)
 const titleRef = ref(null)
 const closeBtnRef = ref(null)
@@ -98,6 +102,10 @@ const navigateCarousel = (direction) => {
 provide('openLightbox', openLightbox)
 
 const handleScroll = (e) => {
+  if (!isLanded.value && e.target.scrollTop > 0) {
+    isLanded.value = true
+    emit('landed')
+  }
   emit('scroll', e.target.scrollTop)
 }
 
@@ -131,6 +139,14 @@ onMounted(() => {
   setTimeout(() => {
     scrollRef.value?.focus()
   }, 150)
+
+  // Wait for the fly-in transition (1s) before switching to native title
+  setTimeout(() => {
+    if (!isLanded.value) {
+      isLanded.value = true
+      emit('landed')
+    }
+  }, 1000)
 
   // Track exact position of title placeholder to sync gravity word
   resizeObserver = new ResizeObserver(() => {
@@ -176,15 +192,24 @@ const activeView = computed(() => {
       <!-- Title Area: Space for the gravity word to land -->
       <header class="title-area">
         <div class="category-tag">{{ word.category || 'Portfolio' }}</div>
-        <div class="title-placeholder" ref="titleRef" :style="{
+        <div class="title-placeholder" ref="titleRef" :class="{ 'is-landed': isLanded }" :style="{
+          '--word-color': categoryColors[word.category || 'Portfolio'] || '#3592bf',
           fontSize: `clamp(1.6rem, 1.5vw + 1.5vh, 4.5rem)`, // Ignore word.weight to keep all sizes the same
           fontFamily: fontFamilies[word.font] || fontFamilies['moms-typewriter'],
           fontWeight: (word.font === 'playfair-display') ? '900' : 'normal'
         }">
-          <span v-for="(line, lineIdx) in word.label.split(' ')" :key="lineIdx" class="cloth-line">
-            {{ line }}
-            <span v-if="lineIdx === word.label.split(' ').length - 1" class="paper-dot"></span>
-          </span>
+          <div class="paper-tag" :class="'paper-torn-' + (wordIndex % 4 + 1)" :style="{
+            '--paper-bg-url': `url(${paperBgs[wordIndex % paperBgs.length]})`,
+            fontFamily: fontFamilies[word.font] || fontFamilies['moms-typewriter'],
+            fontWeight: (word.font === 'playfair-display') ? '900' : 'normal'
+          }">
+            <span class="paper-text">
+              <span v-for="(line, lineIdx) in word.label.split(' ')" :key="lineIdx" class="cloth-line">
+                <span v-for="(char, ci) in line.split('')" :key="ci" class="cloth-letter">{{ char }}</span>
+                <span v-if="lineIdx === word.label.split(' ').length - 1" class="paper-dot"></span>
+              </span>
+            </span>
+          </div>
         </div>
       </header>
 
@@ -497,12 +522,65 @@ const activeView = computed(() => {
   display: inline-flex;
   flex-direction: column;
   align-self: flex-start;
+  text-transform: lowercase;
+  opacity: 0;
+  text-align: left;
+  /* Parent filter renders shadow matching the clipped child shape */
+  filter: drop-shadow(0 6px 12px rgba(0, 0, 0, 0.45));
+}
+
+.title-placeholder.is-landed {
+  opacity: 1;
+}
+
+.paper-tag {
+  background-color: #f5f4ed;
+  background-image:
+    url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.8' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)' opacity='0.12'/%3E%3C/svg%3E"),
+    var(--paper-bg-url, none);
+  background-size: auto, cover;
+  background-position: center;
+  background-repeat: repeat, no-repeat;
   padding: 0.35em 0.85em 0.3em;
+  border: 1px solid rgba(0, 0, 0, 0.06);
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.05em;
+
+  font-family: 'Moms Typewriter', 'Courier New', Courier, monospace;
+  font-weight: normal;
   line-height: 0.95;
   text-transform: lowercase;
-  visibility: hidden;
-  pointer-events: none;
-  text-align: left;
+}
+
+/* Four randomized jagged clip-path variations for authentic torn edges */
+.paper-torn-1 {
+  clip-path: polygon(0.5% 3%, 12% 1.5%, 28% 4%, 42% 1.2%, 58% 3.5%, 72% 1.8%, 88% 4.2%, 99% 2%,
+      98% 18%, 99.5% 38%, 98.2% 58%, 99.1% 78%, 98.5% 97%,
+      86% 98.5%, 74% 96.5%, 58% 99%, 44% 97.2%, 28% 98.8%, 14% 96.2%, 1% 98%,
+      1.8% 82%, 0.5% 62%, 1.2% 42%, 0.8% 22%);
+}
+
+.paper-torn-2 {
+  clip-path: polygon(1.5% 2%, 18% 3.5%, 32% 1.2%, 48% 4.1%, 64% 1.8%, 82% 3.2%, 98.5% 1.5%,
+      97.5% 22%, 99% 45%, 97.8% 68%, 99.2% 96.5%,
+      88% 95.2%, 72% 97.8%, 56% 95.8%, 38% 98.2%, 22% 95.5%, 1.2% 97.2%,
+      0.8% 76%, 2% 52%, 0.5% 28%);
+}
+
+.paper-torn-3 {
+  clip-path: polygon(0.8% 4%, 15% 1.8%, 35% 3.2%, 55% 1.5%, 75% 3.8%, 92% 2.1%, 99.2% 3.5%,
+      98.1% 28%, 99% 48%, 97.5% 72%, 98.8% 98%,
+      82% 97.1%, 64% 98.8%, 46% 96.5%, 28% 98.2%, 12% 96.8%, 1.5% 97.5%,
+      1.2% 78%, 0.5% 58%, 1.8% 32%);
+}
+
+.paper-torn-4 {
+  clip-path: polygon(1.2% 1.8%, 22% 3.2%, 42% 1.5%, 62% 3.8%, 82% 2.1%, 98.8% 3.2%,
+      97.5% 18%, 99.1% 42%, 97.8% 68%, 99.2% 97.8%,
+      84% 96.8%, 68% 98.5%, 52% 96.2%, 36% 98.8%, 18% 97.2%, 0.8% 96.2%,
+      1.5% 72%, 0.8% 48%, 2.1% 24%);
 }
 
 .cloth-line {
@@ -514,11 +592,21 @@ const activeView = computed(() => {
   margin-top: -0.05em;
 }
 
+.cloth-letter {
+  display: inline-block;
+  line-height: 0.88;
+  /* Dark typewriter ink style on the homepage */
+  color: #1c1c1f;
+  will-change: transform;
+}
+
 .paper-dot {
   display: inline-block;
   width: 0.24em;
   height: 0.24em;
   border-radius: 50%;
+  background-color: currentColor;
+  color: var(--word-color);
   margin-left: 0.08em;
   vertical-align: baseline;
 }
