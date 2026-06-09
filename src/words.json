@@ -150,7 +150,7 @@
         "caption": "Smoked pork butt tacos"
       }
     ],
-    "leadText": "Respect for food is respect for life, for who we are and what we do.",,
+    "leadText": "Respect for food is respect for life, for who we are and what we do.",
     "bodyText": "You are what you eat, and the only way to know what you eat is to raise and make it yourself. I make everything from scratch, including my own pasta, bread and sauces.",
     "weight": 0.9,
     "font": "moms-typewriter"
@@ -524,7 +524,7 @@
       }
     ],
     "leadText": "Hockey changed my life",
-    "bodyText": "Hockey has taught me about teamwork, discipline, and perseverance. I've played from Olympic rinks to under the stars and on frozen ponds.",,
+    "bodyText": "Hockey has taught me about teamwork, discipline, and perseverance. I've played from Olympic rinks to under the stars and on frozen ponds.",
     "weight": 0.6,
     "font": "bebas-neue"
   },
@@ -577,7 +577,7 @@
     ],
     "weight": 0.3,
     "leadText": "The world is a book, and those who do not travel read only one page.",
-    "bodyText": "I've been fortunate enough to travel to over 17 countries, live in 3, and am attempting to visit every state capitol building.",,
+    "bodyText": "I've been fortunate enough to travel to over 17 countries, live in 3, and am attempting to visit every state capitol building.",
     "font": "jim-nightshade"
   },
   {
