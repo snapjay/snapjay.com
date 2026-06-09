@@ -4,7 +4,7 @@
     "category": "The Core",
     "label": "Software Engineer",
     "pageType": "SoftwareEngineer",
-    "leadText": " I build modern, high-performance web applications across the full stack, specializing in frontend development and framworks while remaining comfortable on the backend. I focus on usability, accessibility, and clean design systems, and I care about how things function just as much as how they work. ",
+    "leadText": "I build modern, high-performance web applications across the full stack, specializing in frontend development and frameworks while remaining comfortable on the backend. I focus on usability, accessibility, and clean design systems, and I care about how things function just as much as how they work.",
     "bodyText": "I approach problems with curiosity and a bias toward action, blending technical precision with creative thinking. I enjoy crafting seamless user experiences, architecting scalable solutions, and working across the full stack. My goal is to build things that are reliable, intuitive, and built to last.",
     "images": [
       {
@@ -31,7 +31,7 @@
       },
       {
         "src": "Waldon.webp",
-        "caption": "North Sand Hills, Waldon, Colorado"
+        "caption": "North Sand Hills, Walden, Colorado"
       },
       {
         "src": "SanJuan.webp",
@@ -47,7 +47,7 @@
       },
       {
         "src": "montizuma.webp",
-        "caption": "Montizuma, Colorado"
+        "caption": "Montezuma, Colorado"
       },
       {
         "src": "flag.webp",
@@ -60,7 +60,7 @@
     ],
     "weight": 0.4,
     "font": "special-elite",
-    "leadText": "My dirtbike takes me to some incredible locations, most people don't get to see.",
+    "leadText": "My dirtbike takes me to some incredible locations most people don't get to see.",
     "bodyText": "From the mountains of Colorado and Wyoming to the trails of Tennessee, I've been fortunate to explore some of the most beautiful places on earth. I've also been fortunate to have some incredible riding partners along the way."
   },
   {
@@ -111,7 +111,7 @@
     "images": [
       {
         "src": "toast.webp",
-        "caption": "Sourdough avacado toast with béarnaise sauce, cherry tomatoes, balsamic vinegar, basil"
+        "caption": "Sourdough avocado toast with béarnaise sauce, cherry tomatoes, balsamic vinegar, basil"
       },
       {
         "src": "ravioli.webp",
@@ -143,14 +143,14 @@
       },
       {
         "src": "steak-arugula.webp",
-        "caption": "Steak with Arugula, parmasar and roasted potatoes"
+        "caption": "Steak with Arugula, parmesan and roasted potatoes"
       },
       {
         "src": "taco.webp",
         "caption": "Smoked pork butt tacos"
       }
     ],
-    "leadText": "Respect for food is a respect for life, for who we are and what we do",
+    "leadText": "Respect for food is respect for life, for who we are and what we do.",,
     "bodyText": "You are what you eat, and the only way to know what you eat is to raise and make it yourself. I make everything from scratch, including my own pasta, bread and sauces.",
     "weight": 0.9,
     "font": "moms-typewriter"
@@ -159,8 +159,8 @@
     "id": "woodworker",
     "category": "The Core",
     "leadText": "Crafting unique items from live edge hardwoods; reclaimed, salvaged or upcycled materials.",
-    "bodyText": "I love to find ways to repurpose, repair and reimagine materials that would otherwise be discarded. CNC machining allows me to use my engineering and maker mindset and skills to design and create intricate items that would be difficult to create by hand. See more of my work, check out <a href='https://oldboot.us' target='_blank' >Old Boot</a>",
-    "label": "Wood worker",
+    "bodyText": "I love to find ways to repurpose, repair and reimagine materials that would otherwise be discarded. CNC machining allows me to use my engineering and maker mindset and skills to design and create intricate items that would be difficult to create by hand. To see more of my work, check out <a href='https://oldboot.us' target='_blank' >Old Boot</a>.",
+    "label": "Woodworker",
     "pageType": "Gallery",
     "images": [
       {
@@ -239,7 +239,7 @@
       },
       {
         "src": "veterans.webp",
-        "caption": "Setup 6k+ candles for Veternas day (Colorado Freedom Memorial)"
+        "caption": "Set up 6k+ candles for Veterans Day (Colorado Freedom Memorial)"
       },
       {
         "src": "adfac-brush.webp",
@@ -248,12 +248,12 @@
     ],
     "weight": 0.7,
     "leadText": "Giving back to the community that has given me so much",
-    "bodyText": "I am a firm believer a person can be measured by the good they do for others. I stry to show appreciation for the opportunities I have been given and to make a positive impact on the people and world around me.",
+    "bodyText": "I am a firm believer that a person can be measured by the good they do for others. I try to show appreciation for the opportunities I have been given and to make a positive impact on the people and world around me.",
     "font": "playfair-display"
   },
   {
     "id": "creative",
-    "category": "Creative",
+    "category": "The Core",
     "label": "Creative",
     "pageType": "Gallery",
     "images": [
@@ -263,11 +263,11 @@
       },
       {
         "src": "ironSkillet.webp",
-        "caption": "The Iron Skillet Co - Prepard meals brandning"
+        "caption": "The Iron Skillet Co - Prepared meals branding"
       },
       {
         "src": "halloween.webp",
-        "caption": "Interative halloween display using illusion and AI"
+        "caption": "Interactive Halloween display using illusion and AI"
       },
       {
         "src": "treasure.webp",
@@ -276,7 +276,7 @@
       },
       {
         "src": "illusion.webp",
-        "caption": "Halloween dispaly of illusions"
+        "caption": "Halloween display of illusions"
       }
     ],
     "weight": 0.4,
@@ -287,8 +287,8 @@
     "category": "The Core",
     "pageType": "Gallery",
     "label": "Product Developer",
-    "leadText": "Creating a prodcute be it SaaS or physical, I enjoy solving problems and bringing new ideas to life. ",
-    "bodyText": "Fusing design, creativity, engeineering and technology to solve problems and create products that make a difference. ",
+    "leadText": "Whether creating a product, be it SaaS or physical, I enjoy solving problems and bringing new ideas to life.",
+    "bodyText": "Fusing design, creativity, engineering and technology to solve problems and create products that make a difference.",
     "images": [
       {
         "src": "jukebox.tools-wordmarksq.webp",
@@ -297,7 +297,7 @@
       },
       {
         "src": "ironSkillet.webp",
-        "caption": "The Iron Skillet Co - Prepared  meals branding"
+        "caption": "The Iron Skillet Co - Prepared meals branding"
       },
       {
         "src": "clucking-clean.webp",
@@ -340,7 +340,7 @@
         "caption": "Jukebox Tools",
         "href": "https://jukebox.tools",
         "title": "Jukebox Tools",
-        "detail": "Jukebox Tools is the worlds most powerful suite of jukebox tools. A SaaS product that helps jukebox owners create title strips, organize their record collection, and manage their jukeboxes. <br />  This project was started from a need I had for my own jukebox. It's a passion project that turned into a profitable business. <br /><br />  <a href='https://jukebox.tools' target='_blank'>Visit Jukebox Tools &raquo;</a>"
+        "detail": "Jukebox Tools is the world's most powerful suite of jukebox tools. A SaaS product that helps jukebox owners create title strips, organize their record collection, and manage their jukeboxes. <br />  This project was started from a need I had for my own jukebox. It's a passion project that turned into a profitable business. <br /><br />  <a href='https://jukebox.tools' target='_blank'>Visit Jukebox Tools &raquo;</a>"
       },
       {
         "src": "forge.webp",
@@ -408,7 +408,7 @@
       }
     ],
     "leadText": "What started as a learning experience quickly turned into an extended family.",
-    "bodyText": "From providing eggs to cook,  pesting controling and composting my vetables garden to hours of entenrtiomnet, these little dinosaurs have become a huge part of my life and family.",
+    "bodyText": "From providing eggs to cook, pest control, and composting my vegetable garden to hours of entertainment, these little dinosaurs have become a huge part of my life and family.",
     "weight": 0.5,
     "font": "special-elite"
   },
@@ -420,7 +420,7 @@
     "images": [
       {
         "src": "atv.webp",
-        "caption": "Riding ATVs Ute Mountain, New Mexico"
+        "caption": "Riding ATVs on Ute Mountain, New Mexico"
       },
       {
         "src": "watchtower.webp",
@@ -436,7 +436,7 @@
       },
       {
         "src": "mine.webp",
-        "caption": "Exploring abandoned miners housing"
+        "caption": "Exploring abandoned miners' housing"
       },
       {
         "src": "camp.webp",
@@ -462,7 +462,7 @@
       },
       {
         "src": "clucking-clean.webp",
-        "caption": "Homemade Soap with food safe ingrediants"
+        "caption": "Homemade Soap with food safe ingredients"
       },
       {
         "src": "sponge-holder.webp",
@@ -502,7 +502,7 @@
     "weight": 0.4,
     "font": "special-elite",
     "leadText": "As a kid I dreamed about owning a jukebox one day",
-    "bodyText": "As an engineer; I love the mechianical geniuse behind these machines.  How the \"code\" is written with mechianal devices and relays.  "
+    "bodyText": "As an engineer, I love the mechanical genius behind these machines—how the \"code\" is written with mechanical devices and relays."
   },
   {
     "id": "hockey_player",
@@ -524,7 +524,7 @@
       }
     ],
     "leadText": "Hockey changed my life",
-    "bodyText": "Hockey has taught me about teamwork, discipline, and perseverance.  I've played from olympic rinks to under the stars and on a frozen ponds.",
+    "bodyText": "Hockey has taught me about teamwork, discipline, and perseverance. I've played from Olympic rinks to under the stars and on frozen ponds.",,
     "weight": 0.6,
     "font": "bebas-neue"
   },
@@ -539,7 +539,7 @@
         "caption": "Building an E-Commerce Application with MEAN",
         "href": "https://www.amazon.com/Building-Commerce-Application-Adrian-Mejia/dp/1785286552/ref=sr_1_1?tag=snapjay-20",
         "title": "Building an E-Commerce Application with MEAN",
-        "detail": "After releasing <a href=\"https://github.com/snapjay/ngCart\" target=\"_blank\" rel=\"noopener noreferrer\">ngCart</a>, it was featured as a core component in a book exploring the development of e commerce solutions. As the creator of the ngCart library, I was invited to serve as the technical editor for the project."
+        "detail": "After releasing <a href=\"https://github.com/snapjay/ngCart\" target=\"_blank\" rel=\"noopener noreferrer\">ngCart</a>, it was featured as a core component in a book exploring the development of e-commerce solutions. As the creator of the ngCart library, I was invited to serve as the technical editor for the project."
       },
       {
         "src": "2.webp",
@@ -577,7 +577,7 @@
     ],
     "weight": 0.3,
     "leadText": "The world is a book, and those who do not travel read only one page.",
-    "bodyText": "I've been fortunate enough to travel to over 17 countries, lived in 3 and attepting to visit every State capitol building.",
+    "bodyText": "I've been fortunate enough to travel to over 17 countries, live in 3, and am attempting to visit every state capitol building.",,
     "font": "jim-nightshade"
   },
   {

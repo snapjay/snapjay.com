@@ -124,6 +124,7 @@ usePhysics(containerRef, particleCanvasRef, wordRefs, selectedId, titleLayout, i
     <canvas ref="particleCanvasRef" class="particle-canvas"></canvas>
 
     <button class="gravity-toggle-btn" :class="{ 'is-active': !isGravityOff }" :tabindex="selectedId ? -1 : 0"
+      @mousedown.stop @touchstart.stop
       @click="isGravityOff = !isGravityOff" aria-label="Toggle gravity mode">
       <span class="toggle-track">
         <span class="toggle-knob"></span>
@@ -131,7 +132,9 @@ usePhysics(containerRef, particleCanvasRef, wordRefs, selectedId, titleLayout, i
       <span class="toggle-label">{{ isGravityOff ? 'Zero Gravity' : 'Gravity On' }}</span>
     </button>
 
-    <div class="site-logo" :tabindex="selectedId ? -1 : 0" @click="!selectedId && router.push('/contact')"
+    <div class="site-logo" :tabindex="selectedId ? -1 : 0" 
+      @mousedown.stop @touchstart.stop
+      @click="!selectedId && router.push('/contact')"
       @keydown.enter="!selectedId && router.push('/contact')"
       @keydown.space.prevent="!selectedId && router.push('/contact')">
       <h1>snapjay</h1>
@@ -322,6 +325,9 @@ usePhysics(containerRef, particleCanvasRef, wordRefs, selectedId, titleLayout, i
 
 .gravity-word:hover {
   filter: drop-shadow(0 12px 20px rgba(0, 0, 0, 0.55));
+  z-index: 100;
+  transition: z-index 0s 0s,
+    filter 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
 }
 
 .paper-tag {

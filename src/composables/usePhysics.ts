@@ -80,18 +80,28 @@ export function usePhysics(
     const cellWidth = availableWidth / cols;
     const cellHeight = availableHeight / rows;
 
-    targetPositions = [];
-    for (let i = 0; i < numWords; i++) {
-      const col = i % cols;
-      const row = Math.floor(i / cols);
+    const sortedIndices = Array.from({ length: numWords }, (_, i) => i).sort((a, b) => {
+      const labelA = words[a].label || '';
+      const labelB = words[b].label || '';
+      return labelA.localeCompare(labelB);
+    });
+
+    const actualCols = Math.ceil(numWords / rows);
+    const gridStartX = paddingX + (availableWidth - actualCols * cellWidth) / 2;
+
+    targetPositions = new Array(numWords);
+    for (let slotIndex = 0; slotIndex < numWords; slotIndex++) {
+      const originalIndex = sortedIndices[slotIndex];
+      const row = slotIndex % rows;
+      const col = Math.floor(slotIndex / rows);
       
-      const itemsInThisRow = (row === rows - 1) ? (numWords - row * cols) : cols;
-      const rowStartX = paddingX + (availableWidth - itemsInThisRow * cellWidth) / 2;
+      const itemsInThisCol = Math.min(rows, numWords - col * rows);
+      const colStartY = paddingY + (availableHeight - itemsInThisCol * cellHeight) / 2;
       
-      const targetX = rowStartX + col * cellWidth + cellWidth / 2;
-      const targetY = paddingY + row * cellHeight + cellHeight / 2;
+      const targetX = gridStartX + col * cellWidth + cellWidth / 2;
+      const targetY = colStartY + row * cellHeight + cellHeight / 2;
       
-      targetPositions.push({ x: targetX, y: targetY });
+      targetPositions[originalIndex] = { x: targetX, y: targetY };
     }
   };
 
