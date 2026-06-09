@@ -17,3 +17,7 @@ ID = "snapjay.com"
   [headers.values]
     X-Frame-Options = "DENY"
     X-XSS-Protection = "1; mode=block"
+
+[[edge_functions]]
+  path = "/*"
+  function = "geo-block"

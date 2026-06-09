@@ -330,8 +330,8 @@ export function usePhysics(
         }
       }
 
-      // Calculate delta for manual Engine.update (capped at 32ms to avoid spiral of death)
-      const delta = Math.min(rawDelta, 32);
+      // Calculate delta for manual Engine.update (capped at 16.667ms to avoid Matter.js warnings and keep physics stable)
+      const delta = Math.min(rawDelta, 16.667);
       lastTimestamp = timestamp;
 
       // Step physics engine (skip when sleeping)

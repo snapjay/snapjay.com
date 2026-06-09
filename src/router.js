@@ -19,7 +19,7 @@ const DEFAULT_TITLE = 'snapjay | Engineer + Entrepreneur | Knoxville, TN'
 
 router.afterEach((to) => {
   const id = to.params.id
-  let title = DEFAULT_TITLE``
+  let title = DEFAULT_TITLE
 
   if (id) {
     const word = words.find(w => w.id === id)
