@@ -35,7 +35,7 @@ export function usePhysics(
   // Sleep detection — skip physics when bodies are settled
   let isSleeping = false;
   let sleepFrames = 0;
-  const SLEEP_SPEED_THRESHOLD = 0.15;
+  const SLEEP_SPEED_THRESHOLD = 0.8;
   const SLEEP_FRAME_COUNT = 120; // ~2 seconds at 60fps
 
   const wakeEngine = () => {

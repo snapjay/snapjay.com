@@ -457,20 +457,20 @@
     "label": "Maker",
     "images": [
       {
-        "src": "sponge-holder.webp",
-        "caption": "Magnetic holder for kitchen sponge"
-      },
-      {
-        "src": "fly.webp",
-        "caption": "Brace strut for electric fly swatter"
+        "src": "/photos/maker/maker-targets-resize.mp4",
+        "caption": "Moving targets made from wiper motor and dirtbike battery."
       },
       {
         "src": "clucking-clean.webp",
         "caption": "Homemade Soap with food safe ingrediants"
       },
       {
-        "src": "/photos/maker/maker-targets-resize.mp4",
-        "caption": "Moving targets made from wiper motor and dirtbike battery."
+        "src": "sponge-holder.webp",
+        "caption": "Magnetic holder for kitchen sponge"
+      },
+      {
+        "src": "fly.webp",
+        "caption": "Brace strut for electric fly swatter"
       },
       {
         "src": "/photos/maker/maker-puppet-resize.mp4",
