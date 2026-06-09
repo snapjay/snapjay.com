@@ -31,6 +31,9 @@ export function usePhysics(
   let floatTime = 0;
   let rafId = 0;
   let lastTimestamp = 0;
+  let droppedFramesScore = 0;
+  let explosionsEnabled = true;
+  let resizeTimeout: ReturnType<typeof setTimeout> | null = null;
 
   // Sleep detection — skip physics when bodies are settled
   let isSleeping = false;
@@ -241,7 +244,7 @@ export function usePhysics(
         const speedB = pair.bodyB.speed || 0;
         const force = speedA + speedB;
         
-        if (force > 6) {
+        if (force > 6 && explosionsEnabled) {
           const supports = pair.collision.supports;
           if (supports && supports.length > 0) {
             const contact = supports[0];
@@ -301,8 +304,24 @@ export function usePhysics(
       // Skip all work when modal is open — physics is invisible behind the overlay
       if (selectedId.value) return;
 
+      const rawDelta = lastTimestamp ? timestamp - lastTimestamp : 16.667;
+ 
+      
+      // Track dropped frames to disable expensive explosions if struggling (< 30fps)
+      if (rawDelta > 35) {
+        droppedFramesScore += rawDelta;
+        if (droppedFramesScore > 1000) {
+          explosionsEnabled = false;
+        }
+      } else {
+        droppedFramesScore = Math.max(0, droppedFramesScore - 10);
+        if (droppedFramesScore === 0) {
+          explosionsEnabled = true; // Recover if stable
+        }
+      }
+
       // Calculate delta for manual Engine.update (capped at 32ms to avoid spiral of death)
-      const delta = lastTimestamp ? Math.min(timestamp - lastTimestamp, 32) : 16.667;
+      const delta = Math.min(rawDelta, 32);
       lastTimestamp = timestamp;
 
       // Step physics engine (skip when sleeping)
@@ -462,6 +481,12 @@ export function usePhysics(
 
     lastWidth = newWidth;
     lastHeight = newHeight;
+
+    containerRef.value.classList.add('is-resizing');
+    if (resizeTimeout) clearTimeout(resizeTimeout);
+    resizeTimeout = setTimeout(() => {
+      containerRef.value?.classList.remove('is-resizing');
+    }, 200);
 
     containerRef.value.style.height = newHeight + 'px';
 

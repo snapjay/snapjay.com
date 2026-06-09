@@ -356,6 +356,10 @@ usePhysics(containerRef, particleCanvasRef, wordRefs, selectedId, titleLayout, i
   background-color: #fbfbfa;
 }
 
+.gravity-container.is-resizing .paper-tag {
+  transition: none !important;
+}
+
 .gravity-word:active {
   cursor: grabbing;
 }
