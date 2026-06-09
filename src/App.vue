@@ -134,7 +134,7 @@ usePhysics(containerRef, particleCanvasRef, wordRefs, selectedId, titleLayout, i
 
     <canvas ref="particleCanvasRef" class="particle-canvas"></canvas>
 
-    <button class="gravity-toggle-btn" :class="{ 'is-active': isGravityOff }" :tabindex="selectedId ? -1 : 0"
+    <button class="gravity-toggle-btn" :class="{ 'is-active': !isGravityOff }" :tabindex="selectedId ? -1 : 0"
       @click="isGravityOff = !isGravityOff" aria-label="Toggle gravity mode">
       <span class="toggle-track">
         <span class="toggle-knob"></span>

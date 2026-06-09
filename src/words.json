@@ -337,24 +337,24 @@
     "images": [
       {
         "src": "jukebox.tools-wordmarksq.webp",
-        "caption": "jukebox.tools",
+        "caption": "Jukebox Tools",
         "href": "https://jukebox.tools",
         "title": "Jukebox Tools",
-        "detail": "Jukebox Tools is the worlds most powerful suite of jukebox tools. A SaaS product that helps jukebox owners create title strips, organize their record collection, and manage their jukeboxes. <br />  This project was started from a need I had for my own jukebox. It's a passion project that turned into a profitable business. <br /><br />  <a href='https://jukebox.tools'>Visit Jukebox Tools &raquo;</a>"
+        "detail": "Jukebox Tools is the worlds most powerful suite of jukebox tools. A SaaS product that helps jukebox owners create title strips, organize their record collection, and manage their jukeboxes. <br />  This project was started from a need I had for my own jukebox. It's a passion project that turned into a profitable business. <br /><br />  <a href='https://jukebox.tools' target='_blank'>Visit Jukebox Tools &raquo;</a>"
       },
       {
         "src": "forge.webp",
         "caption": "Drink Forge",
         "href": "https://drink-forge.com",
         "title": "Drink Forge",
-        "detail": "Drink Forge is an electrolyte drink company that makes electrolyte drink powders for blue collar workers and physical laborers. <br /><br /> I started this company with the goal of creating a product for people who work hard as athletes, but don't get the recovery nutrition that they deserve.  <br /><br />  <a href='https://drink-forge.com'>Visit Drink Forge &raquo;</a>"
+        "detail": "Drink Forge is an electrolyte drink company that makes electrolyte drink powders for blue collar workers and physical laborers. <br /><br /> I started this company with the goal of creating a product for people who work hard as athletes, but don't get the recovery nutrition that they deserve.  <br /><br />  <a href='https://drink-forge.com' target='_blank'>Visit Drink Forge &raquo;</a>"
       },
       {
         "src": "boot.webp",
         "href": "https://oldboot.us",
         "caption": "Old Boot",
         "title": "Old Boot",
-        "detail": "Old Boot is my woodworking hobby business. I specialize in making cutting boards, charcuterie boards, and other wood products.  <br /><br />  <a href='https://oldboot.us'>Visit Old Boot &raquo;</a>"
+        "detail": "Old Boot is my woodworking hobby business. I specialize in making cutting boards, charcuterie boards, and other wood products.  <br /><br />  <a href='https://oldboot.us' target='_blank'>Visit Old Boot &raquo;</a>"
       }
     ],
     "weight": 1,
@@ -380,7 +380,7 @@
       },
       {
         "src": "dirtnap.webp",
-        "caption": "Dirt nap"
+        "caption": "Waffles takes a dirt nap"
       },
       {
         "src": "duck.webp",
@@ -388,11 +388,11 @@
       },
       {
         "src": "eagle-code.webp",
-        "caption": "Teacing Eagle to write code "
+        "caption": "Teaching Eagle to write software"
       },
       {
         "src": "eagle-bike.webp",
-        "caption": "Eagles learns to ride the dirtbike"
+        "caption": "Eagles learns to ride a dirtbike"
       },
       {
         "src": "sprocket-sleep.webp",
@@ -577,7 +577,7 @@
     ],
     "weight": 0.3,
     "leadText": "The world is a book, and those who do not travel read only one page.",
-    "bodyText": "I've been fortunate enough to travel to over 17 countries, lived in 3 and attepting to visit every state capitol building.",
+    "bodyText": "I've been fortunate enough to travel to over 17 countries, lived in 3 and attepting to visit every State capitol building.",
     "font": "jim-nightshade"
   },
   {
