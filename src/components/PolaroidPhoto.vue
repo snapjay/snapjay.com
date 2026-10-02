@@ -5,7 +5,11 @@ import { transformCdnUrl } from '../utils/cdn';
 const props = defineProps({
   src: String,
   caption: String,
-  href: String
+  href: String,
+  /** Fixed tilt in degrees; random if omitted */
+  rotation: { type: Number, default: null },
+  /** Masking tape holding the photo down: 'top', 'corners' or 'none' */
+  tape: { type: String, default: 'none' }
 })
 
 const openLightbox = inject('openLightbox', null);
@@ -20,7 +24,7 @@ const windowHeight = ref(window.innerHeight);
 
 const originalPolaroidRef = ref(null);
 
-const randomRotation = Math.random() * 7 - 3.5; // Random rotation between -3.5 and 3.5 deg
+const randomRotation = props.rotation ?? Math.random() * 7 - 3.5; // Random rotation between -3.5 and 3.5 deg
 
 const isVideo = (src) => {
   return typeof src === 'string' && /\.(mp4|webm|ogg|mov)/i.test(src);
@@ -224,6 +228,11 @@ const transformStyle = computed(() => {
       :class="{ 'is-hidden-in-grid': isExpanded }"
       :style="{ transform: `rotate(${randomRotation}deg)` }"
     >
+      <span v-if="tape === 'top'" class="tape-strip tape-top" aria-hidden="true"></span>
+      <template v-else-if="tape === 'corners'">
+        <span class="tape-strip tape-left" aria-hidden="true"></span>
+        <span class="tape-strip tape-right" aria-hidden="true"></span>
+      </template>
       <div class="photo-container">
         <video 
           v-if="isVideo(src)"
@@ -233,7 +242,7 @@ const transformStyle = computed(() => {
           muted
           playsinline
         ></video>
-        <img v-else :src="thumbSrc" :alt="caption" />
+        <img decoding="async" v-else :src="thumbSrc" :alt="caption" />
         <div class="photo-glare"></div>
       </div>
       <div class="caption-container">
@@ -277,10 +286,10 @@ const transformStyle = computed(() => {
             </template>
             <template v-else>
               <!-- Thumbnail loaded instantly as a placeholder -->
-              <img :src="thumbSrc" class="photo-placeholder" :alt="caption" />
+              <img decoding="async" :src="thumbSrc" class="photo-placeholder" :alt="caption" />
               
               <!-- High-res photo stacked on top, fading in seamlessly when fully loaded -->
-              <img 
+              <img decoding="async" 
                 :src="resolvedSrc" 
                 class="photo-highres" 
                 :class="{ 'is-loaded': highResLoaded }"
@@ -302,7 +311,6 @@ const transformStyle = computed(() => {
 </template>
 
 <style scoped>
-@import url('https://fonts.googleapis.com/css2?family=Reenie+Beanie&display=swap');
 
 .polaroid-wrapper {
   display: block; /* Ensure transform/perspective work correctly on <a> tags */
@@ -317,10 +325,49 @@ const transformStyle = computed(() => {
   cursor: zoom-in;
 }
 
+/* ── Masking tape ── */
+.tape-strip {
+  position: absolute;
+  z-index: 4;
+  height: 1.7rem;
+  background-color: rgba(226, 214, 178, 0.82);
+  background-image: url('/textures/grain-paper.webp');
+  background-size: 128px;
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.18);
+  pointer-events: none;
+  /* Torn ends */
+  clip-path: polygon(0 8%, 4% 0, 8% 10%, 12% 2%, 88% 3%, 92% 12%, 96% 1%, 100% 9%,
+      100% 91%, 96% 100%, 92% 90%, 88% 98%, 12% 97%, 8% 88%, 4% 99%, 0 92%);
+}
+
+.tape-top {
+  top: -0.85rem;
+  left: 50%;
+  width: 38%;
+  transform: translateX(-50%) rotate(-2.5deg);
+}
+
+.tape-left,
+.tape-right {
+  top: 0.2rem;
+  width: 30%;
+}
+
+.tape-left {
+  left: -1.4rem;
+  transform: rotate(-38deg);
+}
+
+.tape-right {
+  right: -1.4rem;
+  transform: rotate(38deg);
+}
+
 .polaroid {
+  position: relative;
   /* Off-white paper color and subtle SVG noise for texture */
   background-color: #fcfcfc;
-  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)' opacity='0.25'/%3E%3C/svg%3E");
+  background-image: url('/textures/grain-polaroid.webp');
   padding: 1.2rem;
   box-shadow: 
     0 4px 15px #000000e7,

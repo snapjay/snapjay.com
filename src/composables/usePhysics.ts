@@ -1,7 +1,26 @@
 import { watch, onMounted, onUnmounted, nextTick, Ref } from 'vue';
 import Matter from 'matter-js';
-import words from '../words.json';
-import { categoryColors } from '../constants';
+import { pileWords as words } from '../data/words';
+
+export interface PhysicsHooks {
+  /** Viewport rect of the hero blank that words can be dropped into */
+  getSlotRect?: () => DOMRect | null;
+  /** Fires with the index of the word being dragged, or null when released */
+  onDragChange?: (index: number | null) => void;
+  /** Fires when a dragged word enters or leaves the blank */
+  onSlotOver?: (over: boolean) => void;
+  /** Fires when a word is released over the blank */
+  onSlotDrop?: (index: number) => void;
+}
+
+// Paper, not rubber: barely bounces, grips other paper, and falls against air drag
+const PAPER = {
+  restitution: 0.12,
+  friction: 0.45,
+  frictionStatic: 0.9,
+  frictionAir: 0.028,
+};
+const SLOT_HIT_MARGIN = 48;
 
 interface TitleLayout {
   x: number;
@@ -16,7 +35,8 @@ export function usePhysics(
   wordRefs: Ref<HTMLElement[]>,
   selectedId: Ref<string | null>,
   titleLayout: Ref<TitleLayout>,
-  isGravityOff: Ref<boolean>
+  isGravityOff: Ref<boolean>,
+  hooks: PhysicsHooks = {}
 ) {
   let engine: Matter.Engine;
   let ground: Matter.Body;
@@ -34,6 +54,7 @@ export function usePhysics(
   let droppedFramesScore = 0;
   let explosionsEnabled = true;
   let resizeTimeout: ReturnType<typeof setTimeout> | null = null;
+  let overSlot = false;
 
   // Sleep detection — skip physics when bodies are settled
   let isSleeping = false;
@@ -109,42 +130,44 @@ export function usePhysics(
     return window.innerHeight;
   };
 
-  // Watch for route changes to sync physics state
+  const bodyFor = (id: string) => {
+    let found: Matter.Body | undefined;
+    bodiesMap?.forEach((body, el) => {
+      if (words[wordRefs.value.indexOf(el)]?.id === id) found = body;
+    });
+    return found;
+  };
+
+  // A word's card becomes its page title, so take its body out of the world
+  const captureBody = (id: string) => {
+    const body = bodyFor(id);
+    if (!body) return;
+    Matter.Body.setStatic(body, true);
+    Matter.Body.setPosition(body, { x: -1000, y: -1000 });
+  };
+
+  // Put the card back where the page title was and let it drop into the pile
+  const releaseBody = (id: string) => {
+    const body = bodyFor(id) as any;
+    if (!body) return;
+    Matter.Body.setStatic(body, false);
+    const targetLeft = titleLayout.value.x || 64;
+    const targetTop = titleLayout.value.y || 104;
+    Matter.Body.setPosition(body, {
+      x: targetLeft + (body.prevWidth || 100) / 2,
+      y: targetTop + (body.prevHeight || 40) / 2
+    });
+    Matter.Body.setAngle(body, 0);
+    Matter.Body.setVelocity(body, { x: 0, y: 1 });
+  };
+
+  // Watch for route changes to sync physics state. Handles open, close and
+  // page-to-page jumps (the old card drops while the new one flies up).
   watch(selectedId, (newId, oldId) => {
-    if (newId) {
-      if (mouseConstraint) mouseConstraint.constraint.stiffness = 0;
-      
-      bodiesMap?.forEach((body, el) => {
-        const index = wordRefs.value.indexOf(el);
-        const word = words[index];
-        if (word && word.id === newId) {
-          Matter.Body.setStatic(body, true);
-          Matter.Body.setPosition(body, { x: -1000, y: -1000 });
-        }
-      });
-    } else if (oldId) {
-      wakeEngine();
-      if (mouseConstraint) mouseConstraint.constraint.stiffness = 0.2;
-      
-      bodiesMap?.forEach((body, el) => {
-        const index = wordRefs.value.indexOf(el);
-        const word = words[index];
-        if (word && word.id === oldId) {
-          Matter.Body.setStatic(body, false);
-          
-          const targetLeft = titleLayout.value.x || 64;
-          const targetTop = titleLayout.value.y || 104;
-          const bodyAny = body as any;
-          
-          Matter.Body.setPosition(body, {
-            x: targetLeft + (bodyAny.prevWidth || 100) / 2,
-            y: targetTop + (bodyAny.prevHeight || 40) / 2
-          });
-          Matter.Body.setAngle(body, 0);
-          Matter.Body.setVelocity(body, { x: 0, y: 1 });
-        }
-      });
-    }
+    wakeEngine(); // let the pile react to cards leaving and returning
+    if (mouseConstraint) mouseConstraint.constraint.stiffness = newId ? 0 : 0.2;
+    if (oldId && oldId !== newId) releaseBody(oldId);
+    if (newId) captureBody(newId);
   }, { immediate: true });
 
   watch(isGravityOff, (val) => {
@@ -223,30 +246,33 @@ export function usePhysics(
       const startX = Math.random() * (width - rect.width) + rect.width / 2;
       const startY = -Math.random() * 800 - 200;
       
+      const word = words[index] as any;
+      const weight = typeof word?.weight === 'number' ? word.weight : 0.5;
+
       const body = Bodies.rectangle(startX, startY, rect.width, rect.height, {
-        restitution: 0.55,
-        friction: 0.08,
+        ...PAPER,
+        // Heavier words (bigger roles) land first and anchor the pile
+        density: 0.0007 + weight * 0.0009,
         angle: (Math.random() - 0.5) * 1.2,
-        chamfer: { radius: 6 },
+        chamfer: { radius: 4 },
         render: { visible: false }
       }) as any;
+      body.wordIndex = index;
+      body.flutterPhase = Math.random() * Math.PI * 2;
       
       el.style.transform = originalTransform;
       
       body.prevWidth = rect.width;
       body.prevHeight = rect.height;
       
-
-      
-      const word = words[index];
-      const category = word ? (word.category || 'Portfolio') : 'Portfolio';
-      body.wordColor = categoryColors[category] || '#3592bf';
-      
       Composite.add(engine.world, body);
       bodiesMap!.set(el, body);
     });
 
     updateGridTargets();
+
+    // Opened straight onto a page (direct link): that card is the page title, not in the pile
+    if (selectedId.value) captureBody(selectedId.value);
     
     Matter.Events.on(engine, 'collisionStart', (event) => {
       event.pairs.forEach(pair => {
@@ -254,27 +280,23 @@ export function usePhysics(
         const speedB = pair.bodyB.speed || 0;
         const force = speedA + speedB;
         
-        if (force > 6 && explosionsEnabled) {
+        // A hard landing kicks up a little paper dust
+        if (force > 5 && explosionsEnabled) {
           const supports = pair.collision.supports;
           if (supports && supports.length > 0) {
             const contact = supports[0];
-            const numParticles = Math.min(Math.floor(force / 1.8), 8);
-            
-            // Extract colors from the colliding physical bodies
-            const colorA = (pair.bodyA as any).wordColor;
-            const colorB = (pair.bodyB as any).wordColor;
-            const sparkColor = colorA || colorB || '#3592bf';
-            
+            const numParticles = Math.min(Math.floor(force / 2), 6);
+
             for (let i = 0; i < numParticles; i++) {
               particles.push({
-                x: contact.x,
+                x: contact.x + (Math.random() - 0.5) * 24,
                 y: contact.y,
-                vx: (Math.random() - 0.5) * force * 0.45,
-                vy: (Math.random() - 0.5) * force * 0.45 - Math.random() * 1.8,
-                radius: Math.random() * 2.2 + 1.2,
-                alpha: Math.random() * 0.8 + 0.5,
-                decay: Math.random() * 0.02 + 0.015,
-                color: sparkColor
+                vx: (Math.random() - 0.5) * force * 0.16,
+                vy: -Math.random() * force * 0.12,
+                radius: Math.random() * 1.3 + 0.5,
+                alpha: Math.random() * 0.25 + 0.2,
+                decay: Math.random() * 0.008 + 0.008,
+                color: 'rgb(222, 212, 190)'
               });
             }
           }
@@ -297,7 +319,19 @@ export function usePhysics(
     if (selectedId.value && mouseConstraint) mouseConstraint.constraint.stiffness = 0;
 
     // Wake engine on mouse/touch interaction
-    Matter.Events.on(mouseConstraint, 'startdrag', wakeEngine);
+    Matter.Events.on(mouseConstraint, 'startdrag', (e: any) => {
+      wakeEngine();
+      if (e.body?.wordIndex !== undefined) hooks.onDragChange?.(e.body.wordIndex);
+    });
+    Matter.Events.on(mouseConstraint, 'enddrag', (e: any) => {
+      const droppedInSlot = overSlot;
+      if (overSlot) {
+        overSlot = false;
+        hooks.onSlotOver?.(false);
+      }
+      hooks.onDragChange?.(null);
+      if (droppedInSlot && e.body?.wordIndex !== undefined) hooks.onSlotDrop?.(e.body.wordIndex);
+    });
     if (containerRef.value) {
       containerRef.value.addEventListener('mousedown', wakeEngine);
       containerRef.value.addEventListener('touchstart', wakeEngine, { passive: true });
@@ -311,8 +345,8 @@ export function usePhysics(
 
       if (!containerRef.value || !bodiesMap) return;
 
-      // Skip all work when modal is open — physics is invisible behind the overlay
-      if (selectedId.value) return;
+      // Keeps running while a detail page is open: the pile settles into the gap the
+      // card left (and zero-g keeps floating) behind the frosted glass.
 
       const rawDelta = lastTimestamp ? timestamp - lastTimestamp : 16.667;
  
@@ -331,7 +365,7 @@ export function usePhysics(
       }
 
       // Calculate delta for manual Engine.update (capped at 16.667ms to avoid Matter.js warnings and keep physics stable)
-      const delta = Math.min(rawDelta, 16.667);
+      const delta = Math.min(rawDelta, 1000 / 60);
       lastTimestamp = timestamp;
 
       // Step physics engine (skip when sleeping)
@@ -339,8 +373,9 @@ export function usePhysics(
         Matter.Engine.update(engine, delta);
       }
 
-      const vw = containerRef.value.clientWidth;
-      const vh = getViewportHeight();
+      // Cached by the resize handler: reading layout every frame can force a reflow
+      const vw = lastWidth || containerRef.value.clientWidth;
+      const vh = lastHeight || getViewportHeight();
 
       if (isGravityOff.value) {
         floatTime += 0.015;
@@ -360,6 +395,8 @@ export function usePhysics(
 
             for (let i = particles.length - 1; i >= 0; i--) {
               const p = particles[i];
+              p.vy += 0.03; // dust settles
+              p.vx *= 0.97;
               p.x += p.vx;
               p.y += p.vy;
               p.alpha -= p.decay;
@@ -371,15 +408,8 @@ export function usePhysics(
                 continue;
               }
               
-              // Draw glow layer (larger, semi-transparent) — replaces expensive shadowBlur
-              ctx.globalAlpha = p.alpha * 0.3;
-              ctx.fillStyle = p.color;
-              ctx.beginPath();
-              ctx.arc(p.x, p.y, p.radius * 2.5, 0, Math.PI * 2);
-              ctx.fill();
-
-              // Draw core particle
               ctx.globalAlpha = p.alpha;
+              ctx.fillStyle = p.color;
               ctx.beginPath();
               ctx.arc(p.x, p.y, p.radius, 0, Math.PI * 2);
               ctx.fill();
@@ -399,8 +429,22 @@ export function usePhysics(
       const rescueMarginTop = vh * 2;
       const rescueMarginBottom = vh * 0.3;
 
-      // Sleep detection: track if all bodies are settled
-      let allSettled = !isGravityOff.value;
+      // Sleep detection: track if all bodies are settled (never while a word is held)
+      const heldBody = mouseConstraint?.body as any;
+      let allSettled = !isGravityOff.value && !heldBody;
+
+      // Is the held word hovering over the hero blank?
+      if (heldBody && heldBody.wordIndex !== undefined && hooks.getSlotRect) {
+        const r = hooks.getSlotRect();
+        const { x, y } = heldBody.position;
+        const over = !!r &&
+          x > r.left - SLOT_HIT_MARGIN && x < r.right + SLOT_HIT_MARGIN &&
+          y > r.top - SLOT_HIT_MARGIN && y < r.bottom + SLOT_HIT_MARGIN;
+        if (over !== overSlot) {
+          overSlot = over;
+          hooks.onSlotOver?.(over);
+        }
+      }
 
       wordRefs.value.forEach((el, index) => {
         const word = words[index];
@@ -441,6 +485,18 @@ export function usePhysics(
               }
             }
           } else {
+            // Flutter: falling paper sways side to side and rocks as it drops
+            const isHeld = mouseConstraint && mouseConstraint.body === body;
+            if (!isHeld && body.velocity.y > 1.2) {
+              const k = Math.min(body.velocity.y, 9) / 9;
+              const t = timestamp * 0.004 + body.flutterPhase;
+              Matter.Body.setVelocity(body, {
+                x: body.velocity.x + Math.sin(t) * 0.17 * k,
+                y: body.velocity.y
+              });
+              Matter.Body.setAngularVelocity(body, body.angularVelocity + Math.cos(t) * 0.0012 * k);
+            }
+
             let bx = body.position.x;
             let by = body.position.y;
             let rescued = false;
@@ -631,10 +687,10 @@ export function usePhysics(
     }
 
     if (document.fonts) {
-      document.fonts.load('900 1rem "Bebas Neue"').catch(() => {
-        console.warn('Font loading timed out or failed, proceeding with fallback metrics');
-      }).finally(() => {
-        setTimeout(initPhysics, 200);
+      // Wait for every card font so physics bodies match the real card sizes
+      const timeout = new Promise(resolve => setTimeout(resolve, 2500));
+      Promise.race([document.fonts.ready, timeout]).finally(() => {
+        setTimeout(initPhysics, 100);
       });
     } else {
       setTimeout(initPhysics, 200);

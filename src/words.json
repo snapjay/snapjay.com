@@ -3,8 +3,8 @@
     "id": "software_engineer",
     "category": "The Core",
     "label": "Software Engineer",
-    "pageType": "SoftwareEngineer",
-    "leadText": "I build modern, high-performance web applications across the full stack, specializing in frontend development and frameworks while remaining comfortable on the backend. I focus on usability, accessibility, and clean design systems, and I care about how things function just as much as how they work.",
+    "pageType": "Printout",
+    "leadText": "I build modern, high-performance web applications across the full stack, specializing in frontend development and frameworks while remaining comfortable on the backend. I focus on usability, accessibility, and clean design systems, and I care about how things look just as much as how they work.",
     "bodyText": "I approach problems with curiosity and a bias toward action, blending technical precision with creative thinking. I enjoy crafting seamless user experiences, architecting scalable solutions, and working across the full stack. My goal is to build things that are reliable, intuitive, and built to last.",
     "images": [
       {
@@ -484,19 +484,34 @@
     "id": "jukebox_collector",
     "category": "The Action",
     "label": "Jukebox Collector",
-    "pageType": "Gallery",
+    "pageType": "TitleStrips",
     "images": [
       {
         "src": "wurlitzer.webp",
-        "caption": "1947 Wurlitzer 1015"
+        "caption": "1947 Wurlitzer 1015",
+        "strip": {
+          "a": "Model 1015",
+          "artist": "Wurlitzer",
+          "b": "1947"
+        }
       },
       {
         "src": "seeburg.webp",
-        "caption": "1954 Seeburg Select-o-Matic 100"
+        "caption": "1954 Seeburg Select-o-Matic 100",
+        "strip": {
+          "a": "Select-o-Matic 100",
+          "artist": "Seeburg",
+          "b": "1954"
+        }
       },
       {
         "src": "wall.webp",
-        "caption": "1950s countertop remote unit"
+        "caption": "1950s countertop remote unit",
+        "strip": {
+          "a": "Countertop",
+          "artist": "1950s",
+          "b": "Remote Unit"
+        }
       }
     ],
     "weight": 0.4,
@@ -616,11 +631,11 @@
   },
   {
     "id": "contact",
-    "category": "Lets be friends",
-    "label": "Contact",
+    "category": "Available for Hire",
+    "label": "Hire Me",
     "pageType": "Gallery",
-    "leadText": "The sum is greater than its parts. People are many things; not just a job title.",
-    "bodyText": "If you look at an engine and just call it \"rotator\", you miss the combustion, the timing, and the chaos that actually makes it work. People are the same. We have a habit of using a single label to describe a complex person. We pick one prase \"Software Engineer\" and ignore the rest of the machine. But humans aren't built to be reduced to a single noun. You are a son, a daughter, a friend, a creator, a mess, a masterpiece.",
+    "leadText": "Available for new projects, contract work, and the right full-time role.",
+    "bodyText": "I bring over 25 years of building for the web: frontend architecture, design systems, and full-stack product work, from the first sketch to launch and beyond. Tell me what you're building, and let's figure out whether I'm the right fit.",
     "images": [
       {
         "src": "email.webp",
@@ -639,6 +654,7 @@
       }
     ],
     "weight": 0.6,
-    "font": "moms-typewriter"
+    "font": "moms-typewriter",
+    "pile": false
   }
 ]

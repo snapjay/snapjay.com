@@ -4,7 +4,7 @@ export const categoryColors: Record<string, string> = {
   'The Action': '#e11d48',
   'The Human': '#a855f7',
   'The Visionary': '#10b981',
-  'Lets be friends': '#f43f5e',
+  'Available for Hire': '#22a45d',
   'Portfolio': '#eab308'
 }
 

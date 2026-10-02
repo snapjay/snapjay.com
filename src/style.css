@@ -3,6 +3,7 @@
   src: url('/Mom«t___.ttf') format('truetype');
   font-weight: normal;
   font-style: normal;
+  font-display: swap;
 }
 
 @font-face {
@@ -10,6 +11,7 @@
   src: url('/barbaro punta.ttf') format('truetype');
   font-weight: normal;
   font-style: normal;
+  font-display: swap;
 }
 
 @font-face {
@@ -17,33 +19,66 @@
   src: url('/barbaro.ttf') format('truetype');
   font-weight: normal;
   font-style: normal;
+  font-display: swap;
 }
 
 :root {
   --font-family: 'Outfit', 'Inter', system-ui, -apple-system, sans-serif;
+  --font-display: 'Playfair Display', Georgia, serif;
 
-  /* Premium Obsidian & Slate Theme */
-  --bg-primary: #050507;
-  --bg-secondary: #0d0d11;
-  --bg-tertiary: #14141c;
+  /* ── Workbench surface ──
+     Swap --surface-image for a real texture (e.g. url('/surface/desk.webp'))
+     and the lamp, grain and vignette layer on top of it. */
+  --surface: #131210;
+  --surface-image: none;
+  --surface-image-size: cover;
+  --lamp: rgba(255, 228, 186, 0.10);
 
-  --text-primary: #f8fafc;
-  --text-secondary: #94a3b8;
-  --text-tertiary: #64748b;
+  /* Paper + ink */
+  --paper: #ece6d6;
+  --paper-dim: rgba(236, 230, 214, 0.58);
+  --paper-faint: rgba(236, 230, 214, 0.32);
+  --ink: #1c1c1f;
+
+  /* Label-maker tape */
+  --tape-black: #1d1d1f;
+  --tape-red: #a8231d;
+  --tape-yellow: #e6be3a;
+  --tape-yellow-text: #211c0e;
+  --tape-text: #f3f0e8;
+
+  /* Base size of a paper word; the homepage scales it by each word's weight,
+     the detail-page title uses it as-is so the fly-in lands seamlessly. */
+  --word-base-size: clamp(1.2rem, 1.5vw + 1.5vh, 4.5rem);
+
+  /* Legacy tokens still used by the detail pages */
+  --bg-primary: var(--surface);
+  --bg-secondary: #1a1815;
+  --bg-tertiary: #221f1b;
+
+  --text-primary: #f6f3ec;
+  --text-secondary: #a8a196;
+  --text-tertiary: #7a746a;
 
   --accent: #3592bf;
   --accent-rgb: 53, 146, 191;
   --accent-glow: rgba(53, 146, 191, 0.4);
   --accent-soft: rgba(53, 146, 191, 0.08);
 
-  --border-subtle: rgba(255, 255, 255, 0.05);
+  --border-subtle: rgba(255, 255, 255, 0.06);
   --border-highlight: rgba(255, 255, 255, 0.12);
 
-  --glass: rgba(13, 13, 18, 0.75);
+  --glass: rgba(19, 18, 16, 0.75);
   --glass-border: rgba(255, 255, 255, 0.07);
 
   --shadow-lg: 0 20px 40px -5px rgba(0, 0, 0, 0.7), 0 10px 20px -10px rgba(0, 0, 0, 0.5);
-  --shadow-glow: 0 0 30px rgba(53, 146, 191, 0.1);
+  --shadow-glow: none;
+}
+
+@media (max-width: 640px) {
+  :root {
+    --word-base-size: clamp(1.15rem, 1.2vw + 1.9vh, 1.6rem);
+  }
 }
 
 * {
@@ -55,11 +90,11 @@
 html {
   overflow: hidden;
   overscroll-behavior: none;
-  background-color: var(--bg-primary);
+  background-color: var(--surface);
 }
 
 body {
-  background-color: var(--bg-primary);
+  background-color: var(--surface);
   color: var(--text-primary);
   font-family: var(--font-family);
   -webkit-font-smoothing: antialiased;
@@ -73,7 +108,7 @@ a {
   color: var(--accent);
   font-weight: 600;
   text-decoration: none;
-  transition: all 0.2s cubic-bezier(0.25, 0.8, 0.25, 1);
+  transition: color 0.2s cubic-bezier(0.25, 0.8, 0.25, 1);
 }
 
 a:hover {
@@ -99,6 +134,23 @@ a .caption {
   width: 100%;
   padding: 2rem;
   text-align: center;
+}
+
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
+}
+
+/* Keep body copy on detail pages at a readable measure */
+.modal-scroll .content-body {
+  max-width: 68ch;
 }
 
 /* Scrollbar styles for modal windows */
@@ -137,66 +189,118 @@ a .caption {
   animation: fadeIn 0.8s cubic-bezier(0.25, 0.8, 0.25, 1) forwards;
 }
 
-/* Global Close Button Utility Class */
+/* ── Label-maker tape ──
+   Embossed plastic strip used for every piece of site chrome. */
+.tape {
+  --tape-bg: var(--tape-black);
+  --tape-tilt: -1.2deg;
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.6em;
+  padding: 0.62em 1.15em 0.55em;
+  border: 0;
+  border-radius: 2px;
+  background:
+    linear-gradient(180deg, rgba(255, 255, 255, 0.09) 0%, rgba(255, 255, 255, 0) 38%, rgba(0, 0, 0, 0.28) 100%),
+    var(--tape-bg);
+  color: var(--tape-text);
+  font-family: var(--font-family);
+  font-size: 0.78rem;
+  font-weight: 700;
+  letter-spacing: 0.24em;
+  line-height: 1;
+  text-transform: uppercase;
+  /* Raised-letter emboss */
+  text-shadow: 0 -1px 0 rgba(0, 0, 0, 0.75), 0 1px 0 rgba(255, 255, 255, 0.16);
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.08),
+    inset 0 -1px 0 rgba(0, 0, 0, 0.4),
+    0 2px 5px rgba(0, 0, 0, 0.45);
+  transform: rotate(var(--tape-tilt));
+  cursor: pointer;
+  user-select: none;
+  touch-action: manipulation;
+  transition: transform 0.25s cubic-bezier(0.34, 1.56, 0.64, 1), background-color 0.25s ease;
+}
+
+.tape:hover {
+  color: var(--tape-text);
+  transform: rotate(var(--tape-tilt)) translateY(-2px);
+}
+
+.tape:active {
+  transform: rotate(var(--tape-tilt)) translateY(0);
+}
+
+.tape:focus-visible {
+  outline: 2px solid var(--paper);
+  outline-offset: 4px;
+}
+
+/* Global Close Button: a square of tape */
 .close-btn {
+  --tape-bg: var(--tape-black);
   position: fixed;
   top: 2rem;
   right: 2rem;
-  width: 3.2rem;
-  height: 3.2rem;
-  border-radius: 50%;
-  background: rgba(13, 13, 18, 0.6);
-  border: 1px solid rgba(255, 255, 255, 0.08);
-  color: var(--text-secondary);
+  width: 3rem;
+  height: 3rem;
+  padding: 0;
+  border: 0;
+  border-radius: 2px;
+  background:
+    linear-gradient(180deg, rgba(255, 255, 255, 0.09) 0%, rgba(255, 255, 255, 0) 38%, rgba(0, 0, 0, 0.28) 100%),
+    var(--tape-bg);
+  color: var(--tape-text);
   display: flex;
   align-items: center;
   justify-content: center;
   cursor: pointer;
-  transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+  transform: rotate(2deg);
+  transition: transform 0.25s cubic-bezier(0.34, 1.56, 0.64, 1), background-color 0.2s ease;
   z-index: 2100;
-  backdrop-filter: blur(12px);
-  -webkit-backdrop-filter: blur(12px);
-  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.08),
+    inset 0 -1px 0 rgba(0, 0, 0, 0.4),
+    0 3px 8px rgba(0, 0, 0, 0.5);
 }
 
 .close-btn:hover {
-  transform: scale(1.08) rotate(90deg);
-  background: var(--category-color, var(--accent));
-  border-color: rgba(255, 255, 255, 0.3);
-  color: white;
-  box-shadow: 0 0 20px color-mix(in srgb, var(--category-color, var(--accent)) 40%, transparent);
+  --tape-bg: var(--category-color, var(--tape-red));
+  transform: rotate(-2deg) scale(1.06);
 }
 
 .close-btn:focus-visible {
-  outline: 2px solid var(--category-color, var(--accent));
-  outline-offset: 3px;
-  box-shadow: 0 0 15px color-mix(in srgb, var(--category-color, var(--accent)) 30%, transparent);
+  outline: 2px solid var(--paper);
+  outline-offset: 4px;
 }
 
 .close-btn:active {
-  transform: scale(0.95);
+  transform: rotate(0deg) scale(0.96);
 }
 
 .close-btn svg {
-  width: 1.4rem;
-  height: 1.4rem;
+  width: 1.25rem;
+  height: 1.25rem;
   fill: none;
   stroke: currentColor;
   stroke-width: 2.5;
   stroke-linecap: round;
   stroke-linejoin: round;
+  filter: drop-shadow(0 -1px 0 rgba(0, 0, 0, 0.7));
 }
 
 @media (max-width: 640px) {
   .close-btn {
     top: 1rem;
     right: 1rem;
-    width: 2.8rem;
-    height: 2.8rem;
+    width: 2.6rem;
+    height: 2.6rem;
   }
 
   .close-btn svg {
-    width: 1.2rem;
-    height: 1.2rem;
+    width: 1.1rem;
+    height: 1.1rem;
   }
 }
