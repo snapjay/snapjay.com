@@ -148,8 +148,7 @@ onUnmounted(() => {
     </h1>
 
     <p class="hero-sub">
-      People are many things, not just a job title.
-      <span class="hero-hint">Drag a word into the blank, or {{ noHover ? 'tap' : 'click' }} one.</span>
+      People are many things, not just a single job title.
     </p>
   </section>
 </template>
